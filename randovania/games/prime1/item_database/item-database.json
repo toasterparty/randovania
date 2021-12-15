@@ -272,7 +272,7 @@
             "unlocks_ammo": false,
             "required": false,
             "probability_offset": 0,
-            "probability_multiplier": 0.05,
+            "probability_multiplier": 0.001,
             "extra": {},
             "original_index": 59
         },
@@ -316,7 +316,7 @@
             "unlocks_ammo": false,
             "required": false,
             "probability_offset": 0,
-            "probability_multiplier": 0.5,
+            "probability_multiplier": 0.1,
             "extra": {},
             "original_index": 28
         },
@@ -420,7 +420,7 @@
             "unlocks_ammo": false,
             "required": false,
             "probability_offset": 0,
-            "probability_multiplier": 1,
+            "probability_multiplier": 0.0000000001,
             "extra": {},
             "original_index": 83
         },

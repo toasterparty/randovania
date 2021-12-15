@@ -22,8 +22,8 @@ from randovania.generator.generator_reach import GeneratorReach
 from randovania.resolver import debug
 from randovania.resolver.random_lib import select_element_with_weight
 
-_DANGEROUS_ACTION_MULTIPLIER = 0.75
-_EVENTS_WEIGHT_MULTIPLIER = 0.5
+_DANGEROUS_ACTION_MULTIPLIER = 1.1
+_EVENTS_WEIGHT_MULTIPLIER = 1.2
 _INDICES_WEIGHT_MULTIPLIER = 1
 _LOGBOOKS_WEIGHT_MULTIPLIER = 1
 _VICTORY_WEIGHT = 1000
@@ -123,9 +123,12 @@ def weighted_potential_actions(player_state: PlayerState, status_update: Callabl
             base_weight = _calculate_weights_for(_calculate_reach_for_progression(player_state.reach, pickups),
                                                  current_uncollected)
 
-            multiplier = sum(pickup.probability_multiplier for pickup in pickups) / len(pickups)
-            offset = sum(pickup.probability_offset for pickup in pickups)
-            weight = (base_weight * multiplier + offset) / len(pickups)
+            base_weight = base_weight + (1 - base_weight)*0.5 # 50% of the way to pure random
+
+            multiplier = 1.0
+            for pickup in pickups:
+                multiplier *= pickup.probability_multiplier
+            weight = multiplier*base_weight
 
         else:
             weight = _calculate_weights_for(
