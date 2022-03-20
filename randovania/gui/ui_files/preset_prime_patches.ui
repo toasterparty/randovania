@@ -540,6 +540,58 @@
              </property>
             </widget>
            </item>
+            <item>
+            <widget class="QLabel">
+            <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;Superheated Probability: Probability that any room is superheated. Completely ignores logic.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="wordWrap">
+            <bool>true</bool>
+            </property>
+            </widget>
+            </item>
+            <item>
+            <layout class="QHBoxLayout" name="slider_layout">
+            <item>
+            <widget class="QSlider" name="slider">
+            <property name="maximum">
+            <number>100</number>
+            </property>
+            <property name="pageStep">
+            <number>2</number>
+            </property>
+            <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="tickPosition">
+            <enum>QSlider::TicksBelow</enum>
+            </property>
+            </widget>
+            </item>
+            <item>
+            <widget class="QLabel" name="slider_label">
+            <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+            </sizepolicy>
+            </property>
+            <property name="minimumSize">
+            <size>
+            <width>20</width>
+            <height>0</height>
+            </size>
+            </property>
+            <property name="text">
+            <string>0</string>
+            </property>
+            <property name="alignment">
+            <set>Qt::AlignCenter</set>
+            </property>
+            </widget>
+            </item>
+            </layout>
+            </item>
           </layout>
          </widget>
         </item>

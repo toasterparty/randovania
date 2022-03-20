@@ -28,6 +28,7 @@ class PrimeBootstrap(MetroidBootstrap):
             "items_every_room": "items_every_room",
             "random_boss_sizes": "random_boss_sizes",
             "no_doors": "no_doors",
+            "superheated_probability": "superheated_probability",
         }
         for name, index in logical_patches.items():
             if getattr(configuration, name):

@@ -235,6 +235,8 @@ class PrimePatchDataFactory(BasePatchDataFactory):
                 "rooms": {}
             }
             for area in world.areas:
+                world_data[world.name]["rooms"][area.name] = {"pickups":[]}
+                
                 pickup_indices = sorted(node.pickup_index for node in area.nodes if isinstance(node, PickupNode))
                 if pickup_indices:
                     world_data[world.name]["rooms"][area.name] = {
@@ -245,6 +247,9 @@ class PrimePatchDataFactory(BasePatchDataFactory):
                             for index in pickup_indices
                         ],
                     }
+
+                if self.configuration.superheated_probability != 0:
+                    world_data[world.name]["rooms"][area.name]["superheated"] = self.rng.randint(1,100) >= self.configuration.superheated_probability
 
                 for node in area.nodes:
                     if not isinstance(node, TeleporterNode) or not node.editable:
