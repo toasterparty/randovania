@@ -360,12 +360,12 @@ class PrimePatchDataFactory(BasePatchDataFactory):
         if self.configuration.random_boss_sizes:
             def get_random_size(min, max):
                 if self.rng.choice([True, False]):
-                    return self.rng.uniform(min, 0.9)
+                    return self.rng.uniform(min, 0.8)
                 else:
-                    return self.rng.uniform(1.1, max)
+                    return self.rng.uniform(1.2, max)
 
             boss_sizes = {
-                "parasiteQueen": get_random_size(0.5, 3.0),
+                "parasiteQueen": get_random_size(0.1, 3.0),
                 "incineratorDrone": get_random_size(0.2, 3.5),
                 "adultSheegoth": get_random_size(0.2, 1.5),
                 "thardus": get_random_size(0.05, 2.5),
@@ -375,8 +375,8 @@ class PrimePatchDataFactory(BasePatchDataFactory):
                 "phazonElite": get_random_size(0.05, 2.0),
                 "omegaPirate": get_random_size(0.05, 2.0),
                 "Ridley": get_random_size(0.2, 1.8),
-                "exo": get_random_size(0.5, 2.0),
-                "essence": get_random_size(0.5, 3.0),
+                "exo": get_random_size(0.05, 2.0),
+                "essence": get_random_size(0.5, 2.25),
             }
 
         return {
