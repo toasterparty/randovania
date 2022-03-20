@@ -579,6 +579,7 @@ def _migrate_v24(preset: dict) -> dict:
 def _migrate_v25(preset: dict) -> dict:
     if preset["game"] == "prime1":
         preset["configuration"]["random_boss_sizes"] = False
+        preset["configuration"]["no_doors"] = False
     return preset
 
 

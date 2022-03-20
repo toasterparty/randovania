@@ -64,6 +64,7 @@ class PrimePresetDescriber(GamePresetDescriber):
                 },
                 {
                     "Random Boss Sizes": configuration.random_boss_sizes,
+                    "No Doors": configuration.no_doors,
                 },
                 {
                     "Spring Ball": configuration.spring_ball,

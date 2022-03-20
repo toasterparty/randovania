@@ -389,6 +389,7 @@ class PrimePatchDataFactory(BasePatchDataFactory):
             },
             "gameConfig": {
                 "bossSizes": boss_sizes,
+                "noDoors": self.configuration.no_doors,
                 "shufflePickupPosition": self.configuration.shuffle_item_pos,
                 "shufflePickupPosAllRooms": self.configuration.items_every_room,
                 "startingRoom": starting_room,

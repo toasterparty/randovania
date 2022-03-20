@@ -523,6 +523,23 @@
              </property>
             </widget>
            </item>
+            <item>
+            <widget class="QCheckBox" name="no_doors_check">
+             <property name="text">
+              <string>Remove Doors</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="no_doors_label">
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Why not? Watch your step on slow loading rooms...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </item>
