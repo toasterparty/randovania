@@ -63,6 +63,9 @@ class PrimePresetDescriber(GamePresetDescriber):
                     "Items Every Room": configuration.items_every_room,
                 },
                 {
+                    "Random Boss Sizes": configuration.random_boss_sizes,
+                },
+                {
                     "Spring Ball": configuration.spring_ball,
                 },
                 {

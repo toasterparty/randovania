@@ -22,6 +22,7 @@ _FIELDS = [
     "small_samus",
     "shuffle_item_pos",
     "items_every_room",
+    "random_boss_sizes",
     "spring_ball",
     "deterministic_idrone",
     "deterministic_maze",

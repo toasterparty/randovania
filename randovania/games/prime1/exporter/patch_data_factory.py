@@ -348,6 +348,29 @@ class PrimePatchDataFactory(BasePatchDataFactory):
 
         seed = self.description.get_seed_for_player(self.players_config.player_index)
 
+        boss_sizes = None
+        if self.configuration.random_boss_sizes:
+            def get_random_size(min, max):
+                if self.rng.choice([True, False]):
+                    return self.rng.uniform(min, 0.9)
+                else:
+                    return self.rng.uniform(1.1, max)
+
+            boss_sizes = {
+                "parasiteQueen": get_random_size(0.5, 3.0),
+                "incineratorDrone": get_random_size(0.2, 3.5),
+                "adultSheegoth": get_random_size(0.2, 1.5),
+                "thardus": get_random_size(0.05, 2.5),
+                "elitePirate1": get_random_size(0.05, 2.3),
+                "elitePirate2": get_random_size(0.05, 1.3),
+                "elitePirate3": get_random_size(0.05, 2.0),
+                "phazonElite": get_random_size(0.05, 2.0),
+                "omegaPirate": get_random_size(0.05, 2.0),
+                "Ridley": get_random_size(0.2, 1.8),
+                "exo": get_random_size(0.5, 2.0),
+                "essence": get_random_size(0.5, 3.0),
+            }
+
         return {
             "seed": seed,
             "preferences": {
@@ -356,7 +379,6 @@ class PrimePatchDataFactory(BasePatchDataFactory):
                 "qolCosmetic": self.cosmetic_patches.qol_cosmetic,
                 "qolPickupScans": self.configuration.qol_pickup_scans,
                 "qolCutscenes": self.configuration.qol_cutscenes.value,
-
                 "mapDefaultState": map_default_state,
                 "artifactHintBehavior": None,
                 "automaticCrashScreen": True,
@@ -366,6 +388,7 @@ class PrimePatchDataFactory(BasePatchDataFactory):
                 "suitColors": suit_colors,
             },
             "gameConfig": {
+                "bossSizes": boss_sizes,
                 "shufflePickupPosition": self.configuration.shuffle_item_pos,
                 "shufflePickupPosAllRooms": self.configuration.items_every_room,
                 "startingRoom": starting_room,

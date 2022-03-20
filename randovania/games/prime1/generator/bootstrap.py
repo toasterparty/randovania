@@ -25,6 +25,7 @@ class PrimeBootstrap(MetroidBootstrap):
             "phazon_elite_without_dynamo": "phazon_elite_without_dynamo",
             "small_samus": "small",
             "shuffle_item_pos": "shuffle_item_pos",
+            "random_boss_sizes": "random_boss_sizes",
             "items_every_room": "items_every_room",
         }
         for name, index in logical_patches.items():

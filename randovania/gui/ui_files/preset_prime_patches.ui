@@ -339,75 +339,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QGroupBox" name="small_samus_group">
-          <property name="title">
-           <string>Small Samus</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
-           <item>
-            <widget class="QCheckBox" name="small_samus_check">
-             <property name="text">
-              <string>Enable Small Samus</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="small_samus_label">
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;In this mode, Samus is scaled to 30% of her normal size. Expect to be able to fit in many places you weren't before, but also fall down in a lot of holes you didn't before.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Warning:&lt;/span&gt; This option has been known to induce motion sickness and nausea in some players. If you are concerned you may suffer from these symptoms, it may be best to avoid playing with this setting enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="shuffle_item_pos_group">
-          <property name="title">
-           <string>Item Position</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
-           <item>
-            <widget class="QCheckBox" name="shuffle_item_pos_check">
-             <property name="text">
-              <string>Shuffle Item Position</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="shuffle_item_pos_label">
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Item locations are randomized within the rooms they reside in. There is no checking to ensure items are placed inbounds so seeds are not garunteed to be logical or even completable. Item scan points are adjusted in this mode to be larger and can be seen through walls.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="items_every_room_check">
-             <property name="text">
-              <string>Items in Every Room</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="items_every_room_label">
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Like above, but adds a random item in every room which does not normally contain an item.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
          <widget class="QGroupBox" name="spring_ball_group">
           <property name="title">
            <string>Spring Ball</string>
@@ -509,6 +440,83 @@
             <widget class="QLabel" name="deterministic_maze_label">
              <property name="text">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Check this box to randomly select a maze when generating the seed, as opposed to in-game. Makes races more fair.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="shuffle_item_pos_group">
+          <property name="title">
+           <string>Chaos Options</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+            <item>
+            <widget class="QCheckBox" name="small_samus_check">
+             <property name="text">
+              <string>Enable Small Samus</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="small_samus_label">
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;In this mode, Samus is scaled to 30% of her normal size. Expect to be able to fit in many places you weren't before, but also fall down in a lot of holes you didn't before.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Warning:&lt;/span&gt; This option has been known to induce motion sickness and nausea in some players. If you are concerned you may suffer from these symptoms, it may be best to avoid playing with this setting enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="shuffle_item_pos_check">
+             <property name="text">
+              <string>Shuffle Item Position</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="shuffle_item_pos_label">
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Item locations are randomized within the rooms they reside in. There is no checking to ensure items are placed inbounds so seeds are not garunteed to be logical or even completable. Item scan points are adjusted in this mode to be larger and can be seen through walls.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="items_every_room_check">
+             <property name="text">
+              <string>Items in Every Room</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="items_every_room_label">
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Like above, but adds a random item in every room which does not normally contain an item.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="random_boss_sizes_check">
+             <property name="text">
+              <string>Random Boss Sizes</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="random_boss_sizes_label">
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Makes each of the bosses a random size.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="wordWrap">
               <bool>true</bool>

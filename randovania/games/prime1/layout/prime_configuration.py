@@ -32,6 +32,7 @@ class PrimeConfiguration(BaseConfiguration):
     small_samus: bool
     shuffle_item_pos: bool
     items_every_room: bool
+    random_boss_sizes: bool
     spring_ball: bool
     deterministic_idrone: bool
     deterministic_maze: bool
