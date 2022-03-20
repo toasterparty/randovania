@@ -46,7 +46,8 @@ class PresetPrimePatches(PresetTab, Ui_PresetPrimePatches):
         signal_handling.on_combo(self.cutscene_combo, self._on_cutscene_changed)
         for f in _FIELDS:
             self._add_persist_option(getattr(self, f"{f}_check"), f)
-        self.slider.valueChanged.connect(self._on_slider_changed)
+        self.superheated_slider.valueChanged.connect(self._on_slider_changed)
+        self.submerged_slider.valueChanged.connect(self._on_slider_changed)
 
     @classmethod
     def tab_title(cls) -> str:
@@ -72,15 +73,21 @@ class PresetPrimePatches(PresetTab, Ui_PresetPrimePatches):
         for f in _FIELDS:
             typing.cast(QtWidgets.QCheckBox, getattr(self, f"{f}_check")).setChecked(getattr(config, f))
         signal_handling.combo_set_to_value(self.cutscene_combo, config.qol_cutscenes)
-        self.slider.setValue(preset.configuration.superheated_probability)
+        self.superheated_slider.setValue(preset.configuration.superheated_probability)
+        self.submerged_slider.setValue(preset.configuration.submerged_probability)
 
     def _update_editor(self):
         with self._editor as editor:
             editor.set_configuration_field(
                 "superheated_probability",
-                self.slider.value()
+                self.superheated_slider.value()
+            )
+            editor.set_configuration_field(
+                "submerged_probability",
+                self.submerged_slider.value()
             )
 
     def _on_slider_changed(self):
-        self.slider_label.setText(str(self.slider.value()))
+        self.superheated_slider_label.setText(str(self.superheated_slider.value()))
+        self.submerged_slider_label.setText(str(self.submerged_slider.value()))
         self._update_editor()

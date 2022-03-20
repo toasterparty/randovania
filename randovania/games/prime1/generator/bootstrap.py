@@ -29,6 +29,7 @@ class PrimeBootstrap(MetroidBootstrap):
             "random_boss_sizes": "random_boss_sizes",
             "no_doors": "no_doors",
             "superheated_probability": "superheated_probability",
+            "submerged_probability": "submerged_probability",
         }
         for name, index in logical_patches.items():
             if getattr(configuration, name):

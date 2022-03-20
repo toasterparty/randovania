@@ -581,6 +581,7 @@ def _migrate_v25(preset: dict) -> dict:
         preset["configuration"]["random_boss_sizes"] = False
         preset["configuration"]["no_doors"] = False
         preset["configuration"]["superheated_probability"] = 0
+        preset["configuration"]["submerged_probability"] = 0
 
     return preset
 

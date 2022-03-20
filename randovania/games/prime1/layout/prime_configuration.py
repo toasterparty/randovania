@@ -35,6 +35,7 @@ class PrimeConfiguration(BaseConfiguration):
     random_boss_sizes: bool
     no_doors: bool
     superheated_probability: int = dataclasses.field(metadata={"min": 0, "max": 100})
+    submerged_probability: int = dataclasses.field(metadata={"min": 0, "max": 100})
     spring_ball: bool
     deterministic_idrone: bool
     deterministic_maze: bool
