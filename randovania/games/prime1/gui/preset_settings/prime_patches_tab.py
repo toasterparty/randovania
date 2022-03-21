@@ -20,6 +20,7 @@ _FIELDS = [
     "qol_game_breaking",
     "qol_pickup_scans",
     "small_samus",
+    "large_samus",
     "shuffle_item_pos",
     "items_every_room",
     "random_boss_sizes",

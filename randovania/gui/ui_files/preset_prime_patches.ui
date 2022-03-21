@@ -472,6 +472,23 @@
              </property>
             </widget>
            </item>
+            <item>
+            <widget class="QCheckBox" name="large_samus_check">
+             <property name="text">
+              <string>Enable Large Samus</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="large_samus_label">
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;In this mode, Samus is scaled to 175% of her normal size. This adds an extra challenge to otherwise trivial movements throughout rooms. You will not get far if you do not get morph and bombs in your starting room. As such, logic does not respect this game modification.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
            <item>
             <widget class="QCheckBox" name="shuffle_item_pos_check">
              <property name="text">

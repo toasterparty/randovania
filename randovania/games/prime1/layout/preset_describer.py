@@ -57,6 +57,7 @@ class PrimePresetDescriber(GamePresetDescriber):
                 },
                 {
                     "Small Samus": configuration.small_samus,
+                    "Large Samus": configuration.large_samus,
                 },
                 {
                     "Shuffle Item Position": configuration.shuffle_item_pos,

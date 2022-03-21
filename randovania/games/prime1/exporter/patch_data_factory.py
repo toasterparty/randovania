@@ -408,6 +408,9 @@ class PrimePatchDataFactory(BasePatchDataFactory):
             ctwk_config["playerSize"] = 0.3
             ctwk_config["morphBallSize"] = 0.3
             ctwk_config["easyLavaEscape"] = True
+        
+        if self.configuration.large_samus:
+            ctwk_config["playerSize"] = 1.75
 
         if self.cosmetic_patches.use_hud_color:
             ctwk_config["hudColor"] = [

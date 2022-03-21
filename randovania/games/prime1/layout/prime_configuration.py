@@ -35,6 +35,7 @@ class PrimeConfiguration(BaseConfiguration):
     progressive_damage_reduction: bool
     allow_underwater_movement_without_gravity: bool
     small_samus: bool
+    large_samus: bool
     shuffle_item_pos: bool
     items_every_room: bool
     random_boss_sizes: bool
@@ -72,5 +73,8 @@ class PrimeConfiguration(BaseConfiguration):
         
         if self.room_rando != RoomRandoMode.NONE:
             result.append("Room randomizer")
+        
+        if self.large_samus:
+            result.append("Large Samus")
 
         return result

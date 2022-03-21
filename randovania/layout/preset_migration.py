@@ -584,6 +584,7 @@ def _migrate_v25(preset: dict) -> dict:
         preset["configuration"]["superheated_probability"] = 0
         preset["configuration"]["submerged_probability"] = 0
         preset["configuration"]["room_rando"] = RoomRandoMode.NONE
+        preset["configuration"]["large_samus"] = False
 
     return preset
 

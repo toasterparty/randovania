@@ -24,6 +24,7 @@ class PrimeBootstrap(MetroidBootstrap):
             "backwards_lower_mines": "backwards_lower_mines",
             "phazon_elite_without_dynamo": "phazon_elite_without_dynamo",
             "small_samus": "small",
+            "large_samus": "large_samus",
             "shuffle_item_pos": "shuffle_item_pos",
             "items_every_room": "items_every_room",
             "random_boss_sizes": "random_boss_sizes",
