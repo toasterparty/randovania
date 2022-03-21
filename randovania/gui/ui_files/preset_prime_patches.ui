@@ -592,57 +592,91 @@
             </item>
             </layout>
             </item>
-                        <item>
-            <widget class="QLabel">
-            <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;Submerged Probability: Probability that any room is fully submerged in water. Completely ignores logic.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="wordWrap">
-            <bool>true</bool>
-            </property>
-            </widget>
+            
+            <item>
+                <widget class="QLabel">
+                <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;Submerged Probability: Probability that any room is fully submerged in water. Completely ignores logic.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="wordWrap">
+                <bool>true</bool>
+                </property>
+                </widget>
             </item>
             <item>
-            <layout class="QHBoxLayout" name="submerged_slider_layout">
-            <item>
-            <widget class="QSlider" name="submerged_slider">
-            <property name="maximum">
-            <number>100</number>
-            </property>
-            <property name="pageStep">
-            <number>2</number>
-            </property>
-            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="tickPosition">
-            <enum>QSlider::TicksBelow</enum>
-            </property>
-            </widget>
+                <layout class="QHBoxLayout" name="submerged_slider_layout">
+                <item>
+                    <widget class="QSlider" name="submerged_slider">
+                    <property name="maximum">
+                    <number>100</number>
+                    </property>
+                    <property name="pageStep">
+                    <number>2</number>
+                    </property>
+                    <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="tickPosition">
+                    <enum>QSlider::TicksBelow</enum>
+                    </property>
+                    </widget>
+                </item>
+                <item>
+                    <widget class="QLabel" name="submerged_slider_label">
+                    <property name="sizePolicy">
+                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                    </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                    <size>
+                    <width>20</width>
+                    <height>0</height>
+                    </size>
+                    </property>
+                    <property name="text">
+                    <string>0</string>
+                    </property>
+                    <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                    </property>
+                    </widget>
+                </item>
+              </layout>
             </item>
             <item>
-            <widget class="QLabel" name="submerged_slider_label">
-            <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-            </sizepolicy>
+            <widget class="QGroupBox" name="room_rando_group">
+            <property name="title">
+            <string>Room Rando</string>
             </property>
-            <property name="minimumSize">
-            <size>
-            <width>20</width>
-            <height>0</height>
-            </size>
-            </property>
-            <property name="text">
-            <string>0</string>
-            </property>
-            <property name="alignment">
-            <set>Qt::AlignCenter</set>
-            </property>
-            </widget>
+            <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+                <widget class="QComboBox" name="room_rando_combo">
+                <item>
+                <property name="text">
+                <string>None</string>
+                </property>
+                </item>
+                <item>
+                <property name="text">
+                <string>One-way anywhere</string>
+                </property>
+                </item>
+                </widget>
+            </item>
+            <item>
+                <widget class="QLabel" name="room_rando_label">
+                <property name="text">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;These options shuffle how rooms within an area are connected completely smashing randovania's delicately balanced logic.&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;None&lt;/span&gt;: No changes are made.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;One-way anywhere&lt;/span&gt;: Doors are patched to lead to another random door in the same world. That door most likely does not lead back to the previous room. Scan doors to see where they lead.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="wordWrap">
+                <bool>true</bool>
+                </property>
+                </widget>
             </item>
             </layout>
+            </widget>
             </item>
           </layout>
          </widget>

@@ -17,7 +17,7 @@ from randovania.game_description.world.world_list import WorldList
 from randovania.games.game import RandovaniaGame
 from randovania.games.prime1.exporter.hint_namer import PrimeHintNamer
 from randovania.games.prime1.layout.hint_configuration import ArtifactHintMode
-from randovania.games.prime1.layout.prime_configuration import PrimeConfiguration
+from randovania.games.prime1.layout.prime_configuration import PrimeConfiguration, RoomRandoMode
 from randovania.games.prime1.layout.prime_cosmetic_patches import PrimeCosmeticPatches
 from randovania.games.prime1.patcher import prime1_elevators, prime_items
 from randovania.generator.item_pool import pickup_creator
@@ -52,6 +52,70 @@ _STARTING_ITEM_NAME_TO_INDEX = {
     "energyTanks": "EnergyTank",
     "wavebuster": "Wavebuster"
 }
+
+_DOCKS_TO_SKIP = [
+    ("Frigate Orpheon", "Air Lock", 1),
+    ("Frigate Orpheon", "Air Lock", 2),
+    ("Frigate Orpheon", "Deck Alpha Mech Shaft", 0),
+    ("Frigate Orpheon", "Deck Alpha Mech Shaft", 1),
+    ("Frigate Orpheon", "Connection Elevator to Deck Alpha", 0),
+    ("Frigate Orpheon", "Connection Elevator to Deck Alpha", 1),
+    ("Frigate Orpheon", "Biotech Research Area 2", 0),
+    ("Frigate Orpheon", "Deck Gamma Monitor Hall", 0),
+    ("Frigate Orpheon", "Connection Elevator to Deck Beta", 1),
+    ("Frigate Orpheon", "Biotech Research Area 1", 2),
+    ("Frigate Orpheon", "Biotech Research Area 1", 3),
+    ("Frigate Orpheon", "Cargo Freight Lift to Deck Gamma", 1),
+    ("Frigate Orpheon", "Cargo Freight Lift to Deck Gamma", 2),
+    ("Frigate Orpheon", "Cargo Freight Lift to Deck Gamma", 3),
+    ("Frigate Orpheon", "Subventilation Shaft Section A", 0),
+    ("Frigate Orpheon", "Subventilation Shaft Section B", 0),
+    ("Frigate Orpheon", "Subventilation Shaft Section B", 1),
+    ("Frigate Orpheon", "Main Ventilation Shaft Section A", 0),
+    ("Frigate Orpheon", "Main Ventilation Shaft Section B", 0),
+    ("Frigate Orpheon", "Main Ventilation Shaft Section C", 1),
+    ("Frigate Orpheon", "Main Ventilation Shaft Section D", 0),
+    ("Frigate Orpheon", "Main Ventilation Shaft Section E", 1),
+    ("Frigate Orpheon", "Main Ventilation Shaft Section F", 1),
+    ("Frigate Orpheon", "Reactor Core", 0),
+    ("Frigate Orpheon", "Reactor Core Entrance", 0),
+    ("Frigate Orpheon", "Reactor Core Entrance", 1),
+    ("Chozo Ruins", "Main Plaza", 4),
+    ("Chozo Ruins", "Main Plaza", 5),
+    ("Chozo Ruins", "Piston Tunnel", 0),
+    ("Chozo Ruins", "Piston Tunnel", 1),
+    ("Chozo Ruins", "Training Chamber", 1),
+    ("Chozo Ruins", "Energy Core", 0),
+    ("Chozo Ruins", "Burn Dome Access", 1),
+    ("Chozo Ruins", "Furnace", 2),
+    ("Chozo Ruins", "Crossway Access West", 1),
+    ("Phendrana Drifts", "Quarantine Cave", 2),
+    ("Phendrana Drifts", "Quarantine Monitor", 0),
+    ("Phendrana Drifts", "West Tower", 0),
+    ("Phendrana Drifts", "West Tower", 1),
+    ("Phendrana Drifts", "Phendrana's Edge", 3),
+    ("Phendrana Drifts", "Security Cave", 0),
+    ("Tallon Overworld", "Reactor Core", 0),
+    ("Tallon Overworld", "Reactor Access", 0),
+    ("Tallon Overworld", "Reactor Access", 1),
+    ("Tallon Overworld", "Cargo Freight Lift to Deck Gamma", 0),
+    ("Tallon Overworld", "Life Grove Tunnel", 1),
+    ("Tallon Overworld", "Life Grove", 0),
+    ("Magmoor Caverns", "Warrior Shrine", 1),
+    ("Magmoor Caverns", "Fiery Shores", 2),
+    ("Impact Crater", "Phazon Infusion Chamber", 0),
+    ("Impact Crater", "Subchamber One", 0),
+    ("Impact Crater", "Subchamber One", 1),
+    ("Impact Crater", "Subchamber Two", 0),
+    ("Impact Crater", "Subchamber Two", 1),
+    ("Impact Crater", "Subchamber Three", 0),
+    ("Impact Crater", "Subchamber Three", 1),
+    ("Impact Crater", "Subchamber Four", 0),
+    ("Impact Crater", "Subchamber Four", 1),
+    ("Impact Crater", "Subchamber Five", 0),
+    ("Impact Crater", "Subchamber Five", 1),
+    ("Impact Crater", "Metroid Prime Lair", 0),
+]
 
 # "Power Suit": "PowerSuit",
 # "Combat Visor": "Combat",
@@ -227,70 +291,6 @@ class PrimePatchDataFactory(BasePatchDataFactory):
 
         world_data = {}
 
-        DOCKS_TO_SKIP = [
-            ("Frigate Orpheon", "Air Lock", 1),
-            ("Frigate Orpheon", "Air Lock", 2),
-            ("Frigate Orpheon", "Deck Alpha Mech Shaft", 0),
-            ("Frigate Orpheon", "Deck Alpha Mech Shaft", 1),
-            ("Frigate Orpheon", "Connection Elevator to Deck Alpha", 0),
-            ("Frigate Orpheon", "Connection Elevator to Deck Alpha", 1),
-            ("Frigate Orpheon", "Biotech Research Area 2", 0),
-            ("Frigate Orpheon", "Deck Gamma Monitor Hall", 0),
-            ("Frigate Orpheon", "Connection Elevator to Deck Beta", 1),
-            ("Frigate Orpheon", "Biotech Research Area 1", 2),
-            ("Frigate Orpheon", "Biotech Research Area 1", 3),
-            ("Frigate Orpheon", "Cargo Freight Lift to Deck Gamma", 1),
-            ("Frigate Orpheon", "Cargo Freight Lift to Deck Gamma", 2),
-            ("Frigate Orpheon", "Cargo Freight Lift to Deck Gamma", 3),
-            ("Frigate Orpheon", "Subventilation Shaft Section A", 0),
-            ("Frigate Orpheon", "Subventilation Shaft Section B", 0),
-            ("Frigate Orpheon", "Subventilation Shaft Section B", 1),
-            ("Frigate Orpheon", "Main Ventilation Shaft Section A", 0),
-            ("Frigate Orpheon", "Main Ventilation Shaft Section B", 0),
-            ("Frigate Orpheon", "Main Ventilation Shaft Section C", 1),
-            ("Frigate Orpheon", "Main Ventilation Shaft Section D", 0),
-            ("Frigate Orpheon", "Main Ventilation Shaft Section E", 1),
-            ("Frigate Orpheon", "Main Ventilation Shaft Section F", 1),
-            ("Frigate Orpheon", "Reactor Core", 0),
-            ("Frigate Orpheon", "Reactor Core Entrance", 0),
-            ("Frigate Orpheon", "Reactor Core Entrance", 1),
-            ("Chozo Ruins", "Main Plaza", 4),
-            ("Chozo Ruins", "Main Plaza", 5),
-            ("Chozo Ruins", "Piston Tunnel", 0),
-            ("Chozo Ruins", "Piston Tunnel", 1),
-            ("Chozo Ruins", "Training Chamber", 1),
-            ("Chozo Ruins", "Energy Core", 0),
-            ("Chozo Ruins", "Burn Dome Access", 1),
-            ("Chozo Ruins", "Furnace", 2),
-            ("Chozo Ruins", "Crossway Access West", 1),
-            ("Phendrana Drifts", "Quarantine Cave", 2),
-            ("Phendrana Drifts", "Quarantine Monitor", 0),
-            ("Phendrana Drifts", "West Tower", 0),
-            ("Phendrana Drifts", "West Tower", 1),
-            ("Phendrana Drifts", "Phendrana's Edge", 3),
-            ("Phendrana Drifts", "Security Cave", 0),
-            ("Tallon Overworld", "Reactor Core", 0),
-            ("Tallon Overworld", "Reactor Access", 0),
-            ("Tallon Overworld", "Reactor Access", 1),
-            ("Tallon Overworld", "Cargo Freight Lift to Deck Gamma", 0),
-            ("Tallon Overworld", "Life Grove Tunnel", 1),
-            ("Tallon Overworld", "Life Grove", 0),
-            ("Magmoor Caverns", "Warrior Shrine", 1),
-            ("Magmoor Caverns", "Fiery Shores", 2),
-            ("Impact Crater", "Phazon Infusion Chamber", 0),
-            ("Impact Crater", "Subchamber One", 0),
-            ("Impact Crater", "Subchamber One", 1),
-            ("Impact Crater", "Subchamber Two", 0),
-            ("Impact Crater", "Subchamber Two", 1),
-            ("Impact Crater", "Subchamber Three", 0),
-            ("Impact Crater", "Subchamber Three", 1),
-            ("Impact Crater", "Subchamber Four", 0),
-            ("Impact Crater", "Subchamber Four", 1),
-            ("Impact Crater", "Subchamber Five", 0),
-            ("Impact Crater", "Subchamber Five", 1),
-            ("Impact Crater", "Metroid Prime Lair", 0),
-        ]
-
         for world in db.world_list.worlds:
             if world.name == "End of Game":
                 continue
@@ -299,20 +299,6 @@ class PrimePatchDataFactory(BasePatchDataFactory):
                 "transports": {},
                 "rooms": {}
             }
-            
-            area_dock_nums = dict()
-            attached_areas = dict()
-            for area in world.areas:
-                area_dock_nums[area.name] = list()
-                attached_areas[area.name] = list()
-                for node in area.nodes:
-                    if not isinstance(node, DockNode):
-                        continue
-                    index = node.extra["dock_index"]
-                    if (world.name, area.name, index) in DOCKS_TO_SKIP:
-                        continue
-                    area_dock_nums[area.name].append(index)
-                    attached_areas[area.name].append(node.default_connection.area_name)
 
             for area in world.areas:
                 world_data[world.name]["rooms"][area.name] = {"pickups":[]}
@@ -346,19 +332,39 @@ class PrimePatchDataFactory(BasePatchDataFactory):
                         identifier.area_location.area_name,
                     )]
                     world_data[world.name]["transports"][source_name] = target
-                
-                world_data[world.name]["rooms"][area.name]["doors"] = dict()
-                for dock_num in area_dock_nums[area.name]:
-                    dest_name = self.rng.choice(world.areas).name
-                    while len(area_dock_nums[dest_name]) == 0 or dest_name == area.name or dest_name in attached_areas[area.name]:
-                        dest_name = self.rng.choice(world.areas).name
 
-                    world_data[world.name]["rooms"][area.name]["doors"][str(dock_num)] = {
-                        "destination": {
-                            "roomName": dest_name,
-                            "dockNum": self.rng.choice(area_dock_nums[dest_name]),
+        if self.configuration.room_rando == RoomRandoMode.ONE_WAY_ANYWHERE:
+            for world in db.world_list.worlds:
+                if world.name == "End of Game":
+                    continue
+                
+                area_dock_nums = dict()
+                attached_areas = dict()
+                for area in world.areas:
+                    area_dock_nums[area.name] = list()
+                    attached_areas[area.name] = list()
+                    for node in area.nodes:
+                        if not isinstance(node, DockNode):
+                            continue
+                        index = node.extra["dock_index"]
+                        if (world.name, area.name, index) in _DOCKS_TO_SKIP:
+                            continue
+                        area_dock_nums[area.name].append(index)
+                        attached_areas[area.name].append(node.default_connection.area_name)
+
+                for area in world.areas:                
+                    world_data[world.name]["rooms"][area.name]["doors"] = dict()
+                    for dock_num in area_dock_nums[area.name]:
+                        dest_name = self.rng.choice(world.areas).name
+                        while len(area_dock_nums[dest_name]) == 0 or dest_name == area.name or dest_name in attached_areas[area.name]:
+                            dest_name = self.rng.choice(world.areas).name
+
+                        world_data[world.name]["rooms"][area.name]["doors"][str(dock_num)] = {
+                            "destination": {
+                                "roomName": dest_name,
+                                "dockNum": self.rng.choice(area_dock_nums[dest_name]),
+                            }
                         }
-                    }
 
         starting_memo = None
         extra_starting = item_names.additional_starting_items(self.configuration, db.resource_database,

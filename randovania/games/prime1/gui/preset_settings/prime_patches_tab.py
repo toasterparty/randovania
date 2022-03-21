@@ -2,7 +2,7 @@ import typing
 
 from PySide6 import QtWidgets
 
-from randovania.games.prime1.layout.prime_configuration import LayoutCutsceneMode
+from randovania.games.prime1.layout.prime_configuration import LayoutCutsceneMode, RoomRandoMode
 from randovania.gui.generated.preset_prime_patches_ui import Ui_PresetPrimePatches
 from randovania.gui.lib import signal_handling
 from randovania.gui.preset_settings.preset_tab import PresetTab
@@ -44,6 +44,9 @@ class PresetPrimePatches(PresetTab, Ui_PresetPrimePatches):
         self.cutscene_combo.setItemData(2, LayoutCutsceneMode.MINOR)
         self.cutscene_combo.setItemData(3, LayoutCutsceneMode.MAJOR)
         signal_handling.on_combo(self.cutscene_combo, self._on_cutscene_changed)
+        self.room_rando_combo.setItemData(0, RoomRandoMode.NONE)
+        self.room_rando_combo.setItemData(1, RoomRandoMode.ONE_WAY_ANYWHERE)
+        signal_handling.on_combo(self.room_rando_combo, self._on_room_rando_changed)
         for f in _FIELDS:
             self._add_persist_option(getattr(self, f"{f}_check"), f)
         self.superheated_slider.valueChanged.connect(self._on_slider_changed)
@@ -68,11 +71,16 @@ class PresetPrimePatches(PresetTab, Ui_PresetPrimePatches):
         with self._editor as editor:
             editor.set_configuration_field("qol_cutscenes", value)
 
+    def _on_room_rando_changed(self, value: RoomRandoMode):
+        with self._editor as editor:
+            editor.set_configuration_field("room_rando", value)
+
     def on_preset_changed(self, preset: Preset):
         config = preset.configuration
         for f in _FIELDS:
             typing.cast(QtWidgets.QCheckBox, getattr(self, f"{f}_check")).setChecked(getattr(config, f))
         signal_handling.combo_set_to_value(self.cutscene_combo, config.qol_cutscenes)
+        signal_handling.combo_set_to_value(self.room_rando_combo, config.room_rando)
         self.superheated_slider.setValue(preset.configuration.superheated_probability)
         self.submerged_slider.setValue(preset.configuration.submerged_probability)
 

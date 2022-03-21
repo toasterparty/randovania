@@ -67,6 +67,7 @@ class PrimePresetDescriber(GamePresetDescriber):
                     "No Doors": configuration.no_doors,
                     "Superheated Probability": configuration.superheated_probability,
                     "Submerged Probability": configuration.submerged_probability,
+                    "Room Rando": configuration.room_rando,
                 },
                 {
                     "Spring Ball": configuration.spring_ball,

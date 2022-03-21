@@ -4,6 +4,7 @@ from typing import Dict
 
 from randovania.game_description import migration_data
 from randovania.games.game import RandovaniaGame
+from randovania.games.prime1.layout.prime_configuration import RoomRandoMode
 from randovania.lib import migration_lib
 
 CURRENT_VERSION = 26
@@ -582,6 +583,7 @@ def _migrate_v25(preset: dict) -> dict:
         preset["configuration"]["no_doors"] = False
         preset["configuration"]["superheated_probability"] = 0
         preset["configuration"]["submerged_probability"] = 0
+        preset["configuration"]["room_rando"] = RoomRandoMode.NONE
 
     return preset
 

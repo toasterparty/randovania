@@ -10,6 +10,11 @@ from randovania.layout.base.base_configuration import BaseConfiguration
 from randovania.layout.lib.teleporters import TeleporterConfiguration
 
 
+class RoomRandoMode(BitPackEnum, Enum):
+    NONE = "None"
+    ONE_WAY_ANYWHERE = "One-way anywhere"
+
+
 class LayoutCutsceneMode(BitPackEnum, Enum):
     ORIGINAL = "original"
     COMPETITIVE = "competitive"
@@ -36,6 +41,7 @@ class PrimeConfiguration(BaseConfiguration):
     no_doors: bool
     superheated_probability: int = dataclasses.field(metadata={"min": 0, "max": 100})
     submerged_probability: int = dataclasses.field(metadata={"min": 0, "max": 100})
+    room_rando: RoomRandoMode
     spring_ball: bool
     deterministic_idrone: bool
     deterministic_maze: bool
@@ -63,5 +69,8 @@ class PrimeConfiguration(BaseConfiguration):
 
         if not self.qol_game_breaking:
             result.append("Missing Game Breaking Fixes")
+        
+        if self.room_rando != RoomRandoMode.NONE:
+            result.append("Room randomizer")
 
         return result
