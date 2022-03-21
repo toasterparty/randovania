@@ -243,13 +243,10 @@ class PrimePatchDataFactory(BasePatchDataFactory):
             ("Frigate Orpheon", "Cargo Freight Lift to Deck Gamma", 2),
             ("Frigate Orpheon", "Cargo Freight Lift to Deck Gamma", 3),
             ("Frigate Orpheon", "Subventilation Shaft Section A", 0),
-            # ("Frigate Orpheon", "Subventilation Shaft Section A", 1),
             ("Frigate Orpheon", "Subventilation Shaft Section B", 0),
             ("Frigate Orpheon", "Subventilation Shaft Section B", 1),
             ("Frigate Orpheon", "Main Ventilation Shaft Section A", 0),
             ("Frigate Orpheon", "Main Ventilation Shaft Section B", 0),
-            # ("Frigate Orpheon", "Main Ventilation Shaft Section B", 1),
-            # ("Frigate Orpheon", "Main Ventilation Shaft Section C", 0),
             ("Frigate Orpheon", "Main Ventilation Shaft Section C", 1),
             ("Frigate Orpheon", "Main Ventilation Shaft Section D", 0),
             ("Frigate Orpheon", "Main Ventilation Shaft Section E", 1),
@@ -304,8 +301,10 @@ class PrimePatchDataFactory(BasePatchDataFactory):
             }
             
             area_dock_nums = dict()
+            attached_areas = dict()
             for area in world.areas:
                 area_dock_nums[area.name] = list()
+                attached_areas[area.name] = list()
                 for node in area.nodes:
                     if not isinstance(node, DockNode):
                         continue
@@ -313,6 +312,7 @@ class PrimePatchDataFactory(BasePatchDataFactory):
                     if (world.name, area.name, index) in DOCKS_TO_SKIP:
                         continue
                     area_dock_nums[area.name].append(index)
+                    attached_areas[area.name].append(node.default_connection.area_name)
 
             for area in world.areas:
                 world_data[world.name]["rooms"][area.name] = {"pickups":[]}
@@ -350,16 +350,15 @@ class PrimePatchDataFactory(BasePatchDataFactory):
                 world_data[world.name]["rooms"][area.name]["doors"] = dict()
                 for dock_num in area_dock_nums[area.name]:
                     dest_name = self.rng.choice(world.areas).name
-                    while len(area_dock_nums[dest_name]) == 0 or dest_name == area.name:
+                    while len(area_dock_nums[dest_name]) == 0 or dest_name == area.name or dest_name in attached_areas[area.name]:
                         dest_name = self.rng.choice(world.areas).name
-                    
+
                     world_data[world.name]["rooms"][area.name]["doors"][str(dock_num)] = {
                         "destination": {
                             "roomName": dest_name,
                             "dockNum": self.rng.choice(area_dock_nums[dest_name]),
                         }
                     }
-
 
         starting_memo = None
         extra_starting = item_names.additional_starting_items(self.configuration, db.resource_database,
