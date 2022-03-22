@@ -117,12 +117,6 @@ _DOCKS_TO_SKIP = [
     ("Impact Crater", "Metroid Prime Lair", 0),
 ]
 
-# "Power Suit": "PowerSuit",
-# "Combat Visor": "Combat",
-# "Unknown Item 1": "Unknown1",
-# "Health Refill": "HealthRefill",
-# "Unknown Item 2": "Unknown2",
-
 _MODEL_MAPPING = {
     (RandovaniaGame.METROID_PRIME_ECHOES, "CombatVisor INCOMPLETE"): "Combat Visor",
     (RandovaniaGame.METROID_PRIME_ECHOES, "ChargeBeam INCOMPLETE"): "Charge Beam",
@@ -144,6 +138,200 @@ _MODEL_MAPPING = {
     (RandovaniaGame.METROID_PRIME_ECHOES, "SpaceJumpBoots"): "Space Jump Boots",
     (RandovaniaGame.METROID_PRIME_ECHOES, "EnergyTank"): "Energy Tank",
 }
+
+# Gigantic rooms can only connect to tiny rooms
+_GIGANTIC_ROOM_NAMES = [
+    "Exterior Docking Hangar",
+    "Landing Site",
+    "Frigate Crash Site",
+    "Elite Quarters",
+    "Central Dynamo",
+    "Hall of the Elders",
+]
+
+_TINY_ROOM_NAMES = [
+ "Exterior Docking Hangar",
+ "Air Lock",
+ "Deck Alpha Access Hall",
+ "Deck Alpha Mech Shaft",
+ "Deck Alpha Umbilical Hall",
+ "Map Facility",
+ "Main Ventilation Shaft Section F",
+ "Main Ventilation Shaft Section E",
+ "Deck Beta Conduit Hall",
+ "Main Ventilation Shaft Section D",
+ "Main Ventilation Shaft Section C",
+ "Deck Beta Security Hall",
+ "Subventilation Shaft Section A",
+ "Main Ventilation Shaft Section B",
+ "Deck Gamma Monitor Hall",
+ "Deck Beta Transit Hall",
+ "Ruined Fountain Access",
+ "Ruined Shrine Access",
+ "Nursery Access",
+ "Plaza Access",
+ "Eyon Tunnel",
+ "Arboretum Access",
+ "Meditation Fountain",
+ "Tower of Light Access",
+ "Vault Access",
+ "Training Chamber Access",
+ "Save Station 1",
+ "North Atrium",
+ "Sunchamber Lobby",
+ "Gathering Hall Access",
+ "Tower Chamber",
+ "Sunchamber Access",
+ "Totem Access",
+ "Map Station",
+ "Sun Tower Access",
+ "Watery Hall Access",
+ "Save Station 2",
+ "East Atrium",
+ "Energy Core Access",
+ "Dynamo Access",
+ "Burn Dome Access",
+ "West Furnace Access",
+ "East Furnace Access",
+ "Crossway Access West",
+ "Reflecting Pool Access",
+ "Elder Hall Access",
+ "Crossway Access South",
+ "Elder Chamber",
+ "Antechamber",
+ "Temple Entryway",
+ "Save Station B",
+ "Plaza Walkway",
+ "Ice Ruins Access",
+ "Courtyard Entryway",
+ "Canyon Entryway",
+ "Save Station A",
+ "Specimen Storage",
+ "Quarantine Access",
+ "Map Station",
+ "Hydra Lab Entryway",
+ "Observatory Access",
+ "West Tower Entrance",
+ "Save Station D",
+ "Pike Access",
+ "Frost Cave Access",
+ "Hunter Cave Access",
+ "Research Core Access",
+ "Save Station C",
+ "Upper Edge Tunnel",
+ "Lower Edge Tunnel",
+ "Chamber Access",
+ "Lake Tunnel",
+ "Aether Lab Entryway",
+ "Storage Cave",
+ "Security Cave",
+ "Gully",
+ "Canyon Cavern",
+ "Temple Hall",
+ "Alcove",
+ "Waterfall Cavern",
+ "Transport Tunnel A",
+ "Root Tunnel",
+ "Temple Lobby",
+ "Frigate Access Tunnel",
+ "Main Ventilation Shaft Section C",
+ "Transport Tunnel C",
+ "Transport Tunnel B",
+ "Arbor Chamber",
+ "Transport to Chozo Ruins East",
+ "Transport to Magmoor Caverns East",
+ "Savestation",
+ "Deck Beta Transit Hall",
+ "Deck Beta Security Hall",
+ "Deck Beta Conduit Hall",
+ "Transport Tunnel D",
+ "Transport Tunnel E",
+ "Quarry Access",
+ "Save Station Mines A",
+ "Security Access A",
+ "Storage Depot B",
+ "Elevator Access A",
+ "Security Access B",
+ "Storage Depot A",
+ "Elite Control Access",
+ "Maintenance Tunnel",
+ "Transport Access",
+ "Processing Center Access",
+ "Map Station Mines",
+ "Dynamo Access",
+ "Elite Quarters Access",
+ "Save Station Mines B",
+ "Quarantine Access B",
+ "Save Station Mines C",
+ "Elevator Access B",
+ "Missile Station Mines",
+ "Lake Tunnel",
+ "Save Station Magmoor A",
+ "Pit Tunnel",
+ "Monitor Tunnel",
+ "Storage Cavern",
+ "Transport Tunnel A",
+ "Warrior Shrine",
+ "North Core Tunnel",
+ "South Core Tunnel",
+ "Workstation Tunnel",
+ "Transport Tunnel C",
+ "Save Station Magmoor B",
+ "Crater Tunnel A",
+ "Crater Missile Station",
+ "Crater Tunnel B",
+]
+
+# Large rooms cannot connect to other large rooms
+_LARGE_ROOM_NAMES = [
+    "Exterior Docking Hangar",
+    "Reactor Core",
+    "Biotech Research Area 1",
+    "Landing Site",
+    "Root Cave",
+    "Frigate Crash Site",
+    "Artifact Temple",
+    "Great Tree Hall",
+    "Life Grove",
+    "Main Plaza",
+    "Sunchamber",
+    "Furnace",
+    "Hall of the Elders",
+    # "Gathering Hall",
+    "Watery Hall",
+    "Energy Core",
+    # "Tower of Light",
+    "Training Chamber",
+    # "Lava Lake",
+    "Monitor Station",
+    "Fiery Shores",
+    # "Geothermal Core",
+    "Magmoor Workstation",
+    "Phendrana Shorelines",
+    "Phendrana Canyon",
+    "Chapel of the Elders",
+    "Ruined Courtyard",
+    "Observatory",
+    "Research Core",
+    "Quarantine Cave",
+    "Frozen Pike",
+    "Phendrana's Edge",
+    "Main Quarry",
+    "Mine Security Station",
+    "Elite Research",
+    "Elevator A",
+    "Elite Control",
+    "Plasma Processing Center",
+    "Omega Research",
+    "Central Dynamo",
+    "Metroid Quarantine A",
+    "Metroid Quarantine B",
+    # "Fungal Hall A",
+    # "Fungal Hall B",
+    "Elite Quarters",
+    "Phazon Core",
+    "Phazon Infusion Chamber",
+]
 
 # The following locations have cutscenes that weren't removed
 _LOCATIONS_WITH_MODAL_ALERT = {
@@ -355,8 +543,33 @@ class PrimePatchDataFactory(BasePatchDataFactory):
                 for area in world.areas:                
                     world_data[world.name]["rooms"][area.name]["doors"] = dict()
                     for dock_num in area_dock_nums[area.name]:
+                        
+                        def are_rooms_compatible(a, b):
+                            # both rooms must have patchable docks
+                            if len(area_dock_nums[a]) == 0 or len(area_dock_nums[b]) == 0:
+                                return False
+
+                            # destinations cannot be in the same room
+                            if a == b:
+                                return False
+                            
+                            # rooms cannot be neighbors
+                            if a in attached_areas[b]:
+                                return False
+
+                            # Large rooms must not connect to each other (crash)
+                            if a in _LARGE_ROOM_NAMES and b in _LARGE_ROOM_NAMES:
+                                return False
+
+                            # Huge rooms must connect to tiny rooms only
+                            if a in _GIGANTIC_ROOM_NAMES or b in _GIGANTIC_ROOM_NAMES:
+                                if a not in _TINY_ROOM_NAMES and b not in _TINY_ROOM_NAMES:
+                                    return False
+                            
+                            return True
+                            
                         dest_name = self.rng.choice(world.areas).name
-                        while len(area_dock_nums[dest_name]) == 0 or dest_name == area.name or dest_name in attached_areas[area.name]:
+                        while not are_rooms_compatible(area.name, dest_name):
                             dest_name = self.rng.choice(world.areas).name
 
                         world_data[world.name]["rooms"][area.name]["doors"][str(dock_num)] = {
