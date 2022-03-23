@@ -50,6 +50,10 @@ class PresetPrimePatches(PresetTab, Ui_PresetPrimePatches):
         signal_handling.on_combo(self.room_rando_combo, self._on_room_rando_changed)
         for f in _FIELDS:
             self._add_persist_option(getattr(self, f"{f}_check"), f)
+        
+        signal_handling.on_checked(self.small_samus_check, self._on_small_samus_changed)
+        signal_handling.on_checked(self.large_samus_check, self._on_large_samus_changed)
+
         self.superheated_slider.valueChanged.connect(self._on_slider_changed)
         self.submerged_slider.valueChanged.connect(self._on_slider_changed)
 
@@ -67,6 +71,18 @@ class PresetPrimePatches(PresetTab, Ui_PresetPrimePatches):
                 editor.set_configuration_field(attribute_name, value)
 
         signal_handling.on_checked(check, persist)
+
+    def _on_small_samus_changed(self, value: bool):
+        with self._editor as editor:
+            editor.set_configuration_field("small_samus", value)
+            if value:
+                editor.set_configuration_field("large_samus", False)
+
+    def _on_large_samus_changed(self, value: bool):
+        with self._editor as editor:
+            editor.set_configuration_field("large_samus", value)
+            if value:
+                editor.set_configuration_field("small_samus", False)
 
     def _on_cutscene_changed(self, value: LayoutCutsceneMode):
         with self._editor as editor:
