@@ -30,7 +30,6 @@ _FIELDS = [
     "deterministic_maze",
 ]
 
-
 class PresetPrimePatches(PresetTab, Ui_PresetPrimePatches):
 
     def __init__(self, editor: PresetEditor):
@@ -50,10 +49,10 @@ class PresetPrimePatches(PresetTab, Ui_PresetPrimePatches):
         signal_handling.on_combo(self.room_rando_combo, self._on_room_rando_changed)
         for f in _FIELDS:
             self._add_persist_option(getattr(self, f"{f}_check"), f)
-        
+
         signal_handling.on_checked(self.small_samus_check, self._on_small_samus_changed)
         signal_handling.on_checked(self.large_samus_check, self._on_large_samus_changed)
-
+    
         self.superheated_slider.valueChanged.connect(self._on_slider_changed)
         self.submerged_slider.valueChanged.connect(self._on_slider_changed)
 
@@ -100,6 +99,7 @@ class PresetPrimePatches(PresetTab, Ui_PresetPrimePatches):
         signal_handling.combo_set_to_value(self.room_rando_combo, config.room_rando)
         self.superheated_slider.setValue(preset.configuration.superheated_probability)
         self.submerged_slider.setValue(preset.configuration.submerged_probability)
+        self._on_slider_changed()
 
     def _update_editor(self):
         with self._editor as editor:
@@ -113,6 +113,6 @@ class PresetPrimePatches(PresetTab, Ui_PresetPrimePatches):
             )
 
     def _on_slider_changed(self):
-        self.superheated_slider_label.setText(str(self.superheated_slider.value()))
-        self.submerged_slider_label.setText(str(self.submerged_slider.value()))
+        self.superheated_slider_label.setText(f"{self.superheated_slider.value()/10.0:.1f}%")
+        self.submerged_slider_label.setText(f"{self.submerged_slider.value()/10.0:.1f}%")
         self._update_editor()

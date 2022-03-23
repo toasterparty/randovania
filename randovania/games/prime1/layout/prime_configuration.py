@@ -40,8 +40,8 @@ class PrimeConfiguration(BaseConfiguration):
     items_every_room: bool
     random_boss_sizes: bool
     no_doors: bool
-    superheated_probability: int = dataclasses.field(metadata={"min": 0, "max": 100})
-    submerged_probability: int = dataclasses.field(metadata={"min": 0, "max": 100})
+    superheated_probability: int = dataclasses.field(metadata={"min": 0, "max": 1000}) # div 1000 to get coefficient, div 10 to get %
+    submerged_probability: int = dataclasses.field(metadata={"min": 0, "max": 1000})   # div 1000 to get coefficient, div 10 to get %
     room_rando: RoomRandoMode
     spring_ball: bool
     deterministic_idrone: bool
