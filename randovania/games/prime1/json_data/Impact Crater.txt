@@ -43,7 +43,7 @@ Extra - size_index: 0.1
 Phazon Core
 (Valid Starting Location)
 Extra - asset_id: 3180620483
-Extra - size_index: 0.6
+Extra - size_index: 0.3
 > Door to Crater Missile Station; Heals? False
   * Plasma Door to Crater Missile Station/Door to Phazon Core
   * Extra - dock_index: 0
@@ -126,7 +126,7 @@ Extra - size_index: 0.1
 Phazon Infusion Chamber
 (Valid Starting Location)
 Extra - asset_id: 1729456653
-Extra - size_index: 0.6
+Extra - size_index: 0.3
 > Dock to Subchamber One; Heals? False
   * Open Passage to Subchamber One/Dock from Phazon Infusion Chamber
   * Extra - dock_index: 0

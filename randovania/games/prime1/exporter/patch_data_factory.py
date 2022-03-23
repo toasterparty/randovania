@@ -1,3 +1,4 @@
+from pydoc import doc
 import typing
 from random import Random
 from typing import List, Union
@@ -335,6 +336,8 @@ class PrimePatchDataFactory(BasePatchDataFactory):
                 area_dock_nums = dict()
                 attached_areas = dict()
                 size_indices = dict()
+                unused_docks = list()
+
                 for area in world.areas:
                     area_dock_nums[area.name] = list()
                     attached_areas[area.name] = list()
@@ -346,39 +349,67 @@ class PrimePatchDataFactory(BasePatchDataFactory):
                             continue
                         area_dock_nums[area.name].append(index)
                         attached_areas[area.name].append(node.default_connection.area_name)
+                        unused_docks.append((area.name, index))
                     size_indices[area.name] = area.extra["size_index"]
 
-                for area in world.areas:                
+                self.rng.shuffle(unused_docks)
+
+                for area in world.areas:
                     world_data[world.name]["rooms"][area.name]["doors"] = dict()
                     for dock_num in area_dock_nums[area.name]:
-                        
-                        def are_rooms_compatible(a, b):
+
+                        def are_rooms_compatible(src, dest):
+                            if src is None or dest is None:
+                                return False
+
                             # both rooms must have patchable docks
-                            if len(area_dock_nums[a]) == 0 or len(area_dock_nums[b]) == 0:
+                            if len(area_dock_nums[src]) == 0 or len(area_dock_nums[dest]) == 0:
                                 return False
 
                             # destinations cannot be in the same room
-                            if a == b:
+                            if src == dest:
                                 return False
                             
                             # rooms cannot be neighbors
-                            if a in attached_areas[b]:
+                            if src in attached_areas[dest]:
                                 return False
 
                             # The two rooms must not crash if drawn at the same time (size_index > 1.0)
-                            if size_indices[a] + size_indices[b] >= 1.0:
+                            if size_indices[src] + size_indices[dest] >= 1.0:
                                 return False
 
                             return True
-                            
-                        dest_name = self.rng.choice(world.areas).name
-                        while not are_rooms_compatible(area.name, dest_name):
+
+                        # First try each of the unused docks
+                        dest_name = None
+                        dest_dock = None
+                        for (name, dock) in unused_docks:
+                            if are_rooms_compatible(area.name, name):
+                                dest_name = name
+                                dest_dock = dock
+                                break
+
+                        # If that wasn't successful, pick random destinations until it works out
+                        while dest_name is None or dest_dock is None or not are_rooms_compatible(area.name, dest_name):
                             dest_name = self.rng.choice(world.areas).name
+
+                            if len(area_dock_nums[dest_name]) == 0:
+                                dest_dock = None
+                                continue
+                            
+                            dest_dock = self.rng.choice(area_dock_nums[dest_name])
+
+                        # Don't use this dock as a destination again unless there are no other options
+                        try:
+                            unused_docks.remove((dest_name, dest_dock))
+                        except ValueError:
+                            # print("re-used %s:%d" % (dest_name, dest_dock))
+                            pass
 
                         world_data[world.name]["rooms"][area.name]["doors"][str(dock_num)] = {
                             "destination": {
                                 "roomName": dest_name,
-                                "dockNum": self.rng.choice(area_dock_nums[dest_name]),
+                                "dockNum": dest_dock,
                             }
                         }
 

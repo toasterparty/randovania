@@ -170,7 +170,7 @@
             "valid_starting_location": true,
             "extra": {
                 "asset_id": 3180620483,
-                "size_index": 0.6
+                "size_index": 0.3
             },
             "nodes": {
                 "Door to Crater Missile Station": {
@@ -885,7 +885,7 @@
             "valid_starting_location": true,
             "extra": {
                 "asset_id": 1729456653,
-                "size_index": 0.6
+                "size_index": 0.3
             },
             "nodes": {
                 "Dock to Subchamber One": {
