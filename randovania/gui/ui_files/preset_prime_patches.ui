@@ -456,6 +456,16 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
             <item>
+            <widget class="QLabel" name="chaos_label">
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Chaos options are patcher-side only, and thus are not accounted for by the seed generator logic (many seeds will be incompletable). Procede with caution.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+            <item>
             <widget class="QCheckBox" name="small_samus_check">
              <property name="text">
               <string>Enable Small Samus</string>
@@ -533,7 +543,7 @@
            <item>
             <widget class="QLabel" name="random_boss_sizes_label">
              <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Makes each of the bosses a random size.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Makes each of the bosses (minus flaahgra) a random size ranging from "tiny bug" to "barely fits in the room".&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="wordWrap">
               <bool>true</bool>
@@ -550,7 +560,7 @@
            <item>
             <widget class="QLabel" name="no_doors_label">
              <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Why not? Watch your step on slow loading rooms...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Completely removes the need to shoot doors to procede through the game. This also means that there is nothing stopping you from entering a room before it has loaded. As such, it is reccomended to play with Dolphin's "Speed up Disc Transfer Rate" option in the right-click properties menu.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="wordWrap">
               <bool>true</bool>
@@ -560,7 +570,7 @@
             <item>
             <widget class="QLabel">
             <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;Superheated Probability: Probability that any room is superheated. Completely ignores logic.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;Superheated Probability: Probability that any room is superheated. Completely ignores heat-run logic.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="wordWrap">
             <bool>true</bool>
@@ -609,11 +619,10 @@
             </item>
             </layout>
             </item>
-            
             <item>
                 <widget class="QLabel">
                 <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;Submerged Probability: Probability that any room is fully submerged in water. Completely ignores logic.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;Submerged Probability: Probability that any room is fully submerged in water. Completely ignores underwater movement logic.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="wordWrap">
                 <bool>true</bool>
