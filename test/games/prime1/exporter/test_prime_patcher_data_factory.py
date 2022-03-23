@@ -48,13 +48,13 @@ def test_prime1_pickup_details_to_patcher_shiny_missile(prime1_resource_database
     # Run
     result = prime1_pickup_details_to_patcher(detail, False, rng)
 
-    # # Assert
-    # assert result == {
-    #     'type': 'Missile',
-    #     'currIncrease': 6, 'maxIncrease': 6,
-    #     'respawn': False,
-    #     **shiny_stuff,
-    # }
+    # Assert
+    assert result == {
+        'type': 'Missile',
+        'currIncrease': 6, 'maxIncrease': 6,
+        'respawn': False,
+        **shiny_stuff,
+    }
 
 
 def test_create_patch_data(test_files_dir, mocker):
@@ -76,11 +76,11 @@ def test_create_patch_data(test_files_dir, mocker):
     with test_files_dir.joinpath("randomprime_expected_data.json").open("r") as file:
         expected_data = json.load(file)
 
-    # with test_files_dir.joinpath("randomprime_expected_data.json").open("w") as file:
-    #     file.write(json.dumps(data, indent=4, separators=(',', ': ')))
+    with test_files_dir.joinpath("randomprime_expected_data.json").open("w") as file:
+        file.write(json.dumps(data, indent=4, separators=(',', ': ')))
 
     # Ignore the part of the main menu message which has the randovania version in it
     data["gameConfig"]["mainMenuMessage"] = data["gameConfig"]["mainMenuMessage"].split("\n")[1]
     expected_data["gameConfig"]["mainMenuMessage"] = expected_data["gameConfig"]["mainMenuMessage"].split("\n")[1]
 
-    # assert data == expected_data
+    assert data == expected_data
