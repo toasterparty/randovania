@@ -12,7 +12,7 @@ from randovania.layout.lib.teleporters import TeleporterConfiguration
 
 class RoomRandoMode(BitPackEnum, Enum):
     NONE = "None"
-    ONE_WAY_ANYWHERE = "One-way anywhere"
+    ONE_WAY = "One-way"
 
 
 class LayoutCutsceneMode(BitPackEnum, Enum):

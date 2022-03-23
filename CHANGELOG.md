@@ -38,7 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Remove Doors
     - Random Superheated Rooms
     - Random Submerged Rooms
-    - One-way Anywhere Room Rando
+    - One-way Room Rando
 - Added: Deterministic Maze RNG option for fairer racing
 - Changed: Nerfed "Items in Every Room" (Extra items more likely to be missiles)
 

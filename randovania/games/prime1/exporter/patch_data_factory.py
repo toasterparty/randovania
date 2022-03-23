@@ -521,7 +521,7 @@ class PrimePatchDataFactory(BasePatchDataFactory):
                     )]
                     world_data[world.name]["transports"][source_name] = target
 
-        if self.configuration.room_rando == RoomRandoMode.ONE_WAY_ANYWHERE:
+        if self.configuration.room_rando == RoomRandoMode.ONE_WAY:
             for world in db.world_list.worlds:
                 if world.name == "End of Game":
                     continue
