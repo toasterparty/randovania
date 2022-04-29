@@ -30,11 +30,15 @@ def batch_distribute_helper(base_params: "GeneratorParameters",
     )
 
     start_time = time.perf_counter()
-    description = asyncio.run(generator.generate_and_validate_description(
-        generator_params=permalink, status_update=None,
-        validate_after_generation=validate, timeout=timeout,
-        attempts=0,
-    ))
+    description = asyncio.run(
+        generator.generate_and_validate_description(
+            generator_params=permalink,
+            status_update=None,
+            validate_after_generation=validate,
+            timeout=timeout,
+            attempts=0,
+        )
+    )
     delta_time = time.perf_counter() - start_time
 
     description.save_to_file(output_dir.joinpath("{}.{}".format(seed_number, description.file_extension())))

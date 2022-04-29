@@ -39,6 +39,7 @@ class State:
     patches: GamePatches
     previous_state: Optional["State"]
     path_from_previous_state: Tuple[Node, ...]
+    node_traversal_count: int
     game_data: StateGameData
 
     @property
@@ -56,6 +57,7 @@ class State:
                  node: Node,
                  patches: GamePatches,
                  previous: Optional["State"],
+                 node_traversal_count: Optional[int],
                  game_data: StateGameData):
 
         self.resources = resources
@@ -63,6 +65,10 @@ class State:
         self.node = node
         self.patches = patches
         self.path_from_previous_state = ()
+        if node_traversal_count is not None:
+            self.node_traversal_count = node_traversal_count
+        else:
+            self.node_traversal_count = 0
         self.previous_state = previous
         self.game_data = game_data
 
@@ -81,6 +87,7 @@ class State:
                      self.node,
                      self.patches,
                      self.previous_state,
+                     self.node_traversal_count,
                      self.game_data)
 
     @property
@@ -104,10 +111,12 @@ class State:
 
     def take_damage(self, damage: int) -> "State":
         return State(self.resources, self.collected_resource_nodes, self.energy - damage, self.node, self.patches, self,
+                     self.node_traversal_count,
                      self.game_data)
 
     def heal(self) -> "State":
         return State(self.resources, self.collected_resource_nodes, self.maximum_energy, self.node, self.patches, self,
+                     self.node_traversal_count,
                      self.game_data)
 
     def _energy_for(self, resources: CurrentResources) -> int:
@@ -140,6 +149,7 @@ class State:
             energy = self._energy_for(new_resources)
 
         return State(new_resources, self.collected_resource_nodes + (node,), energy, self.node, self.patches, self,
+                     self.node_traversal_count,
                      self.game_data)
 
     def act_on_node(self, node: ResourceNode, path: Tuple[Node, ...] = (), new_energy: Optional[int] = None) -> "State":
@@ -148,6 +158,7 @@ class State:
         new_state = self.collect_resource_node(node, new_energy)
         new_state.node = node
         new_state.path_from_previous_state = path
+        new_state.node_traversal_count += len(path)
         return new_state
 
     def assign_pickup_resources(self, pickup: PickupEntry) -> "State":
@@ -169,6 +180,7 @@ class State:
             self.node,
             self.patches,
             self,
+            self.node_traversal_count,
             self.game_data,
         )
 
@@ -193,6 +205,7 @@ class State:
             self.node,
             new_patches,
             self,
+            self.node_traversal_count,
             self.game_data,
         )
 
