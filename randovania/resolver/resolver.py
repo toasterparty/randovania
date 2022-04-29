@@ -109,26 +109,29 @@ async def _inner_advance_depth(state: State,
     status_update("Resolving... {} total resources".format(len(state.resources)))
 
     for action, energy in reach.possible_actions(state):
-        if _should_check_if_action_is_safe(state, action, logic.game.dangerous_resources,
+        if not _should_check_if_action_is_safe(state, action, logic.game.dangerous_resources,
                                            logic.game.world_list.all_nodes):
+            continue
 
-            potential_state = state.act_on_node(action, path=reach.path_to_node[action], new_energy=energy)
-            potential_reach = ResolverReach.calculate_reach(logic, potential_state)
+        potential_state = state.act_on_node(action, path=reach.path_to_node[action], new_energy=energy)
+        potential_reach = ResolverReach.calculate_reach(logic, potential_state)
 
-            # If we can go back to where we were, it's a simple safe node
-            if state.node in potential_reach.nodes:
-                new_result = await _inner_advance_depth(
-                    state=potential_state,
-                    logic=logic,
-                    status_update=status_update,
-                    reach=potential_reach,
-                )
+        if state.node not in potential_reach.nodes:
+            continue
 
-                if not new_result[1]:
-                    debug.log_rollback(state, True, True)
+        # If we can go back to where we were, it's a simple safe node
+        new_result = await _inner_advance_depth(
+            state=potential_state,
+            logic=logic,
+            status_update=status_update,
+            reach=potential_reach,
+        )
 
-                # If a safe node was a dead end, we're certainly a dead end as well
-                return new_result
+        if not new_result[1]:
+            debug.log_rollback(state, True, True)
+
+        # If a safe node was a dead end, we're certainly a dead end as well
+        return new_result
 
     debug.log_checking_satisfiable_actions()
     has_action = False

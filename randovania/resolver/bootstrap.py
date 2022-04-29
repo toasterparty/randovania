@@ -100,6 +100,7 @@ class Bootstrap:
             starting_node,
             patches,
             None,
+            0,
             StateGameData(
                 game.resource_database,
                 game.world_list,

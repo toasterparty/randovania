@@ -27,7 +27,7 @@ def test_collected_pickup_indices(state_game_data, empty_patches):
         PickupIndex(1): 1,
         PickupIndex(15): 1
     }
-    s = state.State(resources, (), 99, None, empty_patches, None, state_game_data)
+    s = state.State(resources, (), 99, None, empty_patches, None, 0, state_game_data)
 
     # Run
     indices = list(s.collected_pickup_indices)
@@ -62,7 +62,7 @@ def test_add_pickup_to_state(state_game_data, empty_patches, generic_item_catego
 def test_assign_pickup_to_starting_items(empty_patches, state_game_data, generic_item_category):
     # Setup
 
-    starting = state.State({}, (), 99, None, empty_patches, None, state_game_data)
+    starting = state.State({}, (), 99, None, empty_patches, None, 0, state_game_data)
 
     resource_a = ItemResourceInfo("A", "A", 10)
     resource_b = ItemResourceInfo("B", "B", 10)
@@ -87,7 +87,7 @@ def test_assign_pickup_to_starting_items(empty_patches, state_game_data, generic
 
 def test_state_with_pickup(state_game_data, empty_patches, generic_item_category):
     # Setup
-    starting = state.State({}, (), 99, None, empty_patches, None, state_game_data)
+    starting = state.State({}, (), 99, None, empty_patches, None, 0, state_game_data)
 
     resource_a = ItemResourceInfo("A", "A", 10, None)
     p = PickupEntry("A", 2, generic_item_category, generic_item_category,
