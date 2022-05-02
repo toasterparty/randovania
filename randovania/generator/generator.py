@@ -20,8 +20,9 @@ from randovania.layout.base.base_configuration import BaseConfiguration
 from randovania.layout.generator_parameters import GeneratorParameters
 from randovania.layout.layout_description import LayoutDescription
 from randovania.layout.preset import Preset
-from randovania.resolver import resolver
-from randovania.resolver.exceptions import GenerationFailure, InvalidConfiguration, ImpossibleForSolver
+from randovania.resolver.exceptions import GenerationFailure, InvalidConfiguration
+from randovania.resolver.resolver import validate_seed
+
 
 
 def _validate_item_pool_size(item_pool: List[PickupEntry], game: GameDescription,
@@ -251,20 +252,14 @@ async def generate_and_validate_description(generator_params: GeneratorParameter
         raise GenerationFailure("Could not generate a game with the given settings",
                                 generator_params=generator_params, source=e) from e
 
-    if validate_after_generation and generator_params.player_count == 1:
-        final_state_async = resolver.resolve(
-            configuration=generator_params.get_preset(0).configuration,
-            patches=result.all_patches[0],
-            status_update=status_update,
-        )
+    if validate_after_generation:
         try:
-            final_state_by_resolve = await asyncio.wait_for(final_state_async, timeout)
+            await asyncio.wait_for(
+                validate_seed(result, generator_params, status_update),
+                timeout=timeout,
+            )
         except asyncio.TimeoutError as e:
             raise GenerationFailure("Timeout reached when validating possibility",
-                                    generator_params=generator_params, source=e) from e
-
-        if final_state_by_resolve is None:
-            raise GenerationFailure("Generated game was considered impossible by the solver",
-                                    generator_params=generator_params, source=ImpossibleForSolver())
+                                generator_params=generator_params, source=e) from e
 
     return result
