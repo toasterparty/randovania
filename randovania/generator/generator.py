@@ -256,7 +256,7 @@ async def generate_and_validate_description(generator_params: GeneratorParameter
         try:
             await asyncio.wait_for(
                 validate_seed(result, generator_params, status_update),
-                timeout=timeout,
+                timeout=60*100,
             )
         except asyncio.TimeoutError as e:
             raise GenerationFailure("Timeout reached when validating possibility",

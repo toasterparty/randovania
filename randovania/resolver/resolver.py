@@ -64,8 +64,8 @@ class ResolverState:
     reach: ResolverReach
     status_update: Callable[[str], None]
     safe_actions: list # (action, energy)
-    victory: bool
     dangerous_actions: list # (action, energy)
+    _victory: bool
 
 
     def __init__(
@@ -79,7 +79,7 @@ class ResolverState:
         self.logic = logic
         self.state = state
         self.status_update = status_update
-        self.victory = False
+        self._victory = False
         self._update_available_action_count()
 
 
@@ -89,7 +89,10 @@ class ResolverState:
             return True
 
         potential_state = self.state.act_on_node(action, path=reach.path_to_node[action], new_energy=energy)
+
+        print("before potential")
         potential_reach = ResolverReach.calculate_reach(self.logic, potential_state)
+        print("after potential")
 
         # Can we return to the starting node?
         return self.state.node not in potential_reach.nodes
@@ -109,12 +112,16 @@ class ResolverState:
         if isinstance(action, PickupNode):
             pickup_assignment = self.state.patches.pickup_assignment.get(action.pickup_index)
             if pickup_assignment is not None and (pickup_assignment.pickup.item_category.is_major or pickup_assignment.pickup.item_category.is_key or pickup_assignment.pickup.item_category == "energy_tank"):
+                if pickup_assignment.pickup.item_category == "energy_tank":
+                    import time
+                    time.sleep(2)
+                    print("ACTUALLY CONSIDERED AN ETANK WOW")
                 return True
 
         return False
 
     def _update_available_action_count(self) -> int:
-        if not self.victory and self.has_victory():
+        if not self._victory and self.has_victory():
             print("Player #%d has achieved victory" % (self.player_idx + 1))
             self._warp_to_start()
 
@@ -189,15 +196,17 @@ class ResolverState:
     # Use for obtaining items after beating the game, and for diving on dangerous checks for offworld items
     def _warp_to_start(self):
         self.state.node = self.logic.game.world_list.resolve_teleporter_connection(self.state.patches.starting_location)
+        self.state.heal()
 
 
     def has_victory(self):
-        if self.victory:
+        if self._victory:
             return True
 
-        return self.logic.game.victory_condition.satisfied(self.state.resources, self.state.energy, self.state.resource_database)
+        self._victory = self.logic.game.victory_condition.satisfied(self.state.resources, self.state.energy, self.state.resource_database)
+        return self._victory
 
-    
+
     def give_pickup(self, pickup_assignment: PickupTarget, amount: int):
         print("\t>Player #%d receiving %d %s" % (self.player_idx + 1, amount, pickup_assignment.pickup.name))
         # for _ in range(0, amount):
@@ -256,6 +265,8 @@ async def validate_seed(
         logic = Logic(new_game, configuration)
         starting_state.resources["add_self_as_requirement_to_resources"] = 1
 
+        starting_state.heal()
+
         resolver_states.append(
             ResolverState(
                 player_idx,
@@ -301,19 +312,23 @@ async def validate_seed(
         acting_player_idx = (acting_player_idx + 1) % player_count
         state: ResolverState = resolver_states[acting_player_idx]
         print("\nPlayer #%d %d E" % (acting_player_idx + 1, state.state.energy))
-        if total_safe_actions > 0 and len(state.safe_actions) == 0:
-            print("Unsafe Burger")
-            continue # Exhuast other safe actions first
+        print(state.state.node.identifier.short_name)
 
-        if len(state.safe_actions) > 0:
-            resource_gain = state.collect_one_safe_item()
-        elif len(state.dangerous_actions) > 0:
-            resource_gain = state.collect_one_dangerous_item()
-        else:
+        safe_action_count = len(state.safe_actions)
+        dangerous_action_count = len(state.dangerous_actions)
+
+        if safe_action_count == 0 and dangerous_action_count == 0:
             print("Full Burger")
             continue
-
-        print(state.state.node.identifier.short_name)
+        
+        if safe_action_count == 0 and total_safe_actions > 0:
+            print("Unsafe Burger")
+            continue # Exhuast other safe actions first
+        
+        if safe_action_count > 0:
+            resource_gain = state.collect_one_safe_item()    
+        else:
+            resource_gain = state.collect_one_dangerous_item()
 
         for resource, amount in resource_gain:
             resource: SimpleResourceInfo = resource
@@ -332,7 +347,8 @@ async def validate_seed(
 
                 target_player_state: ResolverState = resolver_states[pickup_assignment.player]
                 target_player_state.give_pickup(pickup_assignment, amount)
-
+    
+    print("\n@@@The whole team won!@@@")
 
 def _quiet_print(s):
     pass
