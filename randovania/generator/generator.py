@@ -194,7 +194,7 @@ def _distribute_remaining_items(rng: Random,
 async def _create_description(generator_params: GeneratorParameters,
                               status_update: Callable[[str], None],
                               attempts: int,
-                              ) -> LayoutDescription:
+                              ) -> tuple[LayoutDescription]:
     """
     :param generator_params:
     :param status_update:
@@ -228,7 +228,7 @@ async def generate_and_validate_description(generator_params: GeneratorParameter
                                             validate_after_generation: bool,
                                             timeout: Optional[int] = 600,
                                             attempts: int = 15,
-                                            ) -> LayoutDescription:
+                                            ) -> tuple[LayoutDescription, int]:
     """
     Creates a LayoutDescription for the given Permalink.
     :param generator_params:
@@ -267,4 +267,4 @@ async def generate_and_validate_description(generator_params: GeneratorParameter
             raise GenerationFailure("Generated game was considered impossible by the solver",
                                     generator_params=generator_params, source=ImpossibleForSolver())
 
-    return result
+    return result, final_state_by_resolve.node_traversal_count

@@ -194,6 +194,9 @@ class LayoutDescription:
             all_games,
         )
 
-    def save_to_file(self, json_path: Path):
+    def save_to_file(self, json_path: Path, node_traversal_count=None):
         with json_path.open("w") as open_file:
-            json.dump(self.as_json(), open_file, indent=4, separators=(',', ': '))
+            data = self.as_json()
+            if node_traversal_count is not None:
+                data["node_traversal_count"] = node_traversal_count
+            json.dump(data, open_file, indent=4, separators=(',', ': '))

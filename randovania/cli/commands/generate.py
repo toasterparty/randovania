@@ -23,7 +23,7 @@ def common_generate_logic(args, permalink):
         extra_args["attempts"] = 0
 
     before = time.perf_counter()
-    layout_description = asyncio.run(
+    layout_description, _ = asyncio.run(
         generator.generate_and_validate_description(generator_params=permalink.parameters,
                                                     status_update=status_update,
                                                     validate_after_generation=args.validate,

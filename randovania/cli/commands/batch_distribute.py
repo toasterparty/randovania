@@ -30,7 +30,7 @@ def batch_distribute_helper(base_params: "GeneratorParameters",
     )
 
     start_time = time.perf_counter()
-    description = asyncio.run(
+    description, node_traversal_count = asyncio.run(
         generator.generate_and_validate_description(
             generator_params=permalink,
             status_update=None,
@@ -41,7 +41,7 @@ def batch_distribute_helper(base_params: "GeneratorParameters",
     )
     delta_time = time.perf_counter() - start_time
 
-    description.save_to_file(output_dir.joinpath("{}.{}".format(seed_number, description.file_extension())))
+    description.save_to_file(output_dir.joinpath("{}.{}".format(seed_number, description.file_extension())), node_traversal_count)
     return delta_time
 
 
