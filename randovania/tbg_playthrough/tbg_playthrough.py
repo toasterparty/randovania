@@ -14,21 +14,18 @@ def _cli_send_message(message: str) -> None:
 
 class Playthrough:
     rdvgame: Path
-    send_message: Callable
-    receive_message: Callable
+    send_message: Callable[[str], None]
+    receive_message: Callable[[], str]
 
     def __init__(self, rdvgame: Path, send_message: Callable, receive_message: Callable) -> None:
         self.rdvgame = rdvgame
         self.send_message = send_message
         self.receive_message = receive_message
 
-    def _sanatize_message(self, message: str) -> str:
+    def _process_one_message(self) -> None:
+        message = self.receive_message()
         if not message.isascii():
             raise InvalidCommand("I'm sorry, there are illegal characters in your command.")
-        return message.strip()
-
-    def _process_one_message(self) -> None:
-        message = self._sanatize_message(self.receive_message())
         command: Command = Command.from_message(message)
         if command is None:
             raise InvalidCommand("Sorry, I don't understand that command. Say 'help' for the list of commands I recognize.")
