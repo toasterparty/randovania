@@ -1,7 +1,10 @@
 from pathlib import Path
 from randovania.game_description.game_patches import GamePatches
 from randovania.game_description.resources.resource_type import ResourceType
+from randovania.game_description.world.dock_node import DockNode
+from randovania.game_description.world.pickup_node import PickupNode
 from randovania.game_description.resources.item_resource_info import ItemResourceInfo
+from randovania.game_description.resources.simple_resource_info import SimpleResourceInfo
 from randovania.layout import filtered_database
 from randovania.layout.base.base_configuration import BaseConfiguration
 from randovania.layout.layout_description import LayoutDescription
@@ -56,4 +59,79 @@ class PlaythroughState:
             else:
                 result += f"{resource.long_name}: {resource_count}\n"
         result += "=================\n"
+        return result
+
+    def describe_here(self) -> str:
+        world_list = self.patches.game.world_list
+        area_identifier = world_list.node_to_area_location(self.game_state.node)
+        area = world_list.area_by_area_location(area_identifier)
+
+        result = ""
+
+        result += f"{area_identifier.world_name.title()} - {area_identifier.area_name.title()}\n"
+        result += f"————————————————————————————————————————————\n\n"
+
+        result += f"<flowery flavor text goes here>"
+
+        if self.game_state.node.name:
+            result += f"\n\nYou are standing at the {self.game_state.node.name.title()}."
+
+        items = list()
+        for node in area.nodes:
+            if not isinstance(node, PickupNode):
+                continue # not a pickup node
+
+            node: PickupNode = node
+
+            if node.is_collected(self.game_state.node_context()):
+                continue # not there any more
+
+            item = self.patches.pickup_assignment.get(node.pickup_index)
+            if not item:
+                continue # nothing item
+            
+            items.append(item.pickup.name)
+
+        # TODO: flavor text for the item location
+        # TODO: add peekability to the database
+        if len(items) == 1:
+            result += f" A {item.pickup.name} can be plainly seen."
+        elif len(items) > 1:
+            last = items.pop()
+            for item in items:
+                result += f" {item},"
+            result += f" and {last} can be plainly seen."
+
+        docks: dict[str, list[str]] = dict()
+        for node in area.nodes:
+            if not isinstance(node, DockNode):
+                continue  # not a dock node
+
+            dock_vuln = node.default_dock_weakness.long_name
+            dock_dest = node.default_connection.area_name
+            if dock_vuln not in docks:
+                docks[dock_vuln] = [dock_dest]
+            else:
+                docks[dock_vuln].append(dock_dest)
+
+        def _to_str_helper(dock_vuln: str, dock_dests: list[str]) -> str:
+            if len(dock_dests) == 0:
+                return ""
+
+            if len(dock_dests) == 1:
+                return f" A {dock_vuln.title()} leads to {dock_dests[0].title()}."
+
+            i = 0
+            result = f" {dock_vuln.title()}s lead to "
+            while i < len(dock_dests) - 2:
+                result += f"{dock_dests[i]}, "
+                i += 1
+
+            result += f"and {dock_dests[i]}."
+
+            return result
+
+        for dock_vuln in docks:
+            result += _to_str_helper(dock_vuln, docks[dock_vuln])
+
         return result

@@ -224,7 +224,7 @@ class CommandInventory(Command):
 
 
 class CommandLook(Command):
-    KEYWORDS = []
+    KEYWORDS = ["look", "l", "inspect", "investigate", "room", "area", "here", "describe", "observe", "check", "where"]
 
     @staticmethod
     def command_type() -> CommandType:
@@ -232,7 +232,7 @@ class CommandLook(Command):
 
     @staticmethod
     def help_message() -> str:
-        return "tbd"
+        return "look - tbd"
 
     @staticmethod
     def from_command_data(command_data: list[str]):
@@ -240,7 +240,7 @@ class CommandLook(Command):
             return CommandLook(command_data)
 
     def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str]) -> str | None:
-        return None
+        return state.describe_here()
 
 
 class CommandInteract(Command):
