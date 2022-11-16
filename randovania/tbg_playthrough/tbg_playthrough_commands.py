@@ -1,6 +1,7 @@
 from enum import Enum
 from typing import Callable
 from .tbg_playthrough_state import PlaythroughState
+from . import InvalidCommand
 
 # Conversational words which have no impact on the command parser
 FILTER_WORDS = {
@@ -21,11 +22,6 @@ FILTER_WORDS = {
     'with'  , 'you'  , 'your',
     'what',
 }
-
-
-class InvalidCommand(Exception):
-    pass
-
 
 class CommandType(Enum):
     HELP = 0,
@@ -86,7 +82,7 @@ class Command:
         raise NotImplementedError("Command not implemented.")
 
     @staticmethod
-    def from_command_data(command_data: list[str]):
+    def from_command_data(command_data: list[str], state: PlaythroughState):
         """
         If the command data is a valid command of this type, return a fresh command instance of that command
         """
@@ -132,11 +128,11 @@ class Command:
         return message_data
 
     @staticmethod
-    def from_message(message: str):
+    def from_message(message: str, state: PlaythroughState):
         command_data = Command.parse_message(message)
 
         for command_type in CommandType:
-            command = command_type.to_class().from_command_data(command_data)
+            command = command_type.to_class().from_command_data(command_data, state)
             if command:
                 return command
 
@@ -155,7 +151,7 @@ class CommandHelp(Command):
         return "help - Returns this message"
 
     @staticmethod
-    def from_command_data(command_data: list[str]):
+    def from_command_data(command_data: list[str], state: PlaythroughState):
         if command_data[0] in CommandHelp.KEYWORDS:
             return CommandHelp(command_data)
 
@@ -175,7 +171,7 @@ class CommandExit(Command):
         return "tbd"
 
     @staticmethod
-    def from_command_data(command_data: list[str]):
+    def from_command_data(command_data: list[str], state: PlaythroughState):
         if command_data[0] in CommandExit.KEYWORDS:
             return CommandExit(command_data)
 
@@ -195,7 +191,7 @@ class CommandSave(Command):
         return "tbd"
 
     @staticmethod
-    def from_command_data(command_data: list[str]):
+    def from_command_data(command_data: list[str], state: PlaythroughState):
         if command_data[0] in CommandSave.KEYWORDS:
             return CommandSave(command_data)
 
@@ -215,7 +211,7 @@ class CommandInventory(Command):
         return "inventory - Examines your current inventory"
 
     @staticmethod
-    def from_command_data(command_data: list[str]):
+    def from_command_data(command_data: list[str], state: PlaythroughState):
         if command_data[0] in CommandInventory.KEYWORDS:
             return CommandInventory(command_data)
 
@@ -235,7 +231,7 @@ class CommandLook(Command):
         return "look - tbd"
 
     @staticmethod
-    def from_command_data(command_data: list[str]):
+    def from_command_data(command_data: list[str], state: PlaythroughState):
         if command_data[0] in CommandLook.KEYWORDS:
             return CommandLook(command_data)
 
@@ -255,7 +251,7 @@ class CommandInteract(Command):
         return "tbd"
 
     @staticmethod
-    def from_command_data(command_data: list[str]):
+    def from_command_data(command_data: list[str], state: PlaythroughState):
         if command_data[0] in CommandInteract.KEYWORDS:
             return CommandInteract(command_data)
 
@@ -264,7 +260,7 @@ class CommandInteract(Command):
 
 
 class CommandMove(Command):
-    KEYWORDS = []
+    KEYWORDS = ["go", "move", "enter", "travel", "traverse", "into", "proceede"]
 
     @staticmethod
     def command_type() -> CommandType:
@@ -275,11 +271,47 @@ class CommandMove(Command):
         return "tbd"
 
     @staticmethod
-    def from_command_data(command_data: list[str]):
+    def from_command_data(command_data: list[str], state: PlaythroughState):
+        throw_error = False
         if command_data[0] in CommandMove.KEYWORDS:
-            return CommandMove(command_data)
+            if len(command_data) < 2:
+                raise InvalidCommand("Where do you want to go?")
+            command_data.pop(0)
+            throw_error = True
+
+        desired = command_data.pop(0)
+        for word in command_data:
+            desired += " " + word
+
+        # TODO: handle cardinal directions here
+
+        actual_room_name = None
+        # Strip conversational words out of the room names
+        for room in state.get_connected_rooms():
+            real_room_name = room
+            room = room.lower()
+            for word in FILTER_WORDS:
+                room = room.removeprefix(f"{word} ").removesuffix(f" {word}").replace(f" {word} ", " ")
+
+            if desired != room:
+                continue
+
+            actual_room_name = real_room_name
+
+            break
+
+        if actual_room_name:
+            return CommandMove(actual_room_name)
+
+        if throw_error:
+            raise InvalidCommand(f"I don't understand how you would get to {desired.title()} from here.")
+
+        return None
 
     def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str]) -> str | None:
-        return None
+        result = state.go_to_room(self.command_data)
+        if result:
+            send_message(result)
+        return CommandLook().execute(state, send_message, receive_message)
 
 # TODO: logbook/journal/diary command for hints, completed events, etc.

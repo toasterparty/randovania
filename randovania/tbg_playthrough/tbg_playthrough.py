@@ -1,9 +1,8 @@
-import sys
-import os
 from pathlib import Path
 from typing import Callable
 
-from .tbg_playthrough_commands import InvalidCommand, CommandType, Command
+from . import InvalidCommand
+from .tbg_playthrough_commands import InvalidCommand, Command
 from .tbg_playthrough_state import PlaythroughState
 
 def _cli_receive_message() -> str:
@@ -35,7 +34,7 @@ class Playthrough:
         message = self.receive_message()
         if not message.isascii():
             raise InvalidCommand("I'm sorry, there are illegal characters in your command.")
-        command: Command = Command.from_message(message)
+        command: Command = Command.from_message(message, self.playthrough_state)
         if command is None:
             raise InvalidCommand(
                 "Sorry, I don't understand that command. Say 'help' for the list of commands I recognize.")
