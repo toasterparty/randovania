@@ -155,6 +155,7 @@ class PlaythroughState:
         docks = self.get_docks()
 
         def _to_str_helper(dock_vuln: str, dock_dests: list[str]) -> str:
+        # TODO: If the game has aabbs in the database, use North, East, South and West here
             for dest in dock_dests:
                 if dest.lower() == self.game_state.node.name.lower().removeprefix("door to "):
                     dock_dests.remove(dest)
@@ -176,8 +177,6 @@ class PlaythroughState:
             result += f" and {last}."
 
             return result
-
-        # TODO: If the game has aabbs in the database, use North, East, South and West instead of specific room names
 
         for dock_vuln in docks:
             result += _to_str_helper(dock_vuln, docks[dock_vuln])
@@ -206,8 +205,10 @@ class PlaythroughState:
                 return "n"
 
     def go_to_room(self, room_name: str, send_message, receive_message) -> None:
+        # Where are they actually wanting to go?
         target_node = None
 
+        # Are they wanting to travel a direction?
         if room_name in ["n", "s", "e", "w", "north", "south", "east", "west"]:
             room_name = f"{room_name[0]}"
 
@@ -254,15 +255,20 @@ class PlaythroughState:
 
             target_node = candidates[0]
 
+        # Are they trying to go to an adjacent room?
         for node in self.get_area().nodes:
             if target_node:
                 break
+
+            if not isinstance(node, DockNode):
+                continue # not a dock
 
             if room_name.lower() != node.default_connection.area_name.lower():
                 continue # not the dock we want to go through
             
             target_node = self.get_world_list().node_by_identifier(node.default_connection)
 
+        # Perhaps they are trying to take an elevator?
         for node in self.get_area().nodes:
             if target_node:
                 break
@@ -274,6 +280,8 @@ class PlaythroughState:
                 continue # not the teleporter we want to go through
 
             target_node = self.get_world_list().default_node_for_area(node.default_connection)
+
+            # TODO: Flavor text for experiencing a new world
 
         if target_node is None:
             raise InvalidCommand(f"I don't quite know how to get to {room_name} :/")
