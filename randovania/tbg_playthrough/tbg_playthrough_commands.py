@@ -1,4 +1,6 @@
 from enum import Enum
+from typing import Callable
+from .tbg_playthrough_state import PlaythroughState
 
 # Conversational words which have no impact on the command parser
 FILTER_WORDS = {
@@ -17,6 +19,7 @@ FILTER_WORDS = {
     'these' , 'they' , 'this',
     'to'    , 'was'  , 'way' ,
     'with'  , 'you'  , 'your',
+    'what',
 }
 
 
@@ -89,7 +92,7 @@ class Command:
         """
         raise NotImplementedError("Command not implemented.")
 
-    def execute(self) -> str | None:
+    def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str]) -> str | None:
         """
         Do the work specific to this command, optionally returning a string
         to respond to the user with
@@ -103,7 +106,8 @@ class Command:
 
     def parse_message(message: str) -> list[str]:
         message_data: list[str] = []
-        for word in message.split(" "):
+        words = message.split(" ")
+        for word in words:
             # remove non-alphanumeric
             word = "".join(filter(str.isalnum, word))
 
@@ -114,9 +118,9 @@ class Command:
             # lowercase
             word = word.lower()
 
-            # Filter out meaningless words
+            # Filter out meaningless words, but only if they are used in a sentence
             # TODO: could also check for all adverbs in english dictionary
-            if word in FILTER_WORDS:
+            if word in FILTER_WORDS and len(words) != 1:
                 continue
 
             # it's a valid word
@@ -155,7 +159,7 @@ class CommandHelp(Command):
         if command_data[0] in CommandHelp.KEYWORDS:
             return CommandHelp(command_data)
 
-    def execute(self) -> str | None:
+    def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str]) -> str | None:
         return _help_message()
 
 
@@ -175,7 +179,7 @@ class CommandExit(Command):
         if command_data[0] in CommandExit.KEYWORDS:
             return CommandExit(command_data)
 
-    def execute(self) -> str | None:
+    def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str]) -> str | None:
         return None
 
 
@@ -195,12 +199,12 @@ class CommandSave(Command):
         if command_data[0] in CommandSave.KEYWORDS:
             return CommandSave(command_data)
 
-    def execute(self) -> str | None:
+    def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str]) -> str | None:
         return None
 
 
 class CommandInventory(Command):
-    KEYWORDS = []
+    KEYWORDS = ["i", "inventory", "inv", "inven", "items", "list", "pickups"]
 
     @staticmethod
     def command_type() -> CommandType:
@@ -208,15 +212,15 @@ class CommandInventory(Command):
 
     @staticmethod
     def help_message() -> str:
-        return "tbd"
+        return "inventory - Examines your current inventory"
 
     @staticmethod
     def from_command_data(command_data: list[str]):
         if command_data[0] in CommandInventory.KEYWORDS:
             return CommandInventory(command_data)
 
-    def execute(self) -> str | None:
-        return None
+    def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str]) -> str | None:
+        return state.describe_inventory()
 
 
 class CommandLook(Command):
@@ -235,7 +239,7 @@ class CommandLook(Command):
         if command_data[0] in CommandLook.KEYWORDS:
             return CommandLook(command_data)
 
-    def execute(self) -> str | None:
+    def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str]) -> str | None:
         return None
 
 
@@ -255,7 +259,7 @@ class CommandInteract(Command):
         if command_data[0] in CommandInteract.KEYWORDS:
             return CommandInteract(command_data)
 
-    def execute(self) -> str | None:
+    def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str]) -> str | None:
         return None
 
 
@@ -275,5 +279,7 @@ class CommandMove(Command):
         if command_data[0] in CommandMove.KEYWORDS:
             return CommandMove(command_data)
 
-    def execute(self) -> str | None:
+    def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str]) -> str | None:
         return None
+
+# TODO: logbook/journal/diary command for hints, completed events, etc.

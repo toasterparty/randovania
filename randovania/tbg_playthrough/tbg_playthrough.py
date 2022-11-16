@@ -40,7 +40,7 @@ class Playthrough:
             raise InvalidCommand(
                 "Sorry, I don't understand that command. Say 'help' for the list of commands I recognize.")
 
-        response = command.execute()
+        response = command.execute(self.playthrough_state, self.send_message, self.receive_message)
         if response:
             self.send_message(response)
 
