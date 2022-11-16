@@ -184,19 +184,71 @@ class PlaythroughState:
 
         return result
 
+    @staticmethod
+    def aabb_to_room_center(aabb: list[int]) -> list[int]:
+        return [
+            aabb[0] + ((aabb[3] - aabb[0])/2),
+            aabb[1] + ((aabb[4] - aabb[1])/2),
+            # don't care about z
+        ]
+    
+    @staticmethod
+    def centers_to_cardinal(x1, y1, x2, y2) -> str:
+        if max(x1, x2) - min(x1, x2) > max(y1, y2) - min(y1, y2):
+            if x1 > x2:
+                return "w"
+            else:
+                return "e"
+        else:
+            if y1 > y2:
+                return "s"
+            else:
+                return "n"
+
     def go_to_room(self, room_name: str, send_message=None) -> None:
         target_node = None
+
+        if room_name in ["n", "s", "e", "w", "north", "south", "east", "west"]:
+            room_name = f"{room_name[0]}"
+
+            # xmin, ymin, zmin, xmax, ymax, zmax
+            aabb = self.get_area().extra.get("aabb", None)
+            if not aabb:
+                raise InvalidCommand(f"I don't know how to navigate using cardinal directions when playing {self.configuration.game.long_name}.")
+
+            center = PlaythroughState.aabb_to_room_center(aabb)
+
+            for node in self.get_area().nodes:
+                if not isinstance(node, DockNode):
+                    continue # not a dock node
+
+                aabb = self.get_world_list().area_by_area_location(node.default_connection.area_identifier).extra["aabb"]
+                neighbor_center = PlaythroughState.aabb_to_room_center(aabb)
+                
+                dir = PlaythroughState.centers_to_cardinal(center[0], center[1], neighbor_center[0], neighbor_center[1])
+
+                if room_name == dir:
+                    # TODO: check for multiple rooms in this direction and ask politely which one they mean?
+                    target_node = self.get_world_list().node_by_identifier(node.default_connection)
+                    break
+
+            if not target_node:
+                raise InvalidCommand("There's nothing in that direction.")
+
+
         for node in self.get_area().nodes:
-            if not isinstance(node, DockNode):
-                continue # not a dock node
+            if target_node:
+                break
 
             if room_name.lower() != node.default_connection.area_name.lower():
                 continue # not the dock we want to go through
             
             target_node = self.get_world_list().node_by_identifier(node.default_connection)
-            break
 
         for node in self.get_area().nodes:
+            if target_node:
+                break
+
             if not isinstance(node, TeleporterNode):
                 continue # not a teleporter node
 
@@ -204,7 +256,6 @@ class PlaythroughState:
                 continue # not the teleporter we want to go through
 
             target_node = self.get_world_list().default_node_for_area(node.default_connection)
-            break
 
         if target_node is None:
             raise InvalidCommand(f"I don't quite know how to get to {room_name} :/")
@@ -214,30 +265,37 @@ class PlaythroughState:
         return None
 
     def go_to_node(self, target_node: Node, target_name: str=None, send_message=None) -> None:
-        new_energy = None
+        if target_node == self.game_state.node:
+            return # already there
+        
+        # check against logic
+        reach = ResolverReach.calculate_reach(self.game_logic, self.game_state)
+        reach_nodes = [node for node in reach.nodes]
+        if target_node not in reach_nodes:
+            if not target_name or len(target_name) <= 1:
+                target_name = target_node.identifier.area_identifier.area_name
+            raise InvalidCommand(f"After several minutes of your best efforts, you resign and admit there is no way reach {target_name} from here.")
+
+        # calculate energy lost
         reach_nodes = [node for node in self.game_logic.game.world_list.potential_nodes_from(self.game_state.node, self.game_state.node_context())]
-        for node, requirement in reach_nodes:
-            
-            is_target = False
+        new_energy = None
+        i = 0
+        while not new_energy:
+            i += 1            
+            if i > 20:
+                raise InvalidCommand("I'm having trouble getting you there.")
 
-            if isinstance(node, TeleporterNode):
-                connected_node = self.get_world_list().default_node_for_area(node.default_connection)
-                is_target = connected_node == target_node
-            
-            if not is_target:
-                is_target = node.node_index == target_node.node_index
+            for node, requirement in reach_nodes:
+                if node != target_node:
+                    reach_nodes.extend(
+                        [node for node in self.game_logic.game.world_list.potential_nodes_from(node, self.game_state.node_context())]
+                    )
+                    continue
 
-            if not is_target:
-                continue
-
-            new_energy = self.game_state.energy - requirement.damage(self.game_state.resources, self.game_state.resource_database)
-            break
-
-        if new_energy is None:
-            if target_name:
-                raise InvalidCommand(f"After several minutes of trying your hardest, you resign and admit that there is no way to get to {target_name.title()} from here.")
-            raise InvalidCommand(f"After several minutes of trying your hardest, you resign and admit that there is no way to get to there from here.")
-
+                new_energy = self.game_state.energy - requirement.damage(self.game_state.resources, self.game_state.resource_database)
+                break
+    
+        # update game state
         self.game_state.node = target_node
         if new_energy < 0:
             raise Exception("\nYou Died [NYI]")

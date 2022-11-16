@@ -283,7 +283,9 @@ class CommandMove(Command):
         for word in command_data:
             desired += " " + word
 
-        # TODO: handle cardinal directions here
+        # Handle cardinal directions
+        if desired in ["n", "s", "e", "w", "north", "south", "east", "west"]:
+            return CommandMove(desired)
 
         actual_room_name = None
         # Strip conversational words out of the room names
