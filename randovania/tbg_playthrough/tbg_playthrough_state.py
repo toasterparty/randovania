@@ -1,8 +1,10 @@
 from pathlib import Path
 from randovania.game_description.game_patches import GamePatches
 from randovania.game_description.resources.resource_type import ResourceType
+from randovania.game_description.world.node import Node
 from randovania.game_description.world.dock_node import DockNode
 from randovania.game_description.world.pickup_node import PickupNode
+from randovania.game_description.world.teleporter_node import TeleporterNode
 from randovania.layout import filtered_database
 from randovania.layout.base.base_configuration import BaseConfiguration
 from randovania.layout.layout_description import LayoutDescription
@@ -80,6 +82,14 @@ class PlaythroughState:
             for room in dock_rooms:
                 rooms.append(room)
         
+        for node in self.get_area().nodes:
+            if not isinstance(node, TeleporterNode):
+                continue
+
+            node: TeleporterNode = node
+            rooms.append(node.default_connection.world_name)
+            rooms.append(node.default_connection.area_name)
+
         return rooms
 
     def get_world_list(self):
@@ -98,13 +108,13 @@ class PlaythroughState:
 
         result = ""
 
-        result += f"{area_identifier.world_name.title()} - {area_identifier.area_name.title()}\n"
+        result += f"{area_identifier.world_name} - {area_identifier.area_name}\n"
         result += f"————————————————————————————————————————————\n\n"
 
         result += f"<flowery flavor text goes here>"
 
         if self.game_state.node.name:
-            result += f"\n\nYou are standing at the {self.game_state.node.name.title()}."
+            result += f"\n\nYou are standing at the {self.game_state.node.name}."
 
         items: list[str] = list()
         for node in area.nodes:
@@ -134,6 +144,14 @@ class PlaythroughState:
                 result += f" {item},"
             result += f" and {last} can be plainly seen."
 
+
+        for node in self.get_area().nodes:
+            if not isinstance(node, TeleporterNode):
+                continue # not a teleporter node
+
+            result += f" A functioning transport leads to {node.default_connection.world_name}."
+
+
         docks = self.get_docks()
 
         def _to_str_helper(dock_vuln: str, dock_dests: list[str]) -> str:
@@ -146,10 +164,10 @@ class PlaythroughState:
                 return ""
 
             if len(dock_dests) == 1:
-                return f" A {dock_vuln.title()} leads to {dock_dests[0].title()}."
+                return f" A {dock_vuln.title()} leads to {dock_dests[0]}."
 
             if len(dock_dests) == 2:
-                return f" {dock_vuln.title()}s lead to {dock_dests[0].title()} and {dock_dests[1].title()}."
+                return f" {dock_vuln.title()}s lead to {dock_dests[0]} and {dock_dests[1]}."
 
             result = f" {dock_vuln.title()}s lead to"
             last = dock_dests.pop()
@@ -166,7 +184,7 @@ class PlaythroughState:
 
         return result
 
-    def go_to_room(self, room_name: str) -> None:
+    def go_to_room(self, room_name: str, send_message=None) -> None:
         target_node = None
         for node in self.get_area().nodes:
             if not isinstance(node, DockNode):
@@ -177,26 +195,78 @@ class PlaythroughState:
             
             target_node = self.get_world_list().node_by_identifier(node.default_connection)
             break
-        
+
+        for node in self.get_area().nodes:
+            if not isinstance(node, TeleporterNode):
+                continue # not a teleporter node
+
+            if room_name.lower() not in [node.default_connection.area_name.lower(), node.default_connection.world_name.lower()]:
+                continue # not the teleporter we want to go through
+
+            target_node = self.get_world_list().default_node_for_area(node.default_connection)
+            break
+
         if target_node is None:
-            raise InvalidCommand("I don't quite know how to get there :/")
+            raise InvalidCommand(f"I don't quite know how to get to {room_name} :/")
 
-        reach = ResolverReach.calculate_reach(self.game_logic, self.game_state)
-        reach_nodes = [node for node in reach.nodes]
-        if target_node not in reach_nodes:
-            raise InvalidCommand(f"After several minutes of trying your hardest, you resign and admit that there is no way to get to {room_name.title()} from here.")
+        self.go_to_node(target_node, room_name, send_message)
 
+        return None
+
+    def go_to_node(self, target_node: Node, target_name: str=None, send_message=None) -> None:
         new_energy = None
-        for node, requirement in self.game_logic.game.world_list.potential_nodes_from(node, self.game_state.node_context()):
-            if node != target_node:
+        reach_nodes = [node for node in self.game_logic.game.world_list.potential_nodes_from(self.game_state.node, self.game_state.node_context())]
+        for node, requirement in reach_nodes:
+            
+            is_target = False
+
+            if isinstance(node, TeleporterNode):
+                connected_node = self.get_world_list().default_node_for_area(node.default_connection)
+                is_target = connected_node == target_node
+            
+            if not is_target:
+                is_target = node.node_index == target_node.node_index
+
+            if not is_target:
                 continue
+
             new_energy = self.game_state.energy - requirement.damage(self.game_state.resources, self.game_state.resource_database)
             break
 
         if new_energy is None:
-            raise InvalidCommand("I don't quite know how to get there :/")
+            if target_name:
+                raise InvalidCommand(f"After several minutes of trying your hardest, you resign and admit that there is no way to get to {target_name.title()} from here.")
+            raise InvalidCommand(f"After several minutes of trying your hardest, you resign and admit that there is no way to get to there from here.")
 
         self.game_state.node = target_node
+        if new_energy < 0:
+            raise Exception("\nYou Died [NYI]")
+        elif new_energy > self.game_state.energy:
+            if self.game_state.energy == self.game_state.maximum_energy:
+                send_message(f"\nYou are feeling much better.")
+            else:
+                send_message(f"\nYou recovered some vitality.")
+        elif new_energy < self.game_state.energy:
+            health = new_energy / self.game_state.maximum_energy
+            if health < 0.1:
+                send_message(f"\nYour vision blurs as you begin to loose consciousness.")
+            elif health < 0.2:
+                send_message(f"\nIt's becoming difficult to focus on simple tasks as you tremble in excruciating pain, gapsing for breath.")
+            elif health < 0.3:
+                send_message(f"\nWhere there was doubt before, you are now certain that multiple bones are broken.")
+            elif health < 0.4:
+                send_message(f"\nIt's taking every ounce of willpower to ignore the desire to lay down and rest.")
+            elif health < 0.5:
+                send_message(f"\nYou loose track of the number of open wounds.")
+            elif health < 0.6:
+                send_message(f"\nYou feel a little dizzy.")
+            elif health < 0.7:
+                send_message(f"\nYou are covered in bruises and minor wounds.")
+            elif health < 0.8:
+                send_message(f"\nYour limbs feel sore and heavy.")
+            elif health < 0.9:
+                send_message(f"\nYour heart is pounding and your rate of breathing dramatically increases.")
+
         self.game_state.energy = new_energy
 
-        return None
+        # TODO: test for nodes that heal (e.g. echoes)
