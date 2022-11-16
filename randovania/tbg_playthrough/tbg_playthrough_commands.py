@@ -311,7 +311,7 @@ class CommandMove(Command):
         return None
 
     def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str]) -> str | None:
-        result = state.go_to_room(self.command_data, send_message)
+        result = state.go_to_room(self.command_data, send_message, receive_message)
         if result:
             send_message(result)
         return CommandLook().execute(state, send_message, receive_message)

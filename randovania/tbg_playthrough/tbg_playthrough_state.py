@@ -205,7 +205,7 @@ class PlaythroughState:
             else:
                 return "n"
 
-    def go_to_room(self, room_name: str, send_message=None) -> None:
+    def go_to_room(self, room_name: str, send_message, receive_message) -> None:
         target_node = None
 
         if room_name in ["n", "s", "e", "w", "north", "south", "east", "west"]:
@@ -218,6 +218,7 @@ class PlaythroughState:
 
             center = PlaythroughState.aabb_to_room_center(aabb)
 
+            candidates: list[Node] = []
             for node in self.get_area().nodes:
                 if not isinstance(node, DockNode):
                     continue # not a dock node
@@ -228,13 +229,30 @@ class PlaythroughState:
                 dir = PlaythroughState.centers_to_cardinal(center[0], center[1], neighbor_center[0], neighbor_center[1])
 
                 if room_name == dir:
-                    # TODO: check for multiple rooms in this direction and ask politely which one they mean?
-                    target_node = self.get_world_list().node_by_identifier(node.default_connection)
-                    break
+                    candidates.append(self.get_world_list().node_by_identifier(node.default_connection))
 
-            if not target_node:
+            if len(candidates) == 0:
                 raise InvalidCommand("There's nothing in that direction.")
+            
+            if len(candidates) > 1:
+                message = "Which area do you mean?"
+                for candidate in candidates:
+                    message += f"\n    - {candidate.identifier.area_identifier.area_name}"
+                send_message(message)
+                response: str = receive_message()
 
+                selection = None
+                for candidate in candidates:
+                    if response.lower() == candidate.identifier.area_identifier.area_name.lower():
+                        selection = candidate
+                        break
+                
+                if not selection:
+                    raise InvalidCommand("Huh?")
+                
+                candidates = [selection]
+
+            target_node = candidates[0]
 
         for node in self.get_area().nodes:
             if target_node:
