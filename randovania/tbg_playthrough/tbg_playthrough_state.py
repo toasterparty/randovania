@@ -11,7 +11,26 @@ from randovania.layout.layout_description import LayoutDescription
 from randovania.resolver.logic import Logic
 from randovania.resolver.state import State
 from randovania.resolver.resolver_reach import ResolverReach
-from . import InvalidCommand
+from . import InvalidCommand, sanatize_text
+
+
+def _get_option_from_user_helper(send_message, receive_message, send_prompt: str, options: list[str]) -> int:
+    message = send_prompt
+    i = 0
+    for opt in options:
+        i += 1
+        message += f"\n[{i}] {opt}"
+    send_message(message)
+    response = sanatize_text(receive_message())
+
+    i = 0
+    for opt in options:
+        i += 1
+        if response.lower() == opt.lower() or (response.isnumeric() and int(response) == i):
+            return i
+
+    raise InvalidCommand("Huh?")
+
 
 class PlaythroughState:
     """
@@ -236,27 +255,16 @@ class PlaythroughState:
                 raise InvalidCommand("There's nothing in that direction.")
             
             if len(candidates) > 1:
-                message = "Which area do you mean?"
-                for candidate in candidates:
-                    message += f"\n    - {candidate.identifier.area_identifier.area_name}"
-                send_message(message)
-                response: str = receive_message()
-                # TODO: sanatize and stip garbage
-                # TODO: allow numbered responses
-                # TODO: helper function for list-based questions
-
-                selection = None
-                for candidate in candidates:
-                    if response.lower() == candidate.identifier.area_identifier.area_name.lower():
-                        selection = candidate
-                        break
+                selection = _get_option_from_user_helper(
+                        send_message,
+                        receive_message,
+                        "Which area do you mean?",
+                        [candidate.identifier.area_identifier.area_name for candidate in candidates],
+                    )
                 
-                if not selection:
-                    raise InvalidCommand("Huh?")
-                
-                candidates = [selection]
-
-            target_node = candidates[0]
+                target_node = candidates[selection-1]
+            else:
+                target_node = candidates[0]
 
         # Are they trying to go to an adjacent room?
         for node in self.get_area().nodes:

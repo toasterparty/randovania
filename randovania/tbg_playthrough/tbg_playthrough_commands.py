@@ -1,27 +1,7 @@
 from enum import Enum
 from typing import Callable
 from .tbg_playthrough_state import PlaythroughState
-from . import InvalidCommand
-
-# Conversational words which have no impact on the command parser
-FILTER_WORDS = {
-    'a'     , 'about', 'all' ,
-    'and'   , 'are'  , 'as'  ,
-    'at'    , 'be'   , 'but' ,
-    'by'    , 'for'  , 'from',
-    'had'   , 'have' , 'he'  ,
-    'her'   , 'his'  , 'i'   ,
-    'in'    , 'is'   , 'it'  ,
-    "it's"  , 'its'  , 'my'  ,
-    'of'    , 'on'   , 'or'  ,
-    'please', 'she'  , 'so'  ,
-    'some'  , 'that' , 'the' ,
-    'their' , 'them' , 'then',
-    'these' , 'they' , 'this',
-    'to'    , 'was'  , 'way' ,
-    'with'  , 'you'  , 'your',
-    'what',
-}
+from . import InvalidCommand, sanatize_text, FILTER_WORDS
 
 class CommandType(Enum):
     HELP = 0,
@@ -99,18 +79,9 @@ class Command:
 
     def parse_message(message: str) -> list[str]:
         message_data: list[str] = []
+        message = sanatize_text(message)
         words = message.split(" ")
         for word in words:
-            # remove non-alphanumeric
-            word = "".join(filter(str.isalnum, word))
-
-            # skip if empty
-            if len(word) == 0:
-                continue
-
-            # lowercase
-            word = word.lower()
-
             # Filter out meaningless words, but only if they are used in a sentence
             # TODO: could also check for all adverbs in english dictionary
             if word in FILTER_WORDS and len(words) != 1:

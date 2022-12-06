@@ -32,8 +32,6 @@ class Playthrough:
 
     def _process_one_message(self) -> None:
         message = self.receive_message()
-        if not message.isascii():
-            raise InvalidCommand("I'm sorry, there are illegal characters in your command.")
         command: Command = Command.from_message(message, self.playthrough_state)
         if command is None:
             raise InvalidCommand(
