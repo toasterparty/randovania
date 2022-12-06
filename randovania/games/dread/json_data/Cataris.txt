@@ -161,12 +161,13 @@ Extra - asset_id: collision_camera_002
 
 > Navigation Room; Heals? False; Spawn Point
   * Layers: default
-  * Logbook Generic for 3
+  * Hint
   * Extra - actor_name: accesspoint
   * Extra - actor_def: actordef:actors/props/accesspoint/charclasses/accesspoint.bmsad
   * Extra - start_point_actor_name: accesspoint_platform
   * Extra - start_point_actor_def: actordef:actors/props/weightactivatedplatform_access/charclasses/weightactivatedplatform_access.bmsad
   * Extra - hint_id: MAGMA_1
+  * Extra - string_asset_id: 3
   > Door to Transport to Artaria
       Trivial
 
@@ -624,7 +625,7 @@ Extra - asset_id: collision_camera_012
           Varia Suit or After Cataris - Move Magnet Walls Button
           Heat/Cold Runs (Beginner) and Heat Damage ≥ 100
 
-> Door to Lava Button East Access (Charge); Heals? False
+> Door to Lava Button East Access; Heals? False
   * Layers: default
   * Charge Beam Door to Lava Button East Access/Door to Lava Button East (Charge)
   * Extra - actor_name: doorchargecharge_002
@@ -656,9 +657,9 @@ Extra - asset_id: collision_camera_012
                   Heat/Cold Runs (Beginner) and Lava Damage ≥ 80
                   Varia Suit or Heat Damage ≥ 100
 
-> Door to Lava Button East Access (Cloak); Heals? False
+> Dock to Lava Button East Access; Heals? False
   * Layers: default
-  * Access Open to Lava Button East Access/Door to Lava Button East (Cloak)
+  * Open Passage to Lava Button East Access/Door to Lava Button East (Cloak)
   * Extra - actor_name: doorframepresence_001
   * Extra - actor_def: actordef:actors/props/doorframepresence/charclasses/doorframepresence.bmsad
   * Extra - left_shield_entity: {EMPTY}
@@ -677,13 +678,13 @@ Extra - asset_id: collision_camera_012
   * Layers: default
   * Extra - start_point_actor_name: SP_Checkpoint_PistonRight
   * Extra - start_point_actor_def: actordef:actors/logic/startpoint/charclasses/startpoint.bmsad
-  > Door to Lava Button East Access (Cloak)
+  > Dock to Lava Button East Access
       Can Slide
 
 > Event - Activate Magnet Walls Button; Heals? False
   * Layers: default
   * Event Cataris - Move Magnet Walls Button
-  > Door to Lava Button East Access (Cloak)
+  > Dock to Lava Button East Access
       Can Slide
 
 > Below Thermal Door; Heals? False
@@ -705,7 +706,7 @@ Extra - asset_id: collision_camera_012
       Any of the following:
           Varia Suit or After Cataris - Move Magnet Walls Button
           Heat/Cold Runs (Beginner) and Heat Damage ≥ 100
-  > Door to Lava Button East Access (Charge)
+  > Door to Lava Button East Access
       Any of the following:
           Varia Suit or After Cataris - Move Magnet Walls Button
           Heat/Cold Runs (Beginner) and Heat Damage ≥ 100
@@ -781,7 +782,7 @@ Extra - asset_id: collision_camera_014
   * Extra - right_shield_def: None
   > Door to Lava Button East Access
       Trivial
-  > Door to Energy Recharge Station (Charge)
+  > Door to Energy Recharge Station
       Any of the following:
           Space Jump or Speed Booster
           All of the following:
@@ -808,7 +809,7 @@ Extra - asset_id: collision_camera_014
   > Tile Group (POWERBEAM)
       Speed Booster or Simple IBJ
 
-> Door to Energy Recharge Station (Charge); Heals? False
+> Door to Energy Recharge Station; Heals? False
   * Layers: default
   * Charge Beam Door to Energy Recharge Station/Door to Moving Magnet Walls (Tall) (Charge)
   * Extra - actor_name: doorclosedcharge_002
@@ -819,21 +820,21 @@ Extra - asset_id: collision_camera_014
   * Extra - right_shield_def: None
   > Door to Tall Magnet Walls Access
       Trivial
-  > Door to Energy Recharge Station (Cloak)
+  > Dock to Energy Recharge Station
       Trivial
   > Tile Group (POWERBEAM)
       Spider Magnet or Space Jump
 
-> Door to Energy Recharge Station (Cloak); Heals? False
+> Dock to Energy Recharge Station; Heals? False
   * Layers: default
-  * Access Open to Energy Recharge Station/Door to Moving Magnet Walls (Tall) (Cloak)
+  * Open Passage to Energy Recharge Station/Door to Moving Magnet Walls (Tall) (Cloak)
   * Extra - actor_name: doorpresenceframe_000
   * Extra - actor_def: actordef:actors/props/doorpresenceframe/charclasses/doorpresenceframe.bmsad
   * Extra - left_shield_entity: {EMPTY}
   * Extra - left_shield_def: None
   * Extra - right_shield_entity: {EMPTY}
   * Extra - right_shield_def: None
-  > Door to Energy Recharge Station (Charge)
+  > Door to Energy Recharge Station
       Trivial
 
 > Door to Teleport to Artaria (Blue); Heals? False
@@ -857,7 +858,7 @@ Extra - asset_id: collision_camera_014
   * Extra - tile_types: ('POWERBEAM',)
   > Door to Tall Magnet Walls Access
       Trivial
-  > Door to Energy Recharge Station (Charge)
+  > Door to Energy Recharge Station
       Spider Magnet or Space Jump
   > Door to Teleport to Artaria (Blue)
       Trivial
@@ -1320,6 +1321,7 @@ Extra - asset_id: collision_camera_016
   * Extra - left_shield_def: actordef:actors/props/db_hdoor_mg_001/charclasses/db_hdoor_mg_001.bmsad
   * Extra - right_shield_entity: {EMPTY}
   * Extra - right_shield_def: None
+  * Extra - exclude_from_dock_rando: True
   > Door to Thermal Device Room North
       After Cataris - Obsydomithon Blob
 
@@ -1365,7 +1367,7 @@ Extra - asset_id: collision_camera_018
 
 > Door to Moving Magnet Walls (Tall) (Charge); Heals? False
   * Layers: default
-  * Access Locked to Moving Magnet Walls (Tall)/Door to Energy Recharge Station (Charge)
+  * Access Locked to Moving Magnet Walls (Tall)/Door to Energy Recharge Station
   * Extra - actor_name: doorclosedcharge_002
   * Extra - actor_def: actordef:actors/props/doorclosedcharge/charclasses/doorclosedcharge.bmsad
   * Extra - left_shield_entity: {EMPTY}
@@ -1382,7 +1384,7 @@ Extra - asset_id: collision_camera_018
 
 > Door to Moving Magnet Walls (Tall) (Cloak); Heals? False
   * Layers: default
-  * Sensor Lock Door to Moving Magnet Walls (Tall)/Door to Energy Recharge Station (Cloak)
+  * Sensor Lock Door to Moving Magnet Walls (Tall)/Dock to Energy Recharge Station
   * Extra - actor_name: doorpresenceframe_000
   * Extra - actor_def: actordef:actors/props/doorpresenceframe/charclasses/doorpresenceframe.bmsad
   * Extra - left_shield_entity: {EMPTY}
@@ -1433,6 +1435,7 @@ Extra - asset_id: collision_camera_019
   * Extra - left_shield_def: actordef:actors/props/db_hdoor_mg_002/charclasses/db_hdoor_mg_002.bmsad
   * Extra - right_shield_entity: Root:pScenario:rEntitiesLayer:dctSublayers:default:dctActors:db_hdoor_mg_002b_000
   * Extra - right_shield_def: actordef:actors/props/db_hdoor_mg_002b/charclasses/db_hdoor_mg_002b.bmsad
+  * Extra - exclude_from_dock_rando: True
   > Top Ledge
       After Cataris - Green EMMI Access Blob
 
@@ -1590,7 +1593,7 @@ Extra - asset_id: collision_camera_020
 
 > Door to EMMI Zone East Tower Access (Lower); Heals? False
   * Layers: default
-  * Charge Beam Door to EMMI Zone East Tower Access/Door to Green EMMI Introduction (Lower)
+  * Charge Beam Door to EMMI Zone East Tower Access/Door to Green EMMI Introduction
   * Extra - actor_name: doorchargecharge_005
   * Extra - actor_def: actordef:actors/props/doorchargecharge/charclasses/doorchargecharge.bmsad
   * Extra - left_shield_entity: {EMPTY}
@@ -1602,7 +1605,7 @@ Extra - asset_id: collision_camera_020
 
 > Door to EMMI Zone West Exit Path; Heals? False
   * Layers: default
-  * Sensor Lock Door to EMMI Zone West Exit Path/Door to Green EMMI Introduction
+  * Sensor Lock Door to EMMI Zone West Exit Path/Dock to Green EMMI Introduction
   * Extra - actor_name: doorframepresence
   * Extra - actor_def: actordef:actors/props/doorframepresence/charclasses/doorframepresence.bmsad
   * Extra - left_shield_entity: {EMPTY}
@@ -1622,7 +1625,7 @@ Extra - asset_id: collision_camera_020
 
 > Door to EMMI Zone East Tower Access (Upper); Heals? False
   * Layers: default
-  * Phase Shift Door to EMMI Zone East Tower Access/Door to Green EMMI Introduction (Upper)
+  * Phase Shift Door to EMMI Zone East Tower Access/Dock to Green EMMI Introduction
   * Extra - actor_name: doorshutter_001
   * Extra - actor_def: actordef:actors/props/doorshutter/charclasses/doorshutter.bmsad
   * Extra - left_shield_entity: {EMPTY}
@@ -1776,6 +1779,7 @@ Extra - asset_id: collision_camera_022
   * Extra - left_shield_def: None
   * Extra - right_shield_entity: {EMPTY}
   * Extra - right_shield_def: None
+  * Extra - exclude_from_dock_rando: True
   > Dock to Map Station
       Trivial
 
@@ -2143,6 +2147,7 @@ Extra - asset_id: collision_camera_025
   * Extra - left_shield_def: None
   * Extra - right_shield_entity: {EMPTY}
   * Extra - right_shield_def: None
+  * Extra - exclude_from_dock_rando: True
   > Door to Path to Kraid Entryway
       Trivial
 
@@ -2458,8 +2463,6 @@ Extra - asset_id: collision_camera_028
   > Dock to Long Mouth Statue Room (Upper)
       Morph Ball
   > Tunnel to Central Unit Access
-      After Cataris - Post-EMMI Door Trigger
-  > Event - Door Trigger
       Morph Ball and After Cataris - Central Unit
 
 > Dock to Ghavoran Teleport Access; Heals? False
@@ -2490,7 +2493,7 @@ Extra - asset_id: collision_camera_028
 
 > Door to EMMI Zone West Exit Path; Heals? False
   * Layers: default
-  * Phase Shift Door to EMMI Zone West Exit Path/Door to EMMI Zone Exits West
+  * Phase Shift Door to EMMI Zone West Exit Path/Dock to EMMI Zone Exits West
   * Extra - actor_name: doorshutter_002
   * Extra - actor_def: actordef:actors/props/doorshutter/charclasses/doorshutter.bmsad
   * Extra - left_shield_entity: {EMPTY}
@@ -2524,8 +2527,6 @@ Extra - asset_id: collision_camera_028
   * Layers: default
   * Cataris EMMI Tunnel to Central Unit Access/Tunnel to EMMI Zone Exits West
   > Door to EMMI Zone Item Tunnel
-      After Cataris - Post-EMMI Door Trigger
-  > Event - Door Trigger
       Morph Ball and After Cataris - Central Unit
 
 > Upper Ledge; Heals? False
@@ -2537,12 +2538,6 @@ Extra - asset_id: collision_camera_028
   > Tunnel to EMMI Zone West Exit Path
       Trivial
   > Tunnel to EMMI Zone Item Tunnel
-      Trivial
-
-> Event - Door Trigger; Heals? False
-  * Layers: default
-  * Event Cataris - Post-EMMI Door Trigger
-  > Tunnel to Central Unit Access
       Trivial
 
 ----------------
@@ -2579,6 +2574,7 @@ Extra - asset_id: collision_camera_029
   * Extra - left_shield_def: None
   * Extra - right_shield_entity: {EMPTY}
   * Extra - right_shield_def: None
+  * Extra - exclude_from_dock_rando: True
   > Door to EMMI Zone Exits West
       Can Slide
   > Center of Tunnel
@@ -2609,9 +2605,7 @@ Extra - asset_id: collision_camera_029
   * Extra - actor_layer: breakables
   * Extra - tile_types: ('POWERBOMB',)
   > Pickup (Power Bomb Tank)
-      All of the following:
-          # Item logically unattainable with door rando
-          Disabled Door Lock Randomizer and Ballspark
+      Ballspark
   > Center of Tunnel
       Morph Ball
 
@@ -2984,10 +2978,6 @@ Extra - asset_id: collision_camera_036
 > Door to EMMI Zone Tower West; Heals? False
   * Layers: default
   * Wide Beam Door to EMMI Zone Tower West/Door to Central Unit Access
-  * Door opens up after Green EMMI is defeated and rolling through a trigger in
-EMMI Zone Exits West
-
-
   * Extra - actor_name: doorpowerpower_030
   * Extra - actor_def: actordef:actors/props/doorpowerpower/charclasses/doorpowerpower.bmsad
   * Extra - left_shield_entity: {EMPTY}
@@ -3069,7 +3059,7 @@ EMMI Zone Exits West
 > Room Center; Heals? False
   * Layers: default
   > Door to EMMI Zone Tower West
-      Before Cataris - Central Unit or After Cataris - Post-EMMI Door Trigger
+      Trivial
   > Tunnel to EMMI Zone Exits West
       Trivial
   > Upper-right Corner
@@ -3077,7 +3067,9 @@ EMMI Zone Exits West
   > Door to Central Unit
       After Cataris - Central Unit Bottom Blob and Can Slide
   > Event - Bottom Blob through wall
-      Shoot Diffusion or Wave
+      Any of the following:
+          Shoot Diffusion or Wave
+          Slide and Pseudo-Wave Beam (Beginner)
 
 ----------------
 Central Unit
@@ -3778,7 +3770,7 @@ Extra - asset_id: collision_camera_045
 
 > Door to Lava Button East (Charge); Heals? False
   * Layers: default
-  * Charge Beam Door to Lava Button East/Door to Lava Button East Access (Charge)
+  * Charge Beam Door to Lava Button East/Door to Lava Button East Access
   * Extra - actor_name: doorchargecharge_002
   * Extra - actor_def: actordef:actors/props/doorchargecharge/charclasses/doorchargecharge.bmsad
   * Extra - left_shield_entity: {EMPTY}
@@ -3792,7 +3784,7 @@ Extra - asset_id: collision_camera_045
 
 > Door to Lava Button East (Cloak); Heals? False
   * Layers: default
-  * Sensor Lock Door to Lava Button East/Door to Lava Button East Access (Cloak)
+  * Sensor Lock Door to Lava Button East/Dock to Lava Button East Access
   * Extra - actor_name: doorframepresence_001
   * Extra - actor_def: actordef:actors/props/doorframepresence/charclasses/doorframepresence.bmsad
   * Extra - left_shield_entity: {EMPTY}
@@ -3871,7 +3863,7 @@ Extra - asset_id: collision_camera_046
   * Extra - left_shield_def: None
   * Extra - right_shield_entity: {EMPTY}
   * Extra - right_shield_def: None
-  > Door to Green EMMI Introduction (Lower)
+  > Door to Green EMMI Introduction
       Trivial
   > Door to EMMI Zone Tower East (Bottom)
       Trivial
@@ -3884,7 +3876,7 @@ Extra - asset_id: collision_camera_046
           Morph Ball and After Cataris - Central Unit
           Speed Booster or Simple IBJ or Use Spin Boost
 
-> Door to Green EMMI Introduction (Lower); Heals? False
+> Door to Green EMMI Introduction; Heals? False
   * Layers: default
   * Charge Beam Door to Green EMMI Introduction/Door to EMMI Zone East Tower Access (Lower)
   * Extra - actor_name: doorchargecharge_005
@@ -3905,7 +3897,7 @@ Extra - asset_id: collision_camera_046
   * Extra - left_shield_def: None
   * Extra - right_shield_entity: {EMPTY}
   * Extra - right_shield_def: None
-  > Door to Green EMMI Introduction (Upper)
+  > Dock to Green EMMI Introduction
       Can Slide
 
 > Door to EMMI Zone Tower East (Bottom); Heals? False
@@ -3920,9 +3912,9 @@ Extra - asset_id: collision_camera_046
   > Door to EMMI Zone Tower East (Middle)
       Trivial
 
-> Door to Green EMMI Introduction (Upper); Heals? False
+> Dock to Green EMMI Introduction; Heals? False
   * Layers: default
-  * Access Open to Green EMMI Introduction/Door to EMMI Zone East Tower Access (Upper)
+  * Open Passage to Green EMMI Introduction/Door to EMMI Zone East Tower Access (Upper)
   * Extra - actor_name: doorshutter_001
   * Extra - actor_def: actordef:actors/props/doorshutter/charclasses/doorshutter.bmsad
   * Extra - left_shield_entity: {EMPTY}
@@ -3951,7 +3943,7 @@ Extra - asset_id: collision_camera_046
 > Tunnel to Green EMMI Introduction (Upper); Heals? False
   * Layers: default
   * Cataris EMMI Tunnel to Green EMMI Introduction/Tunnel to EMMI Zone East Tower Access (Upper)
-  > Door to Green EMMI Introduction (Upper)
+  > Dock to Green EMMI Introduction
       Trivial
 
 > Tunnel to EMMI Zone Tower East (Upper); Heals? False
@@ -3959,7 +3951,7 @@ Extra - asset_id: collision_camera_046
   * Cataris EMMI Tunnel to EMMI Zone Tower East/Tunnel to EMMI Zone East Tower Access (Upper)
   > Door to EMMI Zone Tower East (Middle)
       Morph Ball and After Cataris - Central Unit
-  > Door to Green EMMI Introduction (Upper)
+  > Dock to Green EMMI Introduction
       Morph Ball and After Cataris - Central Unit
 
 ----------------
@@ -3976,6 +3968,7 @@ Extra - asset_id: collision_camera_048
   * Extra - left_shield_def: actordef:actors/props/db_hdoor_mg_001/charclasses/db_hdoor_mg_001.bmsad
   * Extra - right_shield_entity: {EMPTY}
   * Extra - right_shield_def: None
+  * Extra - exclude_from_dock_rando: True
   > Left Floor
       After Cataris - Obsydomithon Blob
 
@@ -4476,6 +4469,7 @@ Extra - asset_id: collision_camera_052
   * Extra - left_shield_def: actordef:actors/props/db_hdoor_mg_002/charclasses/db_hdoor_mg_002.bmsad
   * Extra - right_shield_entity: Root:pScenario:rEntitiesLayer:dctSublayers:default:dctActors:db_hdoor_mg_002b_000
   * Extra - right_shield_def: actordef:actors/props/db_hdoor_mg_002b/charclasses/db_hdoor_mg_002b.bmsad
+  * Extra - exclude_from_dock_rando: True
   > Dock to Green EMMI Introduction
       After Cataris - Green EMMI Access Blob
 
@@ -4665,7 +4659,7 @@ Extra - asset_id: collision_camera_053
   > Door to Green EMMI Introduction Access
       All of the following:
           # TODO: After proper blast shield logic is implemented, adjust this. This is a temporary connection.
-          Wave Beam
+          Wave Beam and Disabled Door Lock Randomizer
   > Tile Group (POWERBEAM) 2
       Trivial
 
@@ -4779,12 +4773,13 @@ Extra - asset_id: collision_camera_058
 
 > Navigation Room; Heals? False; Spawn Point
   * Layers: default
-  * Logbook Generic for 4
+  * Hint
   * Extra - actor_name: accesspoint_000
   * Extra - actor_def: actordef:actors/props/accesspoint/charclasses/accesspoint.bmsad
   * Extra - start_point_actor_name: accesspoint_platform_000
   * Extra - start_point_actor_def: actordef:actors/props/weightactivatedplatform_access/charclasses/weightactivatedplatform_access.bmsad
   * Extra - hint_id: MAGMA_2
+  * Extra - string_asset_id: 4
   > Door to Teleport to Artaria (Red)
       Trivial
 
@@ -4793,28 +4788,28 @@ EMMI Zone West Exit Path
 Extra - total_boundings: {'x1': -7650.0, 'x2': -4600.0, 'y1': -100.0, 'y2': 1042.0}
 Extra - polygon: [[-4600.0, 1042.0], [-7650.0, 1042.0], [-7650.0, -100.0], [-4600.0, -100.0]]
 Extra - asset_id: collision_camera_059
-> Door to Green EMMI Introduction; Heals? False
+> Dock to Green EMMI Introduction; Heals? False
   * Layers: default
-  * Access Open to Green EMMI Introduction/Door to EMMI Zone West Exit Path
+  * Open Passage to Green EMMI Introduction/Door to EMMI Zone West Exit Path
   * Extra - actor_name: doorframepresence
   * Extra - actor_def: actordef:actors/props/doorframepresence/charclasses/doorframepresence.bmsad
   * Extra - left_shield_entity: {EMPTY}
   * Extra - left_shield_def: None
   * Extra - right_shield_entity: {EMPTY}
   * Extra - right_shield_def: None
-  > Door to EMMI Zone Exits West
+  > Dock to EMMI Zone Exits West
       Trivial
 
-> Door to EMMI Zone Exits West; Heals? False
+> Dock to EMMI Zone Exits West; Heals? False
   * Layers: default
-  * Access Open to EMMI Zone Exits West/Door to EMMI Zone West Exit Path
+  * Open Passage to EMMI Zone Exits West/Door to EMMI Zone West Exit Path
   * Extra - actor_name: doorshutter_002
   * Extra - actor_def: actordef:actors/props/doorshutter/charclasses/doorshutter.bmsad
   * Extra - left_shield_entity: {EMPTY}
   * Extra - left_shield_def: None
   * Extra - right_shield_entity: {EMPTY}
   * Extra - right_shield_def: None
-  > Door to Green EMMI Introduction
+  > Dock to Green EMMI Introduction
       Trivial
   > Tunnel to EMMI Zone Exits West
       Trivial
@@ -4822,7 +4817,7 @@ Extra - asset_id: collision_camera_059
 > Tunnel to EMMI Zone Exits West; Heals? False
   * Layers: default
   * Cataris EMMI Tunnel to EMMI Zone Exits West/Tunnel to EMMI Zone West Exit Path
-  > Door to EMMI Zone Exits West
+  > Dock to EMMI Zone Exits West
       Trivial
 
 ----------------
@@ -4996,6 +4991,7 @@ Extra - asset_id: collision_camera_062
   * Extra - left_shield_def: None
   * Extra - right_shield_entity: {EMPTY}
   * Extra - right_shield_def: None
+  * Extra - exclude_from_dock_rando: True
   > Save Station
       Trivial
 

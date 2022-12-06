@@ -168,7 +168,7 @@
                     }
                 },
                 "Samus Ship (Catch.)": {
-                    "node_type": "player_ship",
+                    "node_type": "teleporter_network",
                     "heal": true,
                     "coordinates": null,
                     "description": "",
@@ -181,6 +181,24 @@
                         "data": {
                             "comment": null,
                             "items": []
+                        }
+                    },
+                    "network": "default",
+                    "requirement_to_activate": {
+                        "type": "and",
+                        "data": {
+                            "comment": null,
+                            "items": [
+                                {
+                                    "type": "resource",
+                                    "data": {
+                                        "type": "items",
+                                        "name": "CommandVisor",
+                                        "amount": 1,
+                                        "negate": false
+                                    }
+                                }
+                            ]
                         }
                     },
                     "connections": {
@@ -1329,12 +1347,29 @@
                                         }
                                     },
                                     {
-                                        "type": "resource",
+                                        "type": "or",
                                         "data": {
-                                            "type": "items",
-                                            "name": "BoostBall",
-                                            "amount": 1,
-                                            "negate": false
+                                            "comment": "You can use Spring Ball to rotate instead of Boost",
+                                            "items": [
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "items",
+                                                        "name": "BoostBall",
+                                                        "amount": 1,
+                                                        "negate": false
+                                                    }
+                                                },
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "tricks",
+                                                        "name": "Knowledge",
+                                                        "amount": 1,
+                                                        "negate": false
+                                                    }
+                                                }
+                                            ]
                                         }
                                     }
                                 ]
@@ -3971,7 +4006,7 @@
                     }
                 },
                 "Samus Ship": {
-                    "node_type": "player_ship",
+                    "node_type": "teleporter_network",
                     "heal": true,
                     "coordinates": null,
                     "description": "",
@@ -3986,6 +4021,24 @@
                             "name": "Event68",
                             "amount": 1,
                             "negate": false
+                        }
+                    },
+                    "network": "default",
+                    "requirement_to_activate": {
+                        "type": "and",
+                        "data": {
+                            "comment": null,
+                            "items": [
+                                {
+                                    "type": "resource",
+                                    "data": {
+                                        "type": "items",
+                                        "name": "CommandVisor",
+                                        "amount": 1,
+                                        "negate": false
+                                    }
+                                }
+                            ]
                         }
                     },
                     "connections": {
@@ -5284,7 +5337,7 @@
                                         "type": "resource",
                                         "data": {
                                             "type": "events",
-                                            "name": "Event6",
+                                            "name": "Event94",
                                             "amount": 1,
                                             "negate": false
                                         }
@@ -6824,6 +6877,15 @@
                                         "data": {
                                             "type": "items",
                                             "name": "BoostBall",
+                                            "amount": 1,
+                                            "negate": false
+                                        }
+                                    },
+                                    {
+                                        "type": "resource",
+                                        "data": {
+                                            "type": "events",
+                                            "name": "Event7",
                                             "amount": 1,
                                             "negate": false
                                         }

@@ -1877,7 +1877,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -2559,7 +2560,8 @@
                         "left_shield_entity": "Root:pScenario:rEntitiesLayer:dctSublayers:default:dctActors:doorshieldmissile_000",
                         "left_shield_def": "actordef:actors/props/doorshieldmissile/charclasses/doorshieldmissile.bmsad",
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -2835,7 +2837,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -3012,7 +3015,8 @@
                         "left_shield_entity": "Root:pScenario:rEntitiesLayer:dctSublayers:default:dctActors:doorwidebeam_001",
                         "left_shield_def": "actordef:actors/props/doorwidebeam/charclasses/doorwidebeam.bmsad",
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -3053,7 +3057,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -3117,7 +3122,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -3165,7 +3171,8 @@
                         "left_shield_entity": "Root:pScenario:rEntitiesLayer:dctSublayers:default:dctActors:doorshieldmissile_000",
                         "left_shield_def": "actordef:actors/props/doorshieldmissile/charclasses/doorshieldmissile.bmsad",
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -3603,7 +3610,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -3642,7 +3650,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -3749,7 +3758,8 @@
                         "left_shield_entity": "Root:pScenario:rEntitiesLayer:dctSublayers:default:dctActors:db_hdoor_b1_001",
                         "left_shield_def": "actordef:actors/props/db_hdoor_b1_001/charclasses/db_hdoor_b1_001.bmsad",
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -3807,7 +3817,8 @@
                         "left_shield_entity": "Root:pScenario:rEntitiesLayer:dctSublayers:default:dctActors:doorwidebeam_001",
                         "left_shield_def": "actordef:actors/props/doorwidebeam/charclasses/doorwidebeam.bmsad",
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -6036,7 +6047,8 @@
                         "left_shield_entity": "Root:pScenario:rEntitiesLayer:dctSublayers:default:dctActors:db_hdoor_b1_001",
                         "left_shield_def": "actordef:actors/props/db_hdoor_b1_001/charclasses/db_hdoor_b1_001.bmsad",
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -7707,7 +7719,7 @@
                     }
                 },
                 "Navigation Room": {
-                    "node_type": "logbook",
+                    "node_type": "hint",
                     "heal": false,
                     "coordinates": {
                         "x": 50.0,
@@ -7723,10 +7735,17 @@
                         "actor_def": "actordef:actors/props/accesspoint/charclasses/accesspoint.bmsad",
                         "start_point_actor_name": "accesspoint_000_platform",
                         "start_point_actor_def": "actordef:actors/props/weightactivatedplatform_access/charclasses/weightactivatedplatform_access.bmsad",
-                        "hint_id": "LAB_1"
+                        "hint_id": "LAB_1",
+                        "string_asset_id": 5
                     },
-                    "string_asset_id": 5,
-                    "lore_type": "generic",
+                    "kind": "generic",
+                    "requirement_to_collect": {
+                        "type": "and",
+                        "data": {
+                            "comment": null,
+                            "items": []
+                        }
+                    },
                     "connections": {
                         "Door to Heated Room West": {
                             "type": "and",
@@ -9648,7 +9667,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -10112,7 +10132,8 @@
                         "left_shield_entity": "Root:pScenario:rEntitiesLayer:dctSublayers:default:dctActors:doorshieldmissile_001",
                         "left_shield_def": "actordef:actors/props/doorshieldmissile/charclasses/doorshieldmissile.bmsad",
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -10407,7 +10428,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -10455,7 +10477,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -10494,7 +10517,8 @@
                         "left_shield_entity": "Root:pScenario:rEntitiesLayer:dctSublayers:default:dctActors:doorshieldmissile_001",
                         "left_shield_def": "actordef:actors/props/doorshieldmissile/charclasses/doorshieldmissile.bmsad",
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -10535,7 +10559,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -10770,7 +10795,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -10818,7 +10844,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -10918,7 +10945,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -11157,7 +11185,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -11408,7 +11437,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -11561,7 +11591,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -11586,8 +11617,8 @@
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
-                        "x": -13967.319908905669,
-                        "y": 5406.915977466138,
+                        "x": -13967.32,
+                        "y": 5406.92,
                         "z": 0.0
                     },
                     "description": "",
@@ -11600,7 +11631,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -13892,7 +13924,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -15077,7 +15110,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -15341,7 +15375,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -16841,7 +16876,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -17417,7 +17453,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -17857,7 +17894,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -17903,7 +17941,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -18303,7 +18342,7 @@
                     }
                 },
                 "Navigation Room": {
-                    "node_type": "logbook",
+                    "node_type": "hint",
                     "heal": false,
                     "coordinates": {
                         "x": 4050.0,
@@ -18319,10 +18358,17 @@
                         "actor_def": "actordef:actors/props/accesspoint/charclasses/accesspoint.bmsad",
                         "start_point_actor_name": "accesspoint_001_platform",
                         "start_point_actor_def": "actordef:actors/props/weightactivatedplatform_access/charclasses/weightactivatedplatform_access.bmsad",
-                        "hint_id": "LAB_2"
+                        "hint_id": "LAB_2",
+                        "string_asset_id": 6
                     },
-                    "string_asset_id": 6,
-                    "lore_type": "generic",
+                    "kind": "generic",
+                    "requirement_to_collect": {
+                        "type": "and",
+                        "data": {
+                            "comment": null,
+                            "items": []
+                        }
+                    },
                     "connections": {
                         "Door to West Transport to Ferenia (Lower)": {
                             "type": "and",

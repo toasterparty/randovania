@@ -89,20 +89,16 @@ class GameGenerator:
 class DevelopmentState(Enum):
     STABLE = "stable"
     EXPERIMENTAL = "experimental"
-    DEVELOPMENT = "development"
 
     @property
     def is_stable(self):
         return self == DevelopmentState.STABLE
 
-    def can_view(self, allow_experimental: bool) -> bool:
+    def can_view(self) -> bool:
         if self.is_stable:
             return True
 
-        if not allow_experimental:
-            return False
-
-        return self == DevelopmentState.EXPERIMENTAL or randovania.is_dev_version()
+        return randovania.is_dev_version()
 
 
 @dataclass(frozen=True)
@@ -157,6 +153,7 @@ class RandovaniaGame(BitPackEnum, Enum):
     METROID_PRIME_CORRUPTION = "prime3"
     SUPER_METROID = "super_metroid"
     METROID_DREAD = "dread"
+    METROID_SAMUS_RETURNS = "samus_returns"
     CAVE_STORY = "cave_story"
     BLANK = "blank"
 
@@ -174,6 +171,8 @@ class RandovaniaGame(BitPackEnum, Enum):
             import randovania.games.super_metroid.game_data as game_module
         elif self == RandovaniaGame.METROID_DREAD:
             import randovania.games.dread.game_data as game_module
+        elif self == RandovaniaGame.METROID_SAMUS_RETURNS:
+            import randovania.games.samus_returns.game_data as game_module
         elif self == RandovaniaGame.CAVE_STORY:
             import randovania.games.cave_story.game_data as game_module
         else:

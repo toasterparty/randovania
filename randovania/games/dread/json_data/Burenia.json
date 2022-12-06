@@ -2884,7 +2884,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -4297,7 +4298,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -5314,7 +5316,7 @@
                     }
                 },
                 "Navigation Room": {
-                    "node_type": "logbook",
+                    "node_type": "hint",
                     "heal": false,
                     "coordinates": {
                         "x": -3950.0,
@@ -5330,10 +5332,17 @@
                         "actor_def": "actordef:actors/props/accesspoint/charclasses/accesspoint.bmsad",
                         "start_point_actor_name": "accesspoint_000_platform",
                         "start_point_actor_def": "actordef:actors/props/weightactivatedplatform_access/charclasses/weightactivatedplatform_access.bmsad",
-                        "hint_id": "AQUA_1"
+                        "hint_id": "AQUA_1",
+                        "string_asset_id": 7
                     },
-                    "string_asset_id": 7,
-                    "lore_type": "generic",
+                    "kind": "generic",
+                    "requirement_to_collect": {
+                        "type": "and",
+                        "data": {
+                            "comment": null,
+                            "items": []
+                        }
+                    },
                     "connections": {
                         "Door to Teleport to Ferenia": {
                             "type": "and",
@@ -5464,7 +5473,7 @@
                     "default_connection": {
                         "world_name": "Burenia",
                         "area_name": "Underwater Horseshoe",
-                        "node_name": "Door to Main Hub Tower Top"
+                        "node_name": "Dock to Main Hub Tower Top"
                     },
                     "default_dock_weakness": "Phase Shift Door",
                     "override_default_open_requirement": null,
@@ -5497,7 +5506,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -5629,7 +5639,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -6408,7 +6419,10 @@
                         "left_shield_entity": "Root:pScenario:rEntitiesLayer:dctSublayers:default:dctActors:door_shield_plasma_003",
                         "left_shield_def": "actordef:actors/props/door_shield_plasma/charclasses/door_shield_plasma.bmsad",
                         "right_shield_entity": "Root:pScenario:rEntitiesLayer:dctSublayers:default:dctActors:door_shield_plasma_002",
-                        "right_shield_def": "actordef:actors/props/door_shield_plasma/charclasses/door_shield_plasma.bmsad"
+                        "right_shield_def": "actordef:actors/props/door_shield_plasma/charclasses/door_shield_plasma.bmsad",
+                        "excluded_dock_weaknesses": [
+                            "Grapple Beam Door"
+                        ]
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -9273,7 +9287,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -9355,7 +9370,7 @@
                 "asset_id": "collision_camera_012"
             },
             "nodes": {
-                "Door to Main Hub Tower Top": {
+                "Dock to Main Hub Tower Top": {
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
@@ -9375,13 +9390,13 @@
                         "right_shield_entity": "{EMPTY}",
                         "right_shield_def": null
                     },
-                    "dock_type": "door",
+                    "dock_type": "other",
                     "default_connection": {
                         "world_name": "Burenia",
                         "area_name": "Main Hub Tower Top",
                         "node_name": "Door to Underwater Horseshoe"
                     },
-                    "default_dock_weakness": "Access Open",
+                    "default_dock_weakness": "Open Passage",
                     "override_default_open_requirement": null,
                     "override_default_lock_requirement": null,
                     "connections": {
@@ -9424,7 +9439,7 @@
                     "override_default_open_requirement": null,
                     "override_default_lock_requirement": null,
                     "connections": {
-                        "Door to Main Hub Tower Top": {
+                        "Dock to Main Hub Tower Top": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -9484,7 +9499,10 @@
                         "left_shield_entity": "Root:pScenario:rEntitiesLayer:dctSublayers:default:dctActors:door_shield_plasma_003",
                         "left_shield_def": "actordef:actors/props/door_shield_plasma/charclasses/door_shield_plasma.bmsad",
                         "right_shield_entity": "Root:pScenario:rEntitiesLayer:dctSublayers:default:dctActors:door_shield_plasma_002",
-                        "right_shield_def": "actordef:actors/props/door_shield_plasma/charclasses/door_shield_plasma.bmsad"
+                        "right_shield_def": "actordef:actors/props/door_shield_plasma/charclasses/door_shield_plasma.bmsad",
+                        "excluded_dock_weaknesses": [
+                            "Grapple Beam Door"
+                        ]
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -9604,8 +9622,8 @@
                     "node_type": "pickup",
                     "heal": false,
                     "coordinates": {
-                        "x": -5250.0,
-                        "y": -5500.0,
+                        "x": -5126.920973475526,
+                        "y": -5504.293136450643,
                         "z": 0.0
                     },
                     "description": "",
@@ -9666,8 +9684,8 @@
                     "node_type": "configurable_node",
                     "heal": false,
                     "coordinates": {
-                        "x": -5500.0,
-                        "y": -4700.0,
+                        "x": -5448.496035001367,
+                        "y": -4700.3554826360405,
                         "z": 0.0
                     },
                     "description": "",
@@ -9705,8 +9723,8 @@
                     "node_type": "configurable_node",
                     "heal": false,
                     "coordinates": {
-                        "x": -5200.0,
-                        "y": -5400.0,
+                        "x": -5126.920973475526,
+                        "y": -5389.444900191414,
                         "z": 0.0
                     },
                     "description": "",
@@ -10014,7 +10032,7 @@
                         "Event - Ghavoran Teleport Speed Blocks Destroyed": {
                             "type": "and",
                             "data": {
-                                "comment": "Proceeding down from here will be logically impossible with door rando enabled",
+                                "comment": null,
                                 "items": [
                                     {
                                         "type": "resource",
@@ -10028,10 +10046,10 @@
                                     {
                                         "type": "resource",
                                         "data": {
-                                            "type": "misc",
-                                            "name": "DoorLocks",
+                                            "type": "events",
+                                            "name": "BureniaEPart",
                                             "amount": 1,
-                                            "negate": true
+                                            "negate": false
                                         }
                                     }
                                 ]
@@ -10057,7 +10075,10 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "excluded_dock_weaknesses": [
+                            "Grapple Beam Door"
+                        ]
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -10831,7 +10852,7 @@
                     }
                 },
                 "Navigation Room": {
-                    "node_type": "logbook",
+                    "node_type": "hint",
                     "heal": false,
                     "coordinates": {
                         "x": 10050.0,
@@ -10847,10 +10868,17 @@
                         "actor_def": "actordef:actors/props/accesspoint/charclasses/accesspoint.bmsad",
                         "start_point_actor_name": "accesspoint_001_platform",
                         "start_point_actor_def": "actordef:actors/props/weightactivatedplatform_access/charclasses/weightactivatedplatform_access.bmsad",
-                        "hint_id": "AQUA_2"
+                        "hint_id": "AQUA_2",
+                        "string_asset_id": 8
                     },
-                    "string_asset_id": 8,
-                    "lore_type": "generic",
+                    "kind": "generic",
+                    "requirement_to_collect": {
+                        "type": "and",
+                        "data": {
+                            "comment": null,
+                            "items": []
+                        }
+                    },
                     "connections": {
                         "Door to Transport to Artaria": {
                             "type": "and",
@@ -11151,6 +11179,13 @@
                                 "comment": null,
                                 "items": []
                             }
+                        },
+                        "Event - Early Gravity Pickup 1": {
+                            "type": "and",
+                            "data": {
+                                "comment": null,
+                                "items": []
+                            }
                         }
                     }
                 },
@@ -11172,7 +11207,10 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "excluded_dock_weaknesses": [
+                            "Grapple Beam Door"
+                        ]
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -11571,6 +11609,30 @@
                                 "name": "Morph",
                                 "amount": 1,
                                 "negate": false
+                            }
+                        }
+                    }
+                },
+                "Event - Early Gravity Pickup 1": {
+                    "node_type": "event",
+                    "heal": false,
+                    "coordinates": {
+                        "x": 3200.0,
+                        "y": -4700.0,
+                        "z": 0.0
+                    },
+                    "description": "Event readded so that the door does not need excluded for door rando\n\n",
+                    "layers": [
+                        "default"
+                    ],
+                    "extra": {},
+                    "event_name": "BureniaEPart",
+                    "connections": {
+                        "Door to Teleport to Ghavoran (Upper)": {
+                            "type": "and",
+                            "data": {
+                                "comment": null,
+                                "items": []
                             }
                         }
                     }
@@ -12013,7 +12075,7 @@
                     "override_default_open_requirement": null,
                     "override_default_lock_requirement": null,
                     "connections": {
-                        "Door to Ammo Recharge South (Lower)": {
+                        "Dock to Ammo Recharge South (Lower)": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -12325,7 +12387,7 @@
                         }
                     }
                 },
-                "Door to Ammo Recharge South (Lower)": {
+                "Dock to Ammo Recharge South (Lower)": {
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
@@ -12345,13 +12407,13 @@
                         "right_shield_entity": "{EMPTY}",
                         "right_shield_def": null
                     },
-                    "dock_type": "door",
+                    "dock_type": "other",
                     "default_connection": {
                         "world_name": "Burenia",
                         "area_name": "Ammo Recharge South",
                         "node_name": "Door to Gravity Suit Tower (Lower)"
                     },
-                    "default_dock_weakness": "Access Open",
+                    "default_dock_weakness": "Open Passage",
                     "override_default_open_requirement": null,
                     "override_default_lock_requirement": null,
                     "connections": {
@@ -12364,7 +12426,7 @@
                                 "negate": true
                             }
                         },
-                        "Dock to Ammo Recharge South": {
+                        "Dock to Ammo Recharge South (Middle)": {
                             "type": "resource",
                             "data": {
                                 "type": "events",
@@ -12461,7 +12523,7 @@
                     "override_default_open_requirement": null,
                     "override_default_lock_requirement": null,
                     "connections": {
-                        "Door to Ammo Recharge South (Lower)": {
+                        "Dock to Ammo Recharge South (Lower)": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -12583,7 +12645,7 @@
                         }
                     }
                 },
-                "Door to Ammo Recharge South (Upper)": {
+                "Dock to Ammo Recharge South (Upper)": {
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
@@ -12603,13 +12665,13 @@
                         "right_shield_entity": "{EMPTY}",
                         "right_shield_def": null
                     },
-                    "dock_type": "door",
+                    "dock_type": "other",
                     "default_connection": {
                         "world_name": "Burenia",
                         "area_name": "Ammo Recharge South",
                         "node_name": "Door to Gravity Suit Tower (Upper)"
                     },
-                    "default_dock_weakness": "Access Open",
+                    "default_dock_weakness": "Open Passage",
                     "override_default_open_requirement": null,
                     "override_default_lock_requirement": null,
                     "connections": {
@@ -12798,7 +12860,7 @@
                         "start_point_actor_def": "actordef:actors/logic/startpoint/charclasses/startpoint.bmsad"
                     },
                     "connections": {
-                        "Door to Ammo Recharge South (Upper)": {
+                        "Dock to Ammo Recharge South (Upper)": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -13412,7 +13474,7 @@
                                 ]
                             }
                         },
-                        "Dock to Ammo Recharge South": {
+                        "Dock to Ammo Recharge South (Middle)": {
                             "type": "or",
                             "data": {
                                 "comment": null,
@@ -13566,7 +13628,7 @@
                     "override_default_open_requirement": null,
                     "override_default_lock_requirement": null,
                     "connections": {
-                        "Door to Ammo Recharge South (Upper)": {
+                        "Dock to Ammo Recharge South (Upper)": {
                             "type": "resource",
                             "data": {
                                 "type": "items",
@@ -13577,7 +13639,7 @@
                         }
                     }
                 },
-                "Dock to Ammo Recharge South": {
+                "Dock to Ammo Recharge South (Middle)": {
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
@@ -13609,7 +13671,7 @@
                                 "negate": false
                             }
                         },
-                        "Door to Ammo Recharge South (Lower)": {
+                        "Dock to Ammo Recharge South (Lower)": {
                             "type": "resource",
                             "data": {
                                 "type": "events",
@@ -14109,7 +14171,7 @@
                     "default_connection": {
                         "world_name": "Burenia",
                         "area_name": "Gravity Suit Tower",
-                        "node_name": "Door to Ammo Recharge South (Lower)"
+                        "node_name": "Dock to Ammo Recharge South (Lower)"
                     },
                     "default_dock_weakness": "Sensor Lock Door",
                     "override_default_open_requirement": null,
@@ -14155,7 +14217,7 @@
                     "default_connection": {
                         "world_name": "Burenia",
                         "area_name": "Gravity Suit Tower",
-                        "node_name": "Door to Ammo Recharge South (Upper)"
+                        "node_name": "Dock to Ammo Recharge South (Upper)"
                     },
                     "default_dock_weakness": "Sensor Lock Door",
                     "override_default_open_requirement": null,
@@ -14249,7 +14311,7 @@
                     "default_connection": {
                         "world_name": "Burenia",
                         "area_name": "Gravity Suit Tower",
-                        "node_name": "Dock to Ammo Recharge South"
+                        "node_name": "Dock to Ammo Recharge South (Middle)"
                     },
                     "default_dock_weakness": "Open Passage",
                     "override_default_open_requirement": null,
@@ -15265,7 +15327,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -15421,7 +15484,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -15981,7 +16045,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {

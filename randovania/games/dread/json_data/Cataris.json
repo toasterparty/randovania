@@ -706,7 +706,7 @@
                     }
                 },
                 "Navigation Room": {
-                    "node_type": "logbook",
+                    "node_type": "hint",
                     "heal": false,
                     "coordinates": {
                         "x": 7450.0,
@@ -722,10 +722,17 @@
                         "actor_def": "actordef:actors/props/accesspoint/charclasses/accesspoint.bmsad",
                         "start_point_actor_name": "accesspoint_platform",
                         "start_point_actor_def": "actordef:actors/props/weightactivatedplatform_access/charclasses/weightactivatedplatform_access.bmsad",
-                        "hint_id": "MAGMA_1"
+                        "hint_id": "MAGMA_1",
+                        "string_asset_id": 3
                     },
-                    "string_asset_id": 3,
-                    "lore_type": "generic",
+                    "kind": "generic",
+                    "requirement_to_collect": {
+                        "type": "and",
+                        "data": {
+                            "comment": null,
+                            "items": []
+                        }
+                    },
                     "connections": {
                         "Door to Transport to Artaria": {
                             "type": "and",
@@ -2892,7 +2899,7 @@
                         }
                     }
                 },
-                "Door to Lava Button East Access (Charge)": {
+                "Door to Lava Button East Access": {
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
@@ -3121,7 +3128,7 @@
                         }
                     }
                 },
-                "Door to Lava Button East Access (Cloak)": {
+                "Dock to Lava Button East Access": {
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
@@ -3141,13 +3148,13 @@
                         "right_shield_entity": "{EMPTY}",
                         "right_shield_def": null
                     },
-                    "dock_type": "door",
+                    "dock_type": "other",
                     "default_connection": {
                         "world_name": "Cataris",
                         "area_name": "Lava Button East Access",
                         "node_name": "Door to Lava Button East (Cloak)"
                     },
-                    "default_dock_weakness": "Access Open",
+                    "default_dock_weakness": "Open Passage",
                     "override_default_open_requirement": null,
                     "override_default_lock_requirement": null,
                     "connections": {
@@ -3192,7 +3199,7 @@
                         "start_point_actor_def": "actordef:actors/logic/startpoint/charclasses/startpoint.bmsad"
                     },
                     "connections": {
-                        "Door to Lava Button East Access (Cloak)": {
+                        "Dock to Lava Button East Access": {
                             "type": "template",
                             "data": "Can Slide"
                         }
@@ -3213,7 +3220,7 @@
                     "extra": {},
                     "event_name": "CatarisMoveMagnetWallsButton",
                     "connections": {
-                        "Door to Lava Button East Access (Cloak)": {
+                        "Dock to Lava Button East Access": {
                             "type": "template",
                             "data": "Can Slide"
                         }
@@ -3423,7 +3430,7 @@
                                 ]
                             }
                         },
-                        "Door to Lava Button East Access (Charge)": {
+                        "Door to Lava Button East Access": {
                             "type": "or",
                             "data": {
                                 "comment": null,
@@ -3822,7 +3829,7 @@
                                 "items": []
                             }
                         },
-                        "Door to Energy Recharge Station (Charge)": {
+                        "Door to Energy Recharge Station": {
                             "type": "or",
                             "data": {
                                 "comment": null,
@@ -4008,7 +4015,7 @@
                         }
                     }
                 },
-                "Door to Energy Recharge Station (Charge)": {
+                "Door to Energy Recharge Station": {
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
@@ -4045,7 +4052,7 @@
                                 "items": []
                             }
                         },
-                        "Door to Energy Recharge Station (Cloak)": {
+                        "Dock to Energy Recharge Station": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -4080,7 +4087,7 @@
                         }
                     }
                 },
-                "Door to Energy Recharge Station (Cloak)": {
+                "Dock to Energy Recharge Station": {
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
@@ -4100,17 +4107,17 @@
                         "right_shield_entity": "{EMPTY}",
                         "right_shield_def": null
                     },
-                    "dock_type": "door",
+                    "dock_type": "other",
                     "default_connection": {
                         "world_name": "Cataris",
                         "area_name": "Energy Recharge Station",
                         "node_name": "Door to Moving Magnet Walls (Tall) (Cloak)"
                     },
-                    "default_dock_weakness": "Access Open",
+                    "default_dock_weakness": "Open Passage",
                     "override_default_open_requirement": null,
                     "override_default_lock_requirement": null,
                     "connections": {
-                        "Door to Energy Recharge Station (Charge)": {
+                        "Door to Energy Recharge Station": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -4186,7 +4193,7 @@
                                 "items": []
                             }
                         },
-                        "Door to Energy Recharge Station (Charge)": {
+                        "Door to Energy Recharge Station": {
                             "type": "or",
                             "data": {
                                 "comment": null,
@@ -7370,7 +7377,8 @@
                         "left_shield_entity": "Root:pScenario:rEntitiesLayer:dctSublayers:default:dctActors:db_hdoor_mg_001",
                         "left_shield_def": "actordef:actors/props/db_hdoor_mg_001/charclasses/db_hdoor_mg_001.bmsad",
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -7563,7 +7571,7 @@
                     "default_connection": {
                         "world_name": "Cataris",
                         "area_name": "Moving Magnet Walls (Tall)",
-                        "node_name": "Door to Energy Recharge Station (Charge)"
+                        "node_name": "Door to Energy Recharge Station"
                     },
                     "default_dock_weakness": "Access Locked",
                     "override_default_open_requirement": null,
@@ -7679,7 +7687,7 @@
                     "default_connection": {
                         "world_name": "Cataris",
                         "area_name": "Moving Magnet Walls (Tall)",
-                        "node_name": "Door to Energy Recharge Station (Cloak)"
+                        "node_name": "Dock to Energy Recharge Station"
                     },
                     "default_dock_weakness": "Sensor Lock Door",
                     "override_default_open_requirement": null,
@@ -7842,7 +7850,8 @@
                         "left_shield_entity": "Root:pScenario:rEntitiesLayer:dctSublayers:default:dctActors:db_hdoor_mg_002",
                         "left_shield_def": "actordef:actors/props/db_hdoor_mg_002/charclasses/db_hdoor_mg_002.bmsad",
                         "right_shield_entity": "Root:pScenario:rEntitiesLayer:dctSublayers:default:dctActors:db_hdoor_mg_002b_000",
-                        "right_shield_def": "actordef:actors/props/db_hdoor_mg_002b/charclasses/db_hdoor_mg_002b.bmsad"
+                        "right_shield_def": "actordef:actors/props/db_hdoor_mg_002b/charclasses/db_hdoor_mg_002b.bmsad",
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -9018,7 +9027,7 @@
                     "default_connection": {
                         "world_name": "Cataris",
                         "area_name": "EMMI Zone East Tower Access",
-                        "node_name": "Door to Green EMMI Introduction (Lower)"
+                        "node_name": "Door to Green EMMI Introduction"
                     },
                     "default_dock_weakness": "Charge Beam Door",
                     "override_default_open_requirement": null,
@@ -9057,7 +9066,7 @@
                     "default_connection": {
                         "world_name": "Cataris",
                         "area_name": "EMMI Zone West Exit Path",
-                        "node_name": "Door to Green EMMI Introduction"
+                        "node_name": "Dock to Green EMMI Introduction"
                     },
                     "default_dock_weakness": "Sensor Lock Door",
                     "override_default_open_requirement": null,
@@ -9167,7 +9176,7 @@
                     "default_connection": {
                         "world_name": "Cataris",
                         "area_name": "EMMI Zone East Tower Access",
-                        "node_name": "Door to Green EMMI Introduction (Upper)"
+                        "node_name": "Dock to Green EMMI Introduction"
                     },
                     "default_dock_weakness": "Phase Shift Door",
                     "override_default_open_requirement": null,
@@ -9933,7 +9942,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -12159,7 +12169,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -13997,15 +14008,6 @@
                             }
                         },
                         "Tunnel to Central Unit Access": {
-                            "type": "resource",
-                            "data": {
-                                "type": "events",
-                                "name": "CatarisPostEmmiTrigger",
-                                "amount": 1,
-                                "negate": false
-                            }
-                        },
-                        "Event - Door Trigger": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -14163,7 +14165,7 @@
                     "default_connection": {
                         "world_name": "Cataris",
                         "area_name": "EMMI Zone West Exit Path",
-                        "node_name": "Door to EMMI Zone Exits West"
+                        "node_name": "Dock to EMMI Zone Exits West"
                     },
                     "default_dock_weakness": "Phase Shift Door",
                     "override_default_open_requirement": null,
@@ -14308,15 +14310,6 @@
                     "override_default_lock_requirement": null,
                     "connections": {
                         "Door to EMMI Zone Item Tunnel": {
-                            "type": "resource",
-                            "data": {
-                                "type": "events",
-                                "name": "CatarisPostEmmiTrigger",
-                                "amount": 1,
-                                "negate": false
-                            }
-                        },
-                        "Event - Door Trigger": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -14380,30 +14373,6 @@
                             }
                         },
                         "Tunnel to EMMI Zone Item Tunnel": {
-                            "type": "and",
-                            "data": {
-                                "comment": null,
-                                "items": []
-                            }
-                        }
-                    }
-                },
-                "Event - Door Trigger": {
-                    "node_type": "event",
-                    "heal": false,
-                    "coordinates": {
-                        "x": -8900.0,
-                        "y": 3020.0,
-                        "z": 0.0
-                    },
-                    "description": "",
-                    "layers": [
-                        "default"
-                    ],
-                    "extra": {},
-                    "event_name": "CatarisPostEmmiTrigger",
-                    "connections": {
-                        "Tunnel to Central Unit Access": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -14527,7 +14496,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -14645,25 +14615,8 @@
                     },
                     "connections": {
                         "Pickup (Power Bomb Tank)": {
-                            "type": "and",
-                            "data": {
-                                "comment": "Item logically unattainable with door rando",
-                                "items": [
-                                    {
-                                        "type": "template",
-                                        "data": "Ballspark"
-                                    },
-                                    {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "misc",
-                                            "name": "DoorLocks",
-                                            "amount": 1,
-                                            "negate": true
-                                        }
-                                    }
-                                ]
-                            }
+                            "type": "template",
+                            "data": "Ballspark"
                         },
                         "Center of Tunnel": {
                             "type": "resource",
@@ -16532,7 +16485,7 @@
                         "y": 3600.0,
                         "z": 0.0
                     },
-                    "description": "Door opens up after Green EMMI is defeated and rolling through a trigger in\nEMMI Zone Exits West\n\n",
+                    "description": "",
                     "layers": [
                         "default"
                     ],
@@ -16911,29 +16864,10 @@
                     "extra": {},
                     "connections": {
                         "Door to EMMI Zone Tower West": {
-                            "type": "or",
+                            "type": "and",
                             "data": {
                                 "comment": null,
-                                "items": [
-                                    {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "events",
-                                            "name": "CatarisCU",
-                                            "amount": 1,
-                                            "negate": true
-                                        }
-                                    },
-                                    {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "events",
-                                            "name": "CatarisPostEmmiTrigger",
-                                            "amount": 1,
-                                            "negate": false
-                                        }
-                                    }
-                                ]
+                                "items": []
                             }
                         },
                         "Tunnel to EMMI Zone Exits West": {
@@ -16972,8 +16906,42 @@
                             }
                         },
                         "Event - Bottom Blob through wall": {
-                            "type": "template",
-                            "data": "Shoot Diffusion or Wave"
+                            "type": "or",
+                            "data": {
+                                "comment": null,
+                                "items": [
+                                    {
+                                        "type": "template",
+                                        "data": "Shoot Diffusion or Wave"
+                                    },
+                                    {
+                                        "type": "and",
+                                        "data": {
+                                            "comment": null,
+                                            "items": [
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "items",
+                                                        "name": "Slide",
+                                                        "amount": 1,
+                                                        "negate": false
+                                                    }
+                                                },
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "tricks",
+                                                        "name": "Pseudo",
+                                                        "amount": 1,
+                                                        "negate": false
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
                         }
                     }
                 }
@@ -21097,7 +21065,7 @@
                     "default_connection": {
                         "world_name": "Cataris",
                         "area_name": "Lava Button East",
-                        "node_name": "Door to Lava Button East Access (Charge)"
+                        "node_name": "Door to Lava Button East Access"
                     },
                     "default_dock_weakness": "Charge Beam Door",
                     "override_default_open_requirement": null,
@@ -21145,7 +21113,7 @@
                     "default_connection": {
                         "world_name": "Cataris",
                         "area_name": "Lava Button East",
-                        "node_name": "Door to Lava Button East Access (Cloak)"
+                        "node_name": "Dock to Lava Button East Access"
                     },
                     "default_dock_weakness": "Sensor Lock Door",
                     "override_default_open_requirement": null,
@@ -21436,7 +21404,7 @@
                     "override_default_open_requirement": null,
                     "override_default_lock_requirement": null,
                     "connections": {
-                        "Door to Green EMMI Introduction (Lower)": {
+                        "Door to Green EMMI Introduction": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -21517,7 +21485,7 @@
                         }
                     }
                 },
-                "Door to Green EMMI Introduction (Lower)": {
+                "Door to Green EMMI Introduction": {
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
@@ -21586,7 +21554,7 @@
                     "override_default_open_requirement": null,
                     "override_default_lock_requirement": null,
                     "connections": {
-                        "Door to Green EMMI Introduction (Upper)": {
+                        "Dock to Green EMMI Introduction": {
                             "type": "template",
                             "data": "Can Slide"
                         }
@@ -21631,7 +21599,7 @@
                         }
                     }
                 },
-                "Door to Green EMMI Introduction (Upper)": {
+                "Dock to Green EMMI Introduction": {
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
@@ -21651,13 +21619,13 @@
                         "right_shield_entity": "{EMPTY}",
                         "right_shield_def": null
                     },
-                    "dock_type": "door",
+                    "dock_type": "other",
                     "default_connection": {
                         "world_name": "Cataris",
                         "area_name": "Green EMMI Introduction",
                         "node_name": "Door to EMMI Zone East Tower Access (Upper)"
                     },
-                    "default_dock_weakness": "Access Open",
+                    "default_dock_weakness": "Open Passage",
                     "override_default_open_requirement": null,
                     "override_default_lock_requirement": null,
                     "connections": {
@@ -21787,7 +21755,7 @@
                     "override_default_open_requirement": null,
                     "override_default_lock_requirement": null,
                     "connections": {
-                        "Door to Green EMMI Introduction (Upper)": {
+                        "Dock to Green EMMI Introduction": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -21845,7 +21813,7 @@
                                 ]
                             }
                         },
-                        "Door to Green EMMI Introduction (Upper)": {
+                        "Dock to Green EMMI Introduction": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -21924,7 +21892,8 @@
                         "left_shield_entity": "Root:pScenario:rEntitiesLayer:dctSublayers:default:dctActors:db_hdoor_mg_001",
                         "left_shield_def": "actordef:actors/props/db_hdoor_mg_001/charclasses/db_hdoor_mg_001.bmsad",
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -25570,7 +25539,8 @@
                         "left_shield_entity": "Root:pScenario:rEntitiesLayer:dctSublayers:default:dctActors:db_hdoor_mg_002",
                         "left_shield_def": "actordef:actors/props/db_hdoor_mg_002/charclasses/db_hdoor_mg_002.bmsad",
                         "right_shield_entity": "Root:pScenario:rEntitiesLayer:dctSublayers:default:dctActors:db_hdoor_mg_002b_000",
-                        "right_shield_def": "actordef:actors/props/db_hdoor_mg_002b/charclasses/db_hdoor_mg_002b.bmsad"
+                        "right_shield_def": "actordef:actors/props/db_hdoor_mg_002b/charclasses/db_hdoor_mg_002b.bmsad",
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {
@@ -26646,6 +26616,15 @@
                                             "amount": 1,
                                             "negate": false
                                         }
+                                    },
+                                    {
+                                        "type": "resource",
+                                        "data": {
+                                            "type": "misc",
+                                            "name": "DoorLocks",
+                                            "amount": 1,
+                                            "negate": true
+                                        }
                                     }
                                 ]
                             }
@@ -27300,7 +27279,7 @@
                     }
                 },
                 "Navigation Room": {
-                    "node_type": "logbook",
+                    "node_type": "hint",
                     "heal": false,
                     "coordinates": {
                         "x": -13450.0,
@@ -27316,10 +27295,17 @@
                         "actor_def": "actordef:actors/props/accesspoint/charclasses/accesspoint.bmsad",
                         "start_point_actor_name": "accesspoint_platform_000",
                         "start_point_actor_def": "actordef:actors/props/weightactivatedplatform_access/charclasses/weightactivatedplatform_access.bmsad",
-                        "hint_id": "MAGMA_2"
+                        "hint_id": "MAGMA_2",
+                        "string_asset_id": 4
                     },
-                    "string_asset_id": 4,
-                    "lore_type": "generic",
+                    "kind": "generic",
+                    "requirement_to_collect": {
+                        "type": "and",
+                        "data": {
+                            "comment": null,
+                            "items": []
+                        }
+                    },
                     "connections": {
                         "Door to Teleport to Artaria (Red)": {
                             "type": "and",
@@ -27363,7 +27349,7 @@
                 "asset_id": "collision_camera_059"
             },
             "nodes": {
-                "Door to Green EMMI Introduction": {
+                "Dock to Green EMMI Introduction": {
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
@@ -27383,17 +27369,17 @@
                         "right_shield_entity": "{EMPTY}",
                         "right_shield_def": null
                     },
-                    "dock_type": "door",
+                    "dock_type": "other",
                     "default_connection": {
                         "world_name": "Cataris",
                         "area_name": "Green EMMI Introduction",
                         "node_name": "Door to EMMI Zone West Exit Path"
                     },
-                    "default_dock_weakness": "Access Open",
+                    "default_dock_weakness": "Open Passage",
                     "override_default_open_requirement": null,
                     "override_default_lock_requirement": null,
                     "connections": {
-                        "Door to EMMI Zone Exits West": {
+                        "Dock to EMMI Zone Exits West": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -27402,7 +27388,7 @@
                         }
                     }
                 },
-                "Door to EMMI Zone Exits West": {
+                "Dock to EMMI Zone Exits West": {
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
@@ -27422,17 +27408,17 @@
                         "right_shield_entity": "{EMPTY}",
                         "right_shield_def": null
                     },
-                    "dock_type": "door",
+                    "dock_type": "other",
                     "default_connection": {
                         "world_name": "Cataris",
                         "area_name": "EMMI Zone Exits West",
                         "node_name": "Door to EMMI Zone West Exit Path"
                     },
-                    "default_dock_weakness": "Access Open",
+                    "default_dock_weakness": "Open Passage",
                     "override_default_open_requirement": null,
                     "override_default_lock_requirement": null,
                     "connections": {
-                        "Door to Green EMMI Introduction": {
+                        "Dock to Green EMMI Introduction": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -27471,7 +27457,7 @@
                     "override_default_open_requirement": null,
                     "override_default_lock_requirement": null,
                     "connections": {
-                        "Door to EMMI Zone Exits West": {
+                        "Dock to EMMI Zone Exits West": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -28740,7 +28726,8 @@
                         "left_shield_entity": "{EMPTY}",
                         "left_shield_def": null,
                         "right_shield_entity": "{EMPTY}",
-                        "right_shield_def": null
+                        "right_shield_def": null,
+                        "exclude_from_dock_rando": true
                     },
                     "dock_type": "door",
                     "default_connection": {

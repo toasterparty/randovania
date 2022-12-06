@@ -4460,7 +4460,7 @@
                                         "type": "resource",
                                         "data": {
                                             "type": "events",
-                                            "name": "Event97",
+                                            "name": "ShipGrappleAcquired",
                                             "amount": 1,
                                             "negate": false
                                         }
@@ -5333,7 +5333,7 @@
                     }
                 },
                 "Samus Ship": {
-                    "node_type": "player_ship",
+                    "node_type": "teleporter_network",
                     "heal": true,
                     "coordinates": null,
                     "description": "",
@@ -5350,6 +5350,24 @@
                             "negate": false
                         }
                     },
+                    "network": "default",
+                    "requirement_to_activate": {
+                        "type": "and",
+                        "data": {
+                            "comment": null,
+                            "items": [
+                                {
+                                    "type": "resource",
+                                    "data": {
+                                        "type": "items",
+                                        "name": "CommandVisor",
+                                        "amount": 1,
+                                        "negate": false
+                                    }
+                                }
+                            ]
+                        }
+                    },
                     "connections": {
                         "Door to Landing Access": {
                             "type": "and",
@@ -5358,7 +5376,7 @@
                                 "items": []
                             }
                         },
-                        "Pickup (Ship Grapple)": {
+                        "Event - Ship Upgrade": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -5379,6 +5397,26 @@
                     "event_name": "Event97",
                     "connections": {
                         "Door to Landing Access": {
+                            "type": "and",
+                            "data": {
+                                "comment": null,
+                                "items": []
+                            }
+                        }
+                    }
+                },
+                "Event - Ship Upgrade": {
+                    "node_type": "event",
+                    "heal": false,
+                    "coordinates": null,
+                    "description": "",
+                    "layers": [
+                        "default"
+                    ],
+                    "extra": {},
+                    "event_name": "ShipGrappleAcquired",
+                    "connections": {
+                        "Pickup (Ship Grapple)": {
                             "type": "and",
                             "data": {
                                 "comment": null,
