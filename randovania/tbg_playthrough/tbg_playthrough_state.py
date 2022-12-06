@@ -242,6 +242,8 @@ class PlaythroughState:
                 send_message(message)
                 response: str = receive_message()
                 # TODO: sanatize and stip garbage
+                # TODO: allow numbered responses
+                # TODO: helper function for list-based questions
 
                 selection = None
                 for candidate in candidates:
@@ -375,8 +377,6 @@ class PlaythroughState:
             for word in command_data:
                 target += " " + word
         
-        print(f"Attempting to use {target}")
-
         # TODO: check for multiple an ask for clarification
 
         # Check for elevators
@@ -401,15 +401,16 @@ class PlaythroughState:
                 if not item:
                     continue # nothing item
 
-                if target != item.pickup.name.lower():
+                if target.lower() != item.pickup.name.lower():
                     continue # not the desired item
 
                 # attempt to move to the node
                 self.go_to_node(node, item.pickup.name)
 
                 # pick it up
-                
+                self.game_state = self.game_state.act_on_node(node)
 
+                send_message(f"{target.title()} Acquired!")
                 return
 
         raise InvalidCommand("I don't know how to interact with that.")

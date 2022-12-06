@@ -26,19 +26,16 @@ FILTER_WORDS = {
 class CommandType(Enum):
     HELP = 0,
     EXIT = 1,
-    SAVE = 2,
-    INVENTORY = 3,
-    LOOK = 4,
-    INTERACT = 5,
-    MOVE = 6,
+    INVENTORY = 2,
+    LOOK = 3,
+    INTERACT = 4,
+    MOVE = 5,
 
     def to_class(self):
         if self == self.HELP:
             return CommandHelp
         elif self == self.EXIT:
             return CommandExit
-        elif self == self.SAVE:
-            return CommandSave
         elif self == self.INVENTORY:
             return CommandInventory
         elif self == self.LOOK:
@@ -179,26 +176,6 @@ class CommandExit(Command):
         return None
 
 
-class CommandSave(Command):
-    KEYWORDS = []
-
-    @staticmethod
-    def command_type() -> CommandType:
-        return CommandType.SAVE
-
-    @staticmethod
-    def help_message() -> str:
-        return "tbd"
-
-    @staticmethod
-    def from_command_data(command_data: list[str], state: PlaythroughState):
-        if command_data[0] in CommandSave.KEYWORDS:
-            return CommandSave(command_data)
-
-    def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str]) -> str | None:
-        return None
-
-
 class CommandInventory(Command):
     KEYWORDS = ["i", "inventory", "inv", "inven", "items", "list", "pickups"]
 
@@ -228,7 +205,7 @@ class CommandLook(Command):
 
     @staticmethod
     def help_message() -> str:
-        return "look - tbd"
+        return "look - Inspect the local area by sight"
 
     @staticmethod
     def from_command_data(command_data: list[str], state: PlaythroughState):
@@ -248,7 +225,7 @@ class CommandInteract(Command):
 
     @staticmethod
     def help_message() -> str:
-        return "use - Interact with something the area"
+        return "use - Interact with something in the area"
 
     @staticmethod
     def from_command_data(command_data: list[str], state: PlaythroughState):
