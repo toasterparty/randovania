@@ -106,12 +106,11 @@ class PlaythroughState:
         area_identifier = self.get_area_identifier()
         area = self.get_area()
 
-        result = ""
-
+        result = "\n\n"
         result += f"{area_identifier.world_name} - {area_identifier.area_name}\n"
         result += f"————————————————————————————————————————————\n\n"
 
-        result += f"<flowery flavor text goes here>"
+        result += f"\n<flowery flavor text goes here>"
 
         if self.game_state.node.name:
             result += f"\n\nYou are standing at the {self.game_state.node.name}."
@@ -134,6 +133,7 @@ class PlaythroughState:
 
         # TODO: flavor text for the item location
         # TODO: add peekability to the database
+        # TODO: use counts when more than 1
         if len(items) == 1:
             result += f" A {items[0]} can be plainly seen."
         elif len(items) == 2:
@@ -241,6 +241,7 @@ class PlaythroughState:
                     message += f"\n    - {candidate.identifier.area_identifier.area_name}"
                 send_message(message)
                 response: str = receive_message()
+                # TODO: sanatize and stip garbage
 
                 selection = None
                 for candidate in candidates:
@@ -354,3 +355,61 @@ class PlaythroughState:
         self.game_state.energy = new_energy
 
         # TODO: test for nodes that heal (e.g. echoes)
+
+    def interact(self, command_data: list[str], send_message, receive_message) -> None | str:
+        target = None
+        
+        if len(command_data) == 0:
+            raise Exception("matched an empty command")
+
+        if command_data[0] in ["save"]:
+            target = "save"
+
+        command_data.pop(0)
+                
+        if not target and len(command_data) == 0:
+            send_message("What do you want to interact with?")
+            target: str = receive_message()
+        else:
+            target = command_data.pop(0)
+            for word in command_data:
+                target += " " + word
+        
+        print(f"Attempting to use {target}")
+
+        # TODO: check for multiple an ask for clarification
+
+        # Check for elevators
+        if target in ["elevator", "teleporter", "trasnsport", "transporter", "warp", "portal"]:
+            for node in self.get_area().nodes:
+                if isinstance(node, TeleporterNode):
+                    self.go_to_node(self.get_world_list().default_node_for_area(node.default_connection))
+                    send_message(self.describe_here())
+                    return
+        
+        # Check for save stations
+
+        # Check for events
+
+        # Check for items
+        for node in self.get_area().nodes:
+            if isinstance(node, PickupNode):
+                if node.is_collected(self.game_state.node_context()):
+                    continue # not there any more
+
+                item = self.patches.pickup_assignment.get(node.pickup_index)
+                if not item:
+                    continue # nothing item
+
+                if target != item.pickup.name.lower():
+                    continue # not the desired item
+
+                # attempt to move to the node
+                self.go_to_node(node, item.pickup.name)
+
+                # pick it up
+                
+
+                return
+
+        raise InvalidCommand("I don't know how to interact with that.")

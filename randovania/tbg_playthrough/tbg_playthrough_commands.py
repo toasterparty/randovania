@@ -240,7 +240,7 @@ class CommandLook(Command):
 
 
 class CommandInteract(Command):
-    KEYWORDS = []
+    KEYWORDS = ["use", "collect", "take", "pickup", "interact", "get", "inspect", "acquire", "fight", "destroy", "solve"]
 
     @staticmethod
     def command_type() -> CommandType:
@@ -248,7 +248,7 @@ class CommandInteract(Command):
 
     @staticmethod
     def help_message() -> str:
-        return "tbd"
+        return "use - Interact with something the area"
 
     @staticmethod
     def from_command_data(command_data: list[str], state: PlaythroughState):
@@ -256,7 +256,7 @@ class CommandInteract(Command):
             return CommandInteract(command_data)
 
     def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str]) -> str | None:
-        return None
+        return state.interact(self.command_data, send_message, receive_message)
 
 
 class CommandMove(Command):
