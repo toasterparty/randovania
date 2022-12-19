@@ -50,10 +50,10 @@ class Playthrough:
                 return
             except InvalidCommand as e:
                 self.send_message(f"{e}")
-            except Exception as e:
-                exc_type, _, exc_tb = sys.exc_info()
-                fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-                self.send_message(f"\n{e}\n{exc_type} - {fname}:{exc_tb.tb_lineno}")
+            # except Exception as e:
+            #     exc_type, _, exc_tb = sys.exc_info()
+            #     fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            #     self.send_message(f"\n{e}\n{exc_type} - {fname}:{exc_tb.tb_lineno}")
 
     # TODO: do_playthrough_forever_async
 

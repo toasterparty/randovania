@@ -4,6 +4,7 @@ from randovania.game_description.resources.resource_type import ResourceType
 from randovania.game_description.world.node import Node
 from randovania.game_description.world.dock_node import DockNode
 from randovania.game_description.world.pickup_node import PickupNode
+from randovania.game_description.world.event_node import EventNode
 from randovania.game_description.world.teleporter_node import TeleporterNode
 from randovania.layout import filtered_database
 from randovania.layout.base.base_configuration import BaseConfiguration
@@ -13,6 +14,8 @@ from randovania.resolver.state import State
 from randovania.resolver.resolver_reach import ResolverReach
 from . import InvalidCommand, sanatize_text
 
+_SHOW_EVENTS_IN_INVENTORY = True
+_SHOW_EVENTS_IN_LOOK = True
 
 def _get_option_from_user_helper(send_message, receive_message, send_prompt: str, options: list[str]) -> int:
     message = send_prompt
@@ -72,13 +75,14 @@ class PlaythroughState:
         result += f"Energy: {self.game_state.energy}/{self.game_state.maximum_energy}\n"
         for resource in self.game_state.game_data.resource_database.resource_by_index:
             resource_count = self.game_state.resources[resource]
-            if resource_count == 0 or resource.resource_type != ResourceType.ITEM:
+            if resource_count == 0 or (resource.resource_type != ResourceType.ITEM and (resource.resource_type != ResourceType.EVENT or not _SHOW_EVENTS_IN_INVENTORY)):
                 continue  # not an item
             if resource_count == 1:
                 result += f"{resource.long_name}\n"
             else:
                 result += f"{resource.long_name}: {resource_count}\n"
         result += "=================\n"
+        
         return result
     
     def get_docks(self) -> dict[str, list[str]]:
@@ -169,6 +173,22 @@ class PlaythroughState:
                 continue # not a teleporter node
 
             result += f" A functioning transport leads to {node.default_connection.world_name}."
+
+        if _SHOW_EVENTS_IN_LOOK:
+            for node in area.nodes:
+                if not isinstance(node, EventNode):
+                    continue # not a pickup node
+
+                node: EventNode = node
+
+                if node.is_collected(self.game_state.node_context()):
+                    continue # not there any more
+
+                item = self.patches.pickup_assignment.get(node.pickup_index)
+                if not item:
+                    continue # nothing item
+                
+                items.append(item.pickup.name)
 
 
         docks = self.get_docks()
