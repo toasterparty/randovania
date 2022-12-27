@@ -62,10 +62,6 @@ class HintDistributor(ABC):
     async def assign_specific_location_hints(self, patches: GamePatches, prefill: PreFillParams) -> GamePatches:
         specific_location_precisions = await self.get_specific_pickup_precision_pair_overrides(patches, prefill)
 
-        # TODO: this is an Echoes default. Should not have a default and all nodes have one in the DB.
-        default_precision = PrecisionPair(HintLocationPrecision.KEYBEARER, HintItemPrecision.BROAD_CATEGORY,
-                                          include_owner=True)
-
         wl = prefill.game.world_list
         for node in wl.iterate_nodes():
             if isinstance(node, HintNode) and node.kind == HintNodeKind.SPECIFIC_PICKUP:
@@ -73,7 +69,7 @@ class HintDistributor(ABC):
                 patches = patches.assign_hint(
                     identifier,
                     Hint(HintType.LOCATION,
-                         specific_location_precisions.get(identifier, default_precision),
+                         specific_location_precisions[identifier],
                          PickupIndex(node.extra["hint_index"]))
                 )
 

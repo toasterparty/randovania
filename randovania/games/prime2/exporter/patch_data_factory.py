@@ -29,7 +29,7 @@ from randovania.games.prime2.exporter import hints
 from randovania.games.prime2.exporter.hint_namer import EchoesHintNamer
 from randovania.games.prime2.layout.echoes_configuration import EchoesConfiguration
 from randovania.games.prime2.layout.echoes_cosmetic_patches import EchoesCosmeticPatches
-from randovania.games.prime2.layout.hint_configuration import HintConfiguration, SkyTempleKeyHintMode
+from randovania.games.prime2.layout.hint_configuration import HintConfiguration, ItemHintMode
 from randovania.games.prime2.patcher.echoes_dol_patcher import EchoesDolPatchesData
 from randovania.generator.item_pool import pickup_creator
 from randovania.interface_common.players_configuration import PlayersConfiguration
@@ -363,12 +363,12 @@ def _create_string_patches(hint_config: HintConfiguration,
 
     # Sky Temple Keys
     stk_mode = hint_config.sky_temple_keys
-    if stk_mode == SkyTempleKeyHintMode.DISABLED:
+    if stk_mode == ItemHintMode.DISABLED:
         string_patches.extend(randovania.games.prime2.exporter.hints.hide_stk_hints(namer))
     else:
         string_patches.extend(randovania.games.prime2.exporter.hints.create_stk_hints(
             all_patches, players_config, game.resource_database,
-            namer, stk_mode == SkyTempleKeyHintMode.HIDE_AREA,
+            namer, stk_mode == ItemHintMode.HIDE_AREA,
         ))
 
     # Elevator Scans

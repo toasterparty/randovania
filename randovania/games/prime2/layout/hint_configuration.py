@@ -5,20 +5,19 @@ from randovania.bitpacking.bitpacking import BitPackDataclass, BitPackEnum
 from randovania.bitpacking.type_enforcement import DataclassPostInitTypeCheck
 
 
-class SkyTempleKeyHintMode(BitPackEnum, Enum):
+class ItemHintMode(BitPackEnum, Enum):
     DISABLED = "disabled"
     HIDE_AREA = "hide-area"
     PRECISE = "precise"
 
     @classmethod
-    def default(cls) -> "SkyTempleKeyHintMode":
+    def default(cls) -> "ItemHintMode":
         return cls.PRECISE
 
 
 @dataclasses.dataclass(frozen=True)
 class HintConfiguration(BitPackDataclass, DataclassPostInitTypeCheck):
-    item_hints: bool = True
-    sky_temple_keys: SkyTempleKeyHintMode = SkyTempleKeyHintMode.default()
+    sky_temple_keys: ItemHintMode = ItemHintMode.default()
 
     @classmethod
     def default(cls) -> "HintConfiguration":
@@ -27,7 +26,6 @@ class HintConfiguration(BitPackDataclass, DataclassPostInitTypeCheck):
     @property
     def as_json(self) -> dict:
         return {
-            "item_hints": self.item_hints,
             "sky_temple_keys": self.sky_temple_keys.value,
         }
 
@@ -36,7 +34,7 @@ class HintConfiguration(BitPackDataclass, DataclassPostInitTypeCheck):
         params = {}
 
         if "sky_temple_keys" in value:
-            params["sky_temple_keys"] = SkyTempleKeyHintMode(value["sky_temple_keys"])
+            params["sky_temple_keys"] = ItemHintMode(value["sky_temple_keys"])
 
         if "item_hints" in value:
             params["item_hints"] = value["item_hints"]

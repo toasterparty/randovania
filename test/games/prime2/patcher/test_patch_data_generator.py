@@ -22,7 +22,7 @@ from randovania.games.game import RandovaniaGame
 from randovania.games.prime2.exporter import patch_data_factory
 from randovania.games.prime2.layout.echoes_configuration import EchoesConfiguration
 from randovania.games.prime2.layout.echoes_cosmetic_patches import EchoesCosmeticPatches
-from randovania.games.prime2.layout.hint_configuration import SkyTempleKeyHintMode, HintConfiguration
+from randovania.games.prime2.layout.hint_configuration import ItemHintMode, HintConfiguration
 from randovania.generator.item_pool import pickup_creator, pool_creator
 from randovania.interface_common.players_configuration import PlayersConfiguration
 from randovania.layout.base.major_item_state import MajorItemState
@@ -514,9 +514,9 @@ def test_run_validated_hud_text():
     assert data['hud_text'] == ['Run validated!']
 
 
-@pytest.mark.parametrize("stk_mode", SkyTempleKeyHintMode)
+@pytest.mark.parametrize("stk_mode", ItemHintMode)
 def test_create_string_patches(
-        stk_mode: SkyTempleKeyHintMode,
+        stk_mode: ItemHintMode,
         mocker,
 ):
     # Setup
@@ -565,14 +565,14 @@ def test_create_string_patches(
     mock_logbook_title_string_patches.assert_called_once_with()
     mock_akul_testament.assert_called_once_with(namer)
 
-    if stk_mode == SkyTempleKeyHintMode.DISABLED:
+    if stk_mode == ItemHintMode.DISABLED:
         mock_stk_hide_hints.assert_called_once_with(namer)
         mock_stk_create_hints.assert_not_called()
         expected_result.extend(["hide", "hints"])
 
     else:
         mock_stk_create_hints.assert_called_once_with(all_patches, player_config, game.resource_database,
-                                                      namer, stk_mode == SkyTempleKeyHintMode.HIDE_AREA)
+                                                      namer, stk_mode == ItemHintMode.HIDE_AREA)
         mock_stk_hide_hints.assert_not_called()
         expected_result.extend(["show", "hints"])
 

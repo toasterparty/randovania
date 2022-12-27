@@ -3,7 +3,7 @@ import dataclasses
 from PySide6 import QtCore
 
 from randovania.game_description.game_description import GameDescription
-from randovania.games.prime2.layout.hint_configuration import SkyTempleKeyHintMode
+from randovania.games.prime2.layout.hint_configuration import ItemHintMode
 from randovania.gui.generated.preset_echoes_hints_ui import Ui_PresetEchoesHints
 from randovania.gui.lib.common_qt_lib import set_combo_with_value
 from randovania.gui.lib.window_manager import WindowManager
@@ -20,10 +20,10 @@ class PresetEchoesHints(PresetTab, Ui_PresetEchoesHints):
 
         self.hint_layout.setAlignment(QtCore.Qt.AlignTop)
 
-        for i, stk_hint_mode in enumerate(SkyTempleKeyHintMode):
-            self.hint_sky_temple_key_combo.setItemData(i, stk_hint_mode)
+        for i, stk_hint_mode in enumerate(ItemHintMode):
+            self.stk_combo.setItemData(i, stk_hint_mode)
 
-        self.hint_sky_temple_key_combo.currentIndexChanged.connect(self._on_stk_combo_changed)
+        self.stk_combo.currentIndexChanged.connect(self._on_stk_combo_changed)
 
     @classmethod
     def tab_title(cls) -> str:
@@ -38,7 +38,7 @@ class PresetEchoesHints(PresetTab, Ui_PresetEchoesHints):
             editor.set_configuration_field(
                 "hints",
                 dataclasses.replace(editor.configuration.hints,
-                                    sky_temple_keys=self.hint_sky_temple_key_combo.currentData()))
+                                    sky_temple_keys=self.stk_combo.currentData()))
 
     def on_preset_changed(self, preset: Preset):
-        set_combo_with_value(self.hint_sky_temple_key_combo, preset.configuration.hints.sky_temple_keys)
+        set_combo_with_value(self.stk_combo, preset.configuration.hints.sky_temple_keys)
