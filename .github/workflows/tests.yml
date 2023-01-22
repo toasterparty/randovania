@@ -282,7 +282,9 @@ jobs:
           python -m pip install -r requirements-lint.txt
 
       - name: Test if requirements files are up to date
+        shell: bash
         run: |
+          set -e
           python tools/update_requirements.py --quiet
           git diff --exit-code
           
@@ -302,7 +304,7 @@ jobs:
           path: packages/
 
       - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@2.3.0
+        uses: svenstaro/upload-release-action@2.4.0
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: packages/**

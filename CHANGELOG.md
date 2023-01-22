@@ -5,20 +5,67 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.3.0] - 2023-??-??
+## [5.4.0] - 2023-??-??
+
+- Fixed: The minor/major split setting is obeyed much more accurately by the generator.
+- Fixed: Minor typos in the UI are fixed.
+
+### Metroid Prime
+
+#### Logic Database
+
+- Fixed: Collecting the Missile Expansion in Burn Dome before the fight no longer causes the generation to fail.
+
+### Metroid Dread
+
+- **Major** - Added: Door locks can now be randomized.
+- Fixed: Energy Parts are now considered minor items, and Missile+ Tanks are now considered major items.
+
+#### Patcher Changes
+
+- Changed: Main Power Bomb has a different color than Power Bomb tanks
+- Changed: Cutscene in Hanubia - Tank Room was removed because it teleports the player to the lower section, which can softlock the player
+- Fixed: You now retain Drogyga's and Corpius's item if you reload checkpoint after defeating them. This eliminates a way of rendering a seed impossible to complete.
+
+#### Logic Database
+
+- Added: Traverse to the bottom of Ferenia: Space Jump Room Access with some more options.
+- Fixed: Correctly require Morph Ball in all cases where Power Bombs are used.
+- Fixed: Replace some instances of Beginner Infinite Bomb Jump in Ferenia with the Simple Infinite Bomb Jump template. This ensures that the missing bomb or cross bomb item is required.
+
+## [5.3.0] - 2023-01-05
 
 - Added: You can now open a tracker for other player's inventories in a multiworld session.
 - Changed: LogbookNodes are now called HintNodes.
 
 ### Metroid Prime
 
-- Fixed: Spring ball can no longer be used to abuse steep terrain marked as standable
-- Fixed: Vanilla blast shields not being removed in door lock randomizer
+#### Patcher Changes
+
+- Fixed: Spring ball has been nerfed to prevent abusing steep terrain marked as standable.
+- Fixed: Spring ball cooldown is now properly reset when morphing/unmorphing.
+- Fixed: Vanilla blast shields not being removed in door lock randomizer.
+
+### Metroid Prime 2: Echoes
+
+- Changed: The Auto Tracker icon for Spider Ball now uses the Dark Suit model instead of the Prime 1 model.
+
+#### Logic Database
+
+- Changed: Sand Processing - Screw Attack clip to access the halfpipe from Main Reactor side without Missiles is now Intermediate and without Space Jump (from Expert).
+- Fixed: Main Gyro now properly accounts for solving the puzzles.
 
 ### Metroid Dread
 
-- **Major** - Added: Door locks can now be randomized.
-- TODO: add changes for ODR 1.2.4 and MEDS 0.18.0 (possibly graphical fix)
+#### Patcher Changes
+
+- Fixed: Incorrect color during animation of killing an EMMI.
+
+#### Logic Database
+
+- Added: Climbing Z-57 Arena with Spin Boost and Ice Missiles (Beginner).
+- Changed: Major/Minor Item Location Updates: Energy Tanks -> Major, Energy Parts -> Minor, Drogyga -> Major, Missile+ Tanks -> Major
+- Removed: Water Bomb Jump in Ghavoran - Map Station Access Secret.
 
 ## [5.2.1] - 2022-12-01
 
@@ -255,7 +302,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed: Optimized the game validation. As example, Echoes' Starter Preset is 91% faster.
 - Changed: The algorithm for how locations lose value over generation has changed. This should have bigger impact in big multiworlds.
 - Changed: It's now possible to login again directly in the Game Session Window.
-- Removed: The server and discord bot are entirely removed from the distributed executables, reducing it's size.
+- Removed: The server and discord bot are entirely removed from the distributed executables, reducing its size.
 - Removed: Metroid Dread is no longer available in releases, as it was never intended to be considered stable.
 - Removed: All auto trackers based on pixel art style were removed by request of their artist.
 - Fixed: The "Spoiler: Pickups" tab no longer shows locations that aren't present in the given preset.
@@ -2760,7 +2807,7 @@ Her contributions to Randovania were invaluable and she'll be missed.
 
 ## [0.17.2] - 2018-12-27
 
--   Fixed: 'Clear loaded game' now properly does it's job.
+-   Fixed: 'Clear loaded game' now properly does its job.
 -   Changed: Add an error message to capture potential Randomizer failures.
 -   Changed: Improved README.
 
