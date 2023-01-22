@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>423</width>
-    <height>259</height>
+    <width>660</width>
+    <height>1345</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,9 +34,9 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QLabel" name="hint_sky_temple_key_label">
+     <widget class="QLabel" name="hint_label">
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This controls how precise the hints for Sky Temple Keys in Sky Temple Gateway are.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;No hints&lt;/span&gt;: The scans provide no useful information.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Show only the area name&lt;/span&gt;: Each scan says the corresponding key is in &amp;quot;Temple Grounds&amp;quot;, &amp;quot;Agon Wastes&amp;quot;, etc.&lt;br/&gt;Aether and Dark Aether are distinguished; for example, &amp;quot;Agon Wastes&amp;quot; refers only to the light world.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Show area and room name&lt;/span&gt;: Each scan says the corresponding key is in &amp;quot;Great Temple - Transport A Access&amp;quot;, &amp;quot;Ing Hive - Hive Entrance&amp;quot;, etc. For rooms with more than one item location, there's no way to distinguish which one of them that key is in.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This section provides various option for fine-tuning the information provided by hints. Several options in this tab contain a drop down selection with some of the following choices:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Disabled&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;: The hint provides no useful information.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Show area name only&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;: The hint reveals the region in which the item resides. &amp;quot;Temple Grounds&amp;quot;, &amp;quot;Agon Wastes&amp;quot;, etc.&lt;br/&gt;Aether and Dark Aether are distinguished; for example, &amp;quot;Agon Wastes&amp;quot; refers only to the light world.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Show area and room name&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;: Each scan says the corresponding key is in &amp;quot;Great Temple - Transport A Access&amp;quot;, &amp;quot;Ing Hive - Hive Entrance&amp;quot;, etc. For rooms with more than one item location, there's no way to distinguish which the hint refers to.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700; font-style:italic;&quot;&gt;Show broad category&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;: e.g. &amp;quot;Life-Support&amp;quot;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700; font-style:italic;&quot;&gt;Show general category&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;: e.g. &amp;quot;major item, key, expansion&amp;quot;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700; font-style:italic;&quot;&gt;Show precise category&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;: e.g. &amp;quot;morph ball related upgrade&amp;quot;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700; font-style:italic;&quot;&gt;Show exact item&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;: The full item name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
@@ -44,22 +44,266 @@
      </widget>
     </item>
     <item>
-     <widget class="QComboBox" name="hint_sky_temple_key_combo">
-      <item>
-       <property name="text">
-        <string>No hints</string>
+     <widget class="QGroupBox" name="stk_group">
+      <property name="title">
+       <string>Sky Temple Key Hints</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_9">
+       <property name="leftMargin">
+        <number>9</number>
        </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Show only the area name</string>
+       <property name="topMargin">
+        <number>9</number>
        </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Show area and room name</string>
+       <property name="rightMargin">
+        <number>9</number>
        </property>
-      </item>
+       <property name="bottomMargin">
+        <number>9</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="stk_label">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This controls how precise the hints for Sky Temple Keys in Sky Temple Gateway are&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="stk_combo">
+         <item>
+          <property name="text">
+           <string>Disabled</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Show area name only</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Show area and room name</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="translator_group">
+      <property name="title">
+       <string>Translators</string>
+      </property>
+      <widget class="QCheckBox" name="translator_checkbox">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>30</y>
+         <width>621</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Force Translator Hints to Energy Controller Rooms</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="translator_combo">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>60</y>
+         <width>621</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>Disabled</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Show broad category</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Show general category</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Show precise category</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Show exact item</string>
+        </property>
+       </item>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="hint_location_group">
+      <property name="title">
+       <string>Hintable Locations</string>
+      </property>
+      <widget class="QCheckBox" name="keybearer_checkbox">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>60</y>
+         <width>561</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Hints on Keybearer Scans</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="lore_checkbox">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>90</y>
+         <width>561</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Hints on Lore Scans</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="hint_location_label">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>563</width>
+         <height>49</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This controls which scans are available for item location hint placement&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="dark_temple_group">
+      <property name="title">
+       <string>Dark Temple Items</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_9">
+       <property name="leftMargin">
+        <number>9</number>
+       </property>
+       <property name="topMargin">
+        <number>9</number>
+       </property>
+       <property name="rightMargin">
+        <number>9</number>
+       </property>
+       <property name="bottomMargin">
+        <number>9</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="dark_temple_label">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This contorls how precise the item hints are for the items guarded by each of the Dark Temple guardians&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="dark_temple_combo">
+         <item>
+          <property name="text">
+           <string>Disabled</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Show broad category</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Show general category</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Show precise category</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Show exact item</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="twomos_group">
+      <property name="title">
+       <string>U-Mos 2 (Ligh Suit Location) Item</string>
+      </property>
+      <widget class="QLabel" name="twomos_label">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>561</width>
+         <height>73</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This contorls how precise the hint for the light suit location item&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="twomos_combo">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>80</y>
+         <width>628</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>Disabled</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Show broad category</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Show general category</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Show precise category</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Show exact item</string>
+        </property>
+       </item>
+      </widget>
      </widget>
     </item>
    </layout>

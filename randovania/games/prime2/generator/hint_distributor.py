@@ -7,6 +7,7 @@ from randovania.game_description.hint import (
 )
 from randovania.game_description.resources.pickup_index import PickupIndex
 from randovania.game_description.world.node_identifier import NodeIdentifier
+from randovania.game_description.world.hint_node import HintNode
 from randovania.games.prime2.layout.echoes_configuration import EchoesConfiguration
 from randovania.generator.filler.player_state import PlayerState
 from randovania.generator.filler.runner import PlayerPool
@@ -15,27 +16,49 @@ from randovania.lib import enum_lib
 
 
 class EchoesHintDistributor(HintDistributor):
+
+    async def get_specific_pickup_precision_pair_overrides(self, patches: GamePatches, prefill: PreFillParams
+                                                           ) -> dict[NodeIdentifier, PrecisionPair]:
+        def p(loc):
+            return PrecisionPair(
+                HintLocationPrecision.KEYBEARER, HintItemPrecision.PRECISE_CATEGORY, include_owner=True)
+        
+        hint_nodes = dict()
+        for node in patches.game.world_list.all_nodes:
+            if isinstance(node, HintNode):
+                hint_nodes[node.identifier] = HintLocationPrecision.KEYBEARER
+
+        return hint_nodes
+
     # Pre Filler
     @property
     def num_joke_hints(self) -> int:
         return 2
 
     async def get_guranteed_hints(self, patches: GamePatches, prefill: PreFillParams) -> list[HintTargetPrecision]:
-        def g(index, loc):
-            return (
-                PickupIndex(index),
-                PrecisionPair(loc, HintItemPrecision.DETAILED, include_owner=False),
-            )
+        # configuration: EchoesConfiguration = patches.configuration
+        # if configuration.hints.keybearer_hints == KeybearerHintMode.ALL or configuration.hints.keybearer_hints == KeybearerHintMode.MAJOR_LOCATIONS:
+        #     def g(index, loc):
+        #         return (
+        #             PickupIndex(index),
+        #             PrecisionPair(loc, HintItemPrecision.DETAILED, include_owner=False),
+        #         )
 
-        return [
-            g(24, HintLocationPrecision.LIGHT_SUIT_LOCATION),  # Light Suit
-            g(43, HintLocationPrecision.GUARDIAN),  # Dark Suit (Amorbis)
-            g(79, HintLocationPrecision.GUARDIAN),  # Dark Visor (Chykka)
-            g(115, HintLocationPrecision.GUARDIAN),  # Annihilator Beam (Quadraxis)
-        ]
+        #     return [
+        #         g(24, HintLocationPrecision.LIGHT_SUIT_LOCATION),  # Light Suit
+        #         g(43, HintLocationPrecision.GUARDIAN),  # Dark Suit (Amorbis)
+        #         g(79, HintLocationPrecision.GUARDIAN),  # Dark Visor (Chykka)
+        #         g(115, HintLocationPrecision.GUARDIAN),  # Annihilator Beam (Quadraxis)
+        #     ]
+        # else:
+        return []
 
     async def assign_other_hints(self, patches: GamePatches, identifiers: list[NodeIdentifier],
                                  prefill: PreFillParams) -> GamePatches:
+        configuration: EchoesConfiguration = patches.configuration
+        # if configuration.hints.keybearer_hints == KeybearerHintMode.DISABLED or configuration.hints.keybearer_hints == KeybearerHintMode.MAJOR_LOCATIONS:
+        #     return patches
+
         all_hint_identifiers = [identifier for identifier in identifiers if identifier not in patches.hints]
         prefill.rng.shuffle(all_hint_identifiers)
 
@@ -78,4 +101,7 @@ class EchoesHintDistributor(HintDistributor):
     async def assign_precision_to_hints(self, patches: GamePatches, rng: Random,
                                         player_pool: PlayerPool, player_state: PlayerState) -> GamePatches:
         assert isinstance(player_pool.configuration, EchoesConfiguration)
-            return self.replace_hints_without_precision_with_jokes(patches)
+        # if player_pool.configuration.hints.keybearer_hints == KeybearerHintMode.ALL or player_pool.configuration.hints.keybearer_hints == KeybearerHintMode.MAJOR_ITEMS:
+        #     return self.add_hints_precision(player_state, patches, rng)
+        # else:
+        return self.replace_hints_without_precision_with_jokes(patches)
