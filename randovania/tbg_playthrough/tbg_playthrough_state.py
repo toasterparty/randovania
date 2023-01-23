@@ -227,13 +227,13 @@ class PlaythroughState:
             if len(events) == 0:
                 pass
             elif len(events) == 1:
-                result += f"\n\n {events[0]} remains uncompleted."
+                result += f"\n\n{events[0]} remains uncompleted."
             elif len(events) >= 2:
                 result += f"\n\n "
                 last = events.pop()
                 for event in events:
                     result += f"{event}, "
-                result = result[:-2]
+                result = result[:-2] # remove oxford comma
                 result += f" and {last} remain uncompleted."
 
         return result
@@ -336,6 +336,8 @@ class PlaythroughState:
 
         if target_node is None:
             raise InvalidCommand(f"I don't quite know how to get to {room_name} :/")
+
+        # print(f"attempting to go to {target_node} from {self.game_state.node}")
 
         self.go_to_node(target_node, room_name, send_message)
 

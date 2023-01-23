@@ -60,7 +60,7 @@ def loose_match(text_to_match: str, text_to_check: str) -> bool:
     if text_to_match == text_to_check:
         return True
 
-    if len(text_to_check.count(" ")) >= 1 and (
+    if text_to_check.count(" ") >= 1 and (
             text_to_match.startswith(text_to_check) or text_to_match.endswith(text_to_check)):
         return True
 
