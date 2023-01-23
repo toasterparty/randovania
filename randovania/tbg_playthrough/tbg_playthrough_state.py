@@ -4,6 +4,7 @@ from randovania.game_description.game_patches import GamePatches
 from randovania.game_description.resources.resource_type import ResourceType
 from randovania.game_description.world.node import Node
 from randovania.game_description.world.dock_node import DockNode
+from randovania.game_description.world.dock_lock_node import DockLockNode
 from randovania.game_description.world.pickup_node import PickupNode
 from randovania.game_description.world.event_node import EventNode
 from randovania.game_description.world.teleporter_node import TeleporterNode
@@ -329,6 +330,8 @@ class PlaythroughState:
             else:
                 target_node = candidates[0]
 
+            # TODO: check if this node is only accessible by going "the long way around"
+
         # Are they trying to go to an adjacent room?
         for node in self.get_area().nodes:
             if target_node:
@@ -341,6 +344,8 @@ class PlaythroughState:
                 continue  # not the dock we want to go through
 
             target_node = self.get_world_list().node_by_identifier(node.default_connection)
+
+            # TODO: check if this node is only accessible by going "the long way around"
 
         # Perhaps they are trying to take an elevator?
         for node in self.get_area().nodes:
@@ -373,6 +378,30 @@ class PlaythroughState:
     def go_to_node(self, target_node: Node, target_name: str = None, send_message=None) -> None:
         if target_node == self.game_state.node:
             return  # already there
+
+        reach = None
+        reach_nodes = None
+
+        # Unlock any door locks
+        # TODO: make the player do this instead of doing it automatically
+        for node in self.get_area().nodes:
+            if not isinstance(node, DockLockNode):
+                continue  # not a door lock
+
+            node: DockLockNode = node
+            if not node.can_collect(self.game_state.node_context()):
+                continue  # already unlocked
+            
+            if reach is None:
+                reach = ResolverReach.calculate_reach(self.game_logic, self.game_state)
+                reach_nodes = [node for node in reach.nodes]
+
+            if node not in reach_nodes:
+                continue  # don't meet the requirements to unlock
+
+            # Unlock the door
+            self.game_state = self.game_state.act_on_node(node)
+            # TODO: print message to player about unlocking the dock
 
         # check against logic
         reach = ResolverReach.calculate_reach(self.game_logic, self.game_state)
@@ -482,8 +511,8 @@ class PlaythroughState:
 
             node: EventNode = node
 
-            if node.is_collected(self.game_state.node_context()):
-                continue  # not there any more
+            if not node.can_collect(self.game_state.node_context()):
+                continue  # not there any more or out of logic
 
             if not loose_match(node.event.long_name, target) and not loose_match(node.event.short_name, target):
                 continue  # not the desired event
@@ -498,7 +527,7 @@ class PlaythroughState:
         # Check for items
         for node in self.get_area().nodes:
             if isinstance(node, PickupNode):
-                if node.is_collected(self.game_state.node_context()):
+                if not node.can_collect(self.game_state.node_context()):
                     continue  # not there any more
 
                 item = self.patches.pickup_assignment.get(node.pickup_index)
