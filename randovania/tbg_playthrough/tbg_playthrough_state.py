@@ -12,7 +12,7 @@ from randovania.layout.layout_description import LayoutDescription
 from randovania.resolver.logic import Logic
 from randovania.resolver.state import State
 from randovania.resolver.resolver_reach import ResolverReach
-from . import InvalidCommand, sanatize_text
+from . import InvalidCommand, sanatize_text, loose_match
 
 _SHOW_EVENTS_IN_INVENTORY = True
 _SHOW_EVENTS_IN_LOOK = True
@@ -47,12 +47,14 @@ class PlaythroughState:
     patches: GamePatches
     game_logic: Logic
     game_state: State
+    last_described_room: str
 
     @staticmethod
     def from_rdvgame(rdvgame: Path):
         return PlaythroughState(LayoutDescription.from_file(rdvgame))
 
     def __init__(self, description: LayoutDescription) -> None:
+        self.last_described_room = ""
         self.description = description
         if self.description.player_count != 1:
             raise ValueError(f"Text-based playthrough only works for solo games.")
@@ -128,14 +130,16 @@ class PlaythroughState:
     def get_area(self):
         return self.get_world_list().area_by_area_location(self.get_area_identifier())
 
-    def describe_here(self, print_room_banner: bool = False) -> str:
+    def describe_here(self) -> str:
         area = self.get_area()
 
         result = ""
 
-        if print_room_banner:
-            area_identifier = self.get_area_identifier()
-            result += f"\n\n{area_identifier.world_name} - {area_identifier.area_name}\n"
+        area_identifier = self.get_area_identifier()
+        long_area_name = f"{area_identifier.world_name} - {area_identifier.area_name}"
+        if self.last_described_room != long_area_name:
+            self.last_described_room = long_area_name
+            result += f"\n\n{long_area_name}\n"
             result += f"—————————————————————————————————————————————————————\n"
 
         if self.game_state.node.name:
@@ -435,7 +439,7 @@ class PlaythroughState:
             for node in self.get_area().nodes:
                 if isinstance(node, TeleporterNode):
                     self.go_to_node(self.get_world_list().default_node_for_area(node.default_connection))
-                    send_message(self.describe_here(print_room_banner=True))
+                    send_message(self.describe_here())
                     return
 
         # Check for save stations
@@ -450,16 +454,14 @@ class PlaythroughState:
             if node.is_collected(self.game_state.node_context()):
                 continue  # not there any more
 
-            check_str = target.lower()
-            if check_str != node.event.long_name.lower() and check_str != node.event.short_name.lower() and (
-                    len(check_str.split(" ")) < 2 or not node.event.long_name.lower().startswith(check_str)):
+            if not loose_match(node.event.long_name, target) and not loose_match(node.event.short_name, target):
                 continue  # not the desired event
 
             # attempt to move to the node and collect the event
             self.go_to_node(node, node.event.long_name)
             self.game_state = self.game_state.act_on_node(node)
 
-            send_message(f"Successfully completed {target.title()}.")
+            send_message(f"Successfully completed {node.event.long_name}.")
             return
 
         # Check for items
@@ -472,7 +474,7 @@ class PlaythroughState:
                 if not item:
                     continue  # nothing item
 
-                if target.lower() != item.pickup.name.lower():
+                if not loose_match(item.pickup.name, target):
                     continue  # not the desired item
 
                 # attempt to move to the node
@@ -481,7 +483,7 @@ class PlaythroughState:
                 # pick it up
                 self.game_state = self.game_state.act_on_node(node)
 
-                send_message(f"{target.title()} Acquired!")
+                send_message(f"{item.pickup.name} Acquired!")
                 return
 
         raise InvalidCommand("I don't know how to interact with that.")

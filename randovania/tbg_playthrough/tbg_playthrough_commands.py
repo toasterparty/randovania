@@ -204,9 +204,8 @@ class CommandLook(Command):
             self, state: PlaythroughState, send_message: Callable[[str],
                                                                   None],
             receive_message: Callable[[],
-                                      str],
-            print_room_banner: bool = False) -> str | None:
-        return state.describe_here(print_room_banner)
+                                      str]) -> str | None:
+        return state.describe_here()
 
 
 class CommandInteract(Command):
@@ -293,6 +292,6 @@ class CommandMove(Command):
         result = state.go_to_room(self.command_data, send_message, receive_message)
         if result:
             send_message(result)
-        return CommandLook().execute(state, send_message, receive_message, print_room_banner=True)
+        return CommandLook().execute(state, send_message, receive_message)
 
 # TODO: logbook/journal/diary command for hints, completed events, etc.

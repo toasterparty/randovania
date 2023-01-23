@@ -31,10 +31,10 @@ class Playthrough:
             f"Successfully started new game: {self.playthrough_state.configuration.game.long_name} - {self.playthrough_state.description.shareable_word_hash} ({self.playthrough_state.description.shareable_hash})")
 
         # TODO: Prolog text
+        self.send_message("What will you do?")
 
-    def _process_one_message(self) -> None:
-        message = self.receive_message()
-        command: Command = Command.from_message(message, self.playthrough_state)
+    def _execute_command(self, command_text: str) -> None:
+        command: Command = Command.from_message(command_text, self.playthrough_state)
         if command is None:
             raise InvalidCommand(
                 "Sorry, I don't understand that command. Say 'help' for the list of commands I recognize.")
@@ -46,7 +46,7 @@ class Playthrough:
     def do_playthrough_forever(self) -> None:
         while (True):
             try:
-                self._process_one_message()
+                self._execute_command(self.receive_message())
             except KeyboardInterrupt:
                 self.send_message("\nKeyboard Interrupt detected. Exiting...")
                 return
@@ -64,5 +64,4 @@ def begin_playthrough(rdvgame: Path, send_message: Callable = _cli_send_message,
                       receive_message: Callable = _cli_receive_message) -> None:
     playthrough = Playthrough(rdvgame, send_message, receive_message)
     playthrough.load_rdvgame(rdvgame)
-    playthrough.send_message("What will you do?")
     playthrough.do_playthrough_forever()
