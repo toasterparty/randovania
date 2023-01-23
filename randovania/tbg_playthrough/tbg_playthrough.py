@@ -5,6 +5,7 @@ from . import InvalidCommand
 from .tbg_playthrough_commands import InvalidCommand, Command
 from .tbg_playthrough_state import PlaythroughState
 
+
 def _cli_receive_message() -> str:
     return input("> ")
 
@@ -23,10 +24,11 @@ class Playthrough:
         self.rdvgame = rdvgame
         self.send_message = send_message
         self.receive_message = receive_message
-    
+
     def load_rdvgame(self, rdvgame: Path) -> None:
         self.playthrough_state = PlaythroughState.from_rdvgame(rdvgame)
-        self.send_message(f"Successfully started new game: {self.playthrough_state.configuration.game.long_name} - {self.playthrough_state.description.shareable_word_hash} ({self.playthrough_state.description.shareable_hash})")
+        self.send_message(
+            f"Successfully started new game: {self.playthrough_state.configuration.game.long_name} - {self.playthrough_state.description.shareable_word_hash} ({self.playthrough_state.description.shareable_hash})")
 
         # TODO: Prolog text
 

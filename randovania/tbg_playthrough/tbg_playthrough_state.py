@@ -17,6 +17,7 @@ from . import InvalidCommand, sanatize_text
 _SHOW_EVENTS_IN_INVENTORY = True
 _SHOW_EVENTS_IN_LOOK = True
 
+
 def _get_option_from_user_helper(send_message, receive_message, send_prompt: str, options: list[str]) -> int:
     message = send_prompt
     i = 0
@@ -75,16 +76,18 @@ class PlaythroughState:
         result += f"Energy: {self.game_state.energy}/{self.game_state.maximum_energy}\n"
         for resource in self.game_state.game_data.resource_database.resource_by_index:
             resource_count = self.game_state.resources[resource]
-            if resource_count == 0 or (resource.resource_type != ResourceType.ITEM and (resource.resource_type != ResourceType.EVENT or not _SHOW_EVENTS_IN_INVENTORY)):
+            if resource_count == 0 or (
+                    resource.resource_type != ResourceType.ITEM
+                    and (resource.resource_type != ResourceType.EVENT or not _SHOW_EVENTS_IN_INVENTORY)):
                 continue  # not an item
             if resource_count == 1:
                 result += f"{resource.long_name}\n"
             else:
                 result += f"{resource.long_name}: {resource_count}\n"
         result += "=================\n"
-        
+
         return result
-    
+
     def get_docks(self) -> dict[str, list[str]]:
         docks: dict[str, list[str]] = dict()
         for node in self.get_area().nodes:
@@ -98,13 +101,13 @@ class PlaythroughState:
             else:
                 docks[dock_vuln].append(dock_dest)
         return docks
-    
+
     def get_connected_rooms(self) -> list[str]:
         rooms = list()
         for dock_rooms in self.get_docks().values():
             for room in dock_rooms:
                 rooms.append(room)
-        
+
         for node in self.get_area().nodes:
             if not isinstance(node, TeleporterNode):
                 continue
@@ -125,7 +128,7 @@ class PlaythroughState:
     def get_area(self):
         return self.get_world_list().area_by_area_location(self.get_area_identifier())
 
-    def describe_here(self, print_room_banner: bool=False) -> str:
+    def describe_here(self, print_room_banner: bool = False) -> str:
         area = self.get_area()
 
         result = ""
@@ -151,7 +154,7 @@ class PlaythroughState:
             item = self.patches.pickup_assignment.get(node.pickup_index)
             if not item:
                 continue  # nothing item
-            
+
             items.append(item.pickup.name)
 
         # TODO: flavor text for the item location
@@ -168,17 +171,16 @@ class PlaythroughState:
                 result += f" {item},"
             result += f" and {last} can be plainly seen."
 
-
         for node in self.get_area().nodes:
             if not isinstance(node, TeleporterNode):
-                continue # not a teleporter node
+                continue  # not a teleporter node
 
             result += f" A functioning transport leads to {node.default_connection.world_name}."
 
         docks = self.get_docks()
 
         def _to_str_helper(dock_vuln: str, dock_dests: list[str]) -> str:
-        # TODO: If the game has aabbs in the database, use North, East, South and West here
+            # TODO: If the game has aabbs in the database, use North, East, South and West here
             for dest in dock_dests:
                 if dest.lower() == self.game_state.node.name.lower().removeprefix("door to "):
                     dock_dests.remove(dest)
@@ -239,7 +241,7 @@ class PlaythroughState:
             aabb[1] + ((aabb[4] - aabb[1])/2),
             # don't care about z
         ]
-    
+
     @staticmethod
     def centers_to_cardinal(x1, y1, x2, y2) -> str:
         if max(x1, x2) - min(x1, x2) > max(y1, y2) - min(y1, y2):
@@ -264,18 +266,20 @@ class PlaythroughState:
             # xmin, ymin, zmin, xmax, ymax, zmax
             aabb = self.get_area().extra.get("aabb", None)
             if not aabb:
-                raise InvalidCommand(f"I don't know how to navigate using cardinal directions when playing {self.configuration.game.long_name}.")
+                raise InvalidCommand(
+                    f"I don't know how to navigate using cardinal directions when playing {self.configuration.game.long_name}.")
 
             center = PlaythroughState.aabb_to_room_center(aabb)
 
             candidates: list[Node] = []
             for node in self.get_area().nodes:
                 if not isinstance(node, DockNode):
-                    continue # not a dock node
+                    continue  # not a dock node
 
-                aabb = self.get_world_list().area_by_area_location(node.default_connection.area_identifier).extra["aabb"]
+                aabb = self.get_world_list().area_by_area_location(
+                    node.default_connection.area_identifier).extra["aabb"]
                 neighbor_center = PlaythroughState.aabb_to_room_center(aabb)
-                
+
                 dir = PlaythroughState.centers_to_cardinal(center[0], center[1], neighbor_center[0], neighbor_center[1])
 
                 if room_name == dir:
@@ -283,15 +287,15 @@ class PlaythroughState:
 
             if len(candidates) == 0:
                 raise InvalidCommand("There's nothing in that direction.")
-            
+
             if len(candidates) > 1:
                 selection = _get_option_from_user_helper(
-                        send_message,
-                        receive_message,
-                        "Which area do you mean?",
-                        [candidate.identifier.area_identifier.area_name for candidate in candidates],
-                    )
-                
+                    send_message,
+                    receive_message,
+                    "Which area do you mean?",
+                    [candidate.identifier.area_identifier.area_name for candidate in candidates],
+                )
+
                 target_node = candidates[selection-1]
             else:
                 target_node = candidates[0]
@@ -302,11 +306,11 @@ class PlaythroughState:
                 break
 
             if not isinstance(node, DockNode):
-                continue # not a dock
+                continue  # not a dock
 
             if room_name.lower() != node.default_connection.area_name.lower():
-                continue # not the dock we want to go through
-            
+                continue  # not the dock we want to go through
+
             target_node = self.get_world_list().node_by_identifier(node.default_connection)
 
         # Perhaps they are trying to take an elevator?
@@ -315,10 +319,12 @@ class PlaythroughState:
                 break
 
             if not isinstance(node, TeleporterNode):
-                continue # not a teleporter node
+                continue  # not a teleporter node
 
-            if room_name.lower() not in [node.default_connection.area_name.lower(), node.default_connection.world_name.lower()]:
-                continue # not the teleporter we want to go through
+            if room_name.lower() not in [
+                    node.default_connection.area_name.lower(),
+                    node.default_connection.world_name.lower()]:
+                continue  # not the teleporter we want to go through
 
             target_node = self.get_world_list().default_node_for_area(node.default_connection)
 
@@ -331,37 +337,43 @@ class PlaythroughState:
 
         return None
 
-    def go_to_node(self, target_node: Node, target_name: str=None, send_message=None) -> None:
+    def go_to_node(self, target_node: Node, target_name: str = None, send_message=None) -> None:
         if target_node == self.game_state.node:
-            return # already there
-        
+            return  # already there
+
         # check against logic
         reach = ResolverReach.calculate_reach(self.game_logic, self.game_state)
         reach_nodes = [node for node in reach.nodes]
         if target_node not in reach_nodes:
             if not target_name or len(target_name) <= 1:
                 target_name = target_node.identifier.area_identifier.area_name
-            raise InvalidCommand(f"After several minutes of your best efforts, you resign and admit there is no way reach {target_name} from here.")
+            raise InvalidCommand(
+                f"After several minutes of your best efforts, you resign and admit there is no way reach {target_name} from here.")
 
         # calculate energy lost
-        reach_nodes = [node for node in self.game_logic.game.world_list.potential_nodes_from(self.game_state.node, self.game_state.node_context())]
+        reach_nodes = [
+            node
+            for node in self.game_logic.game.world_list.potential_nodes_from(
+                self.game_state.node, self.game_state.node_context())]
         new_energy = None
         i = 0
         while not new_energy:
-            i += 1            
+            i += 1
             if i > 20:
                 raise InvalidCommand("I'm having trouble getting you there.")
 
             for node, requirement in reach_nodes:
                 if node != target_node:
                     reach_nodes.extend(
-                        [node for node in self.game_logic.game.world_list.potential_nodes_from(node, self.game_state.node_context())]
-                    )
+                        [node
+                         for node in self.game_logic.game.world_list.potential_nodes_from(
+                             node, self.game_state.node_context())])
                     continue
 
-                new_energy = self.game_state.energy - requirement.damage(self.game_state.resources, self.game_state.resource_database)
+                new_energy = self.game_state.energy - requirement.damage(
+                    self.game_state.resources, self.game_state.resource_database)
                 break
-    
+
         # update game state
         self.game_state.node = target_node
         if new_energy < 0:
@@ -376,7 +388,8 @@ class PlaythroughState:
             if health < 0.1:
                 send_message(f"\nYour vision blurs as you begin to loose consciousness.")
             elif health < 0.2:
-                send_message(f"\nIt's becoming difficult to focus on simple tasks as you tremble in excruciating pain, gapsing for breath.")
+                send_message(
+                    f"\nIt's becoming difficult to focus on simple tasks as you tremble in excruciating pain, gapsing for breath.")
             elif health < 0.3:
                 send_message(f"\nWhere there was doubt before, you are now certain that multiple bones are broken.")
             elif health < 0.4:
@@ -398,7 +411,7 @@ class PlaythroughState:
 
     def interact(self, command_data: list[str], send_message, receive_message) -> None | str:
         target = None
-        
+
         if len(command_data) == 0:
             raise Exception("matched an empty command")
 
@@ -406,7 +419,7 @@ class PlaythroughState:
             target = "save"
 
         command_data.pop(0)
-                
+
         if not target and len(command_data) == 0:
             send_message("What do you want to interact with?")
             target: str = receive_message()
@@ -414,7 +427,7 @@ class PlaythroughState:
             target = command_data.pop(0)
             for word in command_data:
                 target += " " + word
-        
+
         # TODO: check for multiple and ask for clarification
 
         # Check for elevators
@@ -424,7 +437,7 @@ class PlaythroughState:
                     self.go_to_node(self.get_world_list().default_node_for_area(node.default_connection))
                     send_message(self.describe_here(print_room_banner=True))
                     return
-        
+
         # Check for save stations
 
         # Check for events
@@ -436,12 +449,12 @@ class PlaythroughState:
 
             if node.is_collected(self.game_state.node_context()):
                 continue  # not there any more
-            
+
             check_str = target.lower()
             if check_str != node.event.long_name.lower() and check_str != node.event.short_name.lower() and (
                     len(check_str.split(" ")) < 2 or not node.event.long_name.lower().startswith(check_str)):
                 continue  # not the desired event
-            
+
             # attempt to move to the node and collect the event
             self.go_to_node(node, node.event.long_name)
             self.game_state = self.game_state.act_on_node(node)
@@ -453,14 +466,14 @@ class PlaythroughState:
         for node in self.get_area().nodes:
             if isinstance(node, PickupNode):
                 if node.is_collected(self.game_state.node_context()):
-                    continue # not there any more
+                    continue  # not there any more
 
                 item = self.patches.pickup_assignment.get(node.pickup_index)
                 if not item:
-                    continue # nothing item
+                    continue  # nothing item
 
                 if target.lower() != item.pickup.name.lower():
-                    continue # not the desired item
+                    continue  # not the desired item
 
                 # attempt to move to the node
                 self.go_to_node(node, item.pickup.name)

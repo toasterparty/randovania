@@ -3,6 +3,7 @@ from typing import Callable
 from .tbg_playthrough_state import PlaythroughState
 from . import InvalidCommand, sanatize_text, FILTER_WORDS
 
+
 class CommandType(Enum):
     HELP = 0,
     EXIT = 1,
@@ -65,7 +66,11 @@ class Command:
         """
         raise NotImplementedError("Command not implemented.")
 
-    def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str]) -> str | None:
+    def execute(
+            self, state: PlaythroughState, send_message: Callable[[str],
+                                                                  None],
+            receive_message: Callable[[],
+                                      str]) -> str | None:
         """
         Do the work specific to this command, optionally returning a string
         to respond to the user with
@@ -123,7 +128,11 @@ class CommandHelp(Command):
         if command_data[0] in CommandHelp.KEYWORDS:
             return CommandHelp(command_data)
 
-    def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str]) -> str | None:
+    def execute(
+            self, state: PlaythroughState, send_message: Callable[[str],
+                                                                  None],
+            receive_message: Callable[[],
+                                      str]) -> str | None:
         return _help_message()
 
 
@@ -143,7 +152,11 @@ class CommandExit(Command):
         if command_data[0] in CommandExit.KEYWORDS:
             return CommandExit(command_data)
 
-    def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str]) -> str | None:
+    def execute(
+            self, state: PlaythroughState, send_message: Callable[[str],
+                                                                  None],
+            receive_message: Callable[[],
+                                      str]) -> str | None:
         return None
 
 
@@ -163,7 +176,11 @@ class CommandInventory(Command):
         if command_data[0] in CommandInventory.KEYWORDS:
             return CommandInventory(command_data)
 
-    def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str]) -> str | None:
+    def execute(
+            self, state: PlaythroughState, send_message: Callable[[str],
+                                                                  None],
+            receive_message: Callable[[],
+                                      str]) -> str | None:
         return state.describe_inventory()
 
 
@@ -183,7 +200,12 @@ class CommandLook(Command):
         if command_data[0] in CommandLook.KEYWORDS:
             return CommandLook(command_data)
 
-    def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str], print_room_banner: bool=False) -> str | None:
+    def execute(
+            self, state: PlaythroughState, send_message: Callable[[str],
+                                                                  None],
+            receive_message: Callable[[],
+                                      str],
+            print_room_banner: bool = False) -> str | None:
         return state.describe_here(print_room_banner)
 
 
@@ -204,7 +226,11 @@ class CommandInteract(Command):
         if command_data[0] in CommandInteract.KEYWORDS:
             return CommandInteract(command_data)
 
-    def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str]) -> str | None:
+    def execute(
+            self, state: PlaythroughState, send_message: Callable[[str],
+                                                                  None],
+            receive_message: Callable[[],
+                                      str]) -> str | None:
         return state.interact(self.command_data, send_message, receive_message)
 
 
@@ -259,7 +285,11 @@ class CommandMove(Command):
 
         return None
 
-    def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str]) -> str | None:
+    def execute(
+            self, state: PlaythroughState, send_message: Callable[[str],
+                                                                  None],
+            receive_message: Callable[[],
+                                      str]) -> str | None:
         result = state.go_to_room(self.command_data, send_message, receive_message)
         if result:
             send_message(result)
