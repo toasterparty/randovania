@@ -125,15 +125,15 @@ class PlaythroughState:
     def get_area(self):
         return self.get_world_list().area_by_area_location(self.get_area_identifier())
 
-    def describe_here(self) -> str:
-        area_identifier = self.get_area_identifier()
+    def describe_here(self, print_room_banner: bool=False) -> str:
         area = self.get_area()
 
-        result = "\n\n"
-        result += f"{area_identifier.world_name} - {area_identifier.area_name}\n"
-        result += f"————————————————————————————————————————————\n\n"
+        result = ""
 
-        result += f"\n<flowery flavor text goes here>"
+        if print_room_banner:
+            area_identifier = self.get_area_identifier()
+            result += f"\n\n{area_identifier.world_name} - {area_identifier.area_name}\n"
+            result += f"—————————————————————————————————————————————————————\n"
 
         if self.game_state.node.name:
             result += f"\n\nYou are standing at the {self.game_state.node.name}."
@@ -141,22 +141,23 @@ class PlaythroughState:
         items: list[str] = list()
         for node in area.nodes:
             if not isinstance(node, PickupNode):
-                continue # not a pickup node
+                continue  # not a pickup node
 
             node: PickupNode = node
 
             if node.is_collected(self.game_state.node_context()):
-                continue # not there any more
+                continue  # not there any more
 
             item = self.patches.pickup_assignment.get(node.pickup_index)
             if not item:
-                continue # nothing item
+                continue  # nothing item
             
             items.append(item.pickup.name)
 
         # TODO: flavor text for the item location
         # TODO: add peekability to the database
         # TODO: use counts when more than 1
+        # TODO: helper
         if len(items) == 1:
             result += f" A {items[0]} can be plainly seen."
         elif len(items) == 2:
@@ -173,23 +174,6 @@ class PlaythroughState:
                 continue # not a teleporter node
 
             result += f" A functioning transport leads to {node.default_connection.world_name}."
-
-        if _SHOW_EVENTS_IN_LOOK:
-            for node in area.nodes:
-                if not isinstance(node, EventNode):
-                    continue # not a pickup node
-
-                node: EventNode = node
-
-                if node.is_collected(self.game_state.node_context()):
-                    continue # not there any more
-
-                item = self.patches.pickup_assignment.get(node.pickup_index)
-                if not item:
-                    continue # nothing item
-                
-                items.append(item.pickup.name)
-
 
         docks = self.get_docks()
 
@@ -219,6 +203,32 @@ class PlaythroughState:
 
         for dock_vuln in docks:
             result += _to_str_helper(dock_vuln, docks[dock_vuln])
+
+        if _SHOW_EVENTS_IN_LOOK:
+            events = list()
+
+            for node in area.nodes:
+                if not isinstance(node, EventNode):
+                    continue  # not a pickup node
+
+                node: EventNode = node
+
+                if node.is_collected(self.game_state.node_context()):
+                    continue  # not there any more
+
+                events.append(node.event.long_name)
+
+            if len(events) == 0:
+                pass
+            elif len(events) == 1:
+                result += f"\n\n {events[0]} remains uncompleted."
+            elif len(events) >= 2:
+                result += f"\n\n "
+                last = events.pop()
+                for event in events:
+                    result += f"{event}, "
+                result = result[:-2]
+                result += f" and {last} remain uncompleted."
 
         return result
 
@@ -405,19 +415,39 @@ class PlaythroughState:
             for word in command_data:
                 target += " " + word
         
-        # TODO: check for multiple an ask for clarification
+        # TODO: check for multiple and ask for clarification
 
         # Check for elevators
         if target in ["elevator", "teleporter", "trasnsport", "transporter", "warp", "portal"]:
             for node in self.get_area().nodes:
                 if isinstance(node, TeleporterNode):
                     self.go_to_node(self.get_world_list().default_node_for_area(node.default_connection))
-                    send_message(self.describe_here())
+                    send_message(self.describe_here(print_room_banner=True))
                     return
         
         # Check for save stations
 
         # Check for events
+        for node in self.get_area().nodes:
+            if not isinstance(node, EventNode):
+                continue
+
+            node: EventNode = node
+
+            if node.is_collected(self.game_state.node_context()):
+                continue  # not there any more
+            
+            check_str = target.lower()
+            if check_str != node.event.long_name.lower() and check_str != node.event.short_name.lower() and (
+                    len(check_str.split(" ")) < 2 or not node.event.long_name.lower().startswith(check_str)):
+                continue  # not the desired event
+            
+            # attempt to move to the node and collect the event
+            self.go_to_node(node, node.event.long_name)
+            self.game_state = self.game_state.act_on_node(node)
+
+            send_message(f"Successfully completed {target.title()}.")
+            return
 
         # Check for items
         for node in self.get_area().nodes:

@@ -168,7 +168,7 @@ class CommandInventory(Command):
 
 
 class CommandLook(Command):
-    KEYWORDS = ["look", "l", "inspect", "investigate", "room", "area", "here", "describe", "observe", "check", "where"]
+    KEYWORDS = ["look", "l", "room", "area", "here", "describe", "observe", "check", "where"]
 
     @staticmethod
     def command_type() -> CommandType:
@@ -183,12 +183,13 @@ class CommandLook(Command):
         if command_data[0] in CommandLook.KEYWORDS:
             return CommandLook(command_data)
 
-    def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str]) -> str | None:
-        return state.describe_here()
+    def execute(self, state: PlaythroughState, send_message: Callable[[str], None], receive_message: Callable[[], str], print_room_banner: bool=False) -> str | None:
+        return state.describe_here(print_room_banner)
 
 
 class CommandInteract(Command):
-    KEYWORDS = ["use", "collect", "take", "pickup", "interact", "get", "inspect", "acquire", "fight", "destroy", "solve"]
+    KEYWORDS = ["use", "collect", "take", "pickup", "interact", "get", "inspect",
+                "investigate", "acquire", "fight", "destroy", "solve", "battle", "combat", "engage"]
 
     @staticmethod
     def command_type() -> CommandType:
@@ -262,6 +263,6 @@ class CommandMove(Command):
         result = state.go_to_room(self.command_data, send_message, receive_message)
         if result:
             send_message(result)
-        return CommandLook().execute(state, send_message, receive_message)
+        return CommandLook().execute(state, send_message, receive_message, print_room_banner=True)
 
 # TODO: logbook/journal/diary command for hints, completed events, etc.

@@ -62,4 +62,5 @@ def begin_playthrough(rdvgame: Path, send_message: Callable = _cli_send_message,
                       receive_message: Callable = _cli_receive_message) -> None:
     playthrough = Playthrough(rdvgame, send_message, receive_message)
     playthrough.load_rdvgame(rdvgame)
+    playthrough.send_message("What will you do?")
     playthrough.do_playthrough_forever()
