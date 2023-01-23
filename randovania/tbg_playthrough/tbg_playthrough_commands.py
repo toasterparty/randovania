@@ -145,7 +145,7 @@ class CommandExit(Command):
 
     @staticmethod
     def help_message() -> str:
-        return "tbd"
+        return "exit - [NYI]"
 
     @staticmethod
     def from_command_data(command_data: list[str], state: PlaythroughState):
@@ -218,7 +218,7 @@ class CommandInteract(Command):
 
     @staticmethod
     def help_message() -> str:
-        return "use - Interact with something in the area"
+        return "use - Interact with an object or event in the area"
 
     @staticmethod
     def from_command_data(command_data: list[str], state: PlaythroughState):
@@ -242,7 +242,7 @@ class CommandMove(Command):
 
     @staticmethod
     def help_message() -> str:
-        return "tbd"
+        return "go - Move to another room/area/world etc. Some games support cardinal directions (n/s/e/w)"
 
     @staticmethod
     def from_command_data(command_data: list[str], state: PlaythroughState):
