@@ -1,4 +1,5 @@
 from pathlib import Path
+from randovania.games.game import RandovaniaGame
 from randovania.game_description.game_patches import GamePatches
 from randovania.game_description.resources.resource_type import ResourceType
 from randovania.game_description.world.node import Node
@@ -6,6 +7,9 @@ from randovania.game_description.world.dock_node import DockNode
 from randovania.game_description.world.pickup_node import PickupNode
 from randovania.game_description.world.event_node import EventNode
 from randovania.game_description.world.teleporter_node import TeleporterNode
+from randovania.game_description.world.area_identifier import AreaIdentifier
+from randovania.game_description.world.node_identifier import NodeIdentifier
+from randovania.game_description.world.world_list import WorldList
 from randovania.layout import filtered_database
 from randovania.layout.base.base_configuration import BaseConfiguration
 from randovania.layout.layout_description import LayoutDescription
@@ -14,8 +18,18 @@ from randovania.resolver.state import State
 from randovania.resolver.resolver_reach import ResolverReach
 from . import InvalidCommand, sanatize_text, loose_match
 
+from randovania.games.prime1.patcher import prime1_elevators
+
 _SHOW_EVENTS_IN_INVENTORY = True
 _SHOW_EVENTS_IN_LOOK = True
+
+
+def _prime1_name_for_location(world_list: WorldList, location: AreaIdentifier) -> str:
+    loc = location.as_tuple
+    if loc in prime1_elevators.RANDOM_PRIME_CUSTOM_NAMES and loc != ("Frigate Orpheon", "Exterior Docking Hangar"):
+        return prime1_elevators.RANDOM_PRIME_CUSTOM_NAMES[loc].replace("\0", " ")
+    else:
+        return world_list.area_name(world_list.area_by_area_location(location), separator=":")
 
 
 def _get_option_from_user_helper(send_message, receive_message, send_prompt: str, options: list[str]) -> int:
@@ -115,8 +129,10 @@ class PlaythroughState:
                 continue
 
             node: TeleporterNode = node
-            rooms.append(node.default_connection.world_name)
-            rooms.append(node.default_connection.area_name)
+            destination_area_identifier = self.patches.get_elevator_connection_for(node)
+
+            rooms.append(destination_area_identifier.world_name)
+            rooms.append(destination_area_identifier.area_name)
 
         return rooms
 
@@ -179,7 +195,16 @@ class PlaythroughState:
             if not isinstance(node, TeleporterNode):
                 continue  # not a teleporter node
 
-            result += f" A functioning transport leads to {node.default_connection.world_name}."
+            if self.game_logic.game.game == RandovaniaGame.METROID_PRIME:
+                transport = "elevator"
+
+                world_list = self.get_world_list()
+                destination = _prime1_name_for_location(world_list, self.patches.get_elevator_connection_for(node))
+            else:
+                transport = "transport"
+                destination = world_list.identifier_for_node(node).world_name
+
+            result += f" A functioning {transport} leads to {destination}."
 
         docks = self.get_docks()
 
@@ -233,7 +258,7 @@ class PlaythroughState:
                 last = events.pop()
                 for event in events:
                     result += f"{event}, "
-                result = result[:-2] # remove oxford comma
+                result = result[:-2]  # remove oxford comma
                 result += f" and {last} remain uncompleted."
 
         return result
@@ -325,12 +350,14 @@ class PlaythroughState:
             if not isinstance(node, TeleporterNode):
                 continue  # not a teleporter node
 
+            destination_area_identifier = self.patches.get_elevator_connection_for(node)
+
             if room_name.lower() not in [
-                    node.default_connection.area_name.lower(),
-                    node.default_connection.world_name.lower()]:
+                    destination_area_identifier.area_name.lower(),
+                    destination_area_identifier.world_name.lower()]:
                 continue  # not the teleporter we want to go through
 
-            target_node = self.get_world_list().default_node_for_area(node.default_connection)
+            target_node = self.get_world_list().default_node_for_area(destination_area_identifier)
 
             # TODO: Flavor text for experiencing a new world
 
@@ -440,7 +467,9 @@ class PlaythroughState:
         if target in ["elevator", "teleporter", "trasnsport", "transporter", "warp", "portal"]:
             for node in self.get_area().nodes:
                 if isinstance(node, TeleporterNode):
-                    self.go_to_node(self.get_world_list().default_node_for_area(node.default_connection))
+                    destination_area_identifier = self.patches.get_elevator_connection_for(node)
+                    destination_node = self.get_world_list().default_node_for_area(destination_area_identifier)
+                    self.go_to_node(destination_node)
                     send_message(self.describe_here())
                     return
 
