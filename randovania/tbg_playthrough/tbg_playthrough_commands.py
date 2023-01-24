@@ -83,22 +83,8 @@ class Command:
         self.command_data = command_data
 
     def parse_message(message: str) -> list[str]:
-        message_data: list[str] = []
-        message = sanatize_text(message)
-        words = message.split(" ")
-        for word in words:
-            # Filter out meaningless words, but only if they are used in a sentence
-            # TODO: could also check for all adverbs in english dictionary
-            if word in FILTER_WORDS and len(words) != 1:
-                continue
-
-            # it's a valid word
-            message_data.append(word)
-
-        if len(message_data) == 0:
-            raise InvalidCommand("Pardon?")
-
-        return message_data
+        message = sanatize_text(message, filter_words=True)
+        return message.split(" ")
 
     @staticmethod
     def from_message(message: str, state: PlaythroughState):
@@ -209,8 +195,8 @@ class CommandLook(Command):
 
 
 class CommandInteract(Command):
-    KEYWORDS = ["use", "collect", "take", "pickup", "interact", "get", "inspect",
-                "investigate", "acquire", "fight", "destroy", "solve", "battle", "combat", "engage"]
+    KEYWORDS = ["use", "collect", "take", "pickup", "interact", "get", "inspect", "kill",
+                "investigate", "acquire", "fight", "destroy", "solve", "battle", "combat", "engage", "complete", "do", "defeat"]
 
     @staticmethod
     def command_type() -> CommandType:

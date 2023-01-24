@@ -7,6 +7,7 @@ from randovania.game_description.world.dock_node import DockNode
 from randovania.game_description.world.dock_lock_node import DockLockNode
 from randovania.game_description.world.pickup_node import PickupNode
 from randovania.game_description.world.event_node import EventNode
+from randovania.game_description.world.event_pickup import EventPickupNode
 from randovania.game_description.world.teleporter_node import TeleporterNode
 from randovania.game_description.world.area_identifier import AreaIdentifier
 from randovania.game_description.world.node_identifier import NodeIdentifier
@@ -369,8 +370,6 @@ class PlaythroughState:
         if target_node is None:
             raise InvalidCommand(f"I don't quite know how to get to {room_name} :/")
 
-        # print(f"attempting to go to {target_node} from {self.game_state.node}")
-
         self.go_to_node(target_node, room_name, send_message)
 
         return None
@@ -378,6 +377,8 @@ class PlaythroughState:
     def go_to_node(self, target_node: Node, target_name: str = None, send_message=None) -> None:
         if target_node == self.game_state.node:
             return  # already there
+
+        # print(f"attempting to go to {target_node} from {self.game_state.node}")
 
         reach = None
         reach_nodes = None
@@ -504,33 +505,55 @@ class PlaythroughState:
 
         # Check for save stations
 
-        # Check for events
-        for node in self.get_area().nodes:
-            if not isinstance(node, EventNode):
-                continue
+        for allow_non_event_pickup_node in [False, True]:
+            # Check for events
+            for node in self.get_area().nodes:
+                item = None
+                if isinstance(node, EventNode) and allow_non_event_pickup_node:
+                    event_node = node
+                elif isinstance(node, EventPickupNode):
+                    event_node = node.event_node
+                    pickup_index = node.pickup_node.pickup_index
+                    item = self.patches.pickup_assignment.get(pickup_index)
+                else:
+                    continue
 
-            node: EventNode = node
+                event = event_node.event
 
-            if not node.can_collect(self.game_state.node_context()):
-                continue  # not there any more or out of logic
+                if not node.can_collect(self.game_state.node_context()):
+                    continue  # not there any more or out of logic
 
-            if not loose_match(node.event.long_name, target) and not loose_match(node.event.short_name, target):
-                continue  # not the desired event
+                if not loose_match(event.long_name, target) and not loose_match(event.short_name, target):
+                    continue  # not the desired event
 
-            # attempt to move to the node and collect the event
-            self.go_to_node(node, node.event.long_name)
-            self.game_state = self.game_state.act_on_node(node)
+                # attempt to move to the node and collect the event
+                self.go_to_node(node, event.long_name)
+                self.game_state = self.game_state.act_on_node(node)
 
-            send_message(f"Successfully completed {node.event.long_name}.")
-            return
+                message = f"Successfully completed {event.long_name}."
 
-        # Check for items
-        for node in self.get_area().nodes:
-            if isinstance(node, PickupNode):
+                if item:
+                    message += f"\n\n{item.pickup.name} Acquired!"
+
+                send_message(message)
+
+                return
+
+            # Check for items
+            for node in self.get_area().nodes:
+                event = None
+                if isinstance(node, PickupNode) and allow_non_event_pickup_node:
+                    pickup_index = node.pickup_index
+                elif isinstance(node, EventPickupNode):
+                    pickup_index = node.pickup_node.pickup_index
+                    event = node.event_node.event
+                else:
+                    continue
+
                 if not node.can_collect(self.game_state.node_context()):
                     continue  # not there any more
 
-                item = self.patches.pickup_assignment.get(node.pickup_index)
+                item = self.patches.pickup_assignment.get(pickup_index)
                 if not item:
                     continue  # nothing item
 
@@ -543,7 +566,16 @@ class PlaythroughState:
                 # pick it up
                 self.game_state = self.game_state.act_on_node(node)
 
-                send_message(f"{item.pickup.name} Acquired!")
+                message = ""
+                
+                if event:
+                    message += f"Successfully completed {event.long_name}."
+                
+                if message != "":
+                    message += "\n\n"
+                message += f"{item.pickup.name} Acquired!"
+
+                send_message(message)
                 return
 
         raise InvalidCommand("I don't know how to interact with that.")

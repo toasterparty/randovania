@@ -23,13 +23,14 @@ class InvalidCommand(Exception):
     pass
 
 
-def sanatize_text(text: str) -> str:
+def sanatize_text(text: str, filter_words: bool=False) -> str:
     # forbid non-ascii
     if not text.isascii():
         raise InvalidCommand("I'm sorry, there are illegal characters in your command.")
 
     sanatized_text = None
-    for word in text.split(" "):
+    words = text.split(" ")
+    for word in words:
         # remove non-alphanumeric
         word = "".join(filter(str.isalnum, word))
 
@@ -38,6 +39,9 @@ def sanatize_text(text: str) -> str:
 
         # redundant whitespace
         if len(word) == 0:
+            continue
+
+        if filter_words and word in FILTER_WORDS and len(words) > 1:
             continue
 
         if sanatized_text:
@@ -54,8 +58,8 @@ def sanatize_text(text: str) -> str:
 def loose_match(text_to_match: str, text_to_check: str) -> bool:
     """Tests for equality between two strings case insensitive, ignoring up to a couple
        words of difference (e.g. "space jump" == "Space Jump Boots")"""
-    text_to_match = text_to_match.lower().strip()
-    text_to_check = text_to_check.lower().strip()
+    text_to_match = sanatize_text(text_to_match, filter_words=True)
+    text_to_check = sanatize_text(text_to_check, filter_words=True)
 
     if text_to_match == text_to_check:
         return True
