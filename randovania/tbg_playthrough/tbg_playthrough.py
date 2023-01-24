@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Callable
 
-from . import InvalidCommand
+from . import InvalidCommand, PlayerDeath
 from .tbg_playthrough_commands import InvalidCommand, Command
 from .tbg_playthrough_state import PlaythroughState
 
@@ -52,6 +52,14 @@ class Playthrough:
                 return
             except InvalidCommand as e:
                 self.send_message(f"{e}")
+            except PlayerDeath as e:
+                self.send_message("\n\n\n")
+                self.send_message("————————————————————————————————————————————————————")
+                self.send_message("|                     YOU DIED                     |")
+                self.send_message("————————————————————————————————————————————————————")
+                self.send_message("\n\n\n")
+                # TODO: Set some death flag
+
             # except Exception as e:
             #     exc_type, _, exc_tb = sys.exc_info()
             #     fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]

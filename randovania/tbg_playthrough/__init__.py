@@ -23,6 +23,10 @@ class InvalidCommand(Exception):
     pass
 
 
+class PlayerDeath(Exception):
+    pass
+
+
 def sanatize_text(text: str, filter_words: bool=False) -> str:
     # forbid non-ascii
     if not text.isascii():

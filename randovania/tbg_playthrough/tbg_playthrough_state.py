@@ -12,19 +12,22 @@ from randovania.game_description.world.teleporter_node import TeleporterNode
 from randovania.game_description.world.area_identifier import AreaIdentifier
 from randovania.game_description.world.node_identifier import NodeIdentifier
 from randovania.game_description.world.world_list import WorldList
+from randovania.game_description.requirements.base import MAX_DAMAGE
 from randovania.layout import filtered_database
 from randovania.layout.base.base_configuration import BaseConfiguration
 from randovania.layout.layout_description import LayoutDescription
 from randovania.resolver.logic import Logic
 from randovania.resolver.state import State
 from randovania.resolver.resolver_reach import ResolverReach
-from . import InvalidCommand, sanatize_text, loose_match
+from . import InvalidCommand, PlayerDeath, sanatize_text, loose_match
 
 from randovania.games.prime1.patcher import prime1_elevators
 
 _SHOW_EVENTS_IN_INVENTORY = True
 _SHOW_EVENTS_IN_LOOK = True
 
+# TODO: Allow the player to move in a way that kills them and "game overs"
+# TODO: Announce when the player soft-locks and "game overs"
 
 def _prime1_name_for_location(world_list: WorldList, location: AreaIdentifier) -> str:
     loc = location.as_tuple
@@ -433,11 +436,14 @@ class PlaythroughState:
                          for node in self.game_logic.game.world_list.potential_nodes_from(
                              node, self.game_state.node_context())])
                     continue
+                
+                damage = requirement.damage(self.game_state.resources, self.game_state.resource_database)
+                if (damage == MAX_DAMAGE):
+                    continue
 
-                new_energy = self.game_state.energy - requirement.damage(
-                    self.game_state.resources, self.game_state.resource_database)
+                new_energy = self.game_state.energy - damage
                 break
-        
+
         # Apply energy delta from travel
         self.game_state.energy = new_energy
 
@@ -448,8 +454,8 @@ class PlaythroughState:
 
         # update game state
         self.game_state.node = target_node
-        if new_energy < 0:
-            raise Exception("\nYou Died [NYI]")
+        if new_energy <= 0:
+            raise PlayerDeath()
         elif new_energy > old_energy:
             if old_energy == self.game_state.maximum_energy:
                 send_message(f"\nYou are feeling much better.")
@@ -557,7 +563,7 @@ class PlaythroughState:
                     continue
 
                 if not node.can_collect(self.game_state.node_context()):
-                    continue  # not there any more
+                    continue  # not there any more or inaccessible
 
                 item = self.patches.pickup_assignment.get(pickup_index)
                 if not item:
