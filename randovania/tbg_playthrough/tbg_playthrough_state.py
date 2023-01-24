@@ -441,6 +441,8 @@ class PlaythroughState:
                 if (damage == MAX_DAMAGE):
                     continue
 
+                # TODO: find path of highest resulting energy
+
                 new_energy = self.game_state.energy - damage
                 break
 
@@ -517,7 +519,9 @@ class PlaythroughState:
                     return
 
         # Check for save stations
+        # TODO:
 
+        attempted_target = None
         for allow_non_event_pickup_node in [False, True]:
             # Check for events
             for node in self.get_area().nodes:
@@ -540,7 +544,11 @@ class PlaythroughState:
                     continue  # not the desired event
 
                 # attempt to move to the node and collect the event
-                self.go_to_node(node, send_message, act_on_node=True, target_name=event.long_name)
+                try:
+                    self.go_to_node(node, send_message, act_on_node=True, target_name=event.long_name)
+                except:
+                    attempted_target = event.long_name
+                    continue
 
                 message = f"Successfully completed {event.long_name}."
 
@@ -573,7 +581,11 @@ class PlaythroughState:
                     continue  # not the desired item
 
                 # attempt to move to the node and pick up the item
-                self.go_to_node(node, send_message, act_on_node=True, target_name=item.pickup.name)
+                try:
+                    self.go_to_node(node, send_message, act_on_node=True, target_name=item.pickup.name)
+                except:
+                    attempted_target = item.pickup.name
+                    continue
 
                 message = ""
                 
@@ -586,5 +598,9 @@ class PlaythroughState:
 
                 send_message(message)
                 return
+
+        
+        if attempted_target:
+            raise InvalidCommand(f"After several minutes of your best efforts, you resign and admit there is no way reach {attempted_target} from here.")
 
         raise InvalidCommand("I don't know how to interact with that.")
