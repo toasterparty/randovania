@@ -370,11 +370,11 @@ class PlaythroughState:
         if target_node is None:
             raise InvalidCommand(f"I don't quite know how to get to {room_name} :/")
 
-        self.go_to_node(target_node, room_name, send_message)
+        self.go_to_node(target_node, send_message, target_name=room_name)
 
         return None
 
-    def go_to_node(self, target_node: Node, target_name: str = None, send_message=None) -> None:
+    def go_to_node(self, target_node: Node, send_message, act_on_node: bool=False, target_name: str = None) -> None:
         if target_node == self.game_state.node:
             return  # already there
 
@@ -414,6 +414,7 @@ class PlaythroughState:
                 f"After several minutes of your best efforts, you resign and admit there is no way reach {target_name} from here.")
 
         # calculate energy lost
+        old_energy = self.game_state.energy
         reach_nodes = [
             node
             for node in self.game_logic.game.world_list.potential_nodes_from(
@@ -436,17 +437,25 @@ class PlaythroughState:
                 new_energy = self.game_state.energy - requirement.damage(
                     self.game_state.resources, self.game_state.resource_database)
                 break
+        
+        # Apply energy delta from travel
+        self.game_state.energy = new_energy
+
+        # Collect events, pickups (can heal)
+        if act_on_node:
+            self.game_state = self.game_state.act_on_node(node)
+            new_energy = self.game_state.energy
 
         # update game state
         self.game_state.node = target_node
         if new_energy < 0:
             raise Exception("\nYou Died [NYI]")
-        elif new_energy > self.game_state.energy:
-            if self.game_state.energy == self.game_state.maximum_energy:
+        elif new_energy > old_energy:
+            if old_energy == self.game_state.maximum_energy:
                 send_message(f"\nYou are feeling much better.")
             else:
                 send_message(f"\nYou recovered some vitality.")
-        elif new_energy < self.game_state.energy:
+        elif new_energy < old_energy:
             health = new_energy / self.game_state.maximum_energy
             if health < 0.1:
                 send_message(f"\nYour vision blurs as you begin to loose consciousness.")
@@ -467,8 +476,6 @@ class PlaythroughState:
                 send_message(f"\nYour limbs feel sore and heavy.")
             elif health < 0.9:
                 send_message(f"\nYour heart is pounding and your rate of breathing dramatically increases.")
-
-        self.game_state.energy = new_energy
 
         # TODO: test for nodes that heal (e.g. echoes)
 
@@ -499,7 +506,7 @@ class PlaythroughState:
                 if isinstance(node, TeleporterNode):
                     destination_area_identifier = self.patches.get_elevator_connection_for(node)
                     destination_node = self.get_world_list().default_node_for_area(destination_area_identifier)
-                    self.go_to_node(destination_node)
+                    self.go_to_node(destination_node, send_message)
                     send_message(self.describe_here())
                     return
 
@@ -527,8 +534,7 @@ class PlaythroughState:
                     continue  # not the desired event
 
                 # attempt to move to the node and collect the event
-                self.go_to_node(node, event.long_name)
-                self.game_state = self.game_state.act_on_node(node)
+                self.go_to_node(node, send_message, act_on_node=True, target_name=event.long_name)
 
                 message = f"Successfully completed {event.long_name}."
 
@@ -560,11 +566,8 @@ class PlaythroughState:
                 if not loose_match(item.pickup.name, target):
                     continue  # not the desired item
 
-                # attempt to move to the node
-                self.go_to_node(node, item.pickup.name)
-
-                # pick it up
-                self.game_state = self.game_state.act_on_node(node)
+                # attempt to move to the node and pick up the item
+                self.go_to_node(node, send_message, act_on_node=True, target_name=item.pickup.name)
 
                 message = ""
                 
