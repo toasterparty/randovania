@@ -30,9 +30,15 @@ class CommandType(Enum):
 
 
 def _help_message() -> str:
-    result = "Supported Commands:"
+    result = "To play this game, please submit your inputs as simple english phrases (verb followed by noun typically works best). "
+    result += "For example \"Collect Space Jump\", \"Fight Flaahgra\" and \"Use Elevator\" are all valid commands. "
+    result += "There is a fair bit of redundancy in the commands accepted, so "
+    result += '"Go to Alcove", "Move North", "North" and "n" could all be functionally equivalent depending on the context.'
+
+    result += "\n\nBase Commands:"
+
     for command_type in CommandType:
-        result += "\n" + command_type.to_class().help_message()
+        result += "\n  " + command_type.to_class().help_message()
     return result
 
 
