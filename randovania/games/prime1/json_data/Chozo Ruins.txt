@@ -406,8 +406,6 @@ Extra - aabb: [-95.53676, -38.609608, -1.0693345, -22.250599, 43.303684, 30.2103
   * Extra - nonstandard: False
   > Door to Ruined Shrine Access
       Scan Visor and Combat/Scan Dash (Intermediate)
-  > Pickup (Morph Ball)
-      Trivial
   > Pickup (Missile Expansion Half Pipe)
       All of the following:
           Morph Ball
@@ -415,6 +413,8 @@ Extra - aabb: [-95.53676, -38.609608, -1.0693345, -22.250599, 43.303684, 30.2103
               Space Jump Boots and R-Jump (Beginner)
               Scan Visor and Combat/Scan Dash (Intermediate)
   > Pit
+      Trivial
+  > Event - Ruined Shrine Item (Morph Ball)
       Trivial
 
 > Door to Ruined Shrine Access; Heals? False; Spawn Point
@@ -428,8 +428,6 @@ Extra - aabb: [-95.53676, -38.609608, -1.0693345, -22.250599, 43.303684, 30.2103
           Space Jump Boots and Standable Terrain (Beginner)
           Scan Visor and Combat/Scan Dash (Advanced) and Standable Terrain (Advanced)
           L-Jump (Intermediate) and Standable Terrain (Advanced)
-  > Pickup (Morph Ball)
-      Scan Visor and Combat/Scan Dash (Intermediate)
   > Pickup (Missile Expansion Half Pipe)
       All of the following:
           Morph Ball
@@ -440,12 +438,14 @@ Extra - aabb: [-95.53676, -38.609608, -1.0693345, -22.250599, 43.303684, 30.2103
               Morph Ball Bomb and Complex Bomb Jump (Hypermode)
   > Pit
       Trivial
+  > Event - Ruined Shrine Item (Morph Ball)
+      Scan Visor and Combat/Scan Dash (Intermediate)
 
 > Pickup (Morph Ball); Heals? False
   * Layers: default
   * Pickup 5; Major Location? True
   * Extra - position_required: False
-  > Event - Ruined Shrine Item (Morph Ball)
+  > Pit
       Trivial
 
 > Pickup (Missile Expansion Half Pipe); Heals? False
@@ -474,7 +474,7 @@ Extra - aabb: [-95.53676, -38.609608, -1.0693345, -22.250599, 43.303684, 30.2103
               Any of the following:
                   After Ruined Shrine Item (Morph Ball)
                   Morph Ball Bomb and Bomb Jump (Beginner)
-  > Pickup (Morph Ball)
+  > Event - Ruined Shrine Item (Morph Ball)
       Any of the following:
           Space Jump Boots or After Beetle Battle
           Morph Ball Bomb and Morph Ball and Bomb Jump (Beginner)
@@ -505,7 +505,7 @@ Extra - aabb: [-95.53676, -38.609608, -1.0693345, -22.250599, 43.303684, 30.2103
 > Event - Ruined Shrine Item (Morph Ball); Heals? False
   * Layers: default
   * Event Ruined Shrine Item (Morph Ball)
-  > Pit
+  > Pickup (Morph Ball)
       Trivial
 
 ----------------
