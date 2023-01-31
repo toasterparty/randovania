@@ -240,7 +240,9 @@
                     "layers": [
                         "default"
                     ],
-                    "extra": {},
+                    "extra": {
+                        "can_save": true
+                    },
                     "connections": {
                         "Door to Gully": {
                             "type": "or",
@@ -5632,7 +5634,9 @@
                     "layers": [
                         "default"
                     ],
-                    "extra": {},
+                    "extra": {
+                        "can_save": true
+                    },
                     "connections": {
                         "Door to Reactor Access": {
                             "type": "and",

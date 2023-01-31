@@ -6015,7 +6015,9 @@
                     "layers": [
                         "default"
                     ],
-                    "extra": {},
+                    "extra": {
+                        "can_save": true
+                    },
                     "connections": {
                         "Door to Ruined Nursery": {
                             "type": "and",
@@ -9509,7 +9511,9 @@
                     "layers": [
                         "default"
                     ],
-                    "extra": {},
+                    "extra": {
+                        "can_save": true
+                    },
                     "connections": {
                         "Door to Gathering Hall": {
                             "type": "and",
@@ -15246,7 +15250,9 @@
                     "layers": [
                         "default"
                     ],
-                    "extra": {},
+                    "extra": {
+                        "can_save": true
+                    },
                     "connections": {
                         "Door to Reflecting Pool": {
                             "type": "and",

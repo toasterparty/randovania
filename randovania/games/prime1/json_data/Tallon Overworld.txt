@@ -57,6 +57,7 @@ Extra - aabb: [-430.3307, 289.15143, -43.67576, -295.17084, 424.52155, 50.736755
 
 > Ship; Heals? True; Spawn Point
   * Layers: default
+  * Extra - can_save: True
   > Door to Gully
       Any of the following:
           # https://youtu.be/CKdG2oDcI6w
@@ -1047,6 +1048,7 @@ Extra - aabb: [-4.4451118, 376.31824, -117.68923, 11.249497, 394.6988, -99.22626
 
 > Save Station; Heals? True; Spawn Point
   * Layers: default
+  * Extra - can_save: True
   > Door to Reactor Access
       Trivial
 

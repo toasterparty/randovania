@@ -539,7 +539,9 @@
                     "layers": [
                         "default"
                     ],
-                    "extra": {},
+                    "extra": {
+                        "can_save": true
+                    },
                     "connections": {
                         "Door to Burning Trail": {
                             "type": "and",
@@ -16959,7 +16961,9 @@
                     "layers": [
                         "default"
                     ],
-                    "extra": {},
+                    "extra": {
+                        "can_save": true
+                    },
                     "connections": {
                         "Door to Transport to Phendrana Drifts South": {
                             "type": "and",

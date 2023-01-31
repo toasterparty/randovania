@@ -111,6 +111,7 @@ Extra - aabb: [-123.28598, 211.88713, 5.2094584, -84.58805, 248.54086, 30.572773
 
 > Save Station; Heals? True; Spawn Point
   * Layers: default
+  * Extra - can_save: True
   > Door to Burning Trail
       Trivial
 
@@ -1845,6 +1846,7 @@ Extra - aabb: [276.66666, -983.6523, 42.449593, 304.32828, -955.99066, 58.789864
 
 > Save Station; Heals? True; Spawn Point
   * Layers: default
+  * Extra - can_save: True
   > Door to Transport to Phendrana Drifts South
       Trivial
 

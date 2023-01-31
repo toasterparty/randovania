@@ -1122,7 +1122,9 @@
                     "layers": [
                         "default"
                     ],
-                    "extra": {},
+                    "extra": {
+                        "can_save": true
+                    },
                     "connections": {
                         "Door to Phendrana Shorelines": {
                             "type": "and",
@@ -4697,7 +4699,9 @@
                     "layers": [
                         "default"
                     ],
-                    "extra": {},
+                    "extra": {
+                        "can_save": true
+                    },
                     "connections": {
                         "Door to Ruined Courtyard": {
                             "type": "and",
@@ -8343,7 +8347,9 @@
                     "layers": [
                         "default"
                     ],
-                    "extra": {},
+                    "extra": {
+                        "can_save": true
+                    },
                     "connections": {
                         "Door to Observatory": {
                             "type": "and",
@@ -12392,7 +12398,9 @@
                     "layers": [
                         "default"
                     ],
-                    "extra": {},
+                    "extra": {
+                        "can_save": true
+                    },
                     "connections": {
                         "Door to Frost Cave": {
                             "type": "and",

@@ -1247,7 +1247,9 @@
                     "layers": [
                         "default"
                     ],
-                    "extra": {},
+                    "extra": {
+                        "can_save": true
+                    },
                     "connections": {
                         "Door to Main Quarry": {
                             "type": "and",
@@ -9003,7 +9005,9 @@
                     "layers": [
                         "default"
                     ],
-                    "extra": {},
+                    "extra": {
+                        "can_save": true
+                    },
                     "connections": {
                         "Door to Central Dynamo": {
                             "type": "and",
@@ -11406,7 +11410,9 @@
                     "layers": [
                         "default"
                     ],
-                    "extra": {},
+                    "extra": {
+                        "can_save": true
+                    },
                     "connections": {
                         "Door to Metroid Quarantine B": {
                             "type": "and",

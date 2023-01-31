@@ -24,6 +24,7 @@ Extra - aabb: [-34.99226, 33.156616, -3.0840695, 27.790567, 97.286415, 52.03466]
 
 > Save Station; Heals? True
   * Layers: default
+  * Extra - can_save: True
   > Teleport to Artifact Temple
       Trivial
 

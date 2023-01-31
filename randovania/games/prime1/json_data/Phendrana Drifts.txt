@@ -209,6 +209,7 @@ Extra - aabb: [-81.57643, -235.78755, -7.735124, -48.58963, -205.89001, 15.21749
 
 > Save Station; Heals? True; Spawn Point
   * Layers: default
+  * Extra - can_save: True
   > Door to Phendrana Shorelines
       Trivial
 
@@ -770,6 +771,7 @@ Extra - aabb: [-93.78154, -476.2284, 58.875153, -60.5985, -450.68286, 76.19197]
 
 > Save Station; Heals? True; Spawn Point
   * Layers: default
+  * Extra - can_save: True
   > Door to Ruined Courtyard
       Trivial
 
@@ -1387,6 +1389,7 @@ Extra - aabb: [-85.49239, -977.82074, 126.3344, -56.44762, -944.3063, 137.61781]
 
 > Save Station; Heals? True; Spawn Point
   * Layers: default
+  * Extra - can_save: True
   > Door to Observatory
       Trivial
 
@@ -1960,6 +1963,7 @@ Extra - aabb: [34.909016, -1261.8091, 45.749767, 86.96564, -1218.1754, 74.143364
 
 > Save Station; Heals? True; Spawn Point
   * Layers: default
+  * Extra - can_save: True
   > Door to Frost Cave
       Trivial
 

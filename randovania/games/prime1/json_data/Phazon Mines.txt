@@ -207,6 +207,7 @@ Extra - aabb: [131.38985, -30.599165, 12.26794, 156.20804, 7.0214443, 21.498444]
 
 > Save Station; Heals? True; Spawn Point
   * Layers: default
+  * Extra - can_save: True
   > Door to Main Quarry
       After Phazon Mines Save Station A Barrier
 
@@ -1416,6 +1417,7 @@ Extra - aabb: [164.23203, -42.884247, -96.278015, 187.07254, -18.917255, -87.718
 
 > Save Station; Heals? True; Spawn Point
   * Layers: default
+  * Extra - can_save: True
   > Door to Central Dynamo
       Trivial
 
@@ -1666,6 +1668,7 @@ Extra - aabb: [-94.1811, -193.16371, -160.72958, -57.753193, -154.70676, -138.06
 
 > Save Station; Heals? True; Spawn Point
   * Layers: default
+  * Extra - can_save: True
   > Door to Metroid Quarantine B
       Trivial
 

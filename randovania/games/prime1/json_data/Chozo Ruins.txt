@@ -1009,6 +1009,7 @@ Extra - aabb: [-71.962944, 99.85504, 14.3396435, -60.506256, 122.841934, 28.1833
 
 > Save Station; Heals? True; Spawn Point
   * Layers: default
+  * Extra - can_save: True
   > Door to Ruined Nursery
       Trivial
 
@@ -1681,6 +1682,7 @@ Extra - aabb: [408.1649, -178.55013, 20.085836, 418.57748, -155.59135, 33.95001]
 
 > Save Station; Heals? True; Spawn Point
   * Layers: default
+  * Extra - can_save: True
   > Door to Gathering Hall
       Trivial
 
@@ -2620,6 +2622,7 @@ Extra - aabb: [673.9764, -306.40494, 82.517944, 754.19855, -285.93994, 96.718056
 
 > Save Station; Heals? True; Spawn Point
   * Layers: default
+  * Extra - can_save: True
   > Door to Reflecting Pool
       Trivial
   > Door to Transport to Tallon Overworld East

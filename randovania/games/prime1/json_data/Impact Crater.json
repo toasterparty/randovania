@@ -98,7 +98,9 @@
                     "layers": [
                         "default"
                     ],
-                    "extra": {},
+                    "extra": {
+                        "can_save": true
+                    },
                     "connections": {
                         "Teleport to Artifact Temple": {
                             "type": "and",

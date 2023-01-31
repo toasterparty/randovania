@@ -817,6 +817,7 @@ Extra - aabb: [169.7645, -271.66705, -89.60429, 216.26378, -243.26312, -64.27898
 
 > Save Station; Heals? True; Spawn Point
   * Layers: default
+  * Extra - can_save: True
   > Door to Cargo Freight Lift to Deck Gamma
       Trivial
 

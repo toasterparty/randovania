@@ -3634,7 +3634,9 @@
                     "layers": [
                         "default"
                     ],
-                    "extra": {},
+                    "extra": {
+                        "can_save": true
+                    },
                     "connections": {
                         "Door to Cargo Freight Lift to Deck Gamma": {
                             "type": "and",
