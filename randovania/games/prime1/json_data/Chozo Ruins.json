@@ -921,7 +921,7 @@
                 },
                 "Pickup (Energy Tank)": {
                     "node_type": "pickup",
-                    "heal": true,
+                    "heal": false,
                     "coordinates": null,
                     "description": "",
                     "layers": [
@@ -7393,7 +7393,7 @@
                 },
                 "Pickup (Energy Tank)": {
                     "node_type": "pickup",
-                    "heal": true,
+                    "heal": false,
                     "coordinates": null,
                     "description": "",
                     "layers": [
@@ -11816,7 +11816,7 @@
                 },
                 "Pickup (Energy Tank)": {
                     "node_type": "pickup",
-                    "heal": true,
+                    "heal": false,
                     "coordinates": null,
                     "description": "",
                     "layers": [
@@ -12701,7 +12701,7 @@
                 },
                 "Pickup (Energy Tank)": {
                     "node_type": "pickup",
-                    "heal": true,
+                    "heal": false,
                     "coordinates": null,
                     "description": "",
                     "layers": [

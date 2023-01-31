@@ -84,7 +84,7 @@
                 },
                 "Ship Save": {
                     "node_type": "generic",
-                    "heal": true,
+                    "heal": false,
                     "coordinates": null,
                     "description": "",
                     "layers": [

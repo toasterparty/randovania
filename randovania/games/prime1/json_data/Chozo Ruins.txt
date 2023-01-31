@@ -155,7 +155,7 @@ Extra - aabb: [58.406, -65.29903, -1.3835077, 165.42795, 117.940384, 60.33323]
                       Combat/Scan Dash (Advanced) and Standable Terrain (Advanced)
               Space Jump Boots and Standable Terrain (Advanced)
 
-> Pickup (Energy Tank); Heals? True
+> Pickup (Energy Tank); Heals? False
   * Layers: default
   * Pickup 3; Major Location? False
   * Extra - position_required: False
@@ -474,15 +474,6 @@ Extra - aabb: [-95.53676, -38.609608, -1.0693345, -22.250599, 43.303684, 30.2103
               Any of the following:
                   After Ruined Shrine Item (Morph Ball)
                   Morph Ball Bomb and Bomb Jump (Beginner)
-  > Event - Ruined Shrine Item (Morph Ball)
-      Any of the following:
-          Space Jump Boots or After Beetle Battle
-          Morph Ball Bomb and Morph Ball and Bomb Jump (Beginner)
-          All of the following:
-              Standable Terrain (Intermediate)
-              Any of the following:
-                  Combat/Scan Dash (Advanced)
-                  Scan Visor and Combat/Scan Dash (Intermediate)
   > Pickup (Missile Expansion Bomb Wall)
       All of the following:
           Morph Ball
@@ -495,6 +486,15 @@ Extra - aabb: [-95.53676, -38.609608, -1.0693345, -22.250599, 43.303684, 30.2103
           All of the following:
               Morph Ball and Combat (Intermediate)
               Morph Ball Bomb or Power Bomb ≥ 4
+  > Event - Ruined Shrine Item (Morph Ball)
+      Any of the following:
+          Space Jump Boots or After Beetle Battle
+          Morph Ball Bomb and Morph Ball and Bomb Jump (Beginner)
+          All of the following:
+              Standable Terrain (Intermediate)
+              Any of the following:
+                  Combat/Scan Dash (Advanced)
+                  Scan Visor and Combat/Scan Dash (Intermediate)
 
 > Event - Beetle Battle; Heals? False
   * Layers: default
@@ -1304,7 +1304,7 @@ Extra - aabb: [84.01668, 335.98056, -7.3351803, 162.29239, 366.87546, 16.149939]
   > Door to Hive Totem
       Morph Ball Bomb and Morph Ball
 
-> Pickup (Energy Tank); Heals? True
+> Pickup (Energy Tank); Heals? False
   * Layers: default
   * Pickup 17; Major Location? False
   * Extra - position_required: False
@@ -2094,7 +2094,7 @@ Extra - aabb: [616.3443, -227.06798, 34.31006, 723.15436, -140.30473, 92.26509]
   > Under Spider Track
       Trivial
 
-> Pickup (Energy Tank); Heals? True
+> Pickup (Energy Tank); Heals? False
   * Layers: default
   * Pickup 30; Major Location? False
   > Door to West Furnace Access
@@ -2236,7 +2236,7 @@ Extra - aabb: [743.8239, -217.36417, 29.29987, 834.11273, -144.96254, 81.37303]
           After Hall of the Elders Statue
           Boost Ball and Morph Ball and Clip Through Objects (Advanced)
 
-> Pickup (Energy Tank); Heals? True
+> Pickup (Energy Tank); Heals? False
   * Layers: default
   * Pickup 31; Major Location? False
   * Extra - position_required: False

@@ -488,6 +488,9 @@ class PlaythroughState:
         # TODO: test for nodes that heal (e.g. echoes)
 
     def interact(self, command_data: list[str], send_message, receive_message) -> None | str:
+        # TODO: check for "credits" event, if so, trigger a victory logic
+        # TODO: keep track of metrics for "results screen"
+
         target = None
 
         if len(command_data) == 0:

@@ -1179,7 +1179,7 @@
             "nodes": {
                 "Door to Main Quarry": {
                     "node_type": "dock",
-                    "heal": true,
+                    "heal": false,
                     "coordinates": {
                         "x": -0.2,
                         "y": 17.66,

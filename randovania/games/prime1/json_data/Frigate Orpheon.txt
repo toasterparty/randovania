@@ -14,7 +14,7 @@ Extra - aabb: [-104.01521, 58.089508, -62.7767, 157.58212, 264.77844, 85.15653]
   > Teleport to Landing Site
       After Parasite Queen
 
-> Ship Save; Heals? True; Spawn Point
+> Ship Save; Heals? False; Spawn Point
   * Layers: default
   * Extra - different_strongly_connected_component: True
   > Door to Air Lock

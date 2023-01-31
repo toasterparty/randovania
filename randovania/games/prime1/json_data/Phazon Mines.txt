@@ -195,7 +195,7 @@ Save Station Mines A
 Extra - asset_id: 907887024
 Extra - size_index: 0.1
 Extra - aabb: [131.38985, -30.599165, 12.26794, 156.20804, 7.0214443, 21.498444]
-> Door to Main Quarry; Heals? True
+> Door to Main Quarry; Heals? False
   * Layers: default
   * Wave Door to Main Quarry/Door to Save Station Mines A
   * Extra - dock_index: 0
