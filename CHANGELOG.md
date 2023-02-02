@@ -7,10 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.4.0] - 2023-??-??
 
+- Added: Experimental generation setting for staggering the placement of selected pickups.
+- Added: Experimental generation setting for removing redundant possible actions.
+- Added: Automatic reporting of exceptions for the client, and monitoring for requests to the server.
+- Added: New pixel icons for Prime 1 & 2 autotracker
 - Fixed: The minor/major split setting is obeyed much more accurately by the generator.
+- Fixed: Starting with ammo no longer causes all requirements for that ammo to be ignored. 
+- Fixed: The generator no longer attempts placing pickups based on alternatives to satisfied requirements, such as Missile Expansions for Quadraxis while already having Light Beam.
 - Fixed: Minor typos in the UI are fixed.
+- Changed: Requirements where different amount of the same item, such as both Missile = 5 and Missile = 1, are expected are now properly simplified. 
+
+  This results in certain pickup combinations no longer being considered for placement in the generator, such as Sunburst for unlocking the Industrial Site from behind. 
 
 ### Metroid Prime
+
+#### Patcher Changes
+
+- Added: CGC Tournament Winners to Artifact Temple lore scan
+- Fixed: Chapel IS giving the player lightshow on 2nd pass
+- Fixed: Items in every room incompatibility with shuffled essence elevator
+- Changed: Always apply Elite Quarters item softlock patch regardless of cutscene skip mode
 
 #### Logic Database
 
@@ -29,9 +45,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Logic Database
 
+- Added: New trick "Flash Shift Skip" to account for skipping Flash Shift gates.
 - Added: Traverse to the bottom of Ferenia: Space Jump Room Access with some more options.
+- Added: Pseudo-Wave Beam (Beginner) for the two blobs in Cataris - Teleport to Dairon.
+- Added: Water Bomb Jump to reach the item in Cataris - Teleport to Dairon without Gravity Suit.
+- Added: Flash Shift (Intermediate), Morph Ball (Intermediate), and Spin Boost (Beginner) wall jumps for climbing up Experiment Z-57's arena.
+- Added: Spin Boost and Slide Jump (Beginner) for climbing the upper part of Experiment Z-57's room.
+- Added: Speedbooster Conservation (Intermediate) for climbing to either the top platform or Double Obsydomithon Room in Cataris - Teleport to Artaria (Blue).
+- Added: Grapple Movement (Beginner) to climb Cataris - Moving Magnet Walls (Tall).
+- Added: Flash Shift (Intermediate), Morph Ball (Advanced), and Spin Boost with Spider Magnet wall jumps to climb Cataris - Moving Magnet Walls (Tall).
+- Added: Speedbooster Conservation (Beginner) to collect the lower item in Cataris - Teleport to Ghavoran without Gravity Suit.
+- Added: Damage Boost (Intermediate) for reaching the teleport in Cataris - Teleport to Ghavoran with Spider Magnet.
+- Added: "Adam Skip" added to logic as Wall Jump (Advanced) in Cataris - Moving Magnet Walls (Small).
+- Added: Space Jump method of Cross Bomb Skip (Hypermode) to skip needing Speed for the item in Cataris - EMMI Zone Item Tunnel.
+- Added: Spin Boost Movement (Intermediate) and Speedbooster Conservation (Beginner) for getting up Hanubia - Central Unit without Space Jump or Infinite Bomb Jump.
+- Added: Spin Boost method to climb Hanubia - Escape Room 3.
+- Added: Morph Ball Single-Wall Walljumps to get to the Nav Station in Itorash - Transport to Hanubia.
+- Added: Flash Shift Skip (Intermediate) with Bombs to skip the Flash Shift gate in Teleport to Ferenia.
+- Added: Aim Down Clips (Intermediate/Advanced) to go to and from Storm Missile Gate Room without Morph Ball.
+- Added: Shine Sink Clip/Aim Down Clip (Intermediate) and Speedbooster Conservation (Advanced) to reach the bottom of Teleport to Ghavoran from the top level.
+- Added: Aim Down Clip (Expert) to reach the blobs in Gravity Suit Tower from the top level.
+- Added: Aim Down Clip (Intermediate) in Main Hub Tower Middle to Main Hub Tower Bottom.
+- Added: Shine Sink Clip/Aim Down Clip (Intermediate) in Gravity Suit room top door to bottom door.
+- Added: Climb Golzuna Tower using Spin Boost and Flash Shift using Wall Jump (Intermediate).
+- Added: Movement (Intermediate), Simple IBJ, or Spin Boost to reach top tunnel in Vertical Bomb Maze.
+- Added: Flash Shift Skip (Beginner) in Purple EMMI Introduction; (Intermediate) with normal bombs.
+- Added: Moving from Ferenia - Transport to Ghavoran to Pitfall Puzzle Room with Spin Boost, Flash Shift, or Speed Booster.
+- Changed: Increased difficulty of Flash Shift Walljump to reach the Raven Beak elevator from Intermediate to Advanced.
+- Changed: Simplified many room nodes and connections.
+- Changed: Shine Sink Clip in Main Hub Tower Middle to Main Hub Tower Bottom is now Intermediate (from Expert).
+- Changed: Using Flash Shift to collect the fan pickup in Burenia Hub to Dairon is now Advanced (from Beginner).
+- Changed: All three fan skips are now classified as Movement instead of Infinite Bomb Jump.
 - Fixed: Correctly require Morph Ball in all cases where Power Bombs are used.
 - Fixed: Replace some instances of Beginner Infinite Bomb Jump in Ferenia with the Simple Infinite Bomb Jump template. This ensures that the missing bomb or cross bomb item is required.
+- Fixed: Reaching the upper tunnel in Ferenia - Speedboost Slopes Maze properly accounts for the ability to destroy the beamblocks using Wave Beam, Diffusion Beam, explosives, or Movement (Beginner)
+- Removed: Infinite Bomb Jump for reaching Wave Beam Tutorial from the cold rooms.
 
 ## [5.3.0] - 2023-01-05
 
