@@ -846,7 +846,7 @@ Extra - aabb: [5.424013, 33.537285, -58.636707, 65.094376, 96.8914, -32.222157]
                       Any of the following:
                           Complex Bomb Jump (Hypermode)
                           Space Jump Boots and Complex Bomb Jump (Expert)
-          Space Jump Boots and Combat/Scan Dash (Expert) and Standable Terrain (Intermediate)
+          Space Jump Boots and Combat/Scan Dash (Expert) and Standable Terrain (Intermediate) and Disabled Dock Rando
   > Pickup (Energy Tank)
       Morph Ball and Power Bomb and Scan Visor
 
