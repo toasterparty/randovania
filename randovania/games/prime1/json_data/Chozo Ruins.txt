@@ -851,7 +851,7 @@ Extra - aabb: [268.4279, -140.36638, 1.99053, 348.87646, -45.275764, 92.793884]
           Any of the following:
               All of the following:
                   Morph Ball Bomb
-                  After Arboretum Gate or Bomb Jump (Advanced)
+                  After Arboretum Gate or Bomb Jump (Intermediate)
               Boost Ball and Space Jump Boots and Clip Through Objects (Expert) and Single Room Out of Bounds (Advanced) and Standable Terrain (Advanced)
   > Door to Gathering Hall Access
       Trivial
