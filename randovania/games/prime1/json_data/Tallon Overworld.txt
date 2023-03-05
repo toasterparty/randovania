@@ -66,6 +66,9 @@ Extra - aabb: [-430.3307, 289.15143, -43.67576, -295.17084, 424.52155, 50.736755
           All of the following:
               # https://www.youtube.com/watch?v=CKdG2oDcI6w
               Combat/Scan Dash (Intermediate) and Disabled Dock Rando
+          All of the following:
+              # https://youtu.be/BqvjpyJdlbs?t=25
+              Movement (Hypermode)
   > Door to Canyon Cavern
       Trivial
   > Door to Temple Hall
