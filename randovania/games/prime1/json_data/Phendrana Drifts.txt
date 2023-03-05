@@ -967,6 +967,11 @@ Extra - aabb: [113.323105, -710.18396, 43.18039, 295.7474, -534.322, 117.33082]
   * Wave Door to South Quarantine Tunnel/Door to Quarantine Cave
   * Extra - dock_index: 1
   * Extra - nonstandard: False
+  > Door to North Quarantine Tunnel
+      All of the following:
+          # https://www.youtube.com/watch?v=NPGxtf0ieSM
+          Scan Visor and Space Jump Boots and Combat/Scan Dash (Expert) and Standable Terrain (Advanced)
+          Before Thardus or Combat/Scan Dash (Intermediate)
   > Morph Ball Door to Quarantine Monitor
       All of the following:
           Morph Ball
