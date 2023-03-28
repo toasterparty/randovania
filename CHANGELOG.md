@@ -5,21 +5,143 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.4.0] - 2023-??-??
+## [5.6.0] - 2023-??-??
+
+- Added: Trick Details popup now lists the usages in each area.
+- Added: Opening the Data Visualizer from the Trick Details while customizing a preset now automatically configured the trick filters based on the preset being edited.
+- Changed: Setting trick filters in the Data Visualizer based on a preset now sets all tricks, even those at disabled.
+- Changed: Optimize Solver by choosing actions in a smarter order. Prefer actions of types that are likely to progress th. Postpone dangerous actions. This should make the solver able to validate seeds where it previously timed out. Solving should in general be faster in general.
+- Fixed: Solver bug that made it unable to detect dangerous actions, which could result in some possible seeds being considered impossible.
+- Fixed: Searching for Multiworld sessions by name is no longer case sensitive.
+
+### Metroid Dread
+
+#### Logic Database
+
+- Changed: The logic for Spin Boost Room in Ghavoran now requires either the template to fight the Chozo X or Highly Dangerous logic to climb out of the room.
+- Changed: Simplified various database connections.
+- Changed: All three kinds of Chozo X fights now consider Use Spin Boost a valid means of dodging. 
+- Fixed: Missile ammo requirement when fighting Chozo X with Storm Missile. The numbers were previously too high and the numbers with and without the combat trick were swapped.
+- Fixed: Resolve bug with fighting the Twin Robots fights, where to fight them using only missiles for damage always required both the expert level combat trick and the 153 missiles that are intended for trickless.
+- Fixed: Add missing fight requirement to fight the Chozo X in Elun when entering the arena from the left.
+- Fixed: Add missing requirement to release the X before leaving Elun.
+
+## [5.5.2] - 2023-??-??
+
+- Nothing.
+
+## [5.5.1] - 2023-02-28
+
+- Added: Game Details now contains a tab describing all door locks, when Door Lock rando is enabled.
+- Changed: Certain spoiler tabs in Game Details now only show up when relevant, such as Elevators spoiler only when elevators are shuffled.
+- Changed: Generation Order in Game Details is now hidden when there's incompatible settings, such as Door Lock rando.
+- Changed: A nicer error message is now given when generating with a preset with configuration errors, such as no starting locations.
+- Changed: A nicer error message is now given when an error occurs when loading a game layout file.
+- Fixed: Customizing an included preset should properly place the resulting preset nested to that preset.
+- Fixed: Customizing a preset should no longer reset where it's been placed at.
+- Fixed: Generated games now keep track of extra starting pickups instead of starting items, fixing some cases you'd start with the middle of a progressive chain.
+- Fixed: Changing trick filters in the Data Visualizer no longer resets the selected connection.
+- Fixed: Using trick filters in the Data Visualizer no longer unnecessarily expands templates or remove comments.
+- Fixed: Using trick filters in the Data Visualizer now properly removes extra requirements when tricks are removed.
+- Fixed: Hiding the pickup collection message now correctly works for other player's pickups in a multiworld. 
+
+### Metroid Prime
+
+#### Patcher Changes
+
+- Fixed: Several soft-locks and janky cutscenes when shuffling the Essence elevator
+- Fixed: Research Lab Aether wall not breaking when approached from behind (QoL Game Breaking)
+- Fixed: Watery Hall lore scan being replaced with QoL Scan Point text
+- Fixed: Escape sequence counting up instead of down
+- Fixed: Small Samus spawning in ship instead of on top
+- Added: Ridley shorelines, biotech research 2, and exterior docking hangar actors now scale with boss size
+
+#### Logic Database
+
+- Added: 47 videos to logic database, bringing the total available via the [Video Directory](https://randovania.github.io/Metroid%20Prime/) 168
+
+##### Tallon Overworld
+
+- Fixed: Landing Site - PAL SJF is now only logical if Dock Rando is disabled
+- Added: Life Grove - Alternate method to skip Bombs and SJ (Scan Dash Expert) to reach item *Found by Vertigo* 
+- Added: Life Grove - Trick to skip wallboosts when also skipping SJ and Bombs *Found by Vertigo*
+
+##### Chozo Ruins
+
+- Changed: Main Plaza - Lowered Half-Pipe roll-in to Expert ([See Video](https://youtu.be/ne8ap0xa_UE))
+- Changed: Ruined Shrine - Wave door to half-pipe item is now L-Jump instead of R-Jump
+- Added: Hive Totem - Fight Skip Intermediate Combat Dash
+- Added: Hive Totem - Fight Skip "TAS Walk" Advanced Movement+Knowledge
+- Added: Crossway Access West - Advanced Standable Terrain (Skips Morph) *Found by toasterparty*
+
+##### Magmoor Caverns
+
+- Fixed: Twin Fires Tunnel - Combat dash is now only logical if Dock Rando is disabled
+- Added: Monitor Station - NSJ Heat Run Expert *Found by JustinDM*
+- Added: Twin Fires Tunnel - NSJ Bunny Hop Expert Movement *Found by JustinDM*
+
+##### Phendrana Drifts
+
+- Changed: Quarantine Cave - More detailed Thardus Fight requirements (e.g. Plasma Beam, PBs, Boost)
+- Changed: Labs - More detailed combat requirements
+- Added: Chozo Ice Temple - Expert NSJ Bombless Climb *Found by MeriKatt*
+- Added: Quarantine Cave - Thardus Skip Hypermode Slope Jump *Found by JustinDM*
+- Added: Quarantine Cave - Expert R-Jumps to skip grapple *Found by toasterparty*
+- Added: Control Tower - SJ/DBJ/BSJ/Wallboost tricks(s) to skip fight both ways
+- Added: Transport to Magmoor Caverns South - Alternate NSJ Spider Skip BSJ Advanced *Found by Cyberpod*
+
+##### Phazon Mines
+
+- Fixed: Mine Security Station - Starting Room/Elevator doesn't account for doors locking
+- Fixed: Mine Security Station - Entering from Storage Depot A doesn't check for lowered barrier
+- Fixed: Metroid Quarantine A - Wallboost doesn't require Spider Ball
+- Added: Main Quarry - Intermediate Wallboost to skip Bombs for item
+- Added: Main Quarry - Intermediate Knowledge+Movement to skip Bombs for item *Found by toasterparty*
+- Added: Metroid Quarantine A - Advanced Dashes to skip PBs
+- Added: Metroid Quarantine A - Alternate R-Jump from item to door
+- Added: Metroid Quarantine A - NSJ Expert Dashes from item to door
+- Added: Fungal Hall Access - NSJ Advanced BSJs *Found by JustinDM*
+
+### Metroid Prime 2: Echoes
+
+- Added: Updated A-Kul's scan with the 2022 Echoes Randomizer tournament winner.
+- Added: When the experimental patcher is enabled, Dynamo Chamber and Trooper Security Station now start in post-layer change state.
+
+### Metroid Dread
+
+- **Major** - Added: Door Lock randomizer has been added. In this mode, the weapons needed to open doors in the game are also changed, with full support of our logic database. 
+- Added: A new cosmetic option for adding an in-game death counter to the HUD.
+- Added: Exporting with a custom path now checks for conflicts with the input path.
+- Fixed: Ryujinx no longer hangs when stopping emulation.
+
+## [5.5.0] - Skipped
+
+## [5.4.1] - 2023-02-16
+
+- Added: Linux releases are now also published to Flathub.
+- Fixed: Canceling the prompt from "View previous versions" no longer causes an error.
+
+## [5.4.0] - 2023-02-06
 
 - Added: Experimental generation setting for staggering the placement of selected pickups.
 - Added: Experimental generation setting for removing redundant possible actions.
 - Added: Automatic reporting of exceptions for the client, and monitoring for requests to the server.
 - Added: New pixel icons for Prime 1 & 2 autotracker
+- Added: New 8x3 layouts for all Prime 1 & 2 autotracker styles
 - Fixed: The minor/major split setting is obeyed much more accurately by the generator.
 - Fixed: Starting with ammo no longer causes all requirements for that ammo to be ignored. 
 - Fixed: The generator no longer attempts placing pickups based on alternatives to satisfied requirements, such as Missile Expansions for Quadraxis while already having Light Beam.
 - Fixed: Minor typos in the UI are fixed.
+- Fixed: Canceling certain actions will no longer cause the UI to react as if it were an error.
+- Changed: Unsupported features are now restricted to dev builds.
 - Changed: Requirements where different amount of the same item, such as both Missile = 5 and Missile = 1, are expected are now properly simplified. 
 
   This results in certain pickup combinations no longer being considered for placement in the generator, such as Sunburst for unlocking the Industrial Site from behind. 
 
 ### Metroid Prime
+
+- Changed: All included presets now have "Unlocked Save Station doors" enabled.
+- Changed: "Unlocked Save Station doors" no longer remove the lock in Chozo Ruins - Save Station 3.
 
 #### Patcher Changes
 
@@ -32,9 +154,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fixed: Collecting the Missile Expansion in Burn Dome before the fight no longer causes the generation to fail.
 
+### Metroid Prime 2: Echoes
+
+- Changed: Inverted Aether is now an unsupported feature.
+
 ### Metroid Dread
 
-- **Major** - Added: Door locks can now be randomized.
 - Fixed: Energy Parts are now considered minor items, and Missile+ Tanks are now considered major items.
 
 #### Patcher Changes
@@ -71,15 +196,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added: Movement (Intermediate), Simple IBJ, or Spin Boost to reach top tunnel in Vertical Bomb Maze.
 - Added: Flash Shift Skip (Beginner) in Purple EMMI Introduction; (Intermediate) with normal bombs.
 - Added: Moving from Ferenia - Transport to Ghavoran to Pitfall Puzzle Room with Spin Boost, Flash Shift, or Speed Booster.
+- Added: Using Normal Bomb Jump with a Cross Bomb at the top, for sideways movement, to reach the item in Artaria Proto EMMI Introduction.
 - Changed: Increased difficulty of Flash Shift Walljump to reach the Raven Beak elevator from Intermediate to Advanced.
 - Changed: Simplified many room nodes and connections.
 - Changed: Shine Sink Clip in Main Hub Tower Middle to Main Hub Tower Bottom is now Intermediate (from Expert).
 - Changed: Using Flash Shift to collect the fan pickup in Burenia Hub to Dairon is now Advanced (from Beginner).
 - Changed: All three fan skips are now classified as Movement instead of Infinite Bomb Jump.
+- Changed: Convert most of the harder IBJ instances to new Diagonal Bomb Jump trick.
+- Changed: Increase difficulty of the few harder IBJs that weren't changed to Diagonal Bomb Jumps. This should better reflect the fact that Intermediate IBJ is applied for performing Simple IBJ with Normal Bombs.
 - Fixed: Correctly require Morph Ball in all cases where Power Bombs are used.
 - Fixed: Replace some instances of Beginner Infinite Bomb Jump in Ferenia with the Simple Infinite Bomb Jump template. This ensures that the missing bomb or cross bomb item is required.
 - Fixed: Reaching the upper tunnel in Ferenia - Speedboost Slopes Maze properly accounts for the ability to destroy the beamblocks using Wave Beam, Diffusion Beam, explosives, or Movement (Beginner)
+- Fixed: Usage of Infinite Bomb Jump in Ferenia Separate Tunnels Room now correctly requires the respective Bomb type. The trick is now set at different difficulty depending on which bomb type is being used.
 - Removed: Infinite Bomb Jump for reaching Wave Beam Tutorial from the cold rooms.
+- Removed: Shinespark in Ghavoran Total Recharge Station North. This one requires either short boost or charging speed in the room to the left. Removing this for now.
 
 ## [5.3.0] - 2023-01-05
 

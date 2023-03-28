@@ -6,7 +6,6 @@
     "areas": {
         "Landing Site": {
             "default_node": "Ship",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 2993688902,
                 "size_index": 0.8,
@@ -36,6 +35,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -78,6 +78,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -113,6 +114,7 @@
                         "dock_index": 2,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -148,6 +150,7 @@
                         "dock_index": 3,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -190,6 +193,7 @@
                         "dock_index": 4,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -220,6 +224,7 @@
                     "extra": {
                         "position_required": false
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 58,
                     "major_location": false,
                     "connections": {
@@ -243,11 +248,12 @@
                     "extra": {
                         "can_save": true
                     },
+                    "valid_starting_location": true,
                     "connections": {
                         "Door to Gully": {
                             "type": "or",
                             "data": {
-                                "comment": "https://youtu.be/CKdG2oDcI6w",
+                                "comment": null,
                                 "items": [
                                     {
                                         "type": "resource",
@@ -255,15 +261,6 @@
                                             "type": "items",
                                             "name": "SpaceJump",
                                             "amount": 1,
-                                            "negate": false
-                                        }
-                                    },
-                                    {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "tricks",
-                                            "name": "Dash",
-                                            "amount": 2,
                                             "negate": false
                                         }
                                     },
@@ -327,6 +324,32 @@
                                                 }
                                             ]
                                         }
+                                    },
+                                    {
+                                        "type": "and",
+                                        "data": {
+                                            "comment": "https://www.youtube.com/watch?v=CKdG2oDcI6w",
+                                            "items": [
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "tricks",
+                                                        "name": "Dash",
+                                                        "amount": 2,
+                                                        "negate": false
+                                                    }
+                                                },
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "misc",
+                                                        "name": "dock_rando",
+                                                        "amount": 1,
+                                                        "negate": true
+                                                    }
+                                                }
+                                            ]
+                                        }
                                     }
                                 ]
                             }
@@ -367,7 +390,6 @@
         },
         "Gully": {
             "default_node": "Door to Tallon Canyon",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 2064921753,
                 "size_index": 0.1,
@@ -397,6 +419,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -432,6 +455,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -507,6 +531,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 263,
                     "major_location": false,
                     "connections": {}
@@ -515,7 +540,6 @@
         },
         "Canyon Cavern": {
             "default_node": "Door to Tallon Canyon",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 3995112776,
                 "size_index": 0.1,
@@ -545,6 +569,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -580,6 +605,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -610,6 +636,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 264,
                     "major_location": false,
                     "connections": {}
@@ -618,7 +645,6 @@
         },
         "Temple Hall": {
             "default_node": "Door to Temple Security Station",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 1531853045,
                 "size_index": 0.1,
@@ -648,6 +674,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -683,6 +710,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -713,6 +741,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 265,
                     "major_location": false,
                     "connections": {}
@@ -721,7 +750,6 @@
         },
         "Alcove": {
             "default_node": "Door to Landing Site",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 3293477383,
                 "size_index": 0.1,
@@ -751,6 +779,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -781,6 +810,7 @@
                     "extra": {
                         "position_required": false
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 59,
                     "major_location": true,
                     "connections": {
@@ -851,7 +881,6 @@
         },
         "Waterfall Cavern": {
             "default_node": "Door to Landing Site",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 3882538769,
                 "size_index": 0.1,
@@ -881,6 +910,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -926,6 +956,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -966,6 +997,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 266,
                     "major_location": false,
                     "connections": {}
@@ -974,7 +1006,6 @@
         },
         "Tallon Canyon": {
             "default_node": "Door to Canyon Cavern",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 541313390,
                 "size_index": 0.6,
@@ -1004,6 +1035,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -1039,6 +1071,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -1074,6 +1107,7 @@
                         "dock_index": 2,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -1145,6 +1179,7 @@
                         "dock_index": 3,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -1173,6 +1208,7 @@
                         "default"
                     ],
                     "extra": {},
+                    "valid_starting_location": false,
                     "connections": {
                         "Door to Canyon Cavern": {
                             "type": "and",
@@ -1251,6 +1287,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 267,
                     "major_location": false,
                     "connections": {}
@@ -1259,7 +1296,6 @@
         },
         "Temple Security Station": {
             "default_node": "Door to Temple Hall",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 3182558380,
                 "size_index": 0.3,
@@ -1289,6 +1325,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -1324,6 +1361,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -1354,6 +1392,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 268,
                     "major_location": false,
                     "connections": {}
@@ -1362,7 +1401,6 @@
         },
         "Frigate Crash Site": {
             "default_node": "Door to Waterfall Cavern",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 3115044182,
                 "size_index": 0.8,
@@ -1392,6 +1430,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -1597,7 +1636,7 @@
                                                             {
                                                                 "type": "and",
                                                                 "data": {
-                                                                    "comment": null,
+                                                                    "comment": "https://www.youtube.com/watch?v=CSN7vHMJTZM",
                                                                     "items": [
                                                                         {
                                                                             "type": "resource",
@@ -1810,7 +1849,7 @@
                                     {
                                         "type": "and",
                                         "data": {
-                                            "comment": null,
+                                            "comment": "https://youtu.be/5h_hb9I45sI",
                                             "items": [
                                                 {
                                                     "type": "template",
@@ -1884,6 +1923,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -2120,6 +2160,7 @@
                         "dock_index": 2,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -2150,6 +2191,7 @@
                     "extra": {
                         "position_required": false
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 60,
                     "major_location": false,
                     "connections": {
@@ -2166,7 +2208,6 @@
         },
         "Transport Tunnel A": {
             "default_node": "Door to Transport to Chozo Ruins West",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 333016381,
                 "size_index": 0.1,
@@ -2196,6 +2237,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -2231,6 +2273,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -2261,6 +2304,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 269,
                     "major_location": false,
                     "connections": {}
@@ -2269,7 +2313,6 @@
         },
         "Root Tunnel": {
             "default_node": "Door to Root Cave",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 1078461657,
                 "size_index": 0.1,
@@ -2299,6 +2342,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -2334,6 +2378,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -2364,6 +2409,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 270,
                     "major_location": false,
                     "connections": {}
@@ -2372,7 +2418,6 @@
         },
         "Temple Lobby": {
             "default_node": "Door to Artifact Temple",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 591880894,
                 "size_index": 0.1,
@@ -2402,6 +2447,7 @@
                         "dock_index": 0,
                         "nonstandard": true
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -2437,6 +2483,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -2467,6 +2514,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 271,
                     "major_location": false,
                     "connections": {}
@@ -2475,7 +2523,6 @@
         },
         "Frigate Access Tunnel": {
             "default_node": "Door to Main Ventilation Shaft Section C",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 3138751614,
                 "size_index": 0.1,
@@ -2505,6 +2552,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -2540,6 +2588,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -2570,6 +2619,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 272,
                     "major_location": false,
                     "connections": {}
@@ -2578,7 +2628,6 @@
         },
         "Overgrown Cavern": {
             "default_node": "Door to Frigate Crash Site",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 3466748899,
                 "size_index": 0.3,
@@ -2608,6 +2657,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -2653,6 +2703,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -2693,6 +2744,7 @@
                     "extra": {
                         "position_required": false
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 61,
                     "major_location": false,
                     "connections": {
@@ -2736,7 +2788,6 @@
         },
         "Transport to Chozo Ruins West": {
             "default_node": "Elevator to Chozo Ruins - Transport to Tallon Overworld North",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 295707720,
                 "size_index": 0.3,
@@ -2766,6 +2817,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -2797,6 +2849,7 @@
                         "scan_asset_id": 1940403179,
                         "teleporter_instance_id": 917509
                     },
+                    "valid_starting_location": true,
                     "destination": {
                         "world_name": "Chozo Ruins",
                         "area_name": "Transport to Tallon Overworld North"
@@ -2824,6 +2877,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 273,
                     "major_location": false,
                     "connections": {}
@@ -2832,7 +2886,6 @@
         },
         "Root Cave": {
             "default_node": "Door to Transport Tunnel B",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 3180103205,
                 "size_index": 0.6,
@@ -2862,6 +2915,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -2897,6 +2951,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -2996,6 +3051,7 @@
                         "dock_index": 2,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -3086,6 +3142,7 @@
                     "extra": {
                         "position_required": false
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 62,
                     "major_location": false,
                     "connections": {
@@ -3152,7 +3209,6 @@
         },
         "Artifact Temple": {
             "default_node": "Door to Temple Lobby",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 597223686,
                 "size_index": 0.8,
@@ -3182,6 +3238,7 @@
                         "dock_index": 0,
                         "nonstandard": true
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -3471,6 +3528,7 @@
                     "extra": {
                         "position_required": false
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 63,
                     "major_location": false,
                     "connections": {
@@ -3492,6 +3550,7 @@
                         "default"
                     ],
                     "extra": {},
+                    "valid_starting_location": false,
                     "event_name": "Event2",
                     "connections": {
                         "Door to Temple Lobby": {
@@ -3515,6 +3574,7 @@
                         "scan_asset_id": null,
                         "teleporter_instance_id": 1049306
                     },
+                    "valid_starting_location": false,
                     "destination": {
                         "world_name": "Impact Crater",
                         "area_name": "Crater Entry Point"
@@ -3535,7 +3595,6 @@
         },
         "Main Ventilation Shaft Section C": {
             "default_node": "Door to Frigate Access Tunnel",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 1578034578,
                 "size_index": 0.1,
@@ -3565,6 +3624,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -3653,6 +3713,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -3685,6 +3746,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 274,
                     "major_location": false,
                     "connections": {}
@@ -3693,7 +3755,6 @@
         },
         "Transport Tunnel C": {
             "default_node": "Door to Overgrown Cavern",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 2244610219,
                 "size_index": 0.1,
@@ -3723,6 +3784,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -3768,6 +3830,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -3808,6 +3871,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 275,
                     "major_location": false,
                     "connections": {}
@@ -3816,7 +3880,6 @@
         },
         "Transport Tunnel B": {
             "default_node": "Door to Transport to Magmoor Caverns East",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 3353878970,
                 "size_index": 0.1,
@@ -3846,6 +3909,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -3881,6 +3945,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -3911,6 +3976,7 @@
                     "extra": {
                         "position_required": false
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 64,
                     "major_location": false,
                     "connections": {
@@ -3934,7 +4000,6 @@
         },
         "Arbor Chamber": {
             "default_node": "Door to Root Cave",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 620277747,
                 "size_index": 0.1,
@@ -3964,6 +4029,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -3994,6 +4060,7 @@
                     "extra": {
                         "position_required": false
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 65,
                     "major_location": false,
                     "connections": {
@@ -4010,7 +4077,6 @@
         },
         "Main Ventilation Shaft Section B": {
             "default_node": "Door to Main Ventilation Shaft Section C",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 2949963832,
                 "size_index": 0.1,
@@ -4040,6 +4106,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -4151,6 +4218,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -4219,6 +4287,7 @@
                         "default"
                     ],
                     "extra": {},
+                    "valid_starting_location": false,
                     "event_name": "Event36",
                     "connections": {
                         "Door to Main Ventilation Shaft Section C": {
@@ -4241,6 +4310,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 276,
                     "major_location": false,
                     "connections": {}
@@ -4249,7 +4319,6 @@
         },
         "Transport to Chozo Ruins East": {
             "default_node": "Elevator to Chozo Ruins - Transport to Tallon Overworld East",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 2318493278,
                 "size_index": 0.1,
@@ -4279,6 +4348,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -4310,6 +4380,7 @@
                         "scan_asset_id": 1373415641,
                         "teleporter_instance_id": 1441848
                     },
+                    "valid_starting_location": true,
                     "destination": {
                         "world_name": "Chozo Ruins",
                         "area_name": "Transport to Tallon Overworld East"
@@ -4337,6 +4408,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 277,
                     "major_location": false,
                     "connections": {}
@@ -4345,7 +4417,6 @@
         },
         "Transport to Magmoor Caverns East": {
             "default_node": "Elevator to Magmoor Caverns - Transport to Tallon Overworld West",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 366411659,
                 "size_index": 0.1,
@@ -4375,6 +4446,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -4406,6 +4478,7 @@
                         "scan_asset_id": 2393251380,
                         "teleporter_instance_id": 1507378
                     },
+                    "valid_starting_location": true,
                     "destination": {
                         "world_name": "Magmoor Caverns",
                         "area_name": "Transport to Tallon Overworld West"
@@ -4433,6 +4506,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 278,
                     "major_location": false,
                     "connections": {}
@@ -4441,7 +4515,6 @@
         },
         "Main Ventilation Shaft Section A": {
             "default_node": "Door to Main Ventilation Shaft Section B",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 1724639367,
                 "size_index": 0.3,
@@ -4471,6 +4544,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -4506,6 +4580,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -4536,6 +4611,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 279,
                     "major_location": false,
                     "connections": {}
@@ -4544,7 +4620,6 @@
         },
         "Reactor Core": {
             "default_node": "Door to Main Ventilation Shaft Section A",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 3993592474,
                 "size_index": 0.6,
@@ -4574,6 +4649,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -4609,6 +4685,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -4637,6 +4714,7 @@
                         "default"
                     ],
                     "extra": {},
+                    "valid_starting_location": false,
                     "connections": {
                         "Door to Reactor Access": {
                             "type": "and",
@@ -4869,6 +4947,7 @@
                         "default"
                     ],
                     "extra": {},
+                    "valid_starting_location": false,
                     "event_name": "Event37",
                     "connections": {
                         "Room Bottom": {
@@ -4891,6 +4970,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 280,
                     "major_location": false,
                     "connections": {}
@@ -4899,7 +4979,6 @@
         },
         "Reactor Access": {
             "default_node": "Door to Reactor Core",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 4215436672,
                 "size_index": 0.3,
@@ -4929,6 +5008,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -4964,6 +5044,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -5057,6 +5138,7 @@
                             "Flamethrower Blast Shield"
                         ]
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -5085,6 +5167,7 @@
                         "default"
                     ],
                     "extra": {},
+                    "valid_starting_location": false,
                     "event_name": "Event38",
                     "connections": {
                         "Door to Reactor Core": {
@@ -5107,6 +5190,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 281,
                     "major_location": false,
                     "connections": {}
@@ -5115,7 +5199,6 @@
         },
         "Cargo Freight Lift to Deck Gamma": {
             "default_node": "Door to Reactor Access",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 934522854,
                 "size_index": 0.6,
@@ -5145,6 +5228,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -5508,6 +5592,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -5538,6 +5623,7 @@
                     "extra": {
                         "position_required": false
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 66,
                     "major_location": false,
                     "connections": {
@@ -5559,6 +5645,7 @@
                         "default"
                     ],
                     "extra": {},
+                    "valid_starting_location": false,
                     "event_name": "Event40",
                     "connections": {
                         "Door to Reactor Access": {
@@ -5574,7 +5661,6 @@
         },
         "Savestation": {
             "default_node": "Save Station",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 4032384109,
                 "size_index": 0.1,
@@ -5607,6 +5693,7 @@
                             "Flamethrower Blast Shield"
                         ]
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -5637,6 +5724,7 @@
                     "extra": {
                         "can_save": true
                     },
+                    "valid_starting_location": true,
                     "connections": {
                         "Door to Reactor Access": {
                             "type": "and",
@@ -5658,6 +5746,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 282,
                     "major_location": false,
                     "connections": {}
@@ -5666,7 +5755,6 @@
         },
         "Deck Beta Transit Hall": {
             "default_node": "Door to Cargo Freight Lift to Deck Gamma",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 1251344478,
                 "size_index": 0.1,
@@ -5696,6 +5784,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -5731,6 +5820,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -5761,6 +5851,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 283,
                     "major_location": false,
                     "connections": {}
@@ -5769,7 +5860,6 @@
         },
         "Biohazard Containment": {
             "default_node": "Door to Deck Beta Transit Hall",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 2888587518,
                 "size_index": 0.6,
@@ -5799,6 +5889,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -5875,6 +5966,7 @@
                             "Flamethrower Blast Shield"
                         ]
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -5905,6 +5997,7 @@
                     "extra": {
                         "position_required": false
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 67,
                     "major_location": false,
                     "connections": {
@@ -5926,6 +6019,7 @@
                         "default"
                     ],
                     "extra": {},
+                    "valid_starting_location": false,
                     "event_name": "Event41",
                     "connections": {
                         "Room Bottom": {
@@ -5946,6 +6040,7 @@
                         "default"
                     ],
                     "extra": {},
+                    "valid_starting_location": false,
                     "connections": {
                         "Door to Deck Beta Transit Hall": {
                             "type": "or",
@@ -6171,7 +6266,6 @@
         },
         "Deck Beta Security Hall": {
             "default_node": "Door to Biohazard Containment",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 1995891542,
                 "size_index": 0.1,
@@ -6204,6 +6298,7 @@
                             "Flamethrower Blast Shield"
                         ]
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -6242,6 +6337,7 @@
                             "Flamethrower Blast Shield"
                         ]
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -6272,6 +6368,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 284,
                     "major_location": false,
                     "connections": {}
@@ -6280,7 +6377,6 @@
         },
         "Biotech Research Area 1": {
             "default_node": "Door to Deck Beta Security Hall",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 1596897206,
                 "size_index": 0.6,
@@ -6313,6 +6409,7 @@
                             "Flamethrower Blast Shield"
                         ]
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -6351,6 +6448,7 @@
                             "Flamethrower Blast Shield"
                         ]
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -6379,6 +6477,7 @@
                         "default"
                     ],
                     "extra": {},
+                    "valid_starting_location": false,
                     "connections": {
                         "Door to Deck Beta Security Hall": {
                             "type": "or",
@@ -6710,6 +6809,7 @@
                         "default"
                     ],
                     "extra": {},
+                    "valid_starting_location": false,
                     "event_name": "Event42",
                     "connections": {
                         "Room Center": {
@@ -6732,6 +6832,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 285,
                     "major_location": false,
                     "connections": {}
@@ -6740,7 +6841,6 @@
         },
         "Deck Beta Conduit Hall": {
             "default_node": "Door to Connection Elevator to Deck Beta",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 3285469806,
                 "size_index": 0.1,
@@ -6773,6 +6873,7 @@
                             "Flamethrower Blast Shield"
                         ]
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -6811,6 +6912,7 @@
                             "Flamethrower Blast Shield"
                         ]
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -6841,6 +6943,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 286,
                     "major_location": false,
                     "connections": {}
@@ -6849,7 +6952,6 @@
         },
         "Connection Elevator to Deck Beta": {
             "default_node": "Door to Deck Beta Conduit Hall",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 3832686831,
                 "size_index": 0.3,
@@ -6882,6 +6984,7 @@
                             "Flamethrower Blast Shield"
                         ]
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -6965,6 +7068,7 @@
                             "Flamethrower Blast Shield"
                         ]
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -7160,6 +7264,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 287,
                     "major_location": false,
                     "connections": {}
@@ -7168,7 +7273,6 @@
         },
         "Hydro Access Tunnel": {
             "default_node": "Door to Connection Elevator to Deck Beta",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 4290029926,
                 "size_index": 0.3,
@@ -7201,6 +7305,7 @@
                             "Flamethrower Blast Shield"
                         ]
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -7344,6 +7449,7 @@
                             "Flamethrower Blast Shield"
                         ]
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -7530,6 +7636,7 @@
                     "extra": {
                         "position_required": false
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 68,
                     "major_location": false,
                     "connections": {
@@ -7616,7 +7723,6 @@
         },
         "Great Tree Hall": {
             "default_node": "Door to Transport Tunnel E",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 4101881435,
                 "size_index": 0.6,
@@ -7649,6 +7755,7 @@
                             "Flamethrower Blast Shield"
                         ]
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -7729,6 +7836,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -7764,6 +7872,7 @@
                         "dock_index": 2,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -7822,7 +7931,7 @@
                                                 {
                                                     "type": "and",
                                                     "data": {
-                                                        "comment": null,
+                                                        "comment": "https://youtu.be/Bh4su3o-QQw",
                                                         "items": [
                                                             {
                                                                 "type": "resource",
@@ -8035,12 +8144,20 @@
                                                                                 "comment": null,
                                                                                 "items": [
                                                                                     {
-                                                                                        "type": "resource",
+                                                                                        "type": "and",
                                                                                         "data": {
-                                                                                            "type": "tricks",
-                                                                                            "name": "Standable",
-                                                                                            "amount": 1,
-                                                                                            "negate": false
+                                                                                            "comment": "https://www.youtube.com/watch?v=Eeqt9aYPOX0",
+                                                                                            "items": [
+                                                                                                {
+                                                                                                    "type": "resource",
+                                                                                                    "data": {
+                                                                                                        "type": "tricks",
+                                                                                                        "name": "Standable",
+                                                                                                        "amount": 1,
+                                                                                                        "negate": false
+                                                                                                    }
+                                                                                                }
+                                                                                            ]
                                                                                         }
                                                                                     },
                                                                                     {
@@ -8163,7 +8280,7 @@
                                     {
                                         "type": "and",
                                         "data": {
-                                            "comment": null,
+                                            "comment": "https://www.youtube.com/watch?v=8RA6ZOd5RSo",
                                             "items": [
                                                 {
                                                     "type": "resource",
@@ -8216,6 +8333,7 @@
                         "dock_index": 3,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -8328,6 +8446,7 @@
                         "dock_index": 4,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -8468,6 +8587,7 @@
                         "default"
                     ],
                     "extra": {},
+                    "valid_starting_location": false,
                     "event_name": "Event1",
                     "connections": {
                         "Next to Spinner": {
@@ -8488,6 +8608,7 @@
                         "default"
                     ],
                     "extra": {},
+                    "valid_starting_location": false,
                     "connections": {
                         "Door to Transport Tunnel D": {
                             "type": "or",
@@ -8506,7 +8627,7 @@
                                     {
                                         "type": "and",
                                         "data": {
-                                            "comment": null,
+                                            "comment": "https://www.youtube.com/watch?v=8RA6ZOd5RSo",
                                             "items": [
                                                 {
                                                     "type": "resource",
@@ -8587,6 +8708,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 288,
                     "major_location": false,
                     "connections": {}
@@ -8595,7 +8717,6 @@
         },
         "Great Tree Chamber": {
             "default_node": "Door to Great Tree Hall",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 3319178647,
                 "size_index": 0.3,
@@ -8625,6 +8746,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -8655,6 +8777,7 @@
                     "extra": {
                         "position_required": false
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 69,
                     "major_location": false,
                     "connections": {
@@ -8671,7 +8794,6 @@
         },
         "Transport Tunnel D": {
             "default_node": "Door to Transport to Chozo Ruins South",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 445853540,
                 "size_index": 0.1,
@@ -8701,6 +8823,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -8736,6 +8859,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -8766,6 +8890,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 289,
                     "major_location": false,
                     "connections": {}
@@ -8774,7 +8899,6 @@
         },
         "Life Grove Tunnel": {
             "default_node": "Door to Great Tree Hall",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 3036397301,
                 "size_index": 0.3,
@@ -8804,6 +8928,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -8935,6 +9060,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "morph_ball",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -9018,6 +9144,7 @@
                     "extra": {
                         "position_required": false
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 70,
                     "major_location": false,
                     "connections": {
@@ -9195,6 +9322,7 @@
                         "default"
                     ],
                     "extra": {},
+                    "valid_starting_location": false,
                     "connections": {
                         "Door to Great Tree Hall": {
                             "type": "and",
@@ -9348,7 +9476,6 @@
         },
         "Transport Tunnel E": {
             "default_node": "Door to Transport to Phazon Mines East",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 2637367815,
                 "size_index": 0.1,
@@ -9378,6 +9505,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -9413,6 +9541,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -9443,6 +9572,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 290,
                     "major_location": false,
                     "connections": {}
@@ -9451,7 +9581,6 @@
         },
         "Transport to Chozo Ruins South": {
             "default_node": "Elevator to Chozo Ruins - Transport to Tallon Overworld South",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 212145392,
                 "size_index": 0.3,
@@ -9481,6 +9610,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -9512,6 +9642,7 @@
                         "scan_asset_id": 3960914967,
                         "teleporter_instance_id": 2687012
                     },
+                    "valid_starting_location": true,
                     "destination": {
                         "world_name": "Chozo Ruins",
                         "area_name": "Transport to Tallon Overworld South"
@@ -9539,6 +9670,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 291,
                     "major_location": false,
                     "connections": {}
@@ -9547,7 +9679,6 @@
         },
         "Life Grove": {
             "default_node": "Morph Ball Door to Life Grove Tunnel",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 2263559682,
                 "size_index": 0.6,
@@ -9577,6 +9708,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "morph_ball",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -9617,6 +9749,7 @@
                     "extra": {
                         "position_required": false
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 71,
                     "major_location": true,
                     "connections": {
@@ -9638,6 +9771,7 @@
                         "default"
                     ],
                     "extra": {},
+                    "valid_starting_location": false,
                     "pickup_index": 72,
                     "major_location": true,
                     "connections": {
@@ -9659,6 +9793,7 @@
                         "default"
                     ],
                     "extra": {},
+                    "valid_starting_location": false,
                     "connections": {
                         "Morph Ball Door to Life Grove Tunnel": {
                             "type": "and",
@@ -9765,17 +9900,8 @@
                                                                         {
                                                                             "type": "and",
                                                                             "data": {
-                                                                                "comment": "https://www.youtube.com/watch?v=3dTV8GpwBKw",
+                                                                                "comment": null,
                                                                                 "items": [
-                                                                                    {
-                                                                                        "type": "resource",
-                                                                                        "data": {
-                                                                                            "type": "tricks",
-                                                                                            "name": "SJump",
-                                                                                            "amount": 3,
-                                                                                            "negate": false
-                                                                                        }
-                                                                                    },
                                                                                     {
                                                                                         "type": "resource",
                                                                                         "data": {
@@ -9797,28 +9923,96 @@
                                                                                     {
                                                                                         "type": "resource",
                                                                                         "data": {
-                                                                                            "type": "items",
-                                                                                            "name": "Boost",
-                                                                                            "amount": 1,
-                                                                                            "negate": false
-                                                                                        }
-                                                                                    },
-                                                                                    {
-                                                                                        "type": "resource",
-                                                                                        "data": {
-                                                                                            "type": "tricks",
-                                                                                            "name": "WallBoost",
-                                                                                            "amount": 2,
-                                                                                            "negate": false
-                                                                                        }
-                                                                                    },
-                                                                                    {
-                                                                                        "type": "resource",
-                                                                                        "data": {
                                                                                             "type": "tricks",
                                                                                             "name": "Standable",
                                                                                             "amount": 2,
                                                                                             "negate": false
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "type": "or",
+                                                                                        "data": {
+                                                                                            "comment": null,
+                                                                                            "items": [
+                                                                                                {
+                                                                                                    "type": "resource",
+                                                                                                    "data": {
+                                                                                                        "type": "tricks",
+                                                                                                        "name": "SJump",
+                                                                                                        "amount": 3,
+                                                                                                        "negate": false
+                                                                                                    }
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "and",
+                                                                                                    "data": {
+                                                                                                        "comment": "https://youtu.be/bbYIFF00zYM?t=17638",
+                                                                                                        "items": [
+                                                                                                            {
+                                                                                                                "type": "resource",
+                                                                                                                "data": {
+                                                                                                                    "type": "items",
+                                                                                                                    "name": "Scan",
+                                                                                                                    "amount": 1,
+                                                                                                                    "negate": false
+                                                                                                                }
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "type": "resource",
+                                                                                                                "data": {
+                                                                                                                    "type": "tricks",
+                                                                                                                    "name": "Dash",
+                                                                                                                    "amount": 4,
+                                                                                                                    "negate": false
+                                                                                                                }
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    }
+                                                                                                }
+                                                                                            ]
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "type": "or",
+                                                                                        "data": {
+                                                                                            "comment": null,
+                                                                                            "items": [
+                                                                                                {
+                                                                                                    "type": "and",
+                                                                                                    "data": {
+                                                                                                        "comment": null,
+                                                                                                        "items": [
+                                                                                                            {
+                                                                                                                "type": "resource",
+                                                                                                                "data": {
+                                                                                                                    "type": "items",
+                                                                                                                    "name": "Boost",
+                                                                                                                    "amount": 1,
+                                                                                                                    "negate": false
+                                                                                                                }
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "type": "resource",
+                                                                                                                "data": {
+                                                                                                                    "type": "tricks",
+                                                                                                                    "name": "WallBoost",
+                                                                                                                    "amount": 3,
+                                                                                                                    "negate": false
+                                                                                                                }
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    }
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "resource",
+                                                                                                    "data": {
+                                                                                                        "type": "tricks",
+                                                                                                        "name": "Movement",
+                                                                                                        "amount": 4,
+                                                                                                        "negate": false
+                                                                                                    }
+                                                                                                }
+                                                                                            ]
                                                                                         }
                                                                                     }
                                                                                 ]
@@ -10088,6 +10282,7 @@
                         "default"
                     ],
                     "extra": {},
+                    "valid_starting_location": false,
                     "connections": {
                         "Morph Ball Door to Life Grove Tunnel": {
                             "type": "and",
@@ -10172,7 +10367,6 @@
         },
         "Transport to Phazon Mines East": {
             "default_node": "Elevator to Phazon Mines - Transport to Tallon Overworld South",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 2098226800,
                 "size_index": 0.3,
@@ -10202,6 +10396,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Tallon Overworld",
@@ -10233,6 +10428,7 @@
                         "scan_asset_id": 693027506,
                         "teleporter_instance_id": 2818083
                     },
+                    "valid_starting_location": true,
                     "destination": {
                         "world_name": "Phazon Mines",
                         "area_name": "Transport to Tallon Overworld South"
@@ -10260,6 +10456,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 292,
                     "major_location": false,
                     "connections": {}

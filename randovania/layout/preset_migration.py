@@ -2,6 +2,7 @@ import math
 import uuid
 
 from randovania.game_description import migration_data, default_database
+from randovania.game_description.world.area_identifier import AreaIdentifier
 from randovania.games.game import RandovaniaGame
 from randovania.layout.base.dock_rando_configuration import DockRandoMode, DockTypeState
 from randovania.lib import migration_lib
@@ -725,6 +726,27 @@ def _migrate_v43(preset: dict) -> dict:
     return preset
 
 
+def _migrate_v44(preset: dict) -> dict:
+    for start_loc in preset["configuration"]["starting_location"]:
+        area_identifier = AreaIdentifier(start_loc["world_name"], start_loc["area_name"])
+        node_identifier = migration_data.get_new_start_loc_from_old_start_loc(preset["game"], area_identifier)
+        start_loc["node_name"] = node_identifier.node_name
+
+    if "elevators" in preset["configuration"]:
+        for start_loc in preset["configuration"]["elevators"]["excluded_targets"]:
+            area_identifier = AreaIdentifier(start_loc["world_name"], start_loc["area_name"])
+            node_identifier = migration_data.get_new_start_loc_from_old_start_loc(preset["game"], area_identifier)
+            start_loc["node_name"] = node_identifier.node_name
+
+    return preset
+
+
+def _migrate_v45(preset: dict) -> dict:
+    if preset["game"] == "prime2":
+        preset["configuration"]["portal_rando"] = False
+    return preset
+
+
 _MIGRATIONS = [
     _migrate_v1,  # v1.1.1-247-gaf9e4a69
     _migrate_v2,  # v1.2.2-71-g0fbabe91
@@ -769,6 +791,8 @@ _MIGRATIONS = [
     _migrate_v41,
     _migrate_v42,
     _migrate_v43,
+    _migrate_v44,
+    _migrate_v45,
 ]
 CURRENT_VERSION = migration_lib.get_version(_MIGRATIONS)
 

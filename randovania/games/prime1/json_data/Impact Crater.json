@@ -6,7 +6,6 @@
     "areas": {
         "Crater Entry Point": {
             "default_node": "Teleport to Artifact Temple",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 2472970646,
                 "size_index": 0.3,
@@ -36,6 +35,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -67,6 +67,7 @@
                         "scan_asset_id": null,
                         "teleporter_instance_id": 152
                     },
+                    "valid_starting_location": true,
                     "destination": {
                         "world_name": "Tallon Overworld",
                         "area_name": "Artifact Temple"
@@ -101,6 +102,7 @@
                     "extra": {
                         "can_save": true
                     },
+                    "valid_starting_location": false,
                     "connections": {
                         "Teleport to Artifact Temple": {
                             "type": "and",
@@ -122,6 +124,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 168,
                     "major_location": false,
                     "connections": {}
@@ -130,7 +133,6 @@
         },
         "Crater Tunnel A": {
             "default_node": "Door to Crater Entry Point",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 1238049635,
                 "size_index": 0.1,
@@ -160,6 +162,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -195,6 +198,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -225,6 +229,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 169,
                     "major_location": false,
                     "connections": {}
@@ -233,7 +238,6 @@
         },
         "Phazon Core": {
             "default_node": "Door to Crater Tunnel A",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 3180620483,
                 "size_index": 0.3,
@@ -263,6 +267,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -375,7 +380,7 @@
                                     {
                                         "type": "and",
                                         "data": {
-                                            "comment": "https://www.youtube.com/watch?v=PBaMhnb-yc8",
+                                            "comment": "https://youtu.be/bbYIFF00zYM?t=24117",
                                             "items": [
                                                 {
                                                     "type": "resource",
@@ -428,6 +433,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -517,7 +523,7 @@
                                     {
                                         "type": "and",
                                         "data": {
-                                            "comment": "https://www.youtube.com/watch?v=PBaMhnb-yc8",
+                                            "comment": "https://youtu.be/bbYIFF00zYM?t=24029",
                                             "items": [
                                                 {
                                                     "type": "resource",
@@ -588,6 +594,7 @@
                         "dock_index": 2,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -618,6 +625,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 170,
                     "major_location": false,
                     "connections": {}
@@ -626,7 +634,6 @@
         },
         "Crater Missile Station": {
             "default_node": "Door to Phazon Core",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 1296329791,
                 "size_index": 0.1,
@@ -656,6 +663,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -684,6 +692,7 @@
                         "default"
                     ],
                     "extra": {},
+                    "valid_starting_location": false,
                     "connections": {
                         "Door to Phazon Core": {
                             "type": "and",
@@ -705,6 +714,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 171,
                     "major_location": false,
                     "connections": {}
@@ -713,7 +723,6 @@
         },
         "Crater Tunnel B": {
             "default_node": "Door to Phazon Core",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 852861312,
                 "size_index": 0.1,
@@ -743,6 +752,7 @@
                         "dock_index": 0,
                         "nonstandard": false
                     },
+                    "valid_starting_location": false,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -892,6 +902,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -1036,6 +1047,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 172,
                     "major_location": false,
                     "connections": {}
@@ -1044,7 +1056,6 @@
         },
         "Phazon Infusion Chamber": {
             "default_node": "Door to Crater Tunnel B",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 1729456653,
                 "size_index": 0.3,
@@ -1074,6 +1085,7 @@
                         "dock_index": 0,
                         "nonstandard": true
                     },
+                    "valid_starting_location": false,
                     "dock_type": "other",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -1109,6 +1121,7 @@
                         "dock_index": 1,
                         "nonstandard": false
                     },
+                    "valid_starting_location": true,
                     "dock_type": "door",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -1139,6 +1152,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 173,
                     "major_location": false,
                     "connections": {}
@@ -1147,7 +1161,6 @@
         },
         "Subchamber One": {
             "default_node": "Dock from Phazon Infusion Chamber",
-            "valid_starting_location": false,
             "extra": {
                 "asset_id": 3672049347,
                 "size_index": 0.3,
@@ -1177,6 +1190,7 @@
                         "dock_index": 0,
                         "nonstandard": true
                     },
+                    "valid_starting_location": false,
                     "dock_type": "other",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -1317,6 +1331,7 @@
                         "dock_index": 1,
                         "nonstandard": true
                     },
+                    "valid_starting_location": false,
                     "dock_type": "other",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -1347,6 +1362,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 174,
                     "major_location": false,
                     "connections": {}
@@ -1355,7 +1371,6 @@
         },
         "Subchamber Two": {
             "default_node": "Dock to Subchamber One",
-            "valid_starting_location": false,
             "extra": {
                 "asset_id": 122281798,
                 "size_index": 0.3,
@@ -1385,6 +1400,7 @@
                         "dock_index": 0,
                         "nonstandard": true
                     },
+                    "valid_starting_location": false,
                     "dock_type": "other",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -1529,6 +1545,7 @@
                         "dock_index": 1,
                         "nonstandard": true
                     },
+                    "valid_starting_location": false,
                     "dock_type": "other",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -1559,6 +1576,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 175,
                     "major_location": false,
                     "connections": {}
@@ -1567,7 +1585,6 @@
         },
         "Subchamber Three": {
             "default_node": "Dock to Subchamber Two",
-            "valid_starting_location": false,
             "extra": {
                 "asset_id": 2050677022,
                 "size_index": 0.3,
@@ -1597,6 +1614,7 @@
                         "dock_index": 0,
                         "nonstandard": true
                     },
+                    "valid_starting_location": false,
                     "dock_type": "other",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -1632,6 +1650,7 @@
                         "dock_index": 1,
                         "nonstandard": true
                     },
+                    "valid_starting_location": false,
                     "dock_type": "other",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -1766,6 +1785,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 176,
                     "major_location": false,
                     "connections": {}
@@ -1774,7 +1794,6 @@
         },
         "Subchamber Four": {
             "default_node": "Dock to Subchamber Three",
-            "valid_starting_location": false,
             "extra": {
                 "asset_id": 2813067419,
                 "size_index": 0.3,
@@ -1804,6 +1823,7 @@
                         "dock_index": 0,
                         "nonstandard": true
                     },
+                    "valid_starting_location": false,
                     "dock_type": "other",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -1839,6 +1859,7 @@
                         "dock_index": 1,
                         "nonstandard": true
                     },
+                    "valid_starting_location": false,
                     "dock_type": "other",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -1900,6 +1921,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 177,
                     "major_location": false,
                     "connections": {}
@@ -1908,7 +1930,6 @@
         },
         "Subchamber Five": {
             "default_node": "Dock to Subchamber Four",
-            "valid_starting_location": true,
             "extra": {
                 "asset_id": 2003911832,
                 "size_index": 0.3,
@@ -1938,6 +1959,7 @@
                         "dock_index": 0,
                         "nonstandard": true
                     },
+                    "valid_starting_location": true,
                     "dock_type": "other",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -1973,6 +1995,7 @@
                         "dock_index": 1,
                         "nonstandard": true
                     },
+                    "valid_starting_location": false,
                     "dock_type": "other",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -2003,6 +2026,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 178,
                     "major_location": false,
                     "connections": {}
@@ -2011,7 +2035,6 @@
         },
         "Metroid Prime Lair": {
             "default_node": "Dock to Subchamber Five",
-            "valid_starting_location": false,
             "extra": {
                 "asset_id": 442920021,
                 "size_index": 0.3,
@@ -2041,6 +2064,7 @@
                         "dock_index": 0,
                         "nonstandard": true
                     },
+                    "valid_starting_location": false,
                     "dock_type": "other",
                     "default_connection": {
                         "world_name": "Impact Crater",
@@ -2324,6 +2348,7 @@
                         "teleporter_instance_id": 721282,
                         "different_strongly_connected_component": true
                     },
+                    "valid_starting_location": false,
                     "destination": {
                         "world_name": "End of Game",
                         "area_name": "Credits"
@@ -2351,6 +2376,7 @@
                     "extra": {
                         "position_required": true
                     },
+                    "valid_starting_location": false,
                     "pickup_index": 179,
                     "major_location": false,
                     "connections": {}
