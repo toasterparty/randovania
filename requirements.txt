@@ -73,7 +73,7 @@ cryptography==43.0.3
     #   randovania (setup.py)
 cycler==0.12.1
     # via matplotlib
-darkdetect==0.7.1
+darkdetect==0.8.0
     # via pyqtdarktheme-fork
 dnspython==2.7.0
     # via eventlet
