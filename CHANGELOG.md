@@ -7,7 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [10.6.0] - 2026-04-??
 
-- TODO: New changes go here!
+### Metroid Dread
+
+#### Logic Database
+
+##### Burenia
+
+- Added: Underneath Drogyga: Cross the grapple blocks with a horizontal bomb jump (Expert Diagonal Bomb Jump)
+- Added: Underneath Drogyga: Climb out of the water after drogyga using single-wall wall jump with a water bomb jump
 
 ## [10.5.0] - 2026-03-02
 
