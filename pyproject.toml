@@ -239,6 +239,7 @@ extend-select = [
     "PIE", # flake8-pie (misc checks)
     "PT", # common style issues or inconsistencies with pytest-based tests (flake8-pytest-style)
     "SIM101", # Multiple isinstance calls for {name}, merge into a single call
+    "RUF",  # Ruff-specific rules
 
     "PLC",  # pylint convention
     "PLC0208",  # iterating over set is also not deterministic, so we shouldn't do that!
