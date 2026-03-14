@@ -119,6 +119,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Changed: Nocturnal Shaft: When going from top left to top right, dealing with the Blue-X is now trivial.
 
+### Metroid Prime
+
+- Fixed: Metroid Prime Lair: Black screen softlock if Subchamber Five cutscene is skipped late
+- Fixed: Burn Dome: Wasps remain active if Incinerator Drone death cutscene is skipped on first frame
+- Fixed: [PAL] Frost Cave: Game stutter when loading Hunter Metroid layer
+
 ### Metroid Prime 2: Echoes
 
 - Added: Added a notice to the door lock rando tab that new patcher is both required and will be enabled alongside any randomization settings.
