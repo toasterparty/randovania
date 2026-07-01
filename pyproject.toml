@@ -417,3 +417,6 @@ cache-keys = [
     { file = "README.md" },
     { file = "randovania/enable-cython" },
 ]
+
+[tool.uv.sources]
+py-randomprime = { path = "../py-randomprime-test" }
