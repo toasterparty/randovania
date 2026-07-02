@@ -214,7 +214,7 @@ async def main():
         server_suffix = "randovania-staging"
 
     configuration = {
-        "server_address": f"https://randovania.metroidprime.run/{server_suffix}",
+        "server_address": f"https://randovania.toasterparty.net/{server_suffix}",
         "socketio_path": f"/{server_suffix}/socket.io",
         "sentry_urls": {"client": os.environ.get("SENTRY_CLIENT_URL")},
     }
