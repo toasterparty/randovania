@@ -2278,7 +2278,7 @@ wheels = [
 
 [[package]]
 name = "py-randomprime"
-version = "1.31.4.dev2"
+version = "1.31.4.dev1"
 source = { directory = "../py-randomprime-test" }
 
 [[package]]
