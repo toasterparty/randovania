@@ -1081,7 +1081,7 @@ class PrimePatchDataFactory(PatchDataFactory[PrimeConfiguration, PrimeCosmeticPa
                     "description": f"Seed Hash: {self.description.shareable_word_hash}",
                 },
                 "mainMenuMessage": f"Randovania v{randovania.VERSION}\n{self.description.shareable_word_hash}",
-                "saveName": self.description.shareable_hash,
+                "saveName": self.description.shareable_word_hash[:17],
                 "creditsString": credits_string,
                 "artifactHints": {artifact.long_name: text for artifact, text in resulting_hints.items()},
                 "artifactTempleLayerOverrides": {

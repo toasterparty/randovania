@@ -208,14 +208,9 @@ async def main():
             secret.encode("ascii"),
         )
 
-    if is_production():
-        server_suffix = "randovania"
-    else:
-        server_suffix = "randovania-staging"
-
     configuration = {
-        "server_address": f"https://randovania.toasterparty.net/{server_suffix}",
-        "socketio_path": f"/{server_suffix}/socket.io",
+        "server_address": "https://randovania.toasterparty.net",
+        "socketio_path": "/socket.io",
         "sentry_urls": {"client": os.environ.get("SENTRY_CLIENT_URL")},
     }
     json_lib.write_path(_ROOT_FOLDER.joinpath("randovania", "data", "configuration.json"), configuration)
