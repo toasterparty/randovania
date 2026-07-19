@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import dataclasses
+import enum
 import typing
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 from frozendict import frozendict
 
+from randovania.bitpacking.bitpacking import BitPackEnum
 from randovania.bitpacking.json_dataclass import JsonDataclass
 from randovania.game.game_enum import RandovaniaGame
 from randovania.game_description.resources.item_resource_info import ItemResourceInfo
@@ -14,7 +16,7 @@ from randovania.game_description.resources.item_resource_info import ItemResourc
 if TYPE_CHECKING:
     from collections.abc import Iterator
 
-    from randovania.game_description.pickup.pickup_category import PickupCategory
+    from randovania.game_description.hint_features import HintFeature
     from randovania.game_description.resources.location_category import LocationCategory
     from randovania.game_description.resources.resource_collection import ResourceCollection
     from randovania.game_description.resources.resource_info import (
@@ -22,6 +24,12 @@ if TYPE_CHECKING:
         ResourceGainTuple,
         ResourceQuantity,
     )
+
+
+class StartingPickupBehavior(BitPackEnum, enum.StrEnum):
+    CAN_BE_STARTING = "can_start"
+    MUST_BE_STARTING = "must_start"
+    CAN_NEVER_BE_STARTING = "never_start"
 
 
 @dataclass(frozen=True)
@@ -38,7 +46,7 @@ class ResourceLock:
     item_to_lock: ItemResourceInfo
     temporary_item: ItemResourceInfo
 
-    def convert_gain(self, gain: ResourceGain) -> ResourceGain:
+    def convert_gain(self, gain: ResourceGain[ItemResourceInfo]) -> ResourceGain[ItemResourceInfo]:
         for resource, quantity in gain:
             if self.item_to_lock == resource:
                 resource = self.temporary_item
@@ -52,7 +60,7 @@ class ResourceLock:
 class ConditionalResources:
     name: str | None
     item: ItemResourceInfo | None
-    resources: ResourceGainTuple
+    resources: ResourceGainTuple[ItemResourceInfo]
 
 
 @dataclass(frozen=True)
@@ -74,17 +82,21 @@ class PickupGeneratorParams:
 class PickupEntry:
     name: str
     model: PickupModel
-    pickup_category: PickupCategory
-    broad_category: PickupCategory
+    gui_category: HintFeature
+    hint_features: frozenset[HintFeature]
     progression: tuple[tuple[ItemResourceInfo, int], ...]
     generator_params: PickupGeneratorParams
-    extra_resources: ResourceGainTuple = ()
+    start_case: StartingPickupBehavior = StartingPickupBehavior.CAN_BE_STARTING
+    extra_resources: ResourceGainTuple[ItemResourceInfo] = ()
     unlocks_resource: bool = False
     resource_lock: ResourceLock | None = None
     respects_lock: bool = True
     offworld_models: frozendict[RandovaniaGame, str] = dataclasses.field(
-        default_factory=typing.cast(typing.Callable[[], frozendict[RandovaniaGame, str]], frozendict),
+        default_factory=typing.cast("typing.Callable[[], frozendict[RandovaniaGame, str]]", frozendict),
     )
+    show_in_credits_spoiler: bool = True  # TODO: rename. this is effectively an "is important item" flag
+    is_expansion: bool = False
+    extra: frozendict = dataclasses.field(default_factory=frozendict)
 
     def __post_init__(self) -> None:
         if not isinstance(self.progression, tuple):
@@ -124,7 +136,7 @@ class PickupEntry:
             yield ConditionalResources(
                 name=progression[0].long_name,
                 item=previous,
-                resources=(progression,) + self.extra_resources,
+                resources=(progression, *self.extra_resources),
             )
             previous = progression[0]
 
@@ -154,13 +166,15 @@ class PickupEntry:
         assert last_conditional is not None
         return last_conditional
 
-    def conversion_resource_gain(self, current_resources: ResourceCollection) -> ResourceGain:
+    def conversion_resource_gain(self, current_resources: ResourceCollection) -> ResourceGain[ItemResourceInfo]:
         for conversion in self.convert_resources:
             quantity = current_resources[conversion.source]
             yield conversion.source, -quantity
             yield conversion.target, quantity
 
-    def resource_gain(self, current_resources: ResourceCollection, force_lock: bool = False) -> ResourceGain:
+    def resource_gain(
+        self, current_resources: ResourceCollection, force_lock: bool = False
+    ) -> ResourceGain[ItemResourceInfo]:
         resources = self.conditional_for_resources(current_resources).resources
 
         if (
@@ -181,3 +195,7 @@ class PickupEntry:
     def all_resources(self) -> Iterator[ResourceQuantity]:
         yield from self.progression
         yield from self.extra_resources
+
+    def has_hint_feature(self, feature_name: str) -> bool:
+        """Whether this PickupEntry has a hint feature with the given name"""
+        return feature_name in {f.name for f in self.hint_features}

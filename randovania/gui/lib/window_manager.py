@@ -2,13 +2,12 @@ from __future__ import annotations
 
 import typing
 
-from PySide6 import QtWidgets
+from PySide6 import QtCore, QtWidgets
 
 if typing.TYPE_CHECKING:
     from pathlib import Path
 
     from randovania.game.game_enum import RandovaniaGame
-    from randovania.gui.lib.close_event_widget import CloseEventWidget
     from randovania.gui.lib.qt_network_client import QtNetworkClient
     from randovania.gui.multiworld_client import MultiworldClient
     from randovania.interface_common.options import Options
@@ -19,10 +18,14 @@ if typing.TYPE_CHECKING:
     from randovania.layout.versioned_preset import VersionedPreset
 
 
-class WindowManager(QtWidgets.QMainWindow):
-    tracked_windows: list[CloseEventWidget]
+class WidgetWithClose(typing.Protocol):
+    CloseEvent: typing.ClassVar[QtCore.Signal]
 
-    def __init__(self):
+
+class WindowManager(QtWidgets.QMainWindow):
+    tracked_windows: list[WidgetWithClose]
+
+    def __init__(self) -> None:
         super().__init__()
         self.tracked_windows = []
 
@@ -34,7 +37,7 @@ class WindowManager(QtWidgets.QMainWindow):
     def multiworld_client(self) -> MultiworldClient:
         raise NotImplementedError
 
-    async def open_map_tracker(self, configuration: Preset):
+    async def open_map_tracker(self, configuration: Preset) -> None:
         raise NotImplementedError
 
     def open_data_visualizer_at(
@@ -43,16 +46,16 @@ class WindowManager(QtWidgets.QMainWindow):
         area_name: str | None,
         game: RandovaniaGame,
         trick_levels: TrickLevelConfiguration | None = None,
-    ):
+    ) -> None:
         raise NotImplementedError
 
-    def open_game_details(self, layout: LayoutDescription, players: list[str] | None = None):
+    def open_game_details(self, layout: LayoutDescription, players: list[str] | None = None) -> None:
         raise NotImplementedError
 
-    def open_game_connection_window(self):
+    def open_game_connection_window(self) -> None:
         raise NotImplementedError
 
-    def set_games_selector_visible(self, visible: bool):
+    def set_games_selector_visible(self, visible: bool) -> None:
         raise NotImplementedError
 
     @property
@@ -63,8 +66,10 @@ class WindowManager(QtWidgets.QMainWindow):
     def is_preview_mode(self) -> bool:
         raise NotImplementedError
 
-    def track_window(self, window: CloseEventWidget):
-        def remove_window():
+    def track_window(self, window: WidgetWithClose) -> None:
+        assert isinstance(window, QtCore.QObject)
+
+        def remove_window() -> None:
             self.tracked_windows.remove(window)
 
         window.CloseEvent.connect(remove_window)
@@ -72,10 +77,10 @@ class WindowManager(QtWidgets.QMainWindow):
 
     async def ensure_multiplayer_session_window(
         self, network_client: QtNetworkClient, session_id: int, options: Options
-    ):
+    ) -> None:
         raise NotImplementedError
 
-    def open_app_navigation_link(self, link: str):
+    def open_app_navigation_link(self, link: str) -> None:
         raise NotImplementedError
 
     def import_preset_file(self, path: Path) -> VersionedPreset | None:

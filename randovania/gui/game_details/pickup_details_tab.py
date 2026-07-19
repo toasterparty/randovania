@@ -8,38 +8,64 @@ from PySide6 import QtCore, QtGui, QtWidgets
 
 from randovania.exporter import item_names
 from randovania.game_description.db.pickup_node import PickupNode
+from randovania.game_description.filtered_game_database_view import LayerFilteredGameDatabaseView
+from randovania.game_description.resources.pickup_index import PickupIndex
 from randovania.gui.game_details.game_details_tab import GameDetailsTab
 from randovania.gui.generated.pickup_details_tab_ui import Ui_PickupDetailsTab
 from randovania.gui.lib import signal_handling
-from randovania.layout import filtered_database
 
 if TYPE_CHECKING:
     from randovania.game.game_enum import RandovaniaGame
-    from randovania.game_description.game_description import GameDescription
+    from randovania.game_description.db.node_identifier import NodeIdentifier
+    from randovania.game_description.game_database_view import GameDatabaseView
     from randovania.game_description.game_patches import GamePatches
     from randovania.interface_common.players_configuration import PlayersConfiguration
     from randovania.layout.base.base_configuration import BaseConfiguration
 
 
-def _show_pickup_spoiler(button: QtWidgets.QPushButton):
-    target_player = getattr(button, "target_player", None)
-    if target_player is not None:
-        label = f"{button.item_name} for {button.player_names[target_player]}"
+class PickupSpoilerGroupBox(QtWidgets.QGroupBox):
+    vertical_layout: QtWidgets.QVBoxLayout
+
+
+class PickupSpoilerVerticalLayout(QtWidgets.QVBoxLayout):
+    horizontal_layouts: list[PickupSpoilerRow]
+
+
+class PickupSpoilerRow(QtWidgets.QHBoxLayout):
+    label: QtWidgets.QLabel
+    button: PickupSpoilerPushButton
+
+
+class PickupSpoilerPushButton(QtWidgets.QPushButton):
+    item_is_hidden: bool
+    pickup_index: PickupIndex
+    item_name: str
+    row: PickupSpoilerRow
+
+    target_player: int | None = None
+    player_names: dict[int, str] | None = None
+
+
+def _show_pickup_spoiler(button: PickupSpoilerPushButton) -> None:
+    if button.target_player is not None:
+        assert button.player_names is not None
+        label = f"{button.item_name} for {button.player_names[button.target_player]}"
     else:
         label = button.item_name
     button.setText(label)
     button.item_is_hidden = False
 
 
-def _hide_pickup_spoiler(button: QtWidgets.QPushButton):
+def _hide_pickup_spoiler(button: PickupSpoilerPushButton) -> None:
     button.setText("Hidden")
     button.item_is_hidden = True
 
 
 class PickupDetailsTab(GameDetailsTab, Ui_PickupDetailsTab):
-    pickup_spoiler_buttons: list[QtWidgets.QPushButton]
+    pickup_spoiler_buttons: list[PickupSpoilerPushButton]
+    _pickup_spoiler_region_to_group: dict[str, PickupSpoilerGroupBox]
 
-    def __init__(self, parent: QtWidgets.QWidget, game: RandovaniaGame):
+    def __init__(self, parent: QtWidgets.QWidget, game: RandovaniaGame) -> None:
         super().__init__(parent, game)
         self.root = QtWidgets.QWidget(parent)
         self.setupUi(self.root)
@@ -68,20 +94,21 @@ class PickupDetailsTab(GameDetailsTab, Ui_PickupDetailsTab):
 
     def update_content(
         self, configuration: BaseConfiguration, all_patches: dict[int, GamePatches], players: PlayersConfiguration
-    ):
+    ) -> None:
         self._update_search_pickup_group(all_patches, players)
 
         patches = all_patches[players.player_index]
         pickup_names = {pickup.pickup.name for pickup in patches.pickup_assignment.values()}
-        game_description = filtered_database.game_description_for_layout(configuration)
-        self._create_pickup_spoilers(game_description)
-        starting_area = game_description.region_list.area_by_area_location(patches.starting_location)
-
-        extra_items = item_names.additional_starting_equipment(configuration, game_description, patches)
-
-        self.spoiler_starting_location_label.setText(
-            f"Starting Location: {game_description.region_list.area_name(starting_area)}"
+        game_view = LayerFilteredGameDatabaseView.create_for_configuration(
+            configuration.game_enum().game_description,
+            configuration,
         )
+        self._create_pickup_spoilers(game_view)
+        starting_node = game_view.node_by_identifier(patches.starting_location)
+
+        extra_items = item_names.additional_starting_equipment(configuration, game_view, patches)
+
+        self.spoiler_starting_location_label.setText(f"Starting Location: {starting_node.full_name(separator=' - ')}")
         self.spoiler_starting_items_label.setText(
             "Random Starting Items: {}".format(", ".join(extra_items) if extra_items else "None")
         )
@@ -107,7 +134,7 @@ class PickupDetailsTab(GameDetailsTab, Ui_PickupDetailsTab):
             if not pickup_button.item_is_hidden:
                 pickup_button.setText(pickup_button.item_name)
 
-    def _create_pickup_spoilers(self, game_description: GameDescription):
+    def _create_pickup_spoilers(self, game_view: GameDatabaseView) -> None:
         for groups in self._pickup_spoiler_region_to_group.values():
             groups.deleteLater()
 
@@ -115,18 +142,15 @@ class PickupDetailsTab(GameDetailsTab, Ui_PickupDetailsTab):
         self.pickup_spoiler_buttons.clear()
 
         self._pickup_spoiler_region_to_group = {}
-        nodes_in_region = collections.defaultdict(list)
+        nodes_in_region: dict[str, list[tuple[str, PickupIndex]]] = collections.defaultdict(list)
 
-        for region, area, node in game_description.region_list.all_regions_areas_nodes:
-            if isinstance(node, PickupNode):
-                region_name = region.correct_name(area.in_dark_aether)
-                nodes_in_region[region_name].append((f"{area.name} - {node.name}", node.pickup_index))
-                continue
+        for region, area, node in game_view.iterate_nodes_of_type(PickupNode):
+            nodes_in_region[region.name].append((f"{area.name} - {node.name}", node.pickup_index))
 
         for region_name in sorted(nodes_in_region.keys()):
-            group_box = QtWidgets.QGroupBox(self.pickup_spoiler_scroll_contents)
+            group_box = PickupSpoilerGroupBox(self.pickup_spoiler_scroll_contents)
             group_box.setTitle(region_name)
-            vertical_layout = QtWidgets.QVBoxLayout(group_box)
+            vertical_layout = PickupSpoilerVerticalLayout(group_box)
             vertical_layout.setContentsMargins(8, 4, 8, 4)
             vertical_layout.setSpacing(2)
             group_box.vertical_layout = vertical_layout
@@ -136,7 +160,7 @@ class PickupDetailsTab(GameDetailsTab, Ui_PickupDetailsTab):
             self.pickup_spoiler_scroll_content_layout.addWidget(group_box)
 
             for area_name, pickup_index in sorted(nodes_in_region[region_name], key=lambda it: it[0]):
-                horizontal_layout = QtWidgets.QHBoxLayout()
+                horizontal_layout = PickupSpoilerRow()
                 horizontal_layout.setSpacing(2)
 
                 label = QtWidgets.QLabel(group_box)
@@ -144,7 +168,7 @@ class PickupDetailsTab(GameDetailsTab, Ui_PickupDetailsTab):
                 horizontal_layout.addWidget(label)
                 horizontal_layout.label = label
 
-                push_button = QtWidgets.QPushButton(group_box)
+                push_button = PickupSpoilerPushButton(group_box)
                 push_button.setFlat(True)
                 push_button.setText("Hidden")
                 push_button.item_is_hidden = True
@@ -159,7 +183,7 @@ class PickupDetailsTab(GameDetailsTab, Ui_PickupDetailsTab):
                 group_box.vertical_layout.addLayout(horizontal_layout)
                 group_box.vertical_layout.horizontal_layouts.append(horizontal_layout)
 
-    def _update_show_all_button_state(self):
+    def _update_show_all_button_state(self) -> None:
         self.pickup_spoiler_show_all_button.currently_show_all = all(
             button.item_is_hidden for button in self.pickup_spoiler_buttons
         )
@@ -168,14 +192,14 @@ class PickupDetailsTab(GameDetailsTab, Ui_PickupDetailsTab):
         else:
             self.pickup_spoiler_show_all_button.setText(QtCore.QCoreApplication.translate("HistoryWindow", "Hide All"))
 
-    def _toggle_pickup_spoiler(self, button):
+    def _toggle_pickup_spoiler(self, button: PickupSpoilerPushButton) -> None:
         if button.item_is_hidden:
             _show_pickup_spoiler(button)
         else:
             _hide_pickup_spoiler(button)
         self._update_show_all_button_state()
 
-    def _toggle_show_all_pickup_spoiler(self):
+    def _toggle_show_all_pickup_spoiler(self) -> None:
         if self.pickup_spoiler_show_all_button.currently_show_all:
             action = _show_pickup_spoiler
         else:
@@ -186,54 +210,50 @@ class PickupDetailsTab(GameDetailsTab, Ui_PickupDetailsTab):
 
         self._update_show_all_button_state()
 
-    def _on_change_pickup_filter(self, text):
+    def _on_change_pickup_filter(self, text: str) -> None:
         for button in self.pickup_spoiler_buttons:
             visible = text == "None" or text == button.item_name
             button.setVisible(visible)
             button.row.label.setVisible(visible)
 
-    def _update_search_pickup_group(self, all_patches: dict[int, GamePatches], players: PlayersConfiguration):
+    def _update_search_pickup_group(self, all_patches: dict[int, GamePatches], players: PlayersConfiguration) -> None:
         self.search_pickup_group.setVisible(players.is_multiworld)
         if not players.is_multiworld:
             return
 
         pickup_names = set()
-        rows = []
+        rows: list[tuple[str, str, NodeIdentifier]] = []
 
         for source_index, patches in all_patches.items():
             rl = patches.game.region_list
             for pickup_index, pickup_target in patches.pickup_assignment.items():
                 if pickup_target.player == players.player_index:
                     node = rl.node_from_pickup_index(pickup_index)
-                    area = rl.nodes_to_area(node)
-
                     rows.append(
                         (
                             pickup_target.pickup.name,
                             players.player_names[source_index],
-                            rl.region_name_from_area(area, True),
-                            area.name,
-                            node.name,
+                            node.identifier,
                         )
                     )
                     pickup_names.add(pickup_target.pickup.name)
 
         self.search_pickup_model.setRowCount(len(rows))
 
-        for i, (pickup_name, player_name, region_name, area_name, node_name) in enumerate(rows):
+        for i, (pickup_name, player_name, identifier) in enumerate(rows):
             player_item = QtGui.QStandardItem(player_name)
             player_item.setData(pickup_name, QtCore.Qt.ItemDataRole.UserRole)
             self.search_pickup_model.setItem(i, 0, player_item)
-            self.search_pickup_model.setItem(i, 1, QtGui.QStandardItem(region_name))
-            self.search_pickup_model.setItem(i, 2, QtGui.QStandardItem(area_name))
-            self.search_pickup_model.setItem(i, 3, QtGui.QStandardItem(node_name))
+            self.search_pickup_model.setItem(i, 1, QtGui.QStandardItem(identifier.region))
+            self.search_pickup_model.setItem(i, 2, QtGui.QStandardItem(identifier.area))
+            self.search_pickup_model.setItem(i, 3, QtGui.QStandardItem(identifier.node))
 
         self.search_pickup_combo.clear()
         self.search_pickup_combo.addItem("Select pickup", None)
         for pickup_name in sorted(pickup_names):
             self.search_pickup_combo.addItem(pickup_name, pickup_name)
 
-    def _show_location_for_pickup(self, target: str | None):
+    def _show_location_for_pickup(self, target: str | None) -> None:
         if target is None:
             self.search_pickup_proxy.setFilterFixedString("<@NOT PRESENT@>")
         else:

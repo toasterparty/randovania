@@ -3,27 +3,33 @@ from __future__ import annotations
 import dataclasses
 import datetime
 import re
+import typing
 import uuid
+from collections.abc import Mapping
 from functools import cached_property
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Self
 
 from randovania.bitpacking.json_dataclass import JsonDataclass
 from randovania.game.game_enum import RandovaniaGame
+from randovania.game_description import default_database
 from randovania.game_description.resources.pickup_index import PickupIndex
+from randovania.game_description.resources.resource_database import ResourceDatabase
 from randovania.layout.versioned_preset import VersionedPreset
+from randovania.lib.json_lib import JsonObject_RO
+from randovania.network_common.audit import AuditEntry
 from randovania.network_common.game_connection_status import GameConnectionStatus
+from randovania.network_common.game_details import GameDetails
+from randovania.network_common.remote_pickup import RemotePickup
 from randovania.network_common.session_visibility import MultiplayerSessionVisibility
+from randovania.network_common.user import RandovaniaUser, UserID
 
 if TYPE_CHECKING:
-    from randovania.game_description.pickup.pickup_entry import PickupEntry
     from randovania.network_common.remote_inventory import RemoteInventory
 
 MAX_SESSION_NAME_LENGTH = 50
 MAX_WORLD_NAME_LENGTH = 30
 
 WORLD_NAME_RE = re.compile(r"^[a-zA-Z0-9 _\-!?()]{1," + str(MAX_WORLD_NAME_LENGTH) + "}$")
-
-UserID = int
 
 
 @dataclasses.dataclass(frozen=True)
@@ -39,7 +45,7 @@ class MultiplayerSessionListEntry(JsonDataclass):
     is_user_in_session: bool
     join_date: datetime.datetime
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         tzinfo = self.creation_date.tzinfo
         assert tzinfo is not None
         assert tzinfo.utcoffset(self.creation_date) is not None
@@ -52,9 +58,7 @@ class UserWorldDetail(JsonDataclass):
 
 
 @dataclasses.dataclass(frozen=True)
-class MultiplayerUser(JsonDataclass):
-    id: UserID
-    name: str
+class MultiplayerUser(RandovaniaUser):
     admin: bool
     ready: bool
     worlds: dict[uuid.UUID, UserWorldDetail]
@@ -65,6 +69,8 @@ class MultiplayerWorld(JsonDataclass):
     id: uuid.UUID
     name: str
     preset_raw: str
+    has_been_beaten: bool
+    is_abandoned: bool = False
 
     @cached_property
     def preset(self) -> VersionedPreset:
@@ -75,7 +81,27 @@ class MultiplayerWorld(JsonDataclass):
 class MultiplayerWorldPickups:
     world_id: uuid.UUID
     game: RandovaniaGame
-    pickups: tuple[tuple[str, PickupEntry], ...]
+    pickups: tuple[RemotePickup, ...]
+
+    @classmethod
+    def from_json(cls, data: JsonObject_RO) -> Self:
+        data_ = typing.cast("Mapping", data)
+
+        game = RandovaniaGame(data_["game"])
+        resource_database = default_database.resource_database_for(game)
+
+        return cls(
+            world_id=uuid.UUID(data_["world"]),
+            game=game,
+            pickups=tuple(RemotePickup.from_json(item, resource_database) for item in data_["pickups"]),
+        )
+
+    def as_json(self, resource_database: ResourceDatabase) -> JsonObject_RO:
+        return {
+            "world": str(self.world_id),
+            "game": self.game.value,
+            "pickups": [item.as_json(resource_database) for item in self.pickups],
+        }
 
 
 @dataclasses.dataclass(frozen=True)
@@ -87,7 +113,7 @@ class MultiplayerSessionAction(JsonDataclass):
     time: datetime.datetime
 
     @property
-    def location_index(self):
+    def location_index(self) -> PickupIndex:
         return PickupIndex(self.location)
 
 
@@ -95,13 +121,6 @@ class MultiplayerSessionAction(JsonDataclass):
 class MultiplayerSessionActions(JsonDataclass):
     session_id: int
     actions: list[MultiplayerSessionAction]  # TODO: use tuple
-
-
-@dataclasses.dataclass(frozen=True)
-class GameDetails(JsonDataclass):
-    seed_hash: str
-    word_hash: str
-    spoiler: bool
 
 
 @dataclasses.dataclass(frozen=True)
@@ -116,6 +135,7 @@ class MultiplayerSessionEntry(JsonDataclass):
     allowed_games: list[RandovaniaGame]
     allow_coop: bool
     allow_everyone_claim_world: bool
+    allow_abandon_worlds: bool
 
     @property
     def users(self) -> dict[int, MultiplayerUser]:
@@ -136,16 +156,9 @@ class MultiplayerSessionEntry(JsonDataclass):
 
 
 @dataclasses.dataclass(frozen=True)
-class MultiplayerSessionAuditEntry(JsonDataclass):
-    user: str
-    message: str
-    time: datetime.datetime
-
-
-@dataclasses.dataclass(frozen=True)
 class MultiplayerSessionAuditLog(JsonDataclass):
     session_id: int
-    entries: list[MultiplayerSessionAuditEntry]  # TODO: restore tuple
+    entries: list[AuditEntry]  # TODO: restore tuple
 
 
 @dataclasses.dataclass(frozen=True)
@@ -153,26 +166,3 @@ class WorldUserInventory:
     world_id: uuid.UUID
     user_id: UserID
     inventory: RemoteInventory
-
-
-@dataclasses.dataclass(frozen=True)
-class User:
-    id: UserID
-    name: str
-    discord_id: int | None = None
-
-    @classmethod
-    def from_json(cls, data) -> User:
-        return cls(
-            id=data["id"],
-            name=data["name"],
-            discord_id=data.get("discord_id"),
-        )
-
-    @property
-    def as_json(self) -> dict:
-        return {
-            "id": self.id,
-            "name": self.name,
-            "discord_id": self.discord_id,
-        }

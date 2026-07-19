@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
 from unittest.mock import AsyncMock, MagicMock, call
 
 import pytest
@@ -9,15 +10,20 @@ from randovania.game_connection.connector.msr_remote_connector import MSRRemoteC
 from randovania.game_connection.connector.remote_connector import PlayerLocationEvent
 from randovania.game_connection.executor.executor_to_connector_signals import ExecutorToConnectorSignals
 from randovania.game_connection.executor.msr_executor import MSRExecutor
+from randovania.game_description import default_database
 from randovania.game_description.resources.inventory import Inventory
 from randovania.game_description.resources.pickup_index import PickupIndex
+from randovania.network_common.remote_pickup import RemotePickup
+
+if TYPE_CHECKING:
+    from pytest_mock import MockerFixture
 
 
 @pytest.fixture(name="connector")
 def msr_remote_connector():
     executor_mock = MagicMock(MSRExecutor)
     executor_mock.layout_uuid_str = "00000000-0000-1111-0000-000000000000"
-    executor_mock.signals = MagicMock(ExecutorToConnectorSignals)
+    executor_mock.signals = ExecutorToConnectorSignals()
     connector = MSRRemoteConnector(executor_mock)
     return connector
 
@@ -39,20 +45,29 @@ async def test_general_class_content(connector: MSRRemoteConnector):
     assert await connector.current_game_status() == (True, None)
 
 
-async def test_new_player_location(connector: MSRRemoteConnector):
+@pytest.mark.parametrize("has_beaten", [True, False, None])
+async def test_new_player_location(mocker: MockerFixture, connector: MSRRemoteConnector, has_beaten: bool | None):
     location_changed = MagicMock()
     connector.PlayerLocationChanged.connect(location_changed)
+    game_has_been_beaten_mock = mocker.patch.object(connector.GameHasBeenBeaten, "emit")
 
     assert connector.inventory_index is None
     connector.inventory_index = 1
     assert connector.inventory_index == 1
 
     assert connector.current_region is None
-    connector.new_player_location_received("s050_area5")
+    location_string = "s050_area5"
+    if has_beaten is not None:
+        location_string += f";{str(has_beaten).lower()}"
+    connector.new_player_location_received(location_string)
     assert connector.current_region is not None
     assert connector.current_region.name == "Area 4 Crystal Mines"
     location_changed.assert_called_once_with(PlayerLocationEvent(connector.current_region, None))
     assert await connector.current_game_status() == (True, connector.current_region)
+    if has_beaten:
+        game_has_been_beaten_mock.assert_called_once()
+    else:
+        game_has_been_beaten_mock.assert_not_called()
 
     location_changed.reset_mock()
     connector.new_player_location_received("MAINMENU")
@@ -70,20 +85,24 @@ async def test_new_inventory_received(connector: MSRRemoteConnector):
     inventory_updated.assert_not_called()
 
     assert connector.inventory_index is None
-    connector.new_inventory_received('{"index": 69, "inventory": [0,1,0,1]}')
+    connector.new_inventory_received('{"index": 69, "inventory": [0,1,0,1,275.323]}')
     assert connector.inventory_index == 69
 
     # check ice beam
-    plasma_beam = connector.game.resource_database.get_item_by_name("Ice Beam")
-    assert connector.last_inventory[plasma_beam].capacity == 1
+    ice_beam = connector.game.resource_database.get_item_by_display_name("Ice Beam")
+    assert connector.last_inventory[ice_beam].capacity == 1
 
     # check wave beam
-    plasma_beam = connector.game.resource_database.get_item_by_name("Wave Beam")
-    assert connector.last_inventory[plasma_beam].capacity == 0
+    wave_beam = connector.game.resource_database.get_item_by_display_name("Wave Beam")
+    assert connector.last_inventory[wave_beam].capacity == 0
 
     # check spazer beam
-    spazer_beam = connector.game.resource_database.get_item_by_name("Spazer Beam")
+    spazer_beam = connector.game.resource_database.get_item_by_display_name("Spazer Beam")
     assert connector.last_inventory[spazer_beam].capacity == 1
+
+    # check rounding floats to ints via plasma beam item
+    plasma_beam = connector.game.resource_database.get_item_by_display_name("Plasma Beam")
+    assert connector.last_inventory[plasma_beam].capacity == 275
 
     inventory_updated.assert_called_once()
 
@@ -91,6 +110,9 @@ async def test_new_inventory_received(connector: MSRRemoteConnector):
 async def test_new_received_pickups_received(connector: MSRRemoteConnector):
     connector.receive_remote_pickups = AsyncMock()
     connector.in_cooldown = True
+    connector.current_region = default_database.game_description_for(
+        RandovaniaGame("samus_returns")
+    ).region_list.regions[0]
 
     await connector.new_received_pickups_received("6")
     assert connector.received_pickups == 6
@@ -99,15 +121,21 @@ async def test_new_received_pickups_received(connector: MSRRemoteConnector):
 
 async def test_set_remote_pickups(connector: MSRRemoteConnector, msr_ice_beam_pickup):
     connector.receive_remote_pickups = AsyncMock()
-    pickup_entry_with_owner = (("Dummy 1", msr_ice_beam_pickup), ("Dummy 2", msr_ice_beam_pickup))
-    await connector.set_remote_pickups(pickup_entry_with_owner)
-    assert connector.remote_pickups == pickup_entry_with_owner
+    remote_pickup = (
+        RemotePickup("Dummy 1", msr_ice_beam_pickup, None),
+        RemotePickup("Dummy 2", msr_ice_beam_pickup, None),
+    )
+    await connector.set_remote_pickups(remote_pickup)
+    assert connector.remote_pickups == remote_pickup
 
 
 async def test_receive_remote_pickups(connector: MSRRemoteConnector, msr_ice_beam_pickup):
     connector.in_cooldown = False
-    pickup_entry_with_owner = (("Dummy 1", msr_ice_beam_pickup), ("Dummy 2", msr_ice_beam_pickup))
-    connector.remote_pickups = pickup_entry_with_owner
+    remote_pickup = (
+        RemotePickup("Dummy 1", msr_ice_beam_pickup, None),
+        RemotePickup("Dummy 2", msr_ice_beam_pickup, PickupIndex(10)),
+    )
+    connector.remote_pickups = remote_pickup
     connector.executor.run_lua_code = AsyncMock()
 
     connector.received_pickups = None
@@ -135,13 +163,49 @@ async def test_receive_remote_pickups(connector: MSRRemoteConnector, msr_ice_bea
         "MultiworldPickup = MultiworldPickup or {}\\\n    "
         "function MultiworldPickup.main()\\\n    "
         "end\\\n\\\n    "
-        "function MultiworldPickup.OnPickedUp(progression, actorOrName)\\\n        "
-        "RandomizerPowerup.OnPickedUp(progression, actorOrName)\\\n    "
+        "function MultiworldPickup.OnPickedUp(progression, actorOrName, regionName)\\\n        "
+        "RandomizerPowerup.OnPickedUp(progression, actorOrName, regionName)\\\n    "
         "end\\\n    \\\n"
         'MultiworldPickup.OnPickedUp({\\\n{\\\n{\\\nitem_id = "ITEM_WEAPON_ICE_BEAM",\\\nquantity = 1,\\\n},\\\n},\\\n}'
-        ", nil)',0,2)"
+        ',nil,"")\',0,2)'
     )
-    connector.executor.run_lua_code.assert_called_once_with(execute_string)
+    connector.executor.run_lua_code.assert_awaited_once_with(execute_string)
+    connector.executor.run_lua_code.reset_mock()
+
+    connector.in_cooldown = False
+    connector.received_pickups = 1
+    connector.inventory_index = 3
+    await connector.receive_remote_pickups()
+    assert connector.in_cooldown is True
+    execute_string = (
+        "RL.ReceivePickup('Received Ice Beam from Dummy 2.','\\\n    "
+        'Game.ImportLibrary("actors/items/randomizerpowerup/scripts/randomizerpowerup.lc", false)\\\n    '
+        "MultiworldPickup = MultiworldPickup or {}\\\n    "
+        "function MultiworldPickup.main()\\\n    "
+        "end\\\n\\\n    "
+        "function MultiworldPickup.OnPickedUp(progression, actorOrName, regionName)\\\n        "
+        "RandomizerPowerup.OnPickedUp(progression, actorOrName, regionName)\\\n    "
+        "end\\\n    \\\n"
+        'MultiworldPickup.OnPickedUp({\\\n{\\\n{\\\nitem_id = "ITEM_WEAPON_ICE_BEAM",\\\nquantity = 1,\\\n},\\\n},\\\n}'
+        ',nil,"s000_surface")\',1,3)'
+    )
+    connector.executor.run_lua_code.assert_awaited_once_with(execute_string)
+
+
+@pytest.mark.parametrize("is_coop", [False, True])
+async def test_receive_remote_pickups_coop_logic(connector: MSRRemoteConnector, msr_ice_beam_pickup, is_coop: bool):
+    connector.in_cooldown = False
+    remote_pickup = (RemotePickup("Dummy 1", msr_ice_beam_pickup, PickupIndex(69) if is_coop else None),)
+    connector.remote_pickups = remote_pickup
+    connector.game_specific_execute = AsyncMock()
+
+    connector.received_pickups = 0
+    connector.inventory_index = 2
+    await connector.receive_remote_pickups()
+    assert connector.in_cooldown is True
+    connector.game_specific_execute.assert_awaited_once_with(
+        "Ice Beam", [[{"item_id": "ITEM_WEAPON_ICE_BEAM", "quantity": 1}]], "Dummy 1", "s033_area3b" if is_coop else ""
+    )
 
 
 async def test_new_collected_locations_received_wrong_answer(connector: MSRRemoteConnector):
@@ -160,5 +224,5 @@ async def test_new_collected_locations_received(connector: MSRRemoteConnector):
     new_indices = b"locations:1"
     connector.new_collected_locations_received(new_indices)
 
-    connector.logger.warning.assert_not_called
-    collected_mock.assert_has_calls([call(PickupIndex(0)), call(PickupIndex(4)), call(PickupIndex(5))])
+    connector.logger.warning.assert_not_called()
+    assert collected_mock.call_args_list == [call(PickupIndex(0)), call(PickupIndex(4)), call(PickupIndex(5))]

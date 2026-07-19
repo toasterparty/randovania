@@ -3,7 +3,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from randovania.games.am2r.layout.am2r_configuration import AM2RArtifactConfig, AM2RConfiguration
-from randovania.games.am2r.layout.hint_configuration import ItemHintMode
 from randovania.layout.preset_describer import (
     GamePresetDescriber,
     fill_template_strings_from_tree,
@@ -44,13 +43,6 @@ def describe_artifacts(artifacts: AM2RArtifactConfig) -> list[dict[str, bool]]:
         ]
 
 
-_AM2R_HINT_TEXT = {
-    ItemHintMode.DISABLED: None,
-    ItemHintMode.HIDE_AREA: "Area only",
-    ItemHintMode.PRECISE: "Area and room",
-}
-
-
 class AM2RPresetDescriber(GamePresetDescriber):
     def format_params(self, configuration: BaseConfiguration) -> dict[str, list[str]]:
         assert isinstance(configuration, AM2RConfiguration)
@@ -67,9 +59,6 @@ class AM2RPresetDescriber(GamePresetDescriber):
 
         template_strings = super().format_params(configuration)
 
-        dna_hint = _AM2R_HINT_TEXT[configuration.hints.artifacts]
-        ice_beam_hint = _AM2R_HINT_TEXT[configuration.hints.ice_beam]
-
         extra_message_tree = {
             "Game Changes": [
                 message_for_required_mains(
@@ -79,6 +68,7 @@ class AM2RPresetDescriber(GamePresetDescriber):
                         "Super Missiles need Launcher": "Super Missile Tank",
                         "Power Bombs need Launcher": "Power Bomb Tank",
                     },
+                    mains_are_default_required=False,
                 ),
                 {f"Energy per Tank: {configuration.energy_per_tank}": configuration.energy_per_tank != 100},
                 {f"First Suit Damage Reduction {configuration.first_suit_dr}%": configuration.first_suit_dr != 50},
@@ -112,10 +102,6 @@ class AM2RPresetDescriber(GamePresetDescriber):
                 },
             ],
             "Goal": describe_artifacts(configuration.artifacts),
-            "Hints": [
-                {f"DNA Hint: {dna_hint}": dna_hint is not None},
-                {f"Ice Beam Hint: {ice_beam_hint}": ice_beam_hint is not None},
-            ],
         }
 
         fill_template_strings_from_tree(template_strings, extra_message_tree)

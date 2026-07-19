@@ -1,7 +1,16 @@
 ----------------
 Transport to Tower Lobby East
 Extra - total_boundings: {'x1': -9200.0, 'x2': -1900.0, 'y1': -700.0, 'y2': 1800.0}
-Extra - polygon: [[-9200.0, 1800.0], [-9200.0, 100.0], [-7200.0, 100.0], [-5600.0, -200.0], [-4400.0, -700.0], [-1900.0, -700.0], [-1900.0, 1000.0], [-3400.0, 1000.0], [-3400.0, 1800.0]]
+Extra - polygon:
+[[-9200.0, 1800.0],
+ [-9200.0, 100.0],
+ [-7200.0, 100.0],
+ [-5600.0, -200.0],
+ [-4400.0, -700.0],
+ [-1900.0, -700.0],
+ [-1900.0, 1000.0],
+ [-3400.0, 1000.0],
+ [-3400.0, 1800.0]]
 Extra - asset_id: collision_camera_002
 > Elevator to Area 5 Tower Lobby; Heals? False; Spawn Point; Default Node
   * Layers: default
@@ -33,7 +42,14 @@ Extra - asset_id: collision_camera_002
 ----------------
 Interior Save Station
 Extra - total_boundings: {'x1': -18400.0, 'x2': -9100.0, 'y1': 200.0, 'y2': 6100.0}
-Extra - polygon: [[-18400.0, 6100.0], [-18400.0, 3700.0], [-15100.0, 3700.0], [-11600.0, 2000.0], [-11600.0, 200.0], [-9100.0, 200.0], [-9100.0, 6100.0]]
+Extra - polygon:
+[[-18400.0, 6100.0],
+ [-18400.0, 3700.0],
+ [-15100.0, 3700.0],
+ [-11600.0, 2000.0],
+ [-11600.0, 200.0],
+ [-9100.0, 200.0],
+ [-9100.0, 6100.0]]
 Extra - asset_id: collision_camera_003
 > Pickup (Missile Tank); Heals? False
   * Layers: default
@@ -196,7 +212,7 @@ Extra - asset_id: collision_camera_003
                   # SWJ: https://youtu.be/FD9VDKqt-MY?t=32
                   Single-wall Wall Jump (Beginner)
                   # Super Jump+UE
-                  Super Jump (Intermediate) and Unmorph Extend (Beginner)
+                  Morph Ball and Super Jump (Intermediate) and Unmorph Extend (Beginner)
           All of the following:
               # Jump out with HJ
               High Jump Boots
@@ -325,6 +341,7 @@ Plasma Beam Chamber
 Extra - total_boundings: {'x1': -7550.0, 'x2': -5000.0, 'y1': 1700.0, 'y2': 3200.0}
 Extra - polygon: [[-7550.0, 3200.0], [-7550.0, 1700.0], [-5000.0, 1700.0], [-5000.0, 3200.0]]
 Extra - asset_id: collision_camera_006
+Hint Features - Chozo Statue
 > Pickup (Plasma Beam); Heals? False
   * Layers: default
   * Pickup 125; Category? Major
@@ -392,18 +409,21 @@ Extra - asset_id: collision_camera_007
           Morph Ball
           Any of the following:
               Grapple Beam and After Area 5 (Tower Interior) - Grapple Shuffler Grapple Block
-              # https://youtu.be/i9kuD1yPSSk
+              # Ice Clip using the left Glow Fly: https://youtu.be/i9kuD1yPSSk
               Charge Beam and Ice Beam and Ice Beam Clip (Expert) and Out of Bounds Movement (Intermediate)
   > Pickup (Missile Tank)
-      # https://youtu.be/wA-kNgVe_6c
+      # Ice Clip using the right Glow Fly: https://youtu.be/wA-kNgVe_6c
       Charge Beam and Ice Beam and Morph Ball and Ice Beam Clip (Expert) and Out of Bounds Movement (Intermediate) and Lay Any Bomb
   > Above Pickup
       All of the following:
           Morph Ball
           Any of the following:
-              Grapple Beam
-              # Top of big Grapple block
+              # Move the shuffler block both ways
+              Grapple Beam and After Area 5 Tower Interior - Grapple Shuffler Long Grapple Block
+              # Melee Clip from on top of big Grapple block: https://youtu.be/l5mTl6UJoNY
               Melee Clip (Intermediate) and Out of Bounds Movement (Intermediate)
+  > Event - Shuffler Long Grapple Block
+      Grapple Beam and Morph Ball
 
 > Door to Interior Teleporter (Top); Heals? False
   * Layers: default
@@ -418,11 +438,44 @@ Extra - asset_id: collision_camera_007
   * Pickup 127; Category? Minor
   * Extra - actor_name: HiddenPowerup002
   * Extra - actor_type: item_missiletank
-  > Door to Plasma Beam Chamber
-      Morph Ball and Screw Attack and After Area 5 (Tower Interior) - Grapple Shuffler Grapple Block
   > Door to Interior Teleporter (Bottom)
       # Requirements to prevent Screw Attack paths escaping this way
       Ice Beam and Morph Ball and Ice Beam Clip (Expert) and Out of Bounds Movement (Intermediate)
+  > Below Pickup
+      Morph Ball
+
+> Event - Grapple Block; Heals? False
+  * Layers: default
+  * Event Area 5 (Tower Interior) - Grapple Shuffler Grapple Block
+  > Above Pickup
+      Trivial
+
+> Above Pickup; Heals? False
+  * Layers: default
+  > Door to Interior Teleporter (Bottom)
+      Morph Ball and After Area 5 Tower Interior - Grapple Shuffler Long Grapple Block
+  > Pickup (Missile Tank)
+      All of the following:
+          Screw Attack
+          Any of the following:
+              Lay Power Bomb
+              All of the following:
+                  Lay Bomb
+                  Any of the following:
+                      Phase Drift
+                      # Break the Screw Attack block then use spider
+                      Mid-Air Morph (Beginner) and Use Spider Ball
+                      # Morph to lay bomb and immediately unmorph to grab ledge: https://youtu.be/Kh03Ra2Qn7Q
+                      Movement (Advanced)
+  > Event - Grapple Block
+      Grapple Beam
+  > Below Pickup
+      Screw Attack
+
+> Below Pickup; Heals? False
+  * Layers: default
+  > Door to Plasma Beam Chamber
+      Morph Ball and Screw Attack and After Area 5 (Tower Interior) - Grapple Shuffler Grapple Block
   > Above Pickup
       All of the following:
           Morph Ball and Screw Attack
@@ -449,31 +502,11 @@ Extra - asset_id: collision_camera_007
               # Screw only: https://youtu.be/eI3DtHqx5dU?t=43
               Movement (Expert)
 
-> Event - Grapple Block; Heals? False
+> Event - Shuffler Long Grapple Block; Heals? False
   * Layers: default
-  * Event Area 5 (Tower Interior) - Grapple Shuffler Grapple Block
-  > Above Pickup
-      Trivial
-
-> Above Pickup; Heals? False
-  * Layers: default
+  * Event Area 5 Tower Interior - Grapple Shuffler Long Grapple Block
   > Door to Interior Teleporter (Bottom)
       Morph Ball
-  > Pickup (Missile Tank)
-      All of the following:
-          Screw Attack
-          Any of the following:
-              Lay Power Bomb
-              All of the following:
-                  Lay Bomb
-                  Any of the following:
-                      Phase Drift
-                      # Break the Screw Attack block then use spider
-                      Spider Ball and Mid-Air Morph (Beginner)
-                      # Morph to lay bomb and immediately unmorph to grab ledge: https://youtu.be/Kh03Ra2Qn7Q
-                      Movement (Advanced)
-  > Event - Grapple Block
-      Grapple Beam
 
 ----------------
 Autrack Acropolis
@@ -508,7 +541,7 @@ Extra - asset_id: collision_camera_008
           Morph Ball
           Any of the following:
               # Climb to the crumble blocks
-              Space Jump or Spider Ball
+              Space Jump or Use Spider Ball
               All of the following:
                   # IBJ up
                   Simple IBJ
@@ -520,7 +553,7 @@ Extra - asset_id: collision_camera_008
               Unmorph Extend (Advanced) and Defeat Weak Enemies
           Any of the following:
               # Traverse the crumble blocks
-              Phase Drift or Spider Ball
+              Phase Drift or Use Spider Ball
               # Phase Drift Skip: https://youtu.be/1faBrCKYtaY
               Phase Drift Skip (Advanced)
 
@@ -549,7 +582,7 @@ Extra - asset_id: collision_camera_008
           Morph Ball
           Any of the following:
               # Get up
-              Space Jump or Spider Ball
+              Space Jump or Use Spider Ball
               All of the following:
                   Gravity Suit
                   Any of the following:
@@ -568,6 +601,7 @@ Gravity Suit Chamber
 Extra - total_boundings: {'x1': -7500.0, 'x2': -5000.0, 'y1': 5000.0, 'y2': 7900.0}
 Extra - polygon: [[-7500.0, 7900.0], [-7500.0, 5000.0], [-5000.0, 5000.0], [-5000.0, 7900.0]]
 Extra - asset_id: collision_camera_009
+Hint Features - Chozo Statue
 > Pickup (Gravity Suit); Heals? False
   * Layers: default
   * Pickup 124; Category? Major
@@ -603,7 +637,7 @@ Extra - asset_id: collision_camera_009
           All of the following:
               # IBJ
               Lay Bomb
-              Spring Ball or Mid-Air Morph (Intermediate) or Infinite Bomb Jump (Intermediate)
+              Mid-Air Morph (Intermediate) or Infinite Bomb Jump (Intermediate) or Use Spring Ball
           # Spider Ball above spike
           Mid-Air Morph (Beginner) and Use Spider Ball
 
@@ -712,7 +746,7 @@ Extra - asset_id: collision_camera_011
               # Bomb way
               Lay Bomb
               Any of the following:
-                  Spider Ball
+                  Use Spider Ball
                   All of the following:
                       # Lay bomb in mid air then get back up to the ledge
                       Mid-Air Morph (Intermediate)
@@ -882,7 +916,7 @@ Extra - asset_id: collision_camera_017
           Any of the following:
               # Traverse the Screw Attack blocks
               Screw Attack
-              Morph Ball and Melee Clip (Intermediate)
+              Morph Ball and Melee Clip (Intermediate) and Out of Bounds Movement (Beginner)
           Any of the following:
               # Get across the pit
               Space Jump
@@ -900,7 +934,7 @@ Extra - asset_id: collision_camera_017
           Any of the following:
               # Traverse the Screw Attack blocks
               Screw Attack
-              Morph Ball and Melee Clip (Intermediate)
+              Morph Ball and Melee Clip (Intermediate) and Out of Bounds Movement (Intermediate)
   > Start Point
       Trivial
 
@@ -937,7 +971,7 @@ Extra - asset_id: collision_camera_017
               # Traverse the Screw Attack blocks
               Screw Attack
               All of the following:
-                  Morph Ball
+                  Morph Ball and Out of Bounds Movement (Beginner)
                   Any of the following:
                       Melee Clip (Advanced)
                       # Spider Ball to avoid the spikes near the clip location
@@ -981,7 +1015,7 @@ Extra - asset_id: collision_camera_017
           Any of the following:
               # Traverse the Screw Attack blocks
               Screw Attack
-              Morph Ball and Melee Clip (Intermediate)
+              Morph Ball and Melee Clip (Intermediate) and Out of Bounds Movement (Beginner)
           Any of the following:
               # Reach the platform
               Space Jump
@@ -1009,8 +1043,10 @@ Extra - asset_id: collision_camera_017
   > Above Center Platform
       All of the following:
           Use Spider Ball
-          # Traverse the Screw Attack blocks
-          Screw Attack or Melee Clip (Intermediate)
+          Any of the following:
+              # Traverse the Screw Attack blocks
+              Screw Attack
+              Melee Clip (Intermediate) and Out of Bounds Movement (Intermediate)
           Any of the following:
               Lightning Armor
               Hazard Runs (Intermediate) and Hazard Damage ≥ 265
@@ -1044,8 +1080,10 @@ Extra - asset_id: collision_camera_017
   > Left Platform
       All of the following:
           Use Spider Ball
-          # Traverse the Screw Attack blocks
-          Screw Attack or Melee Clip (Intermediate)
+          Any of the following:
+              # Traverse the Screw Attack blocks
+              Screw Attack
+              Melee Clip (Intermediate) and Out of Bounds Movement (Beginner)
           Any of the following:
               Lightning Armor
               Hazard Runs (Intermediate) and Hazard Damage ≥ 265
@@ -1156,7 +1194,7 @@ Extra - asset_id: collision_camera_020
                           Mid-Air Morph (Intermediate) or Use Spring Ball
           Any of the following:
               # Avoid the crumble blocks
-              Phase Drift or Spider Ball
+              Phase Drift or Use Spider Ball
               Space Jump and Movement (Intermediate)
 
 > Door to Gravity Suit Chamber (Middle); Heals? False
@@ -1215,6 +1253,7 @@ Gamma+ Arena
 Extra - total_boundings: {'x1': -27100.0, 'x2': -21900.0, 'y1': 3400.0, 'y2': 6000.0}
 Extra - polygon: [[-27100.0, 6000.0], [-27100.0, 3400.0], [-21900.0, 3400.0], [-21900.0, 6000.0]]
 Extra - asset_id: collision_camera_022
+Hint Features - Gamma Metroid, Heated Room
 > Door to Gamma+ Arena Access; Heals? False
   * Layers: default
   * Power Beam Door to Gamma+ Arena Access/Door to Gamma+ Arena
@@ -1270,6 +1309,7 @@ Interior Teleporter
 Extra - total_boundings: {'x1': -7550.0, 'x2': -5000.0, 'y1': 3300.0, 'y2': 5000.0}
 Extra - polygon: [[-7550.0, 5000.0], [-7550.0, 3300.0], [-5000.0, 3300.0], [-5000.0, 5000.0]]
 Extra - asset_id: collision_camera_023
+Hint Features - Baby Blocks, Teleporter
 > Pickup (Missile Tank); Heals? False
   * Layers: default
   * Pickup 121; Category? Minor
@@ -1317,7 +1357,7 @@ Extra - asset_id: collision_camera_023
   * Extra - actor_type: doorpowerpower
   > Pickup (Missile Tank)
       # Clip off the teleporter platform
-      Spider Ball Clip (Intermediate) and Use Spider Ball
+      Out of Bounds Movement (Advanced) and Spider Ball Clip (Intermediate) and Use Spider Ball
   > Teleporter
       Trivial
   > Door to Grapple Shuffler (Bottom)
@@ -1336,6 +1376,7 @@ Zeta+ Arena
 Extra - total_boundings: {'x1': 13950.0, 'x2': 16600.0, 'y1': 1100.0, 'y2': 2500.0}
 Extra - polygon: [[13950.0, 2500.0], [13950.0, 1100.0], [16600.0, 1100.0], [16600.0, 2500.0]]
 Extra - asset_id: collision_camera_025
+Hint Features - Zeta Metroid
 > Door to Zeta+ Arena Access; Heals? False
   * Layers: default
   * Power Beam Door to Zeta+ Arena Access/Door to Zeta+ Arena

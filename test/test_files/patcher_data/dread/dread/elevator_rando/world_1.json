@@ -3800,7 +3800,7 @@
                 "actor": "accesspoint_001"
             },
             "hint_id": "LAB_2",
-            "text": "{c4}A joke hint.{c0}"
+            "text": "{c4}Want a hint? Just go where the items are.{c0}"
         },
         {
             "accesspoint_actor": {
@@ -3889,6 +3889,7 @@
         },
         "lua": {
             "custom_init": {
+                "show_dna_in_hud": false,
                 "enable_death_counter": false,
                 "enable_room_name_display": "ALWAYS"
             },
@@ -3951,11 +3952,16 @@
             "cross_bomb": "DEFAULT",
             "power_bomb": "ALTERNATE",
             "closed": "DEFAULT"
-        }
+        },
+        "split_saves": false
     },
     "energy_per_tank": 100,
     "immediate_energy_parts": true,
+    "has_flash_upgrades": false,
+    "has_speed_upgrades": false,
     "enable_remote_lua": true,
+    "enable_logging": false,
+    "skip_item_popups": false,
     "constant_environment_damage": {
         "heat": 20,
         "cold": 20,
@@ -4003,8 +4009,12 @@
             "{c1}Metroid DNA 1{c0} is guarded by {c2}Corpius{c0}.|{c1}Metroid DNA 2{c0} is guarded by {c2}Drogyga{c0}.|{c1}Metroid DNA 3{c0} is guarded by {c2}Kraid{c0}."
         ]
     },
+    "mass_delete_actors": {
+        "to_remove": []
+    },
     "layout_uuid": "00000000-0000-1111-0000-000000000000",
     "_randovania_meta": {
-        "layout_was_user_modified": true
+        "layout_was_user_modified": true,
+        "in_race_setting": false
     }
 }

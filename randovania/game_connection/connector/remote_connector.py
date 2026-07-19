@@ -3,12 +3,11 @@ from __future__ import annotations
 import enum
 import typing
 
-from PySide6 import QtCore
-
-from randovania.game_description.pickup.pickup_entry import PickupEntry
 from randovania.game_description.resources.inventory import Inventory
 from randovania.game_description.resources.pickup_index import PickupIndex
+from randovania.gui.item_tracker.tracker_layout import TrackerLayout
 from randovania.lib import enum_lib
+from randovania.lib.signal import RdvSignal
 
 if typing.TYPE_CHECKING:
     import uuid
@@ -16,12 +15,12 @@ if typing.TYPE_CHECKING:
     from randovania.game.game_enum import RandovaniaGame
     from randovania.game_description.db.area import Area
     from randovania.game_description.db.region import Region
-
-PickupEntryWithOwner = tuple[str, PickupEntry]
+    from randovania.network_common.error import BaseNetworkError
+    from randovania.network_common.remote_pickup import RemotePickup
 
 
 class PlayerLocationEvent(typing.NamedTuple):
-    world: Region | None
+    region: Region | None
     area: Area | None
 
 
@@ -43,12 +42,25 @@ enum_lib.add_long_name(
 )
 
 
-class RemoteConnector(QtCore.QObject):
+class RemoteConnector:
     _layout_uuid: uuid.UUID
+    PlayerLocationChanged = RdvSignal[[PlayerLocationEvent]]()
+    """
+    Signal that gets fired when the player changes its location in the game. Argument is a PlayerLocationEvent
+    indicating the new Region and Area.
 
-    PlayerLocationChanged = QtCore.Signal(PlayerLocationEvent)
-    PickupIndexCollected = QtCore.Signal(PickupIndex)
-    InventoryUpdated = QtCore.Signal(Inventory)
+    Tracking whether the player is in-game (e.g. region is not None) is the bare minimum. However if possible, tracking
+    the region accurately is recommended. Tracking the Area is entirely optional.
+    """
+
+    PickupIndexCollected = RdvSignal[[PickupIndex]]()
+    """Signal that gets fired when the player collects a Pickup. Argument is the collected PickupIndex."""
+
+    InventoryUpdated = RdvSignal[[Inventory]]()
+    """Signal that gets fired when a player's inventory changed. Argument is the new inventory."""
+
+    GameHasBeenBeaten = RdvSignal()
+    """Signal that gets fired when a game has been beaten."""
 
     @property
     def game_enum(self) -> RandovaniaGame:
@@ -61,7 +73,7 @@ class RemoteConnector(QtCore.QObject):
     def layout_uuid(self) -> uuid.UUID:
         return self._layout_uuid
 
-    async def display_important_message(self, message: ImportantStatusMessage):
+    async def display_important_message(self, message: ImportantStatusMessage) -> None:
         """Requests the game to display a message from a predetermined list.
 
         Overriding this method is only necessary if implementing display_arbitrary_message is impossible for this game.
@@ -70,11 +82,11 @@ class RemoteConnector(QtCore.QObject):
         await self.display_arbitrary_message(message.long_name)
 
     @classmethod
-    def can_display_arbitrary_messages(cls):
+    def can_display_arbitrary_messages(cls) -> bool:
         """Returns if arbitrary messages can be sent to this game."""
         return cls.display_arbitrary_message is not RemoteConnector.display_arbitrary_message
 
-    async def display_arbitrary_message(self, message: str):
+    async def display_arbitrary_message(self, message: str) -> None:
         """Requests the game to display an arbitrary message.
 
         Not necessary to be implemented by every game.
@@ -82,17 +94,28 @@ class RemoteConnector(QtCore.QObject):
         """
         raise NotImplementedError
 
-    async def set_remote_pickups(self, remote_pickups: tuple[PickupEntryWithOwner, ...]):
+    async def set_remote_pickups(self, remote_pickups: tuple[RemotePickup, ...]) -> None:
         """
         Sets the list of remote pickups that must be sent to the game.
         :param remote_pickups: Ordered list of pickups sent from other players, with the name of the player.
         """
         raise NotImplementedError
 
-    async def force_finish(self):
+    async def on_world_sync_error(self, err: BaseNetworkError) -> None:
+        """
+        Called when the server refuses a world sync for this connector's world.
+        Most connectors have nothing to do: the game keeps running, and syncing resumes if the error clears.
+        """
+        return
+
+    async def force_finish(self) -> None:
         """Disconnect from the game, releasing any resources."""
         raise NotImplementedError
 
     def is_disconnected(self) -> bool:
         """When True, this connector has lost connection with the game and must be discarded."""
         raise NotImplementedError
+
+    def inform_connected_tracker(self, tracker_details: TrackerLayout | None) -> None:
+        """Called when an AutoTracker is created using this connector."""
+        return

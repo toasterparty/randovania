@@ -10,7 +10,7 @@ import frozendict
 from PySide6 import QtGui, QtWidgets
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QDialog, QFileDialog, QInputDialog, QMainWindow, QMessageBox, QRadioButton
-from qasync import asyncSlot  # type: ignore
+from qasync import asyncSlot
 
 from randovania.game.game_enum import RandovaniaGame
 from randovania.game_description import (
@@ -21,10 +21,10 @@ from randovania.game_description import (
     integrity_check,
     pretty_print,
 )
-from randovania.game_description.db.dock_lock_node import DockLockNode
 from randovania.game_description.db.dock_node import DockNode
 from randovania.game_description.db.event_node import EventNode
-from randovania.game_description.db.node import GenericNode, Node, NodeContext, NodeLocation
+from randovania.game_description.db.hint_node import HintNode, SpecificLocationHintNode, SpecificPickupHintNode
+from randovania.game_description.db.node import GenericNode, Node, NodeLocation
 from randovania.game_description.db.node_identifier import NodeIdentifier
 from randovania.game_description.editor import Editor
 from randovania.game_description.requirements.array_base import RequirementArrayBase
@@ -32,12 +32,15 @@ from randovania.game_description.requirements.base import Requirement
 from randovania.game_description.requirements.requirement_or import RequirementOr
 from randovania.game_description.requirements.requirement_template import RequirementTemplate
 from randovania.game_description.requirements.resource_requirement import ResourceRequirement
+from randovania.game_description.resources.item_resource_info import ItemResourceInfo
 from randovania.game_description.resources.resource_collection import ResourceCollection
 from randovania.game_description.resources.resource_type import ResourceType
 from randovania.games import default_data
+from randovania.gui.dialog.area_details_popup import AreaDetailsPopup
 from randovania.gui.dialog.connections_editor import ConnectionsEditor
 from randovania.gui.dialog.node_details_popup import NodeDetailsPopup
 from randovania.gui.docks.connection_filtering_widget import ConnectionFilteringWidget
+from randovania.gui.docks.hint_feature_database_editor import HintFeatureDatabaseEditor
 from randovania.gui.docks.resource_database_editor import ResourceDatabaseEditor
 from randovania.gui.generated.data_editor_ui import Ui_DataEditorWindow
 from randovania.gui.lib import async_dialog, signal_handling
@@ -51,12 +54,15 @@ if TYPE_CHECKING:
     from randovania.game_description.db.region import Region
     from randovania.game_description.db.region_list import RegionList
     from randovania.game_description.game_description import GameDescription
+    from randovania.game_description.resources.resource_database import ResourceDatabase
     from randovania.game_description.resources.resource_info import ResourceInfo
 
 SHOW_REGION_MIN_MAX_SPINNER = False
 
 
-def _ui_patch_and_simplify(requirement: Requirement, context: NodeContext) -> Requirement:
+def _ui_patch_and_simplify(
+    requirement: Requirement, static_resources: ResourceCollection, database: ResourceDatabase
+) -> Requirement:
     if isinstance(requirement, RequirementArrayBase):
         items = list(requirement.items)
         if isinstance(requirement, RequirementOr):
@@ -66,18 +72,23 @@ def _ui_patch_and_simplify(requirement: Requirement, context: NodeContext) -> Re
             remove = Requirement.trivial()
             solve = Requirement.impossible()
 
-        items = [_ui_patch_and_simplify(it, context) for it in items]
+        items = [_ui_patch_and_simplify(it, static_resources, database) for it in items]
         if solve in items:
             return solve
         items = [it for it in items if it != remove]
         return type(requirement)(items, comment=requirement.comment)
 
     elif isinstance(requirement, ResourceRequirement):
-        return requirement.patch_requirements(1.0, context)
+        if static_resources.is_resource_set(requirement.resource):
+            if requirement.satisfied(static_resources, 0):
+                return Requirement.trivial()
+            elif not isinstance(requirement.resource, ItemResourceInfo) or requirement.resource.max_capacity <= 1:
+                return Requirement.impossible()
+        return requirement
 
     elif isinstance(requirement, RequirementTemplate):
-        result = requirement.template_requirement(context.database)
-        patched = _ui_patch_and_simplify(result, context)
+        result = requirement.template_requirement(database)
+        patched = _ui_patch_and_simplify(result, static_resources, database)
         if result != patched:
             return patched
         else:
@@ -100,7 +111,7 @@ class DataEditorWindow(QMainWindow, Ui_DataEditorWindow):
     _warning_dialogs_disabled = False
     _collection_for_filtering: ResourceCollection | None = None
 
-    def __init__(self, data: dict, data_path: Path | None, is_internal: bool, edit_mode: bool):
+    def __init__(self, data: dict, data_path: Path | None, is_internal: bool, edit_mode: bool) -> None:
         super().__init__()
         self.setupUi(self)
         set_default_window_icon(self)
@@ -111,7 +122,7 @@ class DataEditorWindow(QMainWindow, Ui_DataEditorWindow):
         self.edit_mode = edit_mode
         self.radio_button_to_node = {}
 
-        self.setCentralWidget(None)  # type: ignore
+        self.setCentralWidget(None)  # type: ignore[arg-type]
         # self.points_of_interest_dock.hide()
         # self.node_info_dock.hide()
         self.splitDockWidget(self.points_of_interest_dock, self.area_view_dock, Qt.Orientation.Horizontal)
@@ -171,7 +182,7 @@ class DataEditorWindow(QMainWindow, Ui_DataEditorWindow):
         else:
             self.save_database_button.clicked.connect(self._prompt_save_database)
 
-        self.rename_area_button.clicked.connect(self._rename_area)
+        self.edit_area_button.clicked.connect(self.on_area_edit_button)
         self.new_node_button.clicked.connect(self._create_new_node_no_location)
         self.delete_node_button.clicked.connect(self._remove_node)
         self.zoom_slider.valueChanged.connect(self._on_slider_changed)
@@ -181,6 +192,7 @@ class DataEditorWindow(QMainWindow, Ui_DataEditorWindow):
 
         _, self.original_game_description = data_reader.decode_data_with_region_reader(data)
         self.resource_database = self.original_game_description.resource_database
+        self.hint_features = self.original_game_description.hint_feature_database
 
         self.update_game(self.original_game_description)
 
@@ -189,6 +201,12 @@ class DataEditorWindow(QMainWindow, Ui_DataEditorWindow):
             self.resource_editor.features() & ~QtWidgets.QDockWidget.DockWidgetFeature.DockWidgetClosable
         )
         self.tabifyDockWidget(self.points_of_interest_dock, self.resource_editor)
+
+        self.hint_feature_editor = HintFeatureDatabaseEditor(self, self.hint_features)
+        self.hint_feature_editor.setFeatures(
+            self.hint_feature_editor.features() & ~QtWidgets.QDockWidget.DockWidgetFeature.DockWidgetClosable
+        )
+        self.tabifyDockWidget(self.points_of_interest_dock, self.hint_feature_editor)
 
         self.connection_filters = ConnectionFilteringWidget(self, self.original_game_description)
         self.connection_filters.setFeatures(
@@ -201,10 +219,7 @@ class DataEditorWindow(QMainWindow, Ui_DataEditorWindow):
         self.resource_editor.ResourceChanged.connect(self._on_resource_changed)
         self.connection_filters.FiltersUpdated.connect(self._on_filters_changed)
 
-        if self.game_description.game in {
-            RandovaniaGame.METROID_PRIME_ECHOES,
-            RandovaniaGame.FACTORIO,
-        }:
+        if self.game_description.game.gui.hide_database_map_view:
             self.area_view_dock.hide()
 
         self.zoom_slider.setTickInterval(1)
@@ -228,8 +243,7 @@ class DataEditorWindow(QMainWindow, Ui_DataEditorWindow):
 
         self.region_selector_box.clear()
         for region in sorted(self.region_list.regions, key=lambda x: x.name):
-            name = f"{region.name} ({region.dark_name})" if region.dark_name else region.name
-            self.region_selector_box.addItem(name, userData=region)
+            self.region_selector_box.addItem(region.name, userData=region)
 
         if current_region:
             self.focus_on_region_by_name(current_region.name)
@@ -347,7 +361,7 @@ class DataEditorWindow(QMainWindow, Ui_DataEditorWindow):
 
     def on_select_node(self, active: bool) -> None:
         if active:
-            self.selected_node_button = typing.cast(QRadioButton, self.sender())
+            self.selected_node_button = typing.cast("QRadioButton", self.sender())
             self.update_selected_node()
 
     def focus_on_region_by_name(self, name: str) -> None:
@@ -456,11 +470,42 @@ class DataEditorWindow(QMainWindow, Ui_DataEditorWindow):
                 return
             self.replace_node_with(area, node_edit_popup.node, new_node)
 
-            if isinstance(new_node, DockNode) and not hasattr(new_node, "lock_node"):
-                lock_node = DockLockNode.create_from_dock(
-                    new_node, self.editor.new_node_index(), self.resource_database
+    def node_details(self, node: Node) -> str:
+        try:
+            msg = pretty_print.pretty_print_node_type(node, self.game_description, self.resource_database)
+        except Exception as e:
+            msg = f"Unable to describe node: {e}"
+
+        if isinstance(node, DockNode):
+            msg = f'{node.default_dock_weakness.name} to <a href="node://{node.default_connection.as_string}">{node.default_connection.node}</a>'
+            if node.override_default_open_requirement is not None:
+                msg += f"\n<br />Open Override: {node.override_default_open_requirement}"
+            if node.override_default_lock_requirement is not None:
+                msg += f"\n<br />Lock Override: {node.override_default_lock_requirement}"
+
+        elif isinstance(node, HintNode):
+            msg = f"{node.kind.long_name} Hint"
+
+            if isinstance(node, SpecificLocationHintNode):
+                target = self.region_list.node_from_pickup_index(node.target_index)
+                fmt_message = '\n<br />Target: <a href="node://{}">{}</a>'
+                msg += fmt_message.format(
+                    target.identifier.as_string,
+                    target.identifier.display_name(with_region=False, separator=": "),
                 )
-                self.editor.add_node(area, lock_node)
+
+            elif isinstance(node, SpecificPickupHintNode):
+                specific_pickup_hints = self.resource_database.game_enum.hints.specific_pickup_hints
+                if node.specific_pickup_hint_id in specific_pickup_hints:
+                    hint_id = specific_pickup_hints[node.specific_pickup_hint_id].long_name
+                else:
+                    hint_id = "Unknown"
+                msg += f"\n<br />Target: {hint_id}"
+
+            if (requirement := str(node.requirement_to_collect)) != "Trivial":
+                msg += f"\n<br />Requirement: {requirement}"
+
+        return msg
 
     def update_selected_node(self) -> None:
         node = self.current_node
@@ -479,20 +524,8 @@ class DataEditorWindow(QMainWindow, Ui_DataEditorWindow):
 
         self.area_view_canvas.highlight_node(node)
 
-        try:
-            msg = pretty_print.pretty_print_node_type(node, self.region_list, self.resource_database)
-        except Exception as e:
-            msg = f"Unable to describe node: {e}"
-
-        if isinstance(node, DockNode):
-            msg = f'{node.default_dock_weakness.name} to <a href="node://{node.default_connection.as_string}">{node.default_connection.node}</a>'
-            if node.override_default_open_requirement is not None:
-                msg += f"\n<br />Open Override: {node.override_default_open_requirement}"
-            if node.override_default_lock_requirement is not None:
-                msg += f"\n<br />Lock Override: {node.override_default_lock_requirement}"
-
         self.node_name_label.setText(node.name)
-        self.node_details_label.setText(msg)
+        self.node_details_label.setText(self.node_details(node))
         self.node_description_label.setText(node.description)
         self.update_other_node_connection()
 
@@ -563,10 +596,9 @@ class DataEditorWindow(QMainWindow, Ui_DataEditorWindow):
         requirement = self.current_area.connections[current_node].get(current_connection_node, Requirement.impossible())
         if self._collection_for_filtering is not None:
             db = self.game_description.resource_database
-            context = NodeContext(None, self._collection_for_filtering, db, self.game_description.region_list)
-            before_count = sum(1 for _ in requirement.iterate_resource_requirements(context))
-            requirement = _ui_patch_and_simplify(requirement, context)
-            after_count = sum(1 for _ in requirement.iterate_resource_requirements(context))
+            before_count = sum(1 for _ in requirement.iterate_resource_requirements(db))
+            requirement = _ui_patch_and_simplify(requirement, self._collection_for_filtering, db)
+            after_count = sum(1 for _ in requirement.iterate_resource_requirements(db))
 
             filtered_count_item = QtWidgets.QTreeWidgetItem(self.other_node_alternatives_contents)
             filtered_count_item.setText(
@@ -624,17 +656,16 @@ class DataEditorWindow(QMainWindow, Ui_DataEditorWindow):
         if self._warning_dialogs_disabled:
             return True
 
-        options = QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
         message = "Database has the following errors:\n\n" + "\n\n".join(errors)
         message += "\n\nIgnore?"
 
-        box = ScrollMessageBox.create_new(
-            self,
-            QtWidgets.QMessageBox.Icon.Critical,
+        box = ScrollMessageBox(
+            QMessageBox.Icon.Critical,
             "Integrity Check",
             message,
-            options,
-            QMessageBox.StandardButton.No,
+            buttons=QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+            parent=self,
+            default_button=QMessageBox.StandardButton.No,
         )
         user_response = box.exec_()
 
@@ -660,22 +691,37 @@ class DataEditorWindow(QMainWindow, Ui_DataEditorWindow):
             pretty_print.write_human_readable_game(self.game_description, self._data_path.with_suffix(""))
             default_database.game_description_for.cache_clear()
 
-    def _rename_area(self) -> None:
-        new_name, did_confirm = QInputDialog.getText(self, "New Name", "Insert area name:", text=self.current_area.name)
-        if not did_confirm or new_name == "" or new_name == self.current_area.name:
+    @asyncSlot()
+    async def on_area_edit_button(self) -> None:
+        """Open the AreaDetailsPopup"""
+
+        if self._check_for_edit_dialog():
             return
 
+        area = self.current_area
+
         if self.current_node is not None:
-            node_index = self.current_area.nodes.index(self.current_node)
+            node_index = area.nodes.index(self.current_node)
         else:
             node_index = None
-        self.editor.rename_area(self.current_area, new_name)
-        self.on_select_region()
-        self.focus_on_area_by_name(new_name)
-        if node_index is not None:
-            self.focus_on_node(self.current_area.nodes[node_index])
-        else:
-            self.update_selected_node()
+
+        area_edit_popup = AreaDetailsPopup(self.game_description, area)
+        if await self._execute_edit_dialog(area_edit_popup):
+            try:
+                new_area = area_edit_popup.create_new_area()
+            except ValueError as e:
+                if not self._warning_dialogs_disabled:
+                    await async_dialog.warning(self, "Error in new area", str(e))
+                return
+
+            self.editor.replace_area(area, new_area)
+
+            self.on_select_region()
+            self.focus_on_area_by_name(new_area.name)
+            if node_index is not None:
+                self.focus_on_node(self.current_area.nodes[node_index])
+            else:
+                self.update_selected_node()
 
     def _move_node(self, node: Node, location: NodeLocation) -> None:
         area = self.current_area
@@ -792,19 +838,6 @@ class DataEditorWindow(QMainWindow, Ui_DataEditorWindow):
         self.editor.add_node(current_area, new_node_this_area)
         self.editor.add_node(target_area, new_node_other_area)
 
-        new_node_this_lock = DockLockNode.create_from_dock(
-            new_node_this_area,
-            self.editor.new_node_index(),
-            self.resource_database,
-        )
-        new_node_other_lock = DockLockNode.create_from_dock(
-            new_node_other_area,
-            self.editor.new_node_index(),
-            self.resource_database,
-        )
-        self.editor.add_node(current_area, new_node_this_lock)
-        self.editor.add_node(target_area, new_node_other_lock)
-
         if source_count == 1:
             source_node = current_area.node_with_name(source_name_base)
             target_node = target_area.node_with_name(target_name_base)
@@ -897,7 +930,7 @@ class DataEditorWindow(QMainWindow, Ui_DataEditorWindow):
         self.area_view_canvas.set_zoom_value(self.zoom_slider.value())
 
     def update_edit_mode(self) -> None:
-        self.rename_area_button.setVisible(self.edit_mode)
+        self.edit_area_button.setVisible(self.edit_mode)
         self.delete_node_button.setVisible(self.edit_mode)
         self.new_node_button.setVisible(self.edit_mode)
         self.save_database_button.setVisible(self.edit_mode)

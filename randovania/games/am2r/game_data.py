@@ -4,8 +4,10 @@ from typing import TYPE_CHECKING
 
 import randovania.game.data
 import randovania.game.development_state
+import randovania.game.game_test_data
 import randovania.game.generator
 import randovania.game.gui
+import randovania.game.hints
 import randovania.game.layout
 import randovania.game.web_info
 from randovania.games.am2r import layout
@@ -40,14 +42,30 @@ def _gui() -> randovania.game.gui.GameGui:
 def _generator() -> randovania.game.generator.GameGenerator:
     from randovania.games.am2r import generator
     from randovania.generator.filler.weights import ActionWeights
-    from randovania.generator.hint_distributor import AllJokesHintDistributor
 
     return randovania.game.generator.GameGenerator(
         pickup_pool_creator=generator.pool_creator,
         bootstrap=generator.AM2RBootstrap(),
         base_patches_factory=generator.AM2RBasePatchesFactory(),
-        hint_distributor=AllJokesHintDistributor(),
         action_weights=ActionWeights(),
+    )
+
+
+def _hints() -> randovania.game.hints.GameHints:
+    from randovania.games.am2r.generator.hint_distributor import AM2RHintDistributor
+
+    return randovania.game.hints.GameHints(
+        hint_distributor=AM2RHintDistributor(),
+        specific_pickup_hints={
+            "artifacts": randovania.game.hints.SpecificHintDetails(
+                long_name="DNA Hints",
+                description="This controls how precise the DNA hints for the Wisdom Septoggs are.",
+            ),
+            "ice_beam": randovania.game.hints.SpecificHintDetails(
+                long_name="Ice Beam Hint",
+                description="This controls how precise the hint for Ice Beam in Genetics Laboratory is.",
+            ),
+        },
     )
 
 
@@ -69,12 +87,23 @@ def _hash_words() -> list[str]:
     return HASH_WORDS
 
 
+def _test_data() -> randovania.game.game_test_data.GameTestData:
+    from randovania.layout.base.trick_level import LayoutTrickLevel
+
+    return randovania.game.game_test_data.GameTestData(
+        expected_seed_hash="N7MNABZW",
+        # Some items require shinesparking to reach in vanilla,
+        # which due to varying difficulty has been made into a trick
+        database_collectable_include_tricks=(("Shinesparking", LayoutTrickLevel.ADVANCED),),
+    )
+
+
 game_data: randovania.game.data.GameData = randovania.game.data.GameData(
     short_name="AM2R",
     long_name="Another Metroid 2 Remake",
     development_state=randovania.game.development_state.DevelopmentState.STABLE,
     presets=[
-        {"path": "starter_preset.rdvpreset"},
+        "starter_preset.rdvpreset",
     ],
     faq=[
         (
@@ -164,9 +193,13 @@ game_data: randovania.game.data.GameData = randovania.game.data.GameData(
     options=_options,
     gui=_gui,
     generator=_generator,
+    hints=_hints,
     patch_data_factory=_patch_data_factory,
     exporter=_exporter,
+    test_data=_test_data,
+    reject_undocumented_tricks_in_database=False,
     multiple_start_nodes_per_area=False,
     defaults_available_in_game_sessions=True,
+    racetime_url="https://racetime.gg/am2r-rdv/data",
     logic_db_integrity=find_am2r_db_errors,
 )

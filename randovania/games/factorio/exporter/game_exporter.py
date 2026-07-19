@@ -1,12 +1,16 @@
 from __future__ import annotations
 
+import asyncio
 import dataclasses
+import typing
 from pathlib import Path
 from typing import TYPE_CHECKING
 
 from randovania.exporter.game_exporter import GameExporter, GameExportParams
+from randovania.lib import http_lib
 
 if TYPE_CHECKING:
+    from randovania.exporter.patch_data_factory import PatcherDataMeta
     from randovania.lib import status_update_lib
 
 
@@ -15,7 +19,16 @@ class FactorioGameExportParams(GameExportParams):
     output_path: Path
 
 
-class FactorioGameExporter(GameExporter):
+async def download_file(url: str, path: Path) -> None:
+    async with http_lib.http_session() as session:
+        async with session.get(url) as resp:
+            resp.raise_for_status()
+            with path.open("wb") as fd:
+                async for chunk in resp.content.iter_chunked(8192):
+                    fd.write(chunk)
+
+
+class FactorioGameExporter(GameExporter[FactorioGameExportParams]):
     _busy: bool = False
 
     @property
@@ -32,7 +45,7 @@ class FactorioGameExporter(GameExporter):
         """
         return False
 
-    def export_params_type(self) -> type[GameExportParams]:
+    def export_params_type(self) -> type[FactorioGameExportParams]:
         """
         Returns the type of the GameExportParams expected by this exporter.
         """
@@ -41,14 +54,20 @@ class FactorioGameExporter(GameExporter):
     def _do_export_game(
         self,
         patch_data: dict,
-        export_params: GameExportParams,
+        export_params: FactorioGameExportParams,
         progress_update: status_update_lib.ProgressUpdateCallable,
+        randovania_meta: PatcherDataMeta,
     ) -> None:
-        assert isinstance(export_params, FactorioGameExportParams)
-
         import factorio_randovania_mod
 
-        factorio_randovania_mod.create(
-            patch_data=patch_data,
-            output_folder=export_params.output_path,
+        export_params.output_path.mkdir(parents=True, exist_ok=True)
+
+        configuration = typing.cast("factorio_randovania_mod.Configuration", patch_data)
+
+        assets_mod = factorio_randovania_mod.export_mod(
+            configuration,
+            export_params.output_path,
         )
+        if assets_mod is not None:
+            assets_path, assets_url = assets_mod
+            asyncio.run(download_file(assets_url, assets_path))

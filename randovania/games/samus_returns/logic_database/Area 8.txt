@@ -38,8 +38,18 @@ Extra - asset_id: collision_camera_008
 ----------------
 Transport to Surface
 Extra - total_boundings: {'x1': -12400.0, 'x2': 7150.0, 'y1': 11000.0, 'y2': 27400.0}
-Extra - polygon: [[-12400.0, 27400.0], [-12400.0, 11000.0], [-6900.0, 11000.0], [-6900.0, 19500.0], [-3100.0, 20900.0], [-1000.0, 20900.0], [100.0, 21600.0], [7150.0, 21600.0], [7150.0, 27400.0]]
+Extra - polygon:
+[[-12400.0, 27400.0],
+ [-12400.0, 11000.0],
+ [-6900.0, 11000.0],
+ [-6900.0, 19500.0],
+ [-3100.0, 20900.0],
+ [-1000.0, 20900.0],
+ [100.0, 21600.0],
+ [7150.0, 21600.0],
+ [7150.0, 27400.0]]
 Extra - asset_id: collision_camera_007
+Hint Features - Baby Blocks, Elevator
 > Pickup (Missile Tank); Heals? False
   * Layers: default
   * Pickup 165; Category? Minor
@@ -132,7 +142,7 @@ Extra - asset_id: collision_camera_007
           Any of the following:
               Screw Attack
               # Clip using the Screw Attack blocks https://youtu.be/wHbiXozTtg0
-              Spider Ball Clip (Intermediate) and Use Spider Ball
+              Out of Bounds Movement (Beginner) and Spider Ball Clip (Intermediate) and Use Spider Ball
   > Save Station
       Baby Metroid
 
@@ -182,7 +192,19 @@ Extra - asset_id: collision_camera_008
 ----------------
 Amphitheater
 Extra - total_boundings: {'x1': -3900.0, 'x2': 2100.0, 'y1': -2800.0, 'y2': 8800.0}
-Extra - polygon: [[-3700.0, 8800.0], [-3700.0, 5500.0], [-3900.0, 4800.0], [-3900.0, -300.0], [-3700.0, -600.0009765625], [-3700.0, -2800.0], [-1500.0, -2800.0], [200.0, -2500.0], [450.0, -2500.0], [450.0, -1300.0], [2100.0, -1200.0], [2100.0, 8800.0]]
+Extra - polygon:
+[[-3700.0, 8800.0],
+ [-3700.0, 5500.0],
+ [-3900.0, 4800.0],
+ [-3900.0, -300.0],
+ [-3700.0, -600.0009765625],
+ [-3700.0, -2800.0],
+ [-1500.0, -2800.0],
+ [200.0, -2500.0],
+ [450.0, -2500.0],
+ [450.0, -1300.0],
+ [2100.0, -1200.0],
+ [2100.0, 8800.0]]
 Extra - asset_id: collision_camera_009
 > Pickup (Missile Tank Top); Heals? False
   * Layers: default
@@ -220,7 +242,7 @@ Extra - asset_id: collision_camera_009
   * Extra - actor_name: LE_Item_012
   * Extra - actor_type: item_powerbombtank
   > Energy Recharge Station
-      Spider Ball and Lay Power Bomb
+      Lay Power Bomb and Use Spider Ball
   > Above Save Station
       Lay Power Bomb
 
@@ -233,7 +255,7 @@ Extra - asset_id: collision_camera_009
       Lightning Armor or Space Jump or Defeat Weak Enemies or Use Spider Ball
   > Pickup (Missile Tank Hidden)
       Any of the following:
-          Spider Ball and Infinite Bomb Jump (Intermediate) and Lay Bomb
+          Infinite Bomb Jump (Intermediate) and Lay Bomb and Use Spider Ball
           Power Bomb ≥ 2 and Spider Boost (Intermediate) and Can Spider Boost
           All of the following:
               Space Jump
@@ -241,7 +263,7 @@ Extra - asset_id: collision_camera_009
                   Lay Power Bomb
                   All of the following:
                       Mid-Air Morph (Intermediate) and Lay Bomb
-                      Spider Ball or Movement (Intermediate)
+                      Movement (Intermediate) or Use Spider Ball
   > Above Tunnels
       Any of the following:
           Simple IBJ
@@ -330,7 +352,7 @@ Extra - asset_id: collision_camera_009
   > Pickup (Super Missile Tank)
       All of the following:
           Morph Ball and Screw Attack
-          Phase Drift or Spider Ball or Phase Drift Skip (Intermediate)
+          Phase Drift or Phase Drift Skip (Intermediate) or Use Spider Ball
           Any of the following:
               Lay Bomb
               Power Bomb ≥ 2 and Lay Power Bomb
@@ -350,7 +372,7 @@ Extra - asset_id: collision_camera_009
   > Ammo Recharge Station
       Any of the following:
           Simple IBJ
-          Spider Ball and Lay Any Bomb
+          Lay Any Bomb and Use Spider Ball
           All of the following:
               Any of the following:
                   Lay Power Bomb
@@ -418,8 +440,10 @@ Extra - asset_id: collision_camera_009
           Any of the following:
               Lightning Armor
               Hazard Runs (Advanced) and Hazard Damage ≥ 190
-          # Avoiding the crumble block
-          Phase Drift or Melee Clip (Intermediate) or Phase Drift Skip (Beginner) or Use Spider Ball
+          Any of the following:
+              # Avoiding the crumble block
+              Phase Drift or Phase Drift Skip (Beginner) or Use Spider Ball
+              Melee Clip (Intermediate) and Out of Bounds Movement (Intermediate)
           Any of the following:
               # Reaching the tunnels
               Space Jump or Use Spider Ball
@@ -446,7 +470,14 @@ Extra - asset_id: collision_camera_009
 ----------------
 Nest Network
 Extra - total_boundings: {'x1': -5300.0, 'x2': 1100.0, 'y1': -7300.0, 'y2': -1100.0}
-Extra - polygon: [[-5300.0, -1100.0], [-5300.0, -7300.0], [1100.0, -7300.0], [1100.0, -3600.0], [-2200.0, -3600.0], [-3600.0, -2600.0], [-3600.0, -1100.0]]
+Extra - polygon:
+[[-5300.0, -1100.0],
+ [-5300.0, -7300.0],
+ [1100.0, -7300.0],
+ [1100.0, -3600.0],
+ [-2200.0, -3600.0],
+ [-3600.0, -2600.0],
+ [-3600.0, -1100.0]]
 Extra - asset_id: collision_camera_010
 > Pickup (Missile Tank Hallway); Heals? False
   * Layers: default
@@ -471,6 +502,7 @@ Extra - asset_id: collision_camera_010
 > Pickup (Missile Tank Baby Locked); Heals? False
   * Layers: default
   * Pickup 163; Category? Minor
+  * Hint Features - Baby Blocks
   * Extra - actor_name: LE_Item_011
   * Extra - actor_type: item_missiletank
   > Door to Amphitheater
@@ -516,7 +548,7 @@ Extra - asset_id: collision_camera_010
           Any of the following:
               Baby Metroid
               # Clip through the Baby blocks
-              Morph Ball and Melee Clip (Beginner)
+              Morph Ball and Melee Clip (Beginner) and Out of Bounds Movement (Beginner)
   > Above Screw Attack Blocks
       Trivial
 
@@ -585,18 +617,19 @@ Extra - asset_id: collision_camera_010
                       All of the following:
                           Infinite Bomb Jump (Beginner)
                           Gravity Suit or Mid-Air Morph (Beginner)
-                      Spring Ball and Infinite Bomb Jump (Intermediate)
+                      Infinite Bomb Jump (Intermediate) and Use Spring Ball
   > Above Grapple Block
       Any of the following:
           Screw Attack
           # Freeze the left Gullugg next the wall and Melee Clip left https://youtu.be/j76i95WqpZ4
-          Lightning Armor and Charge Beam and Morph Ball and Melee Clip (Advanced)
+          Lightning Armor and Charge Beam and Morph Ball and Melee Clip (Advanced) and Out of Bounds Movement (Intermediate)
 
 ----------------
 Entrance Teleporter
 Extra - total_boundings: {'x1': -7100.0, 'x2': -5200.0, 'y1': -10900.0, 'y2': -5500.0}
 Extra - polygon: [[-7100.0, -5500.0], [-7100.0, -10900.0], [-5200.0, -10900.0], [-5200.0, -5500.0]]
 Extra - asset_id: collision_camera_011
+Hint Features - Baby Blocks, Teleporter
 > Pickup (Missile Tank); Heals? False
   * Layers: default
   * Pickup 161; Category? Minor
@@ -658,7 +691,7 @@ Extra - asset_id: collision_camera_011
       Any of the following:
           Screw Attack
           # Clip with the Screw Attack blocks https://youtu.be/6MG6hxNBhJo
-          Spider Ball Clip (Advanced) and Use Spider Ball
+          Out of Bounds Movement (Beginner) and Spider Ball Clip (Advanced) and Use Spider Ball
 
 > Door to Nest Network; Heals? False
   * Layers: default
@@ -696,7 +729,7 @@ Extra - asset_id: collision_camera_011
       Any of the following:
           Screw Attack
           # Freeze the Gullugg next to the wall and Melee Clip right https://youtu.be/IyM56zKAbRs
-          Charge Beam and Ice Beam and Morph Ball and Melee Clip (Advanced)
+          Charge Beam and Ice Beam and Morph Ball and Melee Clip (Advanced) and Out of Bounds Movement (Beginner)
   > Door to Nest Network
       All of the following:
           Any of the following:
@@ -720,7 +753,7 @@ Extra - asset_id: collision_camera_011
                       Infinite Bomb Jump (Intermediate)
                       All of the following:
                           Infinite Bomb Jump (Beginner)
-                          Gravity Suit or Spring Ball or Mid-Air Morph (Beginner)
+                          Gravity Suit or Mid-Air Morph (Beginner) or Use Spring Ball
               Super Jump (Intermediate) and Wall Jump (Beginner)
           # Deal with the Gulluggs
           Lightning Armor or Dodge Enemies (Advanced) or Defeat Strong Enemies
@@ -741,6 +774,7 @@ Extra - asset_id: collision_camera_012
 > Pickup (Super Missile Tank); Heals? False
   * Layers: default
   * Pickup 155; Category? Minor
+  * Hint Features - Baby Blocks
   * Extra - actor_name: LE_Item_001
   * Extra - actor_type: item_supermissiletank
   > Door to Nest Network (Top)
@@ -781,7 +815,7 @@ Extra - asset_id: collision_camera_012
               All of the following:
                   # Baby path
                   Baby Metroid
-                  Lightning Armor or Spider Ball
+                  Lightning Armor or Use Spider Ball
               All of the following:
                   # PB path
                   Lightning Armor and Lay Power Bomb
@@ -1131,7 +1165,20 @@ Extra - asset_id: collision_camera_019
 ----------------
 Transport to Area 7
 Extra - total_boundings: {'x1': -2100.0, 'x2': 6000.0, 'y1': -18400.0, 'y2': -7600.0}
-Extra - polygon: [[-2100.0, -16700.0], [-2100.0, -18400.0], [2000.0, -18400.0], [2200.0, -17900.0], [5200.0, -17600.0], [6000.0, -17600.0], [6000.0, -7600.0], [2600.0, -7600.0], [2600.0, -9500.0], [2700.0, -9500.0], [3700.0, -9800.0], [3700.0, -16200.0], [3100.0, -16700.0]]
+Extra - polygon:
+[[-2100.0, -16700.0],
+ [-2100.0, -18400.0],
+ [2000.0, -18400.0],
+ [2200.0, -17900.0],
+ [5200.0, -17600.0],
+ [6000.0, -17600.0],
+ [6000.0, -7600.0],
+ [2600.0, -7600.0],
+ [2600.0, -9500.0],
+ [2700.0, -9500.0],
+ [3700.0, -9800.0],
+ [3700.0, -16200.0],
+ [3100.0, -16700.0]]
 Extra - asset_id: collision_camera_021
 > Elevator to Area 7; Heals? False; Spawn Point; Default Node
   * Layers: default
@@ -1224,7 +1271,7 @@ Extra - asset_id: collision_camera_020
           Any of the following:
               # Dealing Damage
               Missile ≥ 80 or Super Missile ≥ 20
-              Plasma Beam and Shoot Beam Burst
+              Have All Beams and Shoot Beam Burst
               Ice Beam and Combat (Intermediate)
           Any of the following:
               # Enter Body Phase
@@ -1267,6 +1314,7 @@ Hatchling Room
 Extra - total_boundings: {'x1': -7000.0, 'x2': -2500.0, 'y1': 11100.0, 'y2': 12200.0}
 Extra - polygon: [[-7000.0, 11100.0], [-2500.0, 11100.0], [-2500.0, 12200.0], [-7000.0, 12200.0]]
 Extra - asset_id: collision_camera_022
+Hint Features - Baby Blocks, Boss, Chozo Seal
 > Dock to Queen Arena; Heals? False
   * Layers: default
   * Open Passage to Queen Arena/Dock to Hatchling Room
@@ -1337,7 +1385,7 @@ Extra - asset_id: collision_camera_023
           # Enter the tunnel - TODO: get up via IBJ? spider?
           Morph Ball and Screw Attack and Space Jump
           # Cross the Crumble block
-          Phase Drift or Spider Ball or Phase Drift Skip (Beginner)
+          Phase Drift or Phase Drift Skip (Beginner) or Use Spider Ball
   > Door to Transport to Area 7
       # Deal with the Electric Gulluggs
       Lightning Armor or Combat (Intermediate) or Dodge Enemies (Intermediate) or Defeat Weak Enemies
@@ -1352,7 +1400,14 @@ Extra - asset_id: collision_camera_023
 ----------------
 Metroid Nest Teleporter
 Extra - total_boundings: {'x1': -5400.0, 'x2': -2500.0, 'y1': 7500.0, 'y2': 11200.0}
-Extra - polygon: [[-5400.0, 11200.0], [-5400.0, 7500.0], [-3600.0, 7500.0], [-3600.0, 10200.0], [-3600.0, 10900.0], [-2500.0, 10900.0], [-2500.0, 11200.0]]
+Extra - polygon:
+[[-5400.0, 11200.0],
+ [-5400.0, 7500.0],
+ [-3600.0, 7500.0],
+ [-3600.0, 10200.0],
+ [-3600.0, 10900.0],
+ [-2500.0, 10900.0],
+ [-2500.0, 11200.0]]
 Extra - asset_id: collision_camera_024
 > Save Station; Heals? False; Spawn Point; Default Node
   * Layers: default

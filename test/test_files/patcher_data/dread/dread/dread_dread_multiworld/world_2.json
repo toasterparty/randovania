@@ -3730,6 +3730,7 @@
         },
         "lua": {
             "custom_init": {
+                "show_dna_in_hud": false,
                 "enable_death_counter": true,
                 "enable_room_name_display": "ALWAYS"
             },
@@ -4092,11 +4093,16 @@
             "cross_bomb": "ALTERNATE",
             "power_bomb": "ALTERNATE",
             "closed": "ALTERNATE"
-        }
+        },
+        "split_saves": false
     },
     "energy_per_tank": 100,
     "immediate_energy_parts": true,
+    "has_flash_upgrades": false,
+    "has_speed_upgrades": false,
     "enable_remote_lua": true,
+    "enable_logging": false,
+    "skip_item_popups": false,
     "constant_environment_damage": {
         "heat": 20,
         "cold": 20,
@@ -4144,8 +4150,12 @@
             "{c1}Metroid DNA 1{c0} is guarded by {c3}World 2{c0}'s {c2}E.M.M.I.-07PB{c0}.|{c1}Metroid DNA 2{c0} is guarded by {c3}World 2{c0}'s {c2}Escue{c0}.|{c1}Metroid DNA 3{c0} is guarded by {c3}World 2{c0}'s {c2}E.M.M.I.-05IM{c0}."
         ]
     },
+    "mass_delete_actors": {
+        "to_remove": []
+    },
     "layout_uuid": "00000000-0000-1111-0000-000000000000",
     "_randovania_meta": {
-        "layout_was_user_modified": true
+        "layout_was_user_modified": true,
+        "in_race_setting": false
     }
 }

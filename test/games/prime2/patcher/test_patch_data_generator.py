@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import dataclasses
 import json
+import typing
 from typing import TYPE_CHECKING
 from unittest.mock import MagicMock
 
 import pytest
+from frozendict import frozendict
 
 import randovania
 import randovania.games.prime2.exporter.patch_data_factory
@@ -17,12 +19,12 @@ from randovania.game_description.db.node_identifier import NodeIdentifier
 from randovania.game_description.pickup.pickup_entry import ConditionalResources, PickupModel
 from randovania.game_description.resources.pickup_index import PickupIndex
 from randovania.games.prime2.exporter import patch_data_factory
-from randovania.games.prime2.layout.echoes_configuration import EchoesConfiguration
+from randovania.games.prime2.layout.echoes_configuration import EchoesConfiguration, EchoesNewPatcher
 from randovania.games.prime2.layout.echoes_cosmetic_patches import EchoesCosmeticPatches
-from randovania.games.prime2.layout.hint_configuration import HintConfiguration, SkyTempleKeyHintMode
 from randovania.games.prime2.patcher import echoes_items
 from randovania.generator.pickup_pool import pickup_creator, pool_creator
 from randovania.interface_common.players_configuration import PlayersConfiguration
+from randovania.layout.base.hint_configuration import SpecificPickupHintMode
 from randovania.layout.base.pickup_model import PickupModelStyle
 from randovania.layout.base.standard_pickup_state import StandardPickupState
 from randovania.layout.exceptions import InvalidConfiguration
@@ -33,6 +35,9 @@ from randovania.lib import json_lib
 if TYPE_CHECKING:
     from randovania.game_description.db.node import Node
     from randovania.game_description.game_description import GameDescription
+    from randovania.games.prime2.layout.echoes_configuration import EchoesConfiguration
+    from randovania.layout.preset import Preset
+    from randovania.lib.json_lib import JsonObject
 
 
 @pytest.fixture
@@ -138,7 +143,7 @@ def test_add_header_data_to_result():
         "shareable_hash": "<shareable_hash>",
         "shareable_word_hash": "<shareable_word_hash>",
     }
-    result = {}
+    result: JsonObject = {}
 
     # Run
     patch_data_factory._add_header_data_to_result(description, result)
@@ -149,10 +154,10 @@ def test_add_header_data_to_result():
 
 def test_create_spawn_point_field(echoes_game_description, echoes_pickup_database, empty_patches):
     # Setup
-    resource_db = echoes_game_description.resource_database
+    resource_db = echoes_game_description.get_resource_database_view()
 
     morph = pickup_creator.create_standard_pickup(
-        echoes_pickup_database.get_pickup_with_name("Morph Ball"), StandardPickupState(), resource_db, None, False
+        echoes_pickup_database.standard_pickups["Morph Ball"], StandardPickupState(), resource_db, None, False
     )
 
     loc = NodeIdentifier.create("Temple Grounds", "Hive Chamber B", "Door to Hive Storage")
@@ -160,12 +165,12 @@ def test_create_spawn_point_field(echoes_game_description, echoes_pickup_databas
 
     capacities = [
         {"amount": 1 if item.short_name == "MorphBall" else 0, "index": item.extra["item_id"]}
-        for item in resource_db.item
+        for item in resource_db.get_all_items()
         if item.extra["item_id"] < 1000
     ]
 
     # Run
-    result = patch_data_factory._create_spawn_point_field(patches, echoes_game_description)
+    result = patch_data_factory._create_spawn_point_field(patches, echoes_game_description, resource_db)
 
     # Assert
     assert result == {
@@ -179,7 +184,7 @@ def test_create_spawn_point_field(echoes_game_description, echoes_pickup_databas
 
 
 def test_create_elevators_field_no_elevator(empty_patches, echoes_game_description):
-    with pytest.raises(InvalidConfiguration, match="Invalid elevator count. Expected 22, got 0."):
+    with pytest.raises(InvalidConfiguration, match=r"Invalid elevator count. Expected 22, got 0."):
         patch_data_factory._create_elevators_field(
             empty_patches, echoes_game_description, echoes_game_description.dock_weakness_database.find_type("elevator")
         )
@@ -220,10 +225,10 @@ def test_create_elevators_field_elevators_for_a_seed(
 
     if not vanilla_gateway:
         add(
-            "Temple Grounds",
+            "Sky Temple Grounds",
             "Sky Temple Gateway",
-            "Elevator to Great Temple",
-            "Great Temple",
+            "Elevator to Sky Temple",
+            "Sky Temple",
             "Sanctum",
             "Door to Sanctum Access",
         )
@@ -262,15 +267,6 @@ def test_create_elevators_field_elevators_for_a_seed(
             "room_name": "Transport to Temple Transport Violet",
         },
         {
-            "instance_id": 136970379,
-            "origin_location": {"world_asset_id": 1006255871, "area_asset_id": 2278776548},
-            "target_location": {
-                "world_asset_id": 2252328306,
-                "area_asset_id": 2068511343 if vanilla_gateway else 3619928121,
-            },
-            "room_name": "Sky Temple Gateway" if vanilla_gateway else "Transport to Sanctum",
-        },
-        {
             "instance_id": 3342446,
             "origin_location": {"world_asset_id": 1006255871, "area_asset_id": 3455543403},
             "target_location": {"world_asset_id": 464164546, "area_asset_id": 3528156989},
@@ -281,6 +277,15 @@ def test_create_elevators_field_elevators_for_a_seed(
             "origin_location": {"world_asset_id": 1006255871, "area_asset_id": 1345979968},
             "target_location": {"world_asset_id": 2252328306, "area_asset_id": 408633584},
             "room_name": "Transport to Temple Transport Emerald",
+        },
+        {
+            "instance_id": 136970379,
+            "origin_location": {"world_asset_id": 1006255871, "area_asset_id": 2278776548},
+            "target_location": {
+                "world_asset_id": 2252328306,
+                "area_asset_id": 2068511343 if vanilla_gateway else 3619928121,
+            },
+            "room_name": "Sky Temple Gateway" if vanilla_gateway else "Transport to Sanctum",
         },
         {
             "instance_id": 152,
@@ -398,7 +403,7 @@ def test_create_translator_gates_field(echoes_game_description):
 @pytest.mark.parametrize("teleporters", [TeleporterShuffleMode.VANILLA, TeleporterShuffleMode.TWO_WAY_RANDOMIZED])
 def test_apply_translator_gate_patches(teleporters):
     # Setup
-    target = {}
+    target: JsonObject = {}
 
     # Run
     patch_data_factory._apply_translator_gate_patches(target, teleporters)
@@ -414,7 +419,7 @@ def test_apply_translator_gate_patches(teleporters):
 def test_get_single_hud_text_locked_pbs():
     # Run
     result = pickup_exporter._get_single_hud_text(
-        "Locked Power Bomb Expansion", patch_data_factory._simplified_memo_data(), ()
+        "Locked Power Bomb Expansion", patch_data_factory.simplified_prime2_memo_data(), ()
     )
 
     # Assert
@@ -437,7 +442,7 @@ def test_pickup_data_for_seeker_launcher(echoes_pickup_database, multiworld_item
         True,
     )
     creator = pickup_exporter.PickupExporterSolo(
-        patch_data_factory._simplified_memo_data(), RandovaniaGame.METROID_PRIME_ECHOES
+        patch_data_factory.simplified_prime2_memo_data(), RandovaniaGame.METROID_PRIME_ECHOES
     )
 
     # Run
@@ -487,7 +492,7 @@ def test_pickup_data_for_pb_expansion_locked(
         echoes_resource_database,
     )
     if simplified:
-        memo = patch_data_factory._simplified_memo_data()
+        memo = patch_data_factory.simplified_prime2_memo_data()
         hud_text = [
             "Power Bomb Expansion acquired, but the main Power Bomb is required to use it.",
             "Power Bomb Expansion acquired!",
@@ -533,7 +538,7 @@ def test_pickup_data_for_pb_expansion_unlocked(echoes_pickup_database, multiworl
         echoes_resource_database,
     )
     creator = pickup_exporter.PickupExporterSolo(
-        patch_data_factory._simplified_memo_data(), RandovaniaGame.METROID_PRIME_ECHOES
+        patch_data_factory.simplified_prime2_memo_data(), RandovaniaGame.METROID_PRIME_ECHOES
     )
 
     # Run
@@ -558,7 +563,7 @@ def test_create_pickup_all_from_pool(echoes_game_description, default_echoes_con
     item_pool = pool_creator.calculate_pool_results(default_echoes_configuration, echoes_game_description)
     index = PickupIndex(0)
     if disable_hud_popup:
-        memo_data = patch_data_factory._simplified_memo_data()
+        memo_data = patch_data_factory.simplified_prime2_memo_data()
     else:
         memo_data = patch_data_factory.default_prime2_memo_data()
     creator = pickup_exporter.PickupExporterSolo(memo_data, RandovaniaGame.METROID_PRIME_ECHOES)
@@ -591,7 +596,7 @@ def test_run_validated_hud_text(multiworld_item):
             name="EnergyTransferModule",
         ),
         is_for_remote_player=False,
-        original_pickup=None,
+        original_pickup=MagicMock(),
     )
 
     # Run
@@ -601,15 +606,14 @@ def test_run_validated_hud_text(multiworld_item):
     assert data["hud_text"] == ["Run validated!"]
 
 
-@pytest.mark.parametrize("stk_mode", SkyTempleKeyHintMode)
+@pytest.mark.parametrize("stk_mode", SpecificPickupHintMode)
 def test_create_string_patches(
-    stk_mode: SkyTempleKeyHintMode,
+    stk_mode: SpecificPickupHintMode,
     mocker,
 ):
     # Setup
     game: GameDescription = MagicMock()
     all_patches = MagicMock()
-    rng = MagicMock()
     player_config = PlayersConfiguration(0, {0: "you"})
 
     mock_item_create_hints: MagicMock = mocker.patch(
@@ -634,38 +638,45 @@ def test_create_string_patches(
     )
 
     mock_akul_testament: MagicMock = mocker.patch(
-        "randovania.games.prime2.exporter.patch_data_factory._akul_testament_string_patch",
+        "randovania.games.prime2.exporter.patch_data_factory.akul_testament_string_patch",
         autospec=True,
     )
     mock_akul_testament.return_values = []
-    namer = MagicMock()
+    exporter = MagicMock()
+    namer = exporter.namer
+
+    hint_config = MagicMock()
+    hint_config.specific_pickup_hints = frozendict({"sky_temple_keys": stk_mode})
 
     # Run
     result = patch_data_factory._create_string_patches(
-        HintConfiguration(sky_temple_keys=stk_mode),
-        False,
+        hint_config,
+        EchoesNewPatcher.DISABLED,
         game,
         all_patches,
-        namer,
         player_config,
-        rng,
-        None,
+        MagicMock(),
+        exporter,
     )
 
     # Assert
     expected_result = ["item", "hints"]
-    mock_item_create_hints.assert_called_once_with(all_patches, player_config, game.region_list, namer, rng)
+    mock_item_create_hints.assert_called_once_with(all_patches[0], exporter)
     mock_logbook_title_string_patches.assert_called_once_with()
     mock_akul_testament.assert_called_once_with(namer)
 
-    if stk_mode == SkyTempleKeyHintMode.DISABLED:
+    if stk_mode == SpecificPickupHintMode.DISABLED:
         mock_stk_hide_hints.assert_called_once_with(namer)
         mock_stk_create_hints.assert_not_called()
         expected_result.extend(["hide", "hints"])
 
     else:
         mock_stk_create_hints.assert_called_once_with(
-            all_patches, player_config, game.resource_database, namer, stk_mode == SkyTempleKeyHintMode.HIDE_AREA
+            all_patches,
+            player_config,
+            game.get_resource_database_view(),
+            namer,
+            stk_mode == SpecificPickupHintMode.HIDE_AREA,
         )
         mock_stk_hide_hints.assert_not_called()
         expected_result.extend(["show", "hints"])
@@ -677,21 +688,25 @@ def test_create_string_patches(
 @pytest.mark.parametrize(
     ("rdvgame_filename", "expected_results_filename", "use_new_patcher"),
     [
-        ("seed_a.rdvgame", "seed_a_old_patcher.json", False),
-        ("seed_a.rdvgame", "seed_a_new_patcher.json", True),
-        ("prime2_no_pbs.rdvgame", "prime2_no_pbs_old_patcher.json", False),
-        ("prime2_no_pbs.rdvgame", "prime2_no_pbs_new_patcher.json", True),
+        ("seed_a.rdvgame", "seed_a_old_patcher.json", EchoesNewPatcher.DISABLED),
+        ("seed_a.rdvgame", "seed_a_new_patcher.json", EchoesNewPatcher.BOTH),
+        ("prime2_no_pbs.rdvgame", "prime2_no_pbs_old_patcher.json", EchoesNewPatcher.DISABLED),
+        ("prime2_no_pbs.rdvgame", "prime2_no_pbs_new_patcher.json", EchoesNewPatcher.BOTH),
+        ("prime2_no_pbs.rdvgame", "prime2_no_pbs_only_new_patcher.json", EchoesNewPatcher.ONLY),
     ],
 )
 def test_generate_patcher_data(
-    test_files_dir, rdvgame_filename, expected_results_filename, use_new_patcher, monkeypatch, mocker
-):
+    test_files_dir,
+    rdvgame_filename: str,
+    expected_results_filename: str,
+    use_new_patcher: EchoesNewPatcher,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     # Setup
     description = LayoutDescription.from_file(test_files_dir.joinpath("log_files", rdvgame_filename))
     player_index = 0
-    preset = description.get_preset(player_index)
+    preset = typing.cast("Preset[EchoesConfiguration]", description.get_preset(player_index))
     cosmetic_patches = EchoesCosmeticPatches()
-    assert isinstance(preset.configuration, EchoesConfiguration)
     configuration = dataclasses.replace(preset.configuration, use_new_patcher=use_new_patcher)
     description.generator_parameters.presets[player_index] = dataclasses.replace(preset, configuration=configuration)
     monkeypatch.setattr(randovania, "VERSION", "Test Version")

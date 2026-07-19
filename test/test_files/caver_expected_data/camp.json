@@ -284,17 +284,11 @@
             "entrances": {},
             "hints": {
                 "0310": {
-                    "text": "I hear that a major upgrade is in Santa's House.",
+                    "text": "I hear that a weapon is in Santa's House.",
                     "facepic": "0000",
                     "ending": "<NOD<END"
                 }
             }
-        },
-        "CentW": {
-            "pickups": {},
-            "music": {},
-            "entrances": {},
-            "hints": {}
         },
         "Chako": {
             "pickups": {
@@ -413,7 +407,7 @@
             "entrances": {},
             "hints": {
                 "0200": {
-                    "text": "Rumour has it, a major item is hidden in Labyrinth Shop.",
+                    "text": "Rumour has it, a major item is in Labyrinth Shop.",
                     "facepic": "0000",
                     "ending": "<NOD<END"
                 }
@@ -537,24 +531,6 @@
                     "original_id": "0023"
                 }
             },
-            "entrances": {},
-            "hints": {}
-        },
-        "EgEnd1": {
-            "pickups": {},
-            "music": {},
-            "entrances": {},
-            "hints": {}
-        },
-        "EgEnd2": {
-            "pickups": {},
-            "music": {},
-            "entrances": {},
-            "hints": {}
-        },
-        "Egg1": {
-            "pickups": {},
-            "music": {},
             "entrances": {},
             "hints": {}
         },
@@ -755,7 +731,7 @@
             "entrances": {},
             "hints": {
                 "0210": {
-                    "text": "They say the Mimiga Mask can be found in Grasstown.",
+                    "text": "Rumour has it, the Mimiga Mask is hidden in Grasstown.",
                     "facepic": "0000",
                     "ending": "<NOD<END"
                 }
@@ -897,12 +873,6 @@
                     "original_id": "0007"
                 }
             },
-            "entrances": {},
-            "hints": {}
-        },
-        "Hell4": {
-            "pickups": {},
-            "music": {},
             "entrances": {},
             "hints": {}
         },
@@ -1356,7 +1326,7 @@
                     "ending": "<NOD<END"
                 },
                 "0502": {
-                    "text": "I hear that the Jellyfish Juice is in Grasstown.",
+                    "text": "Rumour has it, the Jellyfish Juice is in Grasstown.",
                     "facepic": "0000",
                     "ending": "<NOD<END"
                 }
@@ -1499,12 +1469,6 @@
             "entrances": {},
             "hints": {}
         },
-        "MiBox": {
-            "pickups": {},
-            "music": {},
-            "entrances": {},
-            "hints": {}
-        },
         "Mimi": {
             "pickups": {
                 "0202": "<EVE0009"
@@ -1631,12 +1595,6 @@
                     "original_id": "0026"
                 }
             },
-            "entrances": {},
-            "hints": {}
-        },
-        "Ostep": {
-            "pickups": {},
-            "music": {},
             "entrances": {},
             "hints": {}
         },
@@ -1873,12 +1831,6 @@
                     "original_id": "0030"
                 }
             },
-            "entrances": {},
-            "hints": {}
-        },
-        "Prefa2": {
-            "pickups": {},
-            "music": {},
             "entrances": {},
             "hints": {}
         },
@@ -2364,7 +2316,7 @@
                     "ending": "<NOD<END"
                 },
                 "0201": {
-                    "text": "Rumour has it, the Santa's Key is hidden in Mimiga Village.",
+                    "text": "They say the Santa's Key is in Mimiga Village.",
                     "facepic": "0000",
                     "ending": "<NOD<END"
                 }
@@ -2387,12 +2339,6 @@
             "pickups": {
                 "0305": "<EVE0014"
             },
-            "music": {},
-            "entrances": {},
-            "hints": {}
-        },
-        "WeedS": {
-            "pickups": {},
             "music": {},
             "entrances": {},
             "hints": {}
@@ -2452,6 +2398,7 @@
     ],
     "uuid": "{00000000-0000-1111-0000-000000000000}",
     "_randovania_meta": {
-        "layout_was_user_modified": true
+        "layout_was_user_modified": true,
+        "in_race_setting": false
     }
 }

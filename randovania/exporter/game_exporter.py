@@ -3,16 +3,13 @@ import hashlib
 import json
 import typing
 from pathlib import Path
-from typing import TYPE_CHECKING
 
 import sentry_sdk
 
+from randovania.exporter.patch_data_factory import PatcherDataMeta
 from randovania.lib import status_update_lib
 from randovania.lib.background_task import AbortBackgroundTask
 from randovania.patching.patchers.exceptions import UnableToExportError
-
-if TYPE_CHECKING:
-    from randovania.exporter.patch_data_factory import PatcherDataMeta
 
 
 @dataclasses.dataclass(frozen=True)
@@ -29,7 +26,7 @@ class GameExportParams:
         return {}
 
 
-class GameExporter:
+class GameExporter[ExportParams: GameExportParams]:
     """
     Class that handles exporting a randomized game, so that a user can play it.
     """
@@ -48,7 +45,7 @@ class GameExporter:
         """
         raise NotImplementedError
 
-    def export_params_type(self) -> type[GameExportParams]:
+    def export_params_type(self) -> type[ExportParams]:
         """
         Returns the type of the GameExportParams expected by this exporter.
         """
@@ -60,8 +57,9 @@ class GameExporter:
     def _do_export_game(
         self,
         patch_data: dict,
-        export_params: GameExportParams,
+        export_params: ExportParams,
         progress_update: status_update_lib.ProgressUpdateCallable,
+        randovania_meta: PatcherDataMeta,
     ) -> None:
         """The main exporting process. Should be overwritten by individual games."""
         raise NotImplementedError
@@ -72,7 +70,7 @@ class GameExporter:
     def export_game(
         self,
         patch_data: dict,
-        export_params: GameExportParams,
+        export_params: ExportParams,
         progress_update: status_update_lib.ProgressUpdateCallable,
     ) -> None:
         """Starts exporting a game."""
@@ -91,7 +89,7 @@ class GameExporter:
 
                 self._before_export()
                 try:
-                    self._do_export_game(patch_data, export_params, progress_update)
+                    self._do_export_game(patch_data, export_params, progress_update, meta_data)
                     scope.set_tag("exception", None)
                 except (AbortBackgroundTask, UnableToExportError) as e:
                     scope.set_tag("exception", type(e).__name__)

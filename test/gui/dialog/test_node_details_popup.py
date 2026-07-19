@@ -6,7 +6,11 @@ from PySide6.QtCore import Qt
 from randovania.game_description.db.configurable_node import ConfigurableNode
 from randovania.game_description.db.dock_node import DockNode
 from randovania.game_description.db.event_node import EventNode
-from randovania.game_description.db.hint_node import HintNode
+from randovania.game_description.db.hint_node import (
+    GenericHintNode,
+    SpecificLocationHintNode,
+    SpecificPickupHintNode,
+)
 from randovania.game_description.db.node import GenericNode
 from randovania.game_description.db.pickup_node import PickupNode
 from randovania.game_description.db.teleporter_network_node import TeleporterNetworkNode
@@ -20,8 +24,27 @@ from randovania.gui.dialog.node_details_popup import NodeDetailsPopup
         DockNode,
         PickupNode,
         EventNode,
+        GenericHintNode,
+        SpecificLocationHintNode,
+        SpecificPickupHintNode,
+    ],
+)
+def test_unchanged_create_new_node_blank(skip_qtbot, blank_game_description, node_type):
+    node = next(node for node in blank_game_description.region_list.iterate_nodes() if isinstance(node, node_type))
+    dialog = NodeDetailsPopup(blank_game_description, node)
+    skip_qtbot.addWidget(dialog)
+
+    # Run
+    new_node = dialog.create_new_node()
+
+    # Assert
+    assert node == new_node
+
+
+@pytest.mark.parametrize(
+    "node_type",
+    [
         ConfigurableNode,
-        HintNode,
     ],
 )
 def test_unchanged_create_new_node_echoes(skip_qtbot, echoes_game_description, node_type):
@@ -42,9 +65,9 @@ def test_unchanged_create_new_node_echoes(skip_qtbot, echoes_game_description, n
         TeleporterNetworkNode,
     ],
 )
-def test_unchanged_create_new_node_corruption(skip_qtbot, corruption_game_description, node_type):
-    node = next(node for node in corruption_game_description.region_list.iterate_nodes() if isinstance(node, node_type))
-    dialog = NodeDetailsPopup(corruption_game_description, node)
+def test_unchanged_create_new_node_msr(skip_qtbot, msr_game_description, node_type):
+    node = next(node for node in msr_game_description.region_list.iterate_nodes() if isinstance(node, node_type))
+    dialog = NodeDetailsPopup(msr_game_description, node)
     skip_qtbot.addWidget(dialog)
 
     # Run

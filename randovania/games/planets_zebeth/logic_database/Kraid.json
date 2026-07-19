@@ -4,6 +4,7 @@
     "areas": {
         "Kraid Entrance": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x104_y337"
             },
@@ -127,13 +128,8 @@
                                         }
                                     },
                                     {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
-                                            "name": "Hi-Jump",
-                                            "amount": 1,
-                                            "negate": false
-                                        }
+                                        "type": "template",
+                                        "data": "Climb High Ledge"
                                     }
                                 ]
                             }
@@ -153,13 +149,8 @@
                                         }
                                     },
                                     {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
-                                            "name": "Hi-Jump",
-                                            "amount": 1,
-                                            "negate": false
-                                        }
+                                        "type": "template",
+                                        "data": "Climb High Ledge"
                                     }
                                 ]
                             }
@@ -397,23 +388,14 @@
                         "Door to Acid Gauntlet": {
                             "type": "and",
                             "data": {
-                                "comment": "TODO: unmorph jump",
+                                "comment": "Hold right while walking off the ledge. You need to unequip Hi-Jump if you have it.",
                                 "items": [
-                                    {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
-                                            "name": "Morph Ball",
-                                            "amount": 1,
-                                            "negate": false
-                                        }
-                                    },
                                     {
                                         "type": "resource",
                                         "data": {
                                             "type": "tricks",
                                             "name": "Knowledge",
-                                            "amount": 3,
+                                            "amount": 1,
                                             "negate": false
                                         }
                                     }
@@ -447,6 +429,7 @@
         },
         "Arrival Chamber": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x56_y307"
             },
@@ -486,6 +469,15 @@
                                     {
                                         "type": "template",
                                         "data": "Can Use Bombs"
+                                    },
+                                    {
+                                        "type": "resource",
+                                        "data": {
+                                            "type": "tricks",
+                                            "name": "Knowledge",
+                                            "amount": 1,
+                                            "negate": false
+                                        }
                                     }
                                 ]
                             }
@@ -510,6 +502,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 37,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Kraid Entrance": {
                             "type": "and",
@@ -519,6 +513,15 @@
                                     {
                                         "type": "template",
                                         "data": "Can Use Bombs"
+                                    },
+                                    {
+                                        "type": "resource",
+                                        "data": {
+                                            "type": "tricks",
+                                            "name": "Knowledge",
+                                            "amount": 1,
+                                            "negate": false
+                                        }
                                     }
                                 ]
                             }
@@ -572,6 +575,7 @@
         },
         "Upper Hall": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x136_y307"
             },
@@ -594,6 +598,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 36,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Kraid Entrance": {
                             "type": "and",
@@ -687,6 +693,7 @@
         },
         "Apex Tower": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x168_y277"
             },
@@ -853,6 +860,7 @@
         },
         "Upper Attic": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x144_y247"
             },
@@ -933,6 +941,7 @@
         },
         "Attic Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x120_y262"
             },
@@ -1056,6 +1065,7 @@
         },
         "Central Attic": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x144_y262"
             },
@@ -1136,6 +1146,7 @@
         },
         "Lower Attic": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x144_y277"
             },
@@ -1216,6 +1227,7 @@
         },
         "Pond Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x56_y322"
             },
@@ -1296,6 +1308,7 @@
         },
         "Bottomless Pond": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x8_y352"
             },
@@ -1342,13 +1355,8 @@
                                         }
                                     },
                                     {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
-                                            "name": "Hi-Jump",
-                                            "amount": 1,
-                                            "negate": false
-                                        }
+                                        "type": "template",
+                                        "data": "Climb High Ledge"
                                     }
                                 ]
                             }
@@ -1431,20 +1439,15 @@
                                 "comment": null,
                                 "items": [
                                     {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
-                                            "name": "Ice Beam",
-                                            "amount": 1,
-                                            "negate": false
-                                        }
+                                        "type": "template",
+                                        "data": "Can Use Bombs"
                                     },
                                     {
                                         "type": "resource",
                                         "data": {
-                                            "type": "items",
-                                            "name": "Hi-Jump",
-                                            "amount": 1,
+                                            "type": "tricks",
+                                            "name": "IBJ",
+                                            "amount": 4,
                                             "negate": false
                                         }
                                     }
@@ -1457,6 +1460,7 @@
         },
         "Antechamber": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x24_y397"
             },
@@ -1537,6 +1541,7 @@
         },
         "Drain": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x40_y405"
             },
@@ -1577,7 +1582,7 @@
                         },
                         "Door to Hall of Illusion": {
                             "type": "template",
-                            "data": "Can Use Bombs"
+                            "data": "Can Break Floor Blocks"
                         }
                     }
                 },
@@ -1649,6 +1654,7 @@
         },
         "Hall of Illusion": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x88_y412"
             },
@@ -1729,6 +1735,7 @@
         },
         "Green Parlor": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x136_y412"
             },
@@ -1762,7 +1769,7 @@
                     "connections": {
                         "Dock to Kraid Arena Access": {
                             "type": "template",
-                            "data": "Can Use Bombs"
+                            "data": "Can Break Floor Blocks"
                         },
                         "Door to Lower Side Room Access": {
                             "type": "and",
@@ -1841,6 +1848,7 @@
         },
         "Lower Side Room Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x152_y412"
             },
@@ -1921,6 +1929,7 @@
         },
         "East Stairwell": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x168_y401"
             },
@@ -2001,6 +2010,7 @@
         },
         "Upper Side Room Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x152_y397"
             },
@@ -2081,6 +2091,7 @@
         },
         "Return Stairwell": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x136_y386"
             },
@@ -2182,8 +2193,25 @@
                     "ui_custom_name": null,
                     "connections": {
                         "Door to Upper Side Room Access": {
-                            "type": "template",
-                            "data": "Can Use Bombs"
+                            "type": "and",
+                            "data": {
+                                "comment": null,
+                                "items": [
+                                    {
+                                        "type": "template",
+                                        "data": "Can Use Bombs"
+                                    },
+                                    {
+                                        "type": "resource",
+                                        "data": {
+                                            "type": "tricks",
+                                            "name": "IBJ",
+                                            "amount": 1,
+                                            "negate": false
+                                        }
+                                    }
+                                ]
+                            }
                         },
                         "Door to Back Entrance": {
                             "type": "and",
@@ -2198,6 +2226,7 @@
         },
         "Back Storage": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x88_y397"
             },
@@ -2292,6 +2321,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 33,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Return Stairwell": {
                             "type": "and",
@@ -2313,6 +2344,7 @@
         },
         "Back Entrance": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x120_y382"
             },
@@ -2393,6 +2425,7 @@
         },
         "Hall of Rejection": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x80_y382"
             },
@@ -2473,6 +2506,7 @@
         },
         "Stairway of Hope": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x56_y366"
             },
@@ -2553,6 +2587,7 @@
         },
         "Hall of Returns": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x80_y352"
             },
@@ -2633,6 +2668,7 @@
         },
         "Waiting Room": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x160_y427"
             },
@@ -2713,6 +2749,7 @@
         },
         "Kraid Arena Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x136_y427"
             },
@@ -2773,7 +2810,7 @@
                         "area": "Kraid Arena",
                         "node": "Door to Kraid Arena Access"
                     },
-                    "default_dock_weakness": "Normal Door",
+                    "default_dock_weakness": "Missile Door",
                     "exclude_from_dock_rando": false,
                     "incompatible_dock_weaknesses": [],
                     "override_default_open_requirement": null,
@@ -2860,6 +2897,7 @@
         },
         "Kraid Arena": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x120_y427"
             },
@@ -2959,6 +2997,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 32,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Kraid Arena Access": {
                             "type": "and",
@@ -2997,6 +3037,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 39,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Event - Kraid Killed": {
                             "type": "and",
@@ -3025,6 +3067,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 38,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Pickup (Big Missile Tank)": {
                             "type": "and",
@@ -3039,6 +3083,7 @@
         },
         "Tower of Despair": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x184_y390"
             },
@@ -3162,6 +3207,7 @@
         },
         "Acid Pier": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x159_y367"
             },
@@ -3184,6 +3230,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 34,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Tower of Despair": {
                             "type": "and",
@@ -3234,6 +3282,7 @@
         },
         "Acid Gauntlet": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x144_y352"
             },
@@ -3314,6 +3363,7 @@
         },
         "Blue Closet": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Kraid/x136_y323"
             },
@@ -3369,6 +3419,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 35,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Kraid Entrance": {
                             "type": "template",

@@ -3,8 +3,9 @@ from __future__ import annotations
 import asyncio
 import multiprocessing
 import operator
-from concurrent.futures import ProcessPoolExecutor
-from typing import TYPE_CHECKING
+import sys
+from concurrent.futures import Future, ProcessPoolExecutor
+from typing import TYPE_CHECKING, Any
 
 from randovania import monitoring
 from randovania.generator import generator
@@ -16,11 +17,15 @@ from randovania.resolver import debug
 
 if TYPE_CHECKING:
     from collections.abc import Callable
-    from multiprocessing.connection import Connection
 
     from randovania.interface_common.options import Options
     from randovania.layout.generator_parameters import GeneratorParameters
     from randovania.layout.layout_description import LayoutDescription
+
+    if sys.platform == "win32":
+        from multiprocessing.connection import PipeConnection as Connection
+    else:
+        from multiprocessing.connection import Connection
 
 export_busy = False
 
@@ -49,6 +54,7 @@ def generate_layout(
         span.set_tag("unique_games", str(sorted(set(games))))
         span.set_tag("attempts", retries if retries is not None else generator.DEFAULT_ATTEMPTS)
         span.set_tag("validate_after", options.advanced_validate_seed_after)
+        span.set_tag("use_world_graph", True)
         span.set_tag(
             "dock_rando",
             any(preset.configuration.dock_rando.mode == DockRandoMode.DOCKS for preset in parameters.presets),
@@ -69,7 +75,7 @@ def generate_layout(
                 "generation_trick_amount_intermediate": LayoutTrickLevel.INTERMEDIATE,
                 "generation_trick_amount_advanced": LayoutTrickLevel.ADVANCED,
                 "generation_trick_amount_expert": LayoutTrickLevel.EXPERT,
-                "generation_trick_amount_hypermode": LayoutTrickLevel.HYPERMODE,
+                "generation_trick_amount_ludicrous": LayoutTrickLevel.LUDICROUS,
             }
             for tag_name, trick in tag_name_to_trick.items():
                 monitoring.metrics.incr(
@@ -78,19 +84,19 @@ def generate_layout(
                     tags={"game": preset.game.short_name},
                 )
 
-        extra_args = {
+        extra_args: dict[str, Any] = {
             "generator_params": parameters,
-            "validate_after_generation": options.advanced_validate_seed_after,
+            "resolve_after_generation": options.advanced_validate_seed_after,
             "world_names": world_names,
         }
         if not options.advanced_timeout_during_generation:
-            extra_args["timeout"] = None
+            extra_args["resolver_timeout"] = None
         if retries is not None:
             extra_args["attempts"] = retries
 
         debug_level = debug.debug_level()
         if not parameters.spoiler:
-            debug_level = 0
+            debug_level = debug.LogLevel.SILENT
 
         if options.advanced_generate_in_another_process:
             generator_function = generate_in_another_process
@@ -118,8 +124,10 @@ def generate_layout(
             raise
 
 
-def _generate_layout_worker(output_pipe: Connection, debug_level: int, extra_args: dict):
-    def status_update(message: str):
+def _generate_layout_worker(
+    output_pipe: Connection, debug_level: debug.LogLevel, extra_args: dict
+) -> LayoutDescription:
+    def status_update(message: str) -> None:
         output_pipe.send(message)
         if output_pipe.poll():
             raise RuntimeError(output_pipe.recv())
@@ -130,12 +138,12 @@ def _generate_layout_worker(output_pipe: Connection, debug_level: int, extra_arg
 
 def generate_in_another_process(
     status_update: Callable[[str], None],
-    debug_level: int,
+    debug_level: debug.LogLevel,
     extra_args: dict,
 ) -> LayoutDescription:
     receiving_pipe, output_pipe = multiprocessing.Pipe(True)
 
-    def on_done(_):
+    def on_done(_: Future[LayoutDescription]) -> None:
         output_pipe.send(None)
 
     with ProcessPoolExecutor(max_workers=1) as executor:
@@ -156,13 +164,8 @@ def generate_in_another_process(
 
 def generate_in_host_process(
     status_update: Callable[[str], None],
-    debug_level: int,
+    debug_level: debug.LogLevel,
     extra_args: dict,
 ) -> LayoutDescription:
     with debug.with_level(debug_level):
-        return asyncio.run(
-            generator.generate_and_validate_description(
-                **extra_args,
-                status_update=status_update,
-            )
-        )
+        return asyncio.run(generator.generate_and_validate_description(status_update=status_update, **extra_args))

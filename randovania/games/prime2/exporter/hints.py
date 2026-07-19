@@ -3,21 +3,16 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from randovania.exporter.hints import guaranteed_item_hint
-from randovania.exporter.hints.hint_exporter import HintExporter
-from randovania.exporter.hints.joke_hints import JOKE_HINTS
-from randovania.game_description.db.hint_node import HintNode
-from randovania.games.common.prime_family.exporter.hint_namer import colorize_text
+from randovania.game_description.db.hint_node import GenericHintNode, HintNode, SpecificLocationHintNode
 from randovania.games.prime2.patcher import echoes_items
 
 if TYPE_CHECKING:
-    from random import Random
-
+    from randovania.exporter.hints.hint_exporter import HintExporter
     from randovania.exporter.hints.hint_namer import HintNamer
     from randovania.game_description.db.node_identifier import NodeIdentifier
     from randovania.game_description.db.region_list import RegionList
+    from randovania.game_description.game_database_view import ResourceDatabaseView
     from randovania.game_description.game_patches import GamePatches
-    from randovania.game_description.resources.resource_database import ResourceDatabase
-    from randovania.games.prime2.exporter.hint_namer import EchoesHintNamer
     from randovania.interface_common.players_configuration import PlayersConfiguration
 
 
@@ -29,25 +24,21 @@ def create_simple_logbook_hint(asset_id: int, hint: str) -> dict:
 
 
 def create_patches_hints(
-    all_patches: dict[int, GamePatches],
-    players_config: PlayersConfiguration,
-    region_list: RegionList,
-    namer: HintNamer,
-    rng: Random,
+    patches: GamePatches,
+    exporter: HintExporter,
 ) -> list:
-    exporter = HintExporter(namer, rng, JOKE_HINTS)
-
     hints_for_asset: dict[NodeIdentifier, str] = {}
-    for identifier, hint in all_patches[players_config.player_index].hints.items():
-        hints_for_asset[identifier] = exporter.create_message_for_hint(hint, all_patches, players_config, True)
+    for identifier, hint in patches.hints.items():
+        hints_for_asset[identifier] = exporter.create_message_for_hint(hint, True)
 
     return [
         create_simple_logbook_hint(
             logbook_node.extra["string_asset_id"],
             hints_for_asset.get(logbook_node.identifier, "Someone forgot to leave a message."),
         )
-        for logbook_node in region_list.iterate_nodes()
-        if isinstance(logbook_node, HintNode)
+        for _, _, logbook_node in exporter.owner_game_view.iterate_nodes_of_type(
+            GenericHintNode, SpecificLocationHintNode
+        )
     ]
 
 
@@ -60,8 +51,7 @@ def hide_patches_hints(region_list: RegionList) -> list:
 
     return [
         create_simple_logbook_hint(logbook_node.extra["string_asset_id"], "Some item was placed somewhere.")
-        for logbook_node in region_list.iterate_nodes()
-        if isinstance(logbook_node, HintNode)
+        for logbook_node in region_list.iterate_nodes_of_type(HintNode)
     ]
 
 
@@ -81,7 +71,7 @@ _SKY_TEMPLE_KEY_SCAN_ASSETS = [
 def create_stk_hints(
     all_patches: dict[int, GamePatches],
     players_config: PlayersConfiguration,
-    resource_database: ResourceDatabase,
+    resource_database: ResourceDatabaseView,
     namer: HintNamer,
     hide_area: bool,
 ) -> list:
@@ -112,7 +102,7 @@ def create_stk_hints(
     ]
 
 
-def hide_stk_hints(namer: EchoesHintNamer) -> list:
+def hide_stk_hints(namer: HintNamer) -> list:
     """
     Creates the string patches entries that changes the Sky Temple Gateway hint scans with hints for
     completely useless text.
@@ -123,7 +113,7 @@ def hide_stk_hints(namer: EchoesHintNamer) -> list:
         create_simple_logbook_hint(
             _SKY_TEMPLE_KEY_SCAN_ASSETS[key_number],
             "{} is lost somewhere in Aether.".format(
-                colorize_text(namer.color_item, f"Sky Temple Key {key_number + 1}", True)
+                namer.colorize_text(namer.color_item, f"Sky Temple Key {key_number + 1}", True)
             ),
         )
         for key_number in range(9)

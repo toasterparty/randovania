@@ -54,12 +54,12 @@ def test_generate_layout(mocker: pytest_mock.MockerFixture, another_process, spo
 
     extra_args = {
         "generator_params": parameters,
-        "validate_after_generation": options.advanced_validate_seed_after,
+        "resolve_after_generation": options.advanced_validate_seed_after,
         "world_names": world_names,
     }
 
     if not timeout:
-        extra_args["timeout"] = None
+        extra_args["resolver_timeout"] = None
 
     if retries is not None:
         extra_args["attempts"] = retries
@@ -99,4 +99,4 @@ def test_general_blank_layout(default_blank_preset):
 
     # Assert
     assert result.generator_parameters == parameters
-    assert result.get_seed_for_player(0) == 1000
+    assert result.get_seed_for_world(0) == 1000

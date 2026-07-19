@@ -88,9 +88,9 @@ def test_decode(default_blank_preset, mocker, development, extra_data):
     # This test should break whenever we change how permalinks are created
     # When this happens, we must bump the permalink version and change the tests
     if development:
-        encoded = b" \x00\x00\x0f\xa3\x00\x03\x00"
+        encoded = b" \x00\x00\x0f\xa3\x00\x18\x00"
     else:
-        encoded = b" \x00\x00\x0f\xa2\x00\x03\x1e\x00"
+        encoded = b" \x00\x00\x0f\xa2\x00\x18<\x00"
     if extra_data:
         encoded += b"="
 
@@ -108,13 +108,13 @@ def test_decode(default_blank_preset, mocker, development, extra_data):
         development=development,
     )
 
-    # Uncomment this line to quickly get the new encoded permalink
+    # # Uncomment this line to quickly get the new encoded permalink
     # assert expected.as_bytes == b""
     # print(expected.as_bytes)
 
     # Run
     if extra_data:
-        expectation = pytest.raises(ValueError, match="At least one entire byte of data is still unread.")
+        expectation = pytest.raises(ValueError, match=r"At least one entire byte of data is still unread.")
     else:
         expectation = contextlib.nullcontext()
 

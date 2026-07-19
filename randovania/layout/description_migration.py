@@ -8,7 +8,7 @@ from randovania.game_description import migration_data
 from randovania.lib import migration_lib
 
 
-def _migrate_v1(json_dict: dict) -> dict:
+def _migrate_v1(json_dict: dict) -> None:
     for game in json_dict["game_modifications"]:
         for hint in game["hints"].values():
             if hint.get("precision") is not None:
@@ -17,33 +17,30 @@ def _migrate_v1(json_dict: dict) -> dict:
                     owner = True
                     hint["precision"]["item"] = "nothing"
                 hint["precision"]["include_owner"] = owner
-    return json_dict
 
 
-def _migrate_v2(json_dict: dict) -> dict:
+def _migrate_v2(json_dict: dict) -> None:
     for game in json_dict["game_modifications"]:
         for hint in game["hints"].values():
             precision = hint.get("precision")
             if precision is not None and precision.get("relative") is not None:
                 precision["relative"]["distance_offset"] = 0
                 precision["relative"].pop("precise_distance")
-    return json_dict
 
 
-def _migrate_v3(json_dict: dict) -> dict:
+def _migrate_v3(json_dict: dict) -> None:
     target_name_re = re.compile(r"(.*) for Player (\d+)")
     if len(json_dict["game_modifications"]) > 1:
         for game in json_dict["game_modifications"]:
             for area in game["locations"].values():
-                for location_name, contents in typing.cast(dict[str, str], area).items():
+                for location_name, contents in typing.cast("dict[str, str]", area).items():
                     m = target_name_re.match(contents)
                     if m is not None:
                         part_one, part_two = m.group(1, 2)
                         area[location_name] = f"{part_one} for Player {int(part_two) + 1}"
-    return json_dict
 
 
-def _migrate_v4(json_dict: dict) -> dict:
+def _migrate_v4(json_dict: dict) -> None:
     for game in json_dict["game_modifications"]:
         for world_name, area in game["locations"].items():
             if world_name == "Torvus Bog" and "Portal Chamber/Pickup (Missile)" in area:
@@ -55,10 +52,8 @@ def _migrate_v4(json_dict: dict) -> dict:
                     hint["precision"]["relative"]["area_location"],
                 )
 
-    return json_dict
 
-
-def _migrate_v5(json_dict: dict) -> dict:
+def _migrate_v5(json_dict: dict) -> None:
     gate_mapping = {
         "Hive Access Tunnel": "Temple Grounds/Hive Access Tunnel/Translator Gate",
         "Meeting Grounds": "Temple Grounds/Meeting Grounds/Translator Gate",
@@ -93,11 +88,11 @@ def _migrate_v5(json_dict: dict) -> dict:
         "Sky Temple Grounds": "Temple Grounds",
     }
 
-    def fix_dark_world(name: str):
+    def fix_dark_world(name: str) -> str:
         world, rest = name.split("/", 1)
         return f"{dark_world_mapping.get(world, world)}/{rest}"
 
-    def add_teleporter_node(name):
+    def add_teleporter_node(name: str) -> str:
         return migration_data.get_teleporter_area_to_node_mapping()[name]
 
     for game in json_dict["game_modifications"]:
@@ -123,15 +118,11 @@ def _migrate_v5(json_dict: dict) -> dict:
             for gate, item in game.pop("translators").items()
         }
 
-    return json_dict
 
-
-def _migrate_v6(json_dict: dict) -> dict:
+def _migrate_v6(json_dict: dict) -> None:
     area_name_heuristic = {
         "Tallon Overworld": "prime1",
         "Agon Wastes": "prime2",
-        "Bryyo - Fire": "prime3",
-        "Norfair": "super_metroid",
         "Artaria": "dread",
     }
 
@@ -148,10 +139,9 @@ def _migrate_v6(json_dict: dict) -> dict:
                     )
                 game["game"] = identify_game
                 break
-    return json_dict
 
 
-def _migrate_v7(json_dict: dict) -> dict:
+def _migrate_v7(json_dict: dict) -> None:
     renamed_items = {
         "3HP Life Capsule": "Small Life Capsule",
         "4HP Life Capsule": "Medium Life Capsule",
@@ -166,23 +156,17 @@ def _migrate_v7(json_dict: dict) -> dict:
             game["locations"][world] = {k: renamed_items.get(v, v) for k, v in locations.items()}
         game["starting_items"]["Missiles"] = 5
 
-    return json_dict
 
-
-def _migrate_v8(json_dict: dict) -> dict:
+def _migrate_v8(json_dict: dict) -> None:
     json_dict["info"]["randovania_version"] = json_dict["info"].pop("version")
     json_dict["info"]["randovania_version_git"] = "28492915"
 
-    return json_dict
 
-
-def _migrate_v9(json_dict: dict) -> dict:
+def _migrate_v9(json_dict: dict) -> None:
     json_dict["info"]["has_spoiler"] = "game_modifications" in json_dict
 
-    return json_dict
 
-
-def _migrate_v10(json_dict: dict) -> dict:
+def _migrate_v10(json_dict: dict) -> None:
     asset_id_conversion = {
         "prime2": {
             "1041207119": "Sanctuary Fortress/Sanctuary Energy Controller/Lore Scan",
@@ -238,53 +222,41 @@ def _migrate_v10(json_dict: dict) -> dict:
     for game in json_dict["game_modifications"]:
         game["hints"] = {asset_id_conversion[game["game"]][asset_id]: hint for asset_id, hint in game["hints"].items()}
 
-    return json_dict
 
-
-def _migrate_v11(json_dict: dict) -> dict:
+def _migrate_v11(json_dict: dict) -> None:
     for game in json_dict["game_modifications"]:
         game["dock_weakness"] = {}
         if game["game"] == "dread" and json_dict["info"][0]["configuration"]["extra_pickups_for_bosses"]:
             game["locations"]["Cataris"]["Kraid Arena/Pickup (Kraid)"] = "Energy Transfer Module"
 
-    return json_dict
 
-
-def _migrate_v12(json_dict: dict) -> dict:
+def _migrate_v12(json_dict: dict) -> None:
     for game in json_dict["game_modifications"]:
         if game["game"] == "dread":
             game["locations"].pop("Itorash")
             game["starting_items"].pop("Power Beam")
             game["starting_items"].pop("Power Suit")
 
-    return json_dict
 
-
-def _migrate_v13(json_dict: dict) -> dict:
+def _migrate_v13(json_dict: dict) -> None:
     for game in json_dict["game_modifications"]:
         world_name, area_name = game["starting_location"].split("/", 1)
-        node_name = migration_data.get_node_name_for_area(game["game"], world_name, area_name)
+        node_name = migration_data.get_node_name_for_area(RandovaniaGame(game["game"]), world_name, area_name)
         game["starting_location"] = f"{game['starting_location']}/{node_name}"
 
-    return json_dict
 
-
-def _migrate_v14(json_dict: dict) -> dict:
+def _migrate_v14(json_dict: dict) -> None:
     for game in json_dict["game_modifications"]:
         game["starting_equipment"] = {"items": game.pop("starting_items")}
 
-    return json_dict
 
-
-def _migrate_v15(json_dict: dict) -> dict:
+def _migrate_v15(json_dict: dict) -> None:
     for game in json_dict["game_modifications"]:
         game["dock_connections"] = {}
 
-    return json_dict
 
-
-def _migrate_v16(json_dict: dict) -> dict:
-    def _fix_node(name: str):
+def _migrate_v16(json_dict: dict) -> None:
+    def _fix_node(name: str) -> str:
         return name.replace(
             "Navigation Room",
             "Save Station",
@@ -294,10 +266,8 @@ def _migrate_v16(json_dict: dict) -> dict:
         if game["game"] == "dread":
             game["hints"] = {_fix_node(node): hint for node, hint in game["hints"].items()}
 
-    return json_dict
 
-
-def _migrate_v17(json_dict: dict) -> dict:
+def _migrate_v17(json_dict: dict) -> None:
     for game in json_dict["game_modifications"]:
         for hint in game["hints"].values():
             if (precision := hint.get("precision")) is not None:
@@ -310,10 +280,8 @@ def _migrate_v17(json_dict: dict) -> dict:
                 elif precision["location"] == "world-only":
                     precision["location"] = "region-only"
 
-    return json_dict
 
-
-def _migrate_v18(data: dict) -> dict:
+def _migrate_v18(data: dict) -> None:
     for game in data["game_modifications"]:
         game_name = game["game"]
         if game_name in {"prime1", "prime2"}:
@@ -327,14 +295,12 @@ def _migrate_v18(data: dict) -> dict:
         else:
             game.pop("teleporters")
 
-    return data
 
-
-def _migrate_v19(data: dict) -> dict:
+def _migrate_v19(data: dict) -> None:
     game_mod = data["game_modifications"]
     for game in game_mod:
         game_name = game["game"]
-        if game_name in {"prime1", "prime2", "prime3"}:
+        if game_name in {"prime1", "prime2"}:
             mapping = migration_data.get_raw_data(RandovaniaGame(game_name))["rename_teleporter_nodes"]
 
             # starting location migration
@@ -364,10 +330,8 @@ def _migrate_v19(data: dict) -> dict:
                 new_target = mapping.get(id_to, id_to)
                 dock_connections[id_from] = new_target
 
-    return data
 
-
-def _migrate_v20(data: dict) -> dict:
+def _migrate_v20(data: dict) -> None:
     game_modifications = data["game_modifications"]
 
     for game in game_modifications:
@@ -385,10 +349,8 @@ def _migrate_v20(data: dict) -> dict:
             elif weakness["name"] == "Bomb Door":
                 weakness["name"] = "Bomb Blast Shield"
 
-    return data
 
-
-def _migrate_v21(data: dict) -> dict:
+def _migrate_v21(data: dict) -> None:
     game_modifications = data["game_modifications"]
 
     for game in game_modifications:
@@ -404,20 +366,16 @@ def _migrate_v21(data: dict) -> dict:
             if old_name in dock_weakness:
                 dock_weakness[new_name] = dock_weakness.pop(old_name)
 
-    return data
 
-
-def _migrate_v22(data: dict) -> dict:
+def _migrate_v22(data: dict) -> None:
     game_modifications = data["game_modifications"]
 
     for game in game_modifications:
         if "elevators" in game:
             game["teleporters"] = game.pop("elevators")
 
-    return data
 
-
-def _migrate_v23(data: dict) -> dict:
+def _migrate_v23(data: dict) -> None:
     game_modifications = data["game_modifications"]
 
     for game in game_modifications:
@@ -439,10 +397,8 @@ def _migrate_v23(data: dict) -> dict:
                 if old_area_name in region_location:
                     region_location[new_area_name] = region_location.pop(old_area_name)
 
-    return data
 
-
-def _migrate_v24(data: dict) -> dict:
+def _migrate_v24(data: dict) -> None:
     game_modifications = data["game_modifications"]
 
     for game in game_modifications:
@@ -465,13 +421,11 @@ def _migrate_v24(data: dict) -> dict:
                 if item in new_ammo_mapping:
                     locations[node] = new_ammo_mapping[item]
 
-    return data
 
-
-def _migrate_v25(data: dict) -> dict:
+def _migrate_v25(data: dict) -> None:
     is_mw_session = len(data["info"]["presets"]) > 1
     if not is_mw_session:
-        return data
+        return
 
     game_modifications = data["game_modifications"]
     all_am2r_players = [
@@ -499,10 +453,8 @@ def _migrate_v25(data: dict) -> dict:
                 if item_name in new_ammo_mapping:
                     locations[node] = f"{new_ammo_mapping[item_name]} for {player_name}"
 
-    return data
 
-
-def _migrate_v26(data: dict) -> dict:
+def _migrate_v26(data: dict) -> None:
     for game in data["game_modifications"]:
         configurable_nodes: dict[str, dict] = game.pop("configurable_nodes")
         game["game_specific"] = {}
@@ -526,10 +478,8 @@ def _migrate_v26(data: dict) -> dict:
             identifier: convert_to_enum(requirement) for identifier, requirement in configurable_nodes.items()
         }
 
-    return data
 
-
-def _migrate_v27(data: dict) -> dict:
+def _migrate_v27(data: dict) -> None:
     game_modifications = data["game_modifications"]
 
     for game in game_modifications:
@@ -554,10 +504,8 @@ def _migrate_v27(data: dict) -> dict:
                 if old_name in dock_weakness.keys():
                     dock_weakness[new_name] = dock_weakness.pop(old_name)
 
-    return data
 
-
-def _migrate_v28(data: dict) -> dict:
+def _migrate_v28(data: dict) -> None:
     game_modifications = data["game_modifications"]
 
     for game in game_modifications:
@@ -572,7 +520,360 @@ def _migrate_v28(data: dict) -> dict:
                 if old_name in dock_weakness.keys():
                     dock_weakness[new_name] = dock_weakness.pop(old_name)
 
-    return data
+
+def _migrate_v29(data: dict) -> None:
+    game_modifications = data["game_modifications"]
+
+    for game in game_modifications:
+        for hint in game["hints"].values():
+            hint_type = hint["hint_type"]
+
+            if hint_type != "red-temple-key-set":
+                hint.pop("dark_temple", None)
+            if hint_type != "location":
+                hint.pop("precision", None)
+                hint.pop("target", None)
+
+
+def _migrate_hint_precision(data: dict, item_precisions_to_migrate: set[str]) -> None:
+    game_modifications = data["game_modifications"]
+
+    for game in game_modifications:
+        game_enum = RandovaniaGame(game["game"])
+        location_precision = migration_data.get_hint_location_precision_data(game_enum)
+
+        for hint in game["hints"].values():
+            if hint["hint_type"] != "location":
+                continue
+
+            precision = hint["precision"]
+            if precision.get("location") in location_precision:
+                precision["location_feature"] = location_precision[precision.pop("location")]
+
+            def migrate_precision(_precision: dict, target: int, old_key: str, new_key: str) -> None:
+                correct_name, area_and_node = migration_data.get_node_keys_for_pickup_index(game_enum, target)
+
+                target_name = game["locations"][correct_name][area_and_node]
+                target_name_re = re.compile(r"(.*) for Player (\d+)")
+
+                if target_name == "Energy Transfer Module":
+                    # who cares, honestly
+                    _precision[old_key] = "detailed"
+                    return
+
+                pickup_name_match = target_name_re.match(target_name)
+                if pickup_name_match is not None:
+                    pickup_name = pickup_name_match.group(1)
+                    target_player = int(pickup_name_match.group(2)) - 1
+                else:
+                    pickup_name = target_name
+                    target_player = 0
+
+                target_game = RandovaniaGame(game_modifications[target_player]["game"])
+                old_categories = migration_data.get_old_hint_categories(target_game)
+
+                if pickup_name in old_categories:
+                    item_data = old_categories[pickup_name]
+                else:
+                    # generated pickups
+                    item_data = next(data for name, data in old_categories.items() if pickup_name.startswith(name))
+
+                _precision[new_key] = item_data[_precision.pop(old_key)]
+
+            if precision.get("item") in item_precisions_to_migrate:
+                migrate_precision(precision, hint["target"], "item", "item_feature")
+
+            if (
+                (relative := precision.get("relative")) is not None
+                and ("area_location" not in relative)
+                and (relative.get("precision") in item_precisions_to_migrate)
+            ):
+                migrate_precision(relative, relative["other_index"], "precision", "precision_feature")
+
+
+def _migrate_v30(data: dict) -> None:
+    _migrate_hint_precision(data, {"precise-category", "general-category"})
+
+
+def _migrate_v31(data: dict) -> None:
+    _migrate_hint_precision(data, {"broad-category"})
+
+
+def _migrate_v32(data: dict) -> None:
+    game_modifications = data["game_modifications"]
+
+    for game in game_modifications:
+        game_name = game["game"]
+        if game_name != "samus_returns":
+            continue
+
+        migration = migration_data.get_raw_data(RandovaniaGame(game_name))["a4_crystal_mines_typo"]
+        for region, area_data in migration["area"].items():
+            for old_area_name, new_area_name in area_data.items():
+                region_location = game["locations"][region]
+                if old_area_name in region_location:
+                    region_location[new_area_name] = region_location.pop(old_area_name)
+
+
+def _migrate_v33(data: dict) -> None:
+    game_modifications = data["game_modifications"]
+
+    for game in game_modifications:
+        if game["game"] == "prime2":
+            banned_pickups = ["Cannon Ball", "Unlimited Beam Ammo", "Unlimited Missiles", "Double Damage"]
+            if "pickups" in game["starting_equipment"]:
+                starting_pickups = game["starting_equipment"]["pickups"]
+                for pickup in banned_pickups:
+                    if pickup in starting_pickups:
+                        starting_pickups.remove(pickup)
+
+
+def _migrate_v34(data: dict) -> None:
+    game_modifications = data["game_modifications"]
+
+    def replace(identifier: str, mapping: dict[str, str]) -> str:
+        region, area, node = identifier.split("/", 2)
+        new_region = mapping.get(f"{region}/{area}")
+        if new_region is not None:
+            return f"{new_region}/{area}/{node}"
+        return identifier
+
+    def fix_elevator(conn: dict[str, str], old_name: str, new_name: str) -> None:
+        conn[new_name] = conn.pop(old_name)
+        for key, target in conn.items():
+            if target == old_name:
+                conn[key] = new_name
+
+    for game in game_modifications:
+        if game["game"] in {"prime2", "cave_story"}:
+            rename = migration_data.get_raw_data(RandovaniaGame(game["game"]))["in_dark_world_rename"]
+
+            game["starting_location"] = replace(game["starting_location"], rename)
+
+            # For some time we've split dark world in the layout files
+            # but never migrated very old ones
+            for region_name, data in list(game["locations"].items()):
+                for pickup_node, pickup_entry in list(data.items()):
+                    combo = f"{region_name}/{pickup_node.split('/', 1)[0]}"
+                    if combo in rename:
+                        new_region = rename[combo]
+                        if new_region not in game["locations"]:
+                            game["locations"][new_region] = {}
+                        game["locations"][new_region][pickup_node] = data.pop(pickup_node)
+
+            for source_name, target_name in list(game["dock_connections"].items()):
+                new_source = replace(source_name, rename)
+                new_target = replace(target_name, rename)
+
+                if new_source != source_name:
+                    game["dock_connections"].pop(source_name)
+
+                game["dock_connections"][new_source] = new_target
+
+            for source_name, target in list(game["dock_weakness"].items()):
+                new_source = replace(source_name, rename)
+                if new_source != source_name:
+                    game["dock_weakness"][new_source] = game["dock_weakness"].pop(source_name)
+
+            for source_name, hint in list(game["hints"].items()):
+                if hint["hint_type"] == "location":
+                    if hint["precision"].get("location") == "relative-to-area":
+                        area_location = hint["precision"]["relative"]["area_location"]
+                        region_rename = rename.get(f"{area_location['region']}/{area_location['area']}")
+                        if region_rename:
+                            area_location["region"] = region_rename
+
+                new_source = replace(source_name, rename)
+                if new_source != source_name:
+                    game["hints"][new_source] = game["hints"].pop(source_name)
+
+        if game["game"] == "prime2":
+            fix_elevator(
+                game["dock_connections"],
+                "Sky Temple Grounds/Sky Temple Gateway/Elevator to Great Temple",
+                "Sky Temple Grounds/Sky Temple Gateway/Elevator to Sky Temple",
+            )
+            fix_elevator(
+                game["dock_connections"],
+                "Sky Temple/Sky Temple Energy Controller/Elevator to Temple Grounds",
+                "Sky Temple/Sky Temple Energy Controller/Elevator to Sky Temple Grounds",
+            )
+
+
+def _migrate_v35(data: dict) -> None:
+    game_modifications = data["game_modifications"]
+
+    for index, game in enumerate(game_modifications):
+        for region in game["locations"].keys():
+            for location, pickup in game["locations"][region].items():
+                if "Energy Transfer Module" in pickup:
+                    # Formatted so because some older rdvgames append "for player X" to ETMs
+                    # Bad migration perhaps? idk
+                    game_modifications[index]["locations"][region].update({location: "Nothing"})
+
+
+def _migrate_v36(data: dict) -> None:
+    game_modifications = data["game_modifications"]
+
+    for game in game_modifications:
+        game_name = game["game"]
+        if game_name != "am2r":
+            continue
+        pickups = game["starting_equipment"]["pickups"]
+        pickups.remove("Power Beam")
+        pickups.append("Arm Cannon")
+
+
+def _migrate_v37(data: dict) -> None:
+    assignment_re = re.compile(r"(.*) for Player (\d+)")
+
+    for world, game in enumerate(data["game_modifications"]):
+        new_locations = []
+        pickup_to_node = migration_data.get_raw_data(RandovaniaGame(game["game"]))["pickup_index_to_node"]
+        for region, assignments in game["locations"].items():
+            for location, assignment in assignments.items():
+                assignment_match = assignment_re.match(assignment)
+                if assignment_match is not None:
+                    pickup = assignment_match.group(1)
+                    owner = int(assignment_match.group(2)) - 1
+                else:
+                    pickup = assignment
+                    owner = world
+
+                node_identifier = f"{region}/{location}"
+
+                pickup_index = None
+                for index, region_and_area in pickup_to_node.items():
+                    if region_and_area["region"] == region and region_and_area["area_and_node"] == location:
+                        pickup_index = index
+                        break
+
+                # Samus Returns had one pickup naming migration after, and I didn't want to create
+                # a whole new migration field just because of that
+                if (
+                    game["game"] == "samus_returns"
+                    and region == "Area 4 Crystal Mines"
+                    and location == "Gamma+ Arena/Pickup (DNA)"
+                ):
+                    pickup_index = 198
+
+                assert pickup_index is not None, f"Unknown pickup index for {node_identifier}"
+
+                r, a, n = node_identifier.split("/")
+                new_locations.append(
+                    {
+                        "node_identifier": {"region": r, "area": a, "node": n},
+                        "index": int(pickup_index),
+                        "pickup": pickup,
+                        "owner": owner,
+                    }
+                )
+
+        game["locations"] = new_locations
+
+
+def _migrate_v38(data: dict) -> None:
+    replacement_features = {
+        "morph_ball_related": "morph_ball",
+        "beam_related": "beam",
+        "missile_related": "missile",
+        "misc": "bonus",
+        "key": "dna",
+    }
+
+    am2r_worlds = [world_index for world_index, game in enumerate(data["game_modifications"]) if game["game"] == "am2r"]
+    for world_index, game_mod in enumerate(data["game_modifications"]):
+        for hint in game_mod["hints"].values():
+            if hint["hint_type"] != "location":
+                continue
+
+            precision = hint["precision"]
+            if not (feature := precision.get("item_feature")):
+                continue
+            if feature not in replacement_features:
+                continue
+
+            # Check now if it's hinting an am2r world and if yes change the feature
+            pickup_index = hint["target"]
+            is_for_am2r = False
+            for location in game_mod["locations"]:
+                if location["index"] != pickup_index:
+                    continue
+
+                is_for_am2r = location["owner"] in am2r_worlds
+                break
+
+            if is_for_am2r:
+                hint["precision"]["item_feature"] = replacement_features[feature]
+
+
+def _migrate_v39(data: dict) -> None:
+    replacement_features = {
+        "morph_ball_related": "morph_ball",
+        "beam_related": "beam",
+        "missile_related": "missile",
+    }
+
+    msr_worlds = [
+        world_index for world_index, game in enumerate(data["game_modifications"]) if game["game"] == "samus_returns"
+    ]
+    for world_index, game_mod in enumerate(data["game_modifications"]):
+        for hint in game_mod["hints"].values():
+            if hint["hint_type"] != "location":
+                continue
+
+            precision = hint["precision"]
+            if not (feature := precision.get("item_feature")):
+                continue
+            if feature not in replacement_features:
+                continue
+
+            # Check now if it's hinting an msr world and if yes change the feature
+            pickup_index = hint["target"]
+            is_for_msr = False
+            for location in game_mod["locations"]:
+                if location["index"] != pickup_index:
+                    continue
+
+                is_for_msr = location["owner"] in msr_worlds
+                break
+
+            if is_for_msr:
+                hint["precision"]["item_feature"] = replacement_features[feature]
+
+
+def _migrate_v40(data: dict) -> None:
+    game_modifications = data["game_modifications"]
+
+    for game in game_modifications:
+        game_name = game["game"]
+        if game_name != "fusion":
+            continue
+
+        doors_to_migrate = migration_data.get_raw_data(RandovaniaGame(game["game"]))["elevator_rename_doors"]
+        for target_door in list(game["dock_weakness"].items()):
+            if target_door[0] in doors_to_migrate:
+                game["dock_weakness"][doors_to_migrate[target_door[0]]] = game["dock_weakness"].pop(target_door[0])
+
+        item_locations = {
+            "Glass Tube to Sector 5 (ARC)": "Sector 3 (PYR) Westbound Glass Tube",
+            "Cargo Hold to Sector 5 (ARC)": "Cargo Hold",
+            "Flooded Airlock to Sector 4 (AQA)": "Flooded Airlock",
+            "Ridley Arena": "Neo-Ridley Arena",
+            "Zoro Zig-Zag": "Zig-Zag-Zone",
+        }
+        for location in game["locations"]:
+            node = location["node_identifier"]
+            area = node["area"]
+            node["area"] = item_locations.get(area, area)
+
+
+def _migrate_v41(data: dict) -> None:
+    for game in data["game_modifications"]:
+        if game["game"] != "samus_returns":
+            continue
+
+        game["game_specific"]["charge_door_burst_buff"] = False
 
 
 _MIGRATIONS = [
@@ -604,6 +905,19 @@ _MIGRATIONS = [
     _migrate_v26,  # configurable nodes -> game_specific
     _migrate_v27,
     _migrate_v28,
+    _migrate_v29,  # hint type refactor
+    _migrate_v30,  # migrate some HintLocationPrecision and HintItemPrecision to HintFeature
+    _migrate_v31,  # remove HintLocationPrecision.BROAD_CATEGORY
+    _migrate_v32,  # MSR Rename Area 4 Crystal Mines - Gamma Arena to Gamma+ Arena
+    _migrate_v33,
+    _migrate_v34,  # removal of in_dark_aether
+    _migrate_v35,  # rename ETMs to Nothing
+    _migrate_v36,  # am2r: repurpose power beam to arm cannon
+    _migrate_v37,  # Refactor how the "locations" field is saved.
+    _migrate_v38,  # Redo am2r pickup features
+    _migrate_v39,  # Redo msr pickup features
+    _migrate_v40,  # Renamed Fusion rooms that reference other sectors or unofficial enemy names
+    _migrate_v41,  # MSR: force charge_door_burst_buff off for old seeds via game_specific
 ]
 CURRENT_VERSION = migration_lib.get_version(_MIGRATIONS)
 

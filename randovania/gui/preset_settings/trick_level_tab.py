@@ -11,8 +11,8 @@ from randovania.games.prime1.layout.prime_configuration import PrimeConfiguratio
 from randovania.gui.dialog.trick_details_popup import BaseResourceDetailsPopup, ResourceDetailsPopup, TrickDetailsPopup
 from randovania.gui.generated.preset_trick_level_ui import Ui_PresetTrickLevel
 from randovania.gui.lib import signal_handling
-from randovania.gui.lib.scroll_protected import ScrollProtectedSlider
 from randovania.gui.preset_settings.preset_tab import PresetTab
+from randovania.gui.widgets.scroll_protected import ScrollProtectedSlider
 from randovania.layout.base.trick_level import LayoutTrickLevel
 from randovania.layout.lib import trick_lib
 from randovania.lib import enum_lib
@@ -26,7 +26,7 @@ if TYPE_CHECKING:
 
 
 class PresetTrickLevel(PresetTab, Ui_PresetTrickLevel):
-    def __init__(self, editor: PresetEditor, game_description: GameDescription, window_manager: WindowManager):
+    def __init__(self, editor: PresetEditor, game_description: GameDescription, window_manager: WindowManager) -> None:
         super().__init__(editor, game_description, window_manager)
         self.setupUi(self)
 
@@ -40,7 +40,6 @@ class PresetTrickLevel(PresetTab, Ui_PresetTrickLevel):
         tricks_in_use = trick_lib.used_tricks(self.game_description)
         size_policy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Preferred)
 
-        self.trick_level_line_1.setVisible(self.game_enum != RandovaniaGame.METROID_PRIME_CORRUPTION)
         self.underwater_abuse_label.setText(self.underwater_abuse_label.text().replace("color:#0000ff;", ""))
 
         if self.game_enum != RandovaniaGame.METROID_PRIME:

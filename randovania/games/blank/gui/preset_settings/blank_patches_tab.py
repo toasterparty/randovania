@@ -14,7 +14,7 @@ if TYPE_CHECKING:
     from randovania.layout.preset import Preset
 
 
-class PresetBlankPatches(PresetTab):
+class PresetBlankPatches(PresetTab[BlankConfiguration]):
     def __init__(self, editor: PresetEditor, game_description: GameDescription, window_manager: WindowManager):
         super().__init__(editor, game_description, window_manager)
 
@@ -34,7 +34,7 @@ class PresetBlankPatches(PresetTab):
         self.setCentralWidget(self.root_widget)
 
         # Signals
-        self.include_extra_pickups_check.stateChanged.connect(self._persist_option_then_notify("include_extra_pickups"))
+        self.include_extra_pickups_check.stateChanged.connect(self._persist_bool("include_extra_pickups"))
 
     @classmethod
     def tab_title(cls) -> str:
@@ -44,7 +44,6 @@ class PresetBlankPatches(PresetTab):
     def header_name(cls) -> str | None:
         return cls.GAME_MODIFICATIONS_HEADER
 
-    def on_preset_changed(self, preset: Preset) -> None:
+    def on_preset_changed(self, preset: Preset[BlankConfiguration]) -> None:
         config = preset.configuration
-        assert isinstance(config, BlankConfiguration)
         self.include_extra_pickups_check.setChecked(config.include_extra_pickups)

@@ -1,12 +1,13 @@
 from __future__ import annotations
 
 import copy
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, ClassVar
 
 from randovania.game_description.db.dock_node import DockNode
 from randovania.games.dread.gui.generated.preset_teleporters_dread_ui import (
     Ui_PresetTeleportersDread,
 )
+from randovania.games.dread.layout.dread_configuration import DreadConfiguration
 from randovania.gui.lib import signal_handling
 from randovania.gui.lib.node_list_helper import NodeListHelper
 from randovania.gui.preset_settings.preset_teleporter_tab import PresetTeleporterTab
@@ -17,28 +18,23 @@ from randovania.layout.lib.teleporters import (
 )
 
 if TYPE_CHECKING:
-    from PySide6 import QtWidgets
-
-    from randovania.game_description.db.area import Area
     from randovania.game_description.db.node_identifier import NodeIdentifier
     from randovania.game_description.game_description import GameDescription
-    from randovania.games.dread.layout.dread_configuration import DreadConfiguration
     from randovania.gui.lib.window_manager import WindowManager
     from randovania.interface_common.preset_editor import PresetEditor
     from randovania.layout.preset import Preset
 
 
 class PresetTeleportersDread(PresetTeleporterTab, Ui_PresetTeleportersDread, NodeListHelper):
-    teleporter_mode_to_description = {
+    teleporter_mode_to_description: ClassVar[dict[TeleporterShuffleMode, str]] = {
         TeleporterShuffleMode.VANILLA: "All transporters are connected to where they do in the original game.",
         TeleporterShuffleMode.TWO_WAY_RANDOMIZED: (
             "After taking a transporter, the transporter in the room you are in will bring you back to where you were. "
-            "An transporter will never connect to another in the same region. "
+            "A transporter will never connect to another in the same region. "
             "This is the only non-vanilla setting which guarantees that all regions are reachable."
         ),
         TeleporterShuffleMode.TWO_WAY_UNCHECKED: (
-            "After taking an transporter, the transporter in the room you are in"
-            " will bring you back to where you were."
+            "After taking a transporter, the transporter in the room you are in will bring you back to where you were."
         ),
         TeleporterShuffleMode.ONE_WAY_TELEPORTER: (
             "All transporters bring you to an elevator room, but going backwards can go somewhere else. "
@@ -70,19 +66,15 @@ class PresetTeleportersDread(PresetTeleporterTab, Ui_PresetTeleportersDread, Nod
     def header_name(cls) -> str | None:
         return cls.GAME_MODIFICATIONS_HEADER
 
-    def _create_source_teleporters(self):
+    def _create_source_teleporters(self) -> None:
         row = 0
         region_list = self.game_description.region_list
 
         locations = TeleporterList.nodes_list(self.game_enum)
-        node_identifiers: dict[NodeIdentifier, Area] = {
-            loc: region_list.area_by_area_location(loc.area_identifier) for loc in locations
-        }
-        checks: dict[NodeIdentifier, QtWidgets.QCheckBox] = {
-            loc: self._create_check_for_source_teleporters(loc) for loc in locations
-        }
+        node_identifiers = {loc: region_list.area_by_area_location(loc.area_identifier) for loc in locations}
+        checks = {loc: self._create_check_for_source_teleporters(loc) for loc in locations}
         self._teleporters_source_for_location = copy.copy(checks)
-        self._teleporters_source_destination = {}
+        self._teleporters_source_destination: dict[NodeIdentifier, NodeIdentifier | None] = {}
 
         for location in sorted(locations, key=lambda loc: (0, checks[loc].text())):
             if location not in checks:
@@ -115,8 +107,9 @@ class PresetTeleportersDread(PresetTeleporterTab, Ui_PresetTeleportersDread, Nod
 
             row += 1
 
-    def on_preset_changed(self, preset: Preset):
-        config: DreadConfiguration = preset.configuration
+    def on_preset_changed(self, preset: Preset) -> None:
+        assert isinstance(preset.configuration, DreadConfiguration)
+        config = preset.configuration
         config_teleporters: TeleporterConfiguration = config.teleporters
 
         descriptions = [
@@ -135,7 +128,10 @@ class PresetTeleportersDread(PresetTeleporterTab, Ui_PresetTeleportersDread, Nod
 
         for origin, destination in self._teleporters_source_destination.items():
             origin_check = self._teleporters_source_for_location[origin]
-            dest_check = self._teleporters_source_for_location.get(destination)
+            if destination is None:
+                dest_check = None
+            else:
+                dest_check = self._teleporters_source_for_location.get(destination)
 
             assert origin_check or dest_check
 

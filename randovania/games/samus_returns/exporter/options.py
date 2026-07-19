@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import dataclasses
 from pathlib import Path
+from typing import override
 
 from randovania.game.game_enum import RandovaniaGame
 from randovania.games.samus_returns.exporter.game_exporter import MSRModPlatform
@@ -11,7 +12,7 @@ from randovania.interface_common.options import PerGameOptions, decode_if_not_no
 @dataclasses.dataclass(frozen=True)
 class MSRPerGameOptions(PerGameOptions):
     input_file: Path | None = None
-    target_platform: MSRModPlatform = MSRModPlatform.CITRA
+    target_platform: MSRModPlatform = MSRModPlatform.AZAHAR
     output_preference: str | None = None
 
     @property
@@ -33,3 +34,8 @@ class MSRPerGameOptions(PerGameOptions):
             target_platform=MSRModPlatform(value["target_platform"]),
             output_preference=value["output_preference"],
         )
+
+    @classmethod
+    @override
+    def game_enum(cls) -> RandovaniaGame:
+        return RandovaniaGame.METROID_SAMUS_RETURNS

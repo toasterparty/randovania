@@ -1,5 +1,5 @@
 {
-    "schema_version": 27,
+    "schema_version": 33,
     "game": "fusion",
     "resource_database": {
         "items": {
@@ -7,465 +7,548 @@
                 "long_name": "Charge Beam",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "ChargeBeam",
+                    "item": "CHARGE_BEAM",
                     "StartingItemCategory": "Abilities",
-                    "StartingItemName": "ChargeBeam"
+                    "StartingItemName": "CHARGE_BEAM",
+                    "Jingle": "MAJOR",
+                    "MessageID": 18
                 }
             },
             "WideBeam": {
                 "long_name": "Wide Beam",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "WideBeam",
+                    "item": "WIDE_BEAM",
                     "StartingItemCategory": "Abilities",
-                    "StartingItemName": "WideBeam"
+                    "StartingItemName": "WIDE_BEAM",
+                    "Jingle": "MAJOR",
+                    "MessageID": 19
                 }
             },
             "PlasmaBeam": {
                 "long_name": "Plasma Beam",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "PlasmaBeam",
+                    "item": "PLASMA_BEAM",
                     "StartingItemCategory": "Abilities",
-                    "StartingItemName": "PlasmaBeam"
+                    "StartingItemName": "PLASMA_BEAM",
+                    "Jingle": "MAJOR",
+                    "MessageID": 21
                 }
             },
             "WaveBeam": {
                 "long_name": "Wave Beam",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "WaveBeam",
+                    "item": "WAVE_BEAM",
                     "StartingItemCategory": "Abilities",
-                    "StartingItemName": "WaveBeam"
+                    "StartingItemName": "WAVE_BEAM",
+                    "Jingle": "MAJOR",
+                    "MessageID": 20
                 }
             },
             "IceBeam": {
                 "long_name": "Ice Beam",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "IceBeam",
+                    "item": "ICE_BEAM",
                     "StartingItemCategory": "Abilities",
-                    "StartingItemName": "IceBeam"
+                    "StartingItemName": "ICE_BEAM",
+                    "Jingle": "MAJOR",
+                    "MessageID": 22
                 }
             },
             "MissileData": {
                 "long_name": "Missile Data",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "Missiles",
+                    "item": "MISSILES",
                     "StartingItemCategory": "Abilities",
-                    "StartingItemName": "Missiles"
+                    "StartingItemName": "MISSILES",
+                    "Jingle": "MAJOR",
+                    "MessageID": 5
                 }
             },
             "Missiles": {
                 "long_name": "Missiles",
                 "max_capacity": 999,
                 "extra": {
-                    "item": "MissileTank",
+                    "item": "MISSILE_TANK",
                     "StartingItemCategory": "Missiles",
-                    "StartingItemName": "MissileTank"
+                    "StartingItemName": "MISSILE_TANK",
+                    "Jingle": "MINOR",
+                    "MessageID": 51
                 }
             },
             "SuperMissileData": {
                 "long_name": "Super Missile Data",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "SuperMissiles",
+                    "item": "SUPER_MISSILES",
                     "StartingItemCategory": "Abilities",
-                    "StartingItemName": "SuperMissiles"
+                    "StartingItemName": "SUPER_MISSILES",
+                    "Jingle": "MAJOR",
+                    "MessageID": 6
                 }
             },
             "IceMissileData": {
                 "long_name": "Ice Missile Data",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "IceMissiles",
+                    "item": "ICE_MISSILES",
                     "StartingItemCategory": "Abilities",
-                    "StartingItemName": "IceMissiles"
+                    "StartingItemName": "ICE_MISSILES",
+                    "Jingle": "MAJOR",
+                    "MessageID": 9
                 }
             },
             "DiffusionMissileData": {
                 "long_name": "Diffusion Missile Data",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "DiffusionMissiles",
+                    "item": "DIFFUSION_MISSILES",
                     "StartingItemCategory": "Abilities",
-                    "StartingItemName": "DiffusionMissiles"
+                    "StartingItemName": "DIFFUSION_MISSILES",
+                    "Jingle": "MAJOR",
+                    "MessageID": 10
                 }
             },
             "MorphBall": {
                 "long_name": "Morph Ball",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "MorphBall",
+                    "item": "MORPH_BALL",
                     "StartingItemCategory": "Abilities",
-                    "StartingItemName": "MorphBall"
+                    "StartingItemName": "MORPH_BALL",
+                    "Jingle": "MAJOR",
+                    "MessageID": 11
                 }
             },
             "MorphBallBombData": {
                 "long_name": "Morph Ball Bomb Data",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "Bombs",
+                    "item": "BOMBS",
                     "StartingItemCategory": "Abilities",
-                    "StartingItemName": "Bombs"
+                    "StartingItemName": "BOMBS",
+                    "Jingle": "MAJOR",
+                    "MessageID": 7
                 }
             },
             "PowerBombData": {
                 "long_name": "Power Bomb Data",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "PowerBombs",
+                    "item": "POWER_BOMBS",
                     "StartingItemCategory": "Abilities",
-                    "StartingItemName": "PowerBombs"
+                    "StartingItemName": "POWER_BOMBS",
+                    "Jingle": "MAJOR",
+                    "MessageID": 8
                 }
             },
             "PowerBombs": {
                 "long_name": "Power Bombs",
                 "max_capacity": 99,
                 "extra": {
-                    "item": "PowerBombTank",
+                    "item": "POWER_BOMB_TANK",
                     "StartingItemCategory": "PowerBombs",
-                    "StartingItemName": "PowerBombTank"
+                    "StartingItemName": "POWER_BOMB_TANK",
+                    "Jingle": "MINOR",
+                    "MessageID": 52
                 }
             },
             "Hi-Jump": {
                 "long_name": "Hi-Jump",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "HiJump",
+                    "item": "HI_JUMP",
                     "StartingItemCategory": "Abilities",
-                    "StartingItemName": "HiJump"
+                    "StartingItemName": "HI_JUMP",
+                    "Jingle": "MAJOR",
+                    "MessageID": 12
                 }
             },
             "SpaceJump": {
                 "long_name": "Space Jump",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "SpaceJump",
+                    "item": "SPACE_JUMP",
                     "StartingItemCategory": "Abilities",
-                    "StartingItemName": "SpaceJump"
+                    "StartingItemName": "SPACE_JUMP",
+                    "Jingle": "MAJOR",
+                    "MessageID": 14
                 }
             },
             "SpeedBooster": {
                 "long_name": "Speed Booster",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "SpeedBooster",
+                    "item": "SPEED_BOOSTER",
                     "StartingItemCategory": "Abilities",
-                    "StartingItemName": "SpeedBooster"
+                    "StartingItemName": "SPEED_BOOSTER",
+                    "Jingle": "MAJOR",
+                    "MessageID": 15
                 }
             },
             "ScrewAttack": {
                 "long_name": "Screw Attack",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "ScrewAttack",
+                    "item": "SCREW_ATTACK",
                     "StartingItemCategory": "Abilities",
-                    "StartingItemName": "ScrewAttack"
+                    "StartingItemName": "SCREW_ATTACK",
+                    "Jingle": "MAJOR",
+                    "MessageID": 13
                 }
             },
             "VariaSuit": {
                 "long_name": "Varia Suit",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "VariaSuit",
+                    "item": "VARIA_SUIT",
                     "StartingItemCategory": "Abilities",
-                    "StartingItemName": "VariaSuit"
+                    "StartingItemName": "VARIA_SUIT",
+                    "Jingle": "MAJOR",
+                    "MessageID": 16
                 }
             },
             "GravitySuit": {
                 "long_name": "Gravity Suit",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "GravitySuit",
+                    "item": "GRAVITY_SUIT",
                     "StartingItemCategory": "Abilities",
-                    "StartingItemName": "GravitySuit"
+                    "StartingItemName": "GRAVITY_SUIT",
+                    "Jingle": "MAJOR",
+                    "MessageID": 17
                 }
+            },
+            "BothSuits": {
+                "long_name": "Both Suits",
+                "max_capacity": 2,
+                "extra": {}
             },
             "EnergyTank": {
                 "long_name": "Energy Tank",
                 "max_capacity": 20,
                 "extra": {
-                    "item": "EnergyTank",
+                    "item": "ENERGY_TANK",
                     "StartingItemCategory": "Energy",
-                    "StartingItemName": "EnergyTank"
+                    "StartingItemName": "ENERGY_TANK",
+                    "Jingle": "MINOR",
+                    "MessageID": 50
                 }
             },
             "LockedMissiles": {
                 "long_name": "Locked Missiles",
                 "max_capacity": 999,
                 "extra": {
-                    "item": "MissileTank",
+                    "item": "MISSILE_TANK",
                     "StartingItemCategory": "Missiles",
-                    "StartingItemName": "MissileTank"
+                    "StartingItemName": "MISSILE_TANK",
+                    "Jingle": "MINOR",
+                    "MessageID": 51
                 }
             },
             "LockedPowerBombs": {
                 "long_name": "Locked Power Bombs",
                 "max_capacity": 99,
                 "extra": {
-                    "item": "PowerBombTank",
+                    "item": "POWER_BOMB_TANK",
                     "StartingItemCategory": "PowerBombs",
-                    "StartingItemName": "PowerBombTank"
+                    "StartingItemName": "POWER_BOMB_TANK",
+                    "Jingle": "MINOR",
+                    "MessageID": 52
                 }
             },
             "Nothing": {
                 "long_name": "Nothing",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "None",
+                    "item": "NONE",
                     "StartingItemCategory": "None",
-                    "StartingItemName": "None"
+                    "StartingItemName": "NONE",
+                    "Jingle": "MINOR",
+                    "MessageID": 55
                 }
             },
             "L0Locks": {
                 "long_name": "Level 0 Keycard",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "Level0",
+                    "item": "LEVEL_0",
                     "StartingItemCategory": "SecurityLevels",
-                    "StartingItemName": 0
+                    "StartingItemName": 0,
+                    "Jingle": "MAJOR",
+                    "MessageID": 0
                 }
             },
             "L1Locks": {
                 "long_name": "Level 1 Keycard",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "Level1",
+                    "item": "LEVEL_1",
                     "StartingItemCategory": "SecurityLevels",
-                    "StartingItemName": 1
+                    "StartingItemName": 1,
+                    "Jingle": "MAJOR",
+                    "MessageID": 1
                 }
             },
             "L2Locks": {
                 "long_name": "Level 2 Keycard",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "Level2",
+                    "item": "LEVEL_2",
                     "StartingItemCategory": "SecurityLevels",
-                    "StartingItemName": 2
+                    "StartingItemName": 2,
+                    "Jingle": "MAJOR",
+                    "MessageID": 2
                 }
             },
             "L3Locks": {
                 "long_name": "Level 3 Keycard",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "Level3",
+                    "item": "LEVEL_3",
                     "StartingItemCategory": "SecurityLevels",
-                    "StartingItemName": 3
+                    "StartingItemName": 3,
+                    "Jingle": "MAJOR",
+                    "MessageID": 3
                 }
             },
             "L4Locks": {
                 "long_name": "Level 4 Keycard",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "Level4",
+                    "item": "LEVEL_4",
                     "StartingItemCategory": "SecurityLevels",
-                    "StartingItemName": 4
+                    "StartingItemName": 4,
+                    "Jingle": "MAJOR",
+                    "MessageID": 4
                 }
             },
             "Infant Metroid 1": {
                 "long_name": "Infant Metroid 1",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "InfantMetroid",
+                    "item": "INFANT_METROID",
                     "StartingItemCategory": "Metroids",
-                    "StartingItemName": "InfantMetroid"
+                    "StartingItemName": "INFANT_METROID",
+                    "Jingle": "MAJOR",
+                    "MessageID": 56
                 }
             },
             "Infant Metroid 2": {
                 "long_name": "Infant Metroid 2",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "InfantMetroid",
+                    "item": "INFANT_METROID",
                     "StartingItemCategory": "Metroids",
-                    "StartingItemName": "InfantMetroid"
+                    "StartingItemName": "INFANT_METROID",
+                    "Jingle": "MAJOR",
+                    "MessageID": 56
                 }
             },
             "Infant Metroid 3": {
                 "long_name": "Infant Metroid 3",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "InfantMetroid",
+                    "item": "INFANT_METROID",
                     "StartingItemCategory": "Metroids",
-                    "StartingItemName": "InfantMetroid"
+                    "StartingItemName": "INFANT_METROID",
+                    "Jingle": "MAJOR",
+                    "MessageID": 56
                 }
             },
             "Infant Metroid 4": {
                 "long_name": "Infant Metroid 4",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "InfantMetroid",
+                    "item": "INFANT_METROID",
                     "StartingItemCategory": "Metroids",
-                    "StartingItemName": "InfantMetroid"
+                    "StartingItemName": "INFANT_METROID",
+                    "Jingle": "MAJOR",
+                    "MessageID": 56
                 }
             },
             "Infant Metroid 5": {
                 "long_name": "Infant Metroid 5",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "InfantMetroid",
+                    "item": "INFANT_METROID",
                     "StartingItemCategory": "Metroids",
-                    "StartingItemName": "InfantMetroid"
+                    "StartingItemName": "INFANT_METROID",
+                    "Jingle": "MAJOR",
+                    "MessageID": 56
                 }
             },
             "Infant Metroid 6": {
                 "long_name": "Infant Metroid 6",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "InfantMetroid",
+                    "item": "INFANT_METROID",
                     "StartingItemCategory": "Metroids",
-                    "StartingItemName": "InfantMetroid"
+                    "StartingItemName": "INFANT_METROID",
+                    "Jingle": "MAJOR",
+                    "MessageID": 56
                 }
             },
             "Infant Metroid 7": {
                 "long_name": "Infant Metroid 7",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "InfantMetroid",
+                    "item": "INFANT_METROID",
                     "StartingItemCategory": "Metroids",
-                    "StartingItemName": "InfantMetroid"
+                    "StartingItemName": "INFANT_METROID",
+                    "Jingle": "MAJOR",
+                    "MessageID": 56
                 }
             },
             "Infant Metroid 8": {
                 "long_name": "Infant Metroid 8",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "InfantMetroid",
+                    "item": "INFANT_METROID",
                     "StartingItemCategory": "Metroids",
-                    "StartingItemName": "InfantMetroid"
+                    "StartingItemName": "INFANT_METROID",
+                    "Jingle": "MAJOR",
+                    "MessageID": 56
                 }
             },
             "Infant Metroid 9": {
                 "long_name": "Infant Metroid 9",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "InfantMetroid",
+                    "item": "INFANT_METROID",
                     "StartingItemCategory": "Metroids",
-                    "StartingItemName": "InfantMetroid"
+                    "StartingItemName": "INFANT_METROID",
+                    "Jingle": "MAJOR",
+                    "MessageID": 56
                 }
             },
             "Infant Metroid 10": {
                 "long_name": "Infant Metroid 10",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "InfantMetroid",
+                    "item": "INFANT_METROID",
                     "StartingItemCategory": "Metroids",
-                    "StartingItemName": "InfantMetroid"
+                    "StartingItemName": "INFANT_METROID",
+                    "Jingle": "MAJOR",
+                    "MessageID": 56
                 }
             },
             "Infant Metroid 11": {
                 "long_name": "Infant Metroid 11",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "InfantMetroid",
+                    "item": "INFANT_METROID",
                     "StartingItemCategory": "Metroids",
-                    "StartingItemName": "InfantMetroid"
+                    "StartingItemName": "INFANT_METROID",
+                    "Jingle": "MAJOR",
+                    "MessageID": 56
                 }
             },
             "Infant Metroid 12": {
                 "long_name": "Infant Metroid 12",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "InfantMetroid",
+                    "item": "INFANT_METROID",
                     "StartingItemCategory": "Metroids",
-                    "StartingItemName": "InfantMetroid"
+                    "StartingItemName": "INFANT_METROID",
+                    "Jingle": "MAJOR",
+                    "MessageID": 56
                 }
             },
             "Infant Metroid 13": {
                 "long_name": "Infant Metroid 13",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "InfantMetroid",
+                    "item": "INFANT_METROID",
                     "StartingItemCategory": "Metroids",
-                    "StartingItemName": "InfantMetroid"
+                    "StartingItemName": "INFANT_METROID",
+                    "Jingle": "MAJOR",
+                    "MessageID": 56
                 }
             },
             "Infant Metroid 14": {
                 "long_name": "Infant Metroid 14",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "InfantMetroid",
+                    "item": "INFANT_METROID",
                     "StartingItemCategory": "Metroids",
-                    "StartingItemName": "InfantMetroid"
+                    "StartingItemName": "INFANT_METROID",
+                    "Jingle": "MAJOR",
+                    "MessageID": 56
                 }
             },
             "Infant Metroid 15": {
                 "long_name": "Infant Metroid 15",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "InfantMetroid",
+                    "item": "INFANT_METROID",
                     "StartingItemCategory": "Metroids",
-                    "StartingItemName": "InfantMetroid"
+                    "StartingItemName": "INFANT_METROID",
+                    "Jingle": "MAJOR",
+                    "MessageID": 56
                 }
             },
             "Infant Metroid 16": {
                 "long_name": "Infant Metroid 16",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "InfantMetroid",
+                    "item": "INFANT_METROID",
                     "StartingItemCategory": "Metroids",
-                    "StartingItemName": "InfantMetroid"
+                    "StartingItemName": "INFANT_METROID",
+                    "Jingle": "MAJOR",
+                    "MessageID": 56
                 }
             },
             "Infant Metroid 17": {
                 "long_name": "Infant Metroid 17",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "InfantMetroid",
+                    "item": "INFANT_METROID",
                     "StartingItemCategory": "Metroids",
-                    "StartingItemName": "InfantMetroid"
+                    "StartingItemName": "INFANT_METROID",
+                    "Jingle": "MAJOR",
+                    "MessageID": 56
                 }
             },
             "Infant Metroid 18": {
                 "long_name": "Infant Metroid 18",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "InfantMetroid",
+                    "item": "INFANT_METROID",
                     "StartingItemCategory": "Metroids",
-                    "StartingItemName": "InfantMetroid"
+                    "StartingItemName": "INFANT_METROID",
+                    "Jingle": "MAJOR",
+                    "MessageID": 56
                 }
             },
             "Infant Metroid 19": {
                 "long_name": "Infant Metroid 19",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "InfantMetroid",
+                    "item": "INFANT_METROID",
                     "StartingItemCategory": "Metroids",
-                    "StartingItemName": "InfantMetroid"
+                    "StartingItemName": "INFANT_METROID",
+                    "Jingle": "MAJOR",
+                    "MessageID": 56
                 }
             },
             "Infant Metroid 20": {
                 "long_name": "Infant Metroid 20",
                 "max_capacity": 1,
                 "extra": {
-                    "item": "InfantMetroid",
+                    "item": "INFANT_METROID",
                     "StartingItemCategory": "Metroids",
-                    "StartingItemName": "InfantMetroid"
+                    "StartingItemName": "INFANT_METROID",
+                    "Jingle": "MAJOR",
+                    "MessageID": 56
                 }
             }
         },
         "events": {
-            "Level0Locks": {
-                "long_name": "Level 0 Locks Released",
-                "extra": {}
-            },
-            "Level1Locks": {
-                "long_name": "Level 1 Locks Released",
-                "extra": {}
-            },
-            "Level2Locks": {
-                "long_name": "Level 2 Locks Released",
-                "extra": {}
-            },
-            "Level3Locks": {
-                "long_name": "Level 3 Locks Released",
-                "extra": {}
-            },
-            "Level4Locks": {
-                "long_name": "Level 4 Locks Released",
-                "extra": {}
-            },
             "Arachnus": {
                 "long_name": "Boss Arachnus Defeated",
                 "extra": {}
@@ -519,7 +602,7 @@
                 "extra": {}
             },
             "Ridley": {
-                "long_name": "Boss Ridley Deafeated",
+                "long_name": "Boss Ridley Defeated",
                 "extra": {}
             },
             "OmegaMetroid": {
@@ -532,10 +615,6 @@
             },
             "VictoryEvent": {
                 "long_name": "Victory Event",
-                "extra": {}
-            },
-            "ReactorControl": {
-                "long_name": "Reactor Controls Activated",
                 "extra": {}
             },
             "Stabilizer1": {
@@ -556,10 +635,6 @@
             },
             "Stabilizer5": {
                 "long_name": "Stabilizer Central Restored",
-                "extra": {}
-            },
-            "Cooling": {
-                "long_name": "Cooling Unit Operational",
                 "extra": {}
             },
             "MainDeckPBGeron": {
@@ -583,7 +658,7 @@
                 "extra": {}
             },
             "S2ZigZagBombBlocks": {
-                "long_name": "Sector 2 Zoro Zig-Zag Bomb Blocks Broken",
+                "long_name": "Sector 2 Zig-Zag-Zone Bomb Blocks Broken",
                 "extra": {}
             },
             "MainDeckMaintainanceGeronLower": {
@@ -612,6 +687,14 @@
             },
             "MainDeckHubVisited": {
                 "long_name": "Main Deck Hub Visited",
+                "extra": {}
+            },
+            "RightSiloCheckpointShutter": {
+                "long_name": "Access Right of Silo Checkpoint Shutter",
+                "extra": {}
+            },
+            "Animals": {
+                "long_name": "Main Deck Animal Controls",
                 "extra": {}
             }
         },
@@ -709,6 +792,14 @@
             "ColdDamage": {
                 "long_name": "Cold Damage",
                 "extra": {}
+            },
+            "BlueXDamage": {
+                "long_name": "Blue-X Damage",
+                "extra": {}
+            },
+            "AcidDamage": {
+                "long_name": "Acid Damage",
+                "extra": {}
             }
         },
         "versions": {},
@@ -745,6 +836,14 @@
             },
             "MenuMod": {
                 "long_name": "Equipment Manipulation",
+                "extra": {}
+            },
+            "CanSWJ": {
+                "long_name": "Single Wall Jumping Physics",
+                "extra": {}
+            },
+            "NerfGerons": {
+                "long_name": "Primary Geron Vulnerabilities",
                 "extra": {}
             }
         },
@@ -1190,7 +1289,7 @@
                 "requirement": {
                     "type": "or",
                     "data": {
-                        "comment": null,
+                        "comment": "Dev Note: MD Operations Ventilation and S1 Yameba Corridor contain extra rules",
                         "items": [
                             {
                                 "type": "or",
@@ -1306,6 +1405,15 @@
                                                     }
                                                 ]
                                             }
+                                        },
+                                        {
+                                            "type": "resource",
+                                            "data": {
+                                                "type": "misc",
+                                                "name": "NerfGerons",
+                                                "amount": 1,
+                                                "negate": true
+                                            }
                                         }
                                     ]
                                 }
@@ -1325,7 +1433,17 @@
                                 "type": "or",
                                 "data": {
                                     "comment": null,
-                                    "items": []
+                                    "items": [
+                                        {
+                                            "type": "resource",
+                                            "data": {
+                                                "type": "misc",
+                                                "name": "CanSWJ",
+                                                "amount": 1,
+                                                "negate": false
+                                            }
+                                        }
+                                    ]
                                 }
                             }
                         ]
@@ -1337,7 +1455,7 @@
                 "requirement": {
                     "type": "or",
                     "data": {
-                        "comment": null,
+                        "comment": "Dev Note: Please sync this up with S4 Drain Pipe! And S3 Bob's Abode + S6 Geron's Crossing contain shinesparks",
                         "items": [
                             {
                                 "type": "and",
@@ -1478,6 +1596,15 @@
                                                     }
                                                 ]
                                             }
+                                        },
+                                        {
+                                            "type": "resource",
+                                            "data": {
+                                                "type": "misc",
+                                                "name": "NerfGerons",
+                                                "amount": 1,
+                                                "negate": true
+                                            }
                                         }
                                     ]
                                 }
@@ -1491,7 +1618,7 @@
                 "requirement": {
                     "type": "or",
                     "data": {
-                        "comment": null,
+                        "comment": "Dev Note: MD Central Nexus can be destroyed by shinesparking",
                         "items": [
                             {
                                 "type": "template",
@@ -1518,6 +1645,15 @@
                                                 "name": "Knowledge",
                                                 "amount": 1,
                                                 "negate": false
+                                            }
+                                        },
+                                        {
+                                            "type": "resource",
+                                            "data": {
+                                                "type": "misc",
+                                                "name": "NerfGerons",
+                                                "amount": 1,
+                                                "negate": true
                                             }
                                         }
                                     ]
@@ -2180,7 +2316,7 @@
                 "requirement": {
                     "type": "or",
                     "data": {
-                        "comment": null,
+                        "comment": "Dev Note: Most instances can also be shinesparked. Also, Central Stabilizer contains extra rules.",
                         "items": [
                             {
                                 "type": "or",
@@ -2242,8 +2378,134 @@
                                                     }
                                                 ]
                                             }
+                                        },
+                                        {
+                                            "type": "resource",
+                                            "data": {
+                                                "type": "misc",
+                                                "name": "NerfGerons",
+                                                "amount": 1,
+                                                "negate": true
+                                            }
                                         }
                                     ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "Can Kill Tough Underwater Beam-Resistant Enemy": {
+                "display_name": "Can Kill Tough Underwater Beam-Resistant Enemy",
+                "requirement": {
+                    "type": "or",
+                    "data": {
+                        "comment": null,
+                        "items": [
+                            {
+                                "type": "resource",
+                                "data": {
+                                    "type": "items",
+                                    "name": "Missiles",
+                                    "amount": 10,
+                                    "negate": false
+                                }
+                            },
+                            {
+                                "type": "and",
+                                "data": {
+                                    "comment": null,
+                                    "items": [
+                                        {
+                                            "type": "resource",
+                                            "data": {
+                                                "type": "items",
+                                                "name": "GravitySuit",
+                                                "amount": 1,
+                                                "negate": false
+                                            }
+                                        },
+                                        {
+                                            "type": "resource",
+                                            "data": {
+                                                "type": "items",
+                                                "name": "ScrewAttack",
+                                                "amount": 1,
+                                                "negate": false
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "and",
+                                "data": {
+                                    "comment": null,
+                                    "items": [
+                                        {
+                                            "type": "resource",
+                                            "data": {
+                                                "type": "items",
+                                                "name": "ChargeBeam",
+                                                "amount": 1,
+                                                "negate": false
+                                            }
+                                        },
+                                        {
+                                            "type": "template",
+                                            "data": "Have Any Beam Upgrade"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "and",
+                                "data": {
+                                    "comment": null,
+                                    "items": [
+                                        {
+                                            "type": "resource",
+                                            "data": {
+                                                "type": "items",
+                                                "name": "PowerBombs",
+                                                "amount": 4,
+                                                "negate": false
+                                            }
+                                        },
+                                        {
+                                            "type": "template",
+                                            "data": "Can Use Power Bombs"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "Have Any Suit Upgrade": {
+                "display_name": "Have Any Suit Upgrade",
+                "requirement": {
+                    "type": "or",
+                    "data": {
+                        "comment": null,
+                        "items": [
+                            {
+                                "type": "resource",
+                                "data": {
+                                    "type": "items",
+                                    "name": "VariaSuit",
+                                    "amount": 1,
+                                    "negate": false
+                                }
+                            },
+                            {
+                                "type": "resource",
+                                "data": {
+                                    "type": "items",
+                                    "name": "GravitySuit",
+                                    "amount": 1,
+                                    "negate": false
                                 }
                             }
                         ]
@@ -2257,6 +2519,7 @@
                 "reductions": [
                     {
                         "name": "VariaSuit",
+                        "quantity": 1,
                         "multiplier": 0.0
                     }
                 ]
@@ -2266,6 +2529,22 @@
                 "reductions": [
                     {
                         "name": "VariaSuit",
+                        "quantity": 1,
+                        "multiplier": 0.0
+                    }
+                ]
+            },
+            {
+                "name": "LavaDamage",
+                "reductions": [
+                    {
+                        "name": "VariaSuit",
+                        "quantity": 1,
+                        "multiplier": 0.4
+                    },
+                    {
+                        "name": "BothSuits",
+                        "quantity": 2,
                         "multiplier": 0.0
                     }
                 ]
@@ -2451,7 +2730,20 @@
                 "items": {
                     "Open Hatch": {
                         "extra": {
-                            "type": "Open"
+                            "type": "OPEN"
+                        },
+                        "requirement": {
+                            "type": "and",
+                            "data": {
+                                "comment": null,
+                                "items": []
+                            }
+                        },
+                        "lock": null
+                    },
+                    "Open Hatch (Forced)": {
+                        "extra": {
+                            "type": "OPEN"
                         },
                         "requirement": {
                             "type": "and",
@@ -2464,7 +2756,7 @@
                     },
                     "Locked Hatch": {
                         "extra": {
-                            "type": "Locked"
+                            "type": "LOCKED"
                         },
                         "requirement": {
                             "type": "or",
@@ -2477,7 +2769,7 @@
                     },
                     "L0 Hatch": {
                         "extra": {
-                            "type": "Level0"
+                            "type": "LEVEL_0"
                         },
                         "requirement": {
                             "type": "resource",
@@ -2492,7 +2784,7 @@
                     },
                     "L1 Hatch": {
                         "extra": {
-                            "type": "Level1"
+                            "type": "LEVEL_1"
                         },
                         "requirement": {
                             "type": "resource",
@@ -2507,7 +2799,7 @@
                     },
                     "L2 Hatch": {
                         "extra": {
-                            "type": "Level2"
+                            "type": "LEVEL_2"
                         },
                         "requirement": {
                             "type": "resource",
@@ -2522,7 +2814,7 @@
                     },
                     "L3 Hatch": {
                         "extra": {
-                            "type": "Level3"
+                            "type": "LEVEL_3"
                         },
                         "requirement": {
                             "type": "resource",
@@ -2537,7 +2829,7 @@
                     },
                     "L4 Hatch": {
                         "extra": {
-                            "type": "Level4"
+                            "type": "LEVEL_4"
                         },
                         "requirement": {
                             "type": "resource",
@@ -2640,6 +2932,28 @@
                             }
                         },
                         "lock": null
+                    },
+                    "Blocked Passage": {
+                        "extra": {},
+                        "requirement": {
+                            "type": "or",
+                            "data": {
+                                "comment": null,
+                                "items": []
+                            }
+                        },
+                        "lock": null
+                    },
+                    "Destroyed Door": {
+                        "extra": {},
+                        "requirement": {
+                            "type": "and",
+                            "data": {
+                                "comment": null,
+                                "items": []
+                            }
+                        },
+                        "lock": null
                     }
                 },
                 "dock_rando": null
@@ -2653,6 +2967,89 @@
             "force_change_two_way": true,
             "resolver_attempts": 100,
             "to_shuffle_proportion": 1.0
+        }
+    },
+    "hint_feature_database": {
+        "data_room": {
+            "long_name": "Data Room",
+            "hint_details": [
+                "",
+                "in a Data Room"
+            ]
+        },
+        "security_room": {
+            "long_name": "Security Room",
+            "hint_details": [
+                "",
+                "in a Security Room"
+            ]
+        },
+        "boss": {
+            "long_name": "Core-X",
+            "hint_details": [
+                "",
+                "on a Core-X parasite"
+            ]
+        },
+        "shutter": {
+            "long_name": "1-way Shutter",
+            "hint_details": [
+                "",
+                "near a 1-way Shutter"
+            ]
+        },
+        "climbable": {
+            "long_name": "Climbable Surface",
+            "hint_details": [
+                "",
+                "near a climbable surface"
+            ],
+            "description": "This includes ladders and monkeybars, not ledges."
+        },
+        "pillar": {
+            "long_name": "Pillar",
+            "hint_details": [
+                "",
+                "near an extendable pillar"
+            ]
+        },
+        "multiple-pickups": {
+            "long_name": "Multiple Pickups",
+            "hint_details": [
+                "",
+                "in a room with more than one pickup"
+            ],
+            "hidden": true
+        },
+        "mimic": {
+            "long_name": "Mimic",
+            "hint_details": [
+                "",
+                "guarded by a Tank-Mimic"
+            ]
+        },
+        "geron": {
+            "long_name": "Geron",
+            "hint_details": [
+                "",
+                "near a Geron"
+            ],
+            "description": "Stabilizers are classified as Gerons."
+        },
+        "extreme-temp": {
+            "long_name": "Extreme Temperatures",
+            "hint_details": [
+                "",
+                "in a room with extreme temperatures"
+            ],
+            "description": "Includes heated and cold rooms. Does not include lava."
+        },
+        "systems_console": {
+            "long_name": "B.S.L. Systems Console",
+            "hint_details": [
+                "",
+                "by activating a B.S.L. system console"
+            ]
         }
     },
     "used_trick_levels": {
@@ -2670,8 +3067,20 @@
             4,
             5
         ],
+        "Knowledge": [
+            1,
+            2,
+            3,
+            4
+        ],
         "WallJump": [
             1,
+            2,
+            3,
+            4,
+            5
+        ],
+        "JBJ": [
             2,
             3,
             4,
@@ -2681,31 +3090,8 @@
             1,
             2,
             3,
-            4
-        ],
-        "Movement": [
-            1,
-            2,
-            3,
             4,
             5
-        ],
-        "Knowledge": [
-            1,
-            2,
-            3
-        ],
-        "MidAirMorph": [
-            1,
-            2,
-            3,
-            4
-        ],
-        "DamageBoosts": [
-            1,
-            2,
-            3,
-            4
         ],
         "StandOnFrozenEnemies": [
             1,
@@ -2714,6 +3100,19 @@
             4,
             5
         ],
+        "Movement": [
+            1,
+            2,
+            3,
+            4,
+            5
+        ],
+        "MidAirMorph": [
+            1,
+            2,
+            3,
+            4
+        ],
         "DamageRuns": [
             1,
             2,
@@ -2721,7 +3120,8 @@
             4,
             5
         ],
-        "JBJ": [
+        "DamageBoosts": [
+            1,
             2,
             3,
             4,

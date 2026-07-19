@@ -12,36 +12,32 @@
     "dol_patches": {
         "world_uuid": "00000000-0000-1111-0000-000000000000",
         "energy_per_tank": 100,
-        "beam_configurations": [
-            {
-                "item_index": 0,
-                "ammo_a": -1,
-                "ammo_b": -1,
+        "beam_configuration": {
+            "power": {
+                "ammo_a": null,
+                "ammo_b": null,
                 "uncharged_cost": 0,
                 "charged_cost": 0,
                 "combo_missile_cost": 5,
                 "combo_ammo_cost": 0
             },
-            {
-                "item_index": 1,
+            "dark": {
                 "ammo_a": 45,
-                "ammo_b": -1,
+                "ammo_b": null,
                 "uncharged_cost": 1,
                 "charged_cost": 5,
                 "combo_missile_cost": 5,
                 "combo_ammo_cost": 30
             },
-            {
-                "item_index": 2,
+            "light": {
                 "ammo_a": 46,
-                "ammo_b": -1,
+                "ammo_b": null,
                 "uncharged_cost": 1,
                 "charged_cost": 5,
                 "combo_missile_cost": 5,
                 "combo_ammo_cost": 30
             },
-            {
-                "item_index": 3,
+            "annihilator": {
                 "ammo_a": 46,
                 "ammo_b": 45,
                 "uncharged_cost": 1,
@@ -49,9 +45,9 @@
                 "combo_missile_cost": 5,
                 "combo_ammo_cost": 30
             }
-        ],
+        },
         "safe_zone_heal_per_second": 1.0,
-        "user_preferences": {
+        "game_options_defaults": {
             "sound_mode": 1,
             "screen_brightness": 4,
             "screen_x_offset": 0,
@@ -1112,17 +1108,7 @@
                     "amount": 23
                 }
             ],
-            "conditional_resources": [
-                {
-                    "item": 73,
-                    "resources": [
-                        {
-                            "index": 74,
-                            "amount": 23
-                        }
-                    ]
-                }
-            ],
+            "conditional_resources": [],
             "convert": [],
             "hud_text": [
                 "Sent Missile Expansion to World 6!"
@@ -1563,17 +1549,7 @@
                     "amount": 42
                 }
             ],
-            "conditional_resources": [
-                {
-                    "item": 73,
-                    "resources": [
-                        {
-                            "index": 74,
-                            "amount": 42
-                        }
-                    ]
-                }
-            ],
+            "conditional_resources": [],
             "convert": [],
             "hud_text": [
                 "Sent Missile Expansion to World 6!"
@@ -2010,17 +1986,7 @@
                     "amount": 61
                 }
             ],
-            "conditional_resources": [
-                {
-                    "item": 13,
-                    "resources": [
-                        {
-                            "index": 74,
-                            "amount": 61
-                        }
-                    ]
-                }
-            ],
+            "conditional_resources": [],
             "convert": [],
             "hud_text": [
                 "Sent Progressive Suit to World 6!"
@@ -2664,17 +2630,7 @@
                     "amount": 89
                 }
             ],
-            "conditional_resources": [
-                {
-                    "item": 73,
-                    "resources": [
-                        {
-                            "index": 74,
-                            "amount": 89
-                        }
-                    ]
-                }
-            ],
+            "conditional_resources": [],
             "convert": [],
             "hud_text": [
                 "Sent Missile Expansion to World 6!"
@@ -2720,17 +2676,7 @@
                     "amount": 91
                 }
             ],
-            "conditional_resources": [
-                {
-                    "item": 73,
-                    "resources": [
-                        {
-                            "index": 74,
-                            "amount": 91
-                        }
-                    ]
-                }
-            ],
+            "conditional_resources": [],
             "convert": [],
             "hud_text": [
                 "Sent Missile Expansion to World 6!"
@@ -2753,17 +2699,7 @@
                     "amount": 92
                 }
             ],
-            "conditional_resources": [
-                {
-                    "item": 73,
-                    "resources": [
-                        {
-                            "index": 74,
-                            "amount": 92
-                        }
-                    ]
-                }
-            ],
+            "conditional_resources": [],
             "convert": [],
             "hud_text": [
                 "Sent Missile Expansion to World 6!"
@@ -2855,17 +2791,7 @@
                     "amount": 96
                 }
             ],
-            "conditional_resources": [
-                {
-                    "item": 43,
-                    "resources": [
-                        {
-                            "index": 74,
-                            "amount": 96
-                        }
-                    ]
-                }
-            ],
+            "conditional_resources": [],
             "convert": [],
             "hud_text": [
                 "Sent Power Bomb Expansion to World 6!"
@@ -3356,17 +3282,7 @@
                     "amount": 117
                 }
             ],
-            "conditional_resources": [
-                {
-                    "item": 73,
-                    "resources": [
-                        {
-                            "index": 74,
-                            "amount": 117
-                        }
-                    ]
-                }
-            ],
+            "conditional_resources": [],
             "convert": [],
             "hud_text": [
                 "Sent Missile Expansion to World 6!"
@@ -3478,18 +3394,6 @@
             "room_name": "Transport to Temple Transport Violet"
         },
         {
-            "instance_id": 136970379,
-            "origin_location": {
-                "world_asset_id": 1006255871,
-                "area_asset_id": 2278776548
-            },
-            "target_location": {
-                "world_asset_id": 2252328306,
-                "area_asset_id": 2068511343
-            },
-            "room_name": "Sky Temple Gateway"
-        },
-        {
             "instance_id": 3342446,
             "origin_location": {
                 "world_asset_id": 1006255871,
@@ -3512,6 +3416,18 @@
                 "area_asset_id": 408633584
             },
             "room_name": "Transport to Temple Transport Emerald"
+        },
+        {
+            "instance_id": 136970379,
+            "origin_location": {
+                "world_asset_id": 1006255871,
+                "area_asset_id": 2278776548
+            },
+            "target_location": {
+                "world_asset_id": 2252328306,
+                "area_asset_id": 2068511343
+            },
+            "room_name": "Sky Temple Gateway"
         },
         {
             "instance_id": 152,
@@ -3769,8 +3685,8 @@
             "asset_id": 134987008,
             "strings": [
                 "Luminoth Datapac translated.\n(Champions of Aether)",
-                "Metroid Prime 2: Echoes Randomizer Tournament\n\n\n2024 Champion\n&push;&main-color=#d4cc33;Naii the Baf&pop;",
-                "Metroid Prime 2: Echoes Randomizer Tournament\n\n\n2024 Champion\n&push;&main-color=#d4cc33;Naii the Baf&pop;\nCGC 2023 Champions\n&push;&main-color=#d4cc33;TheGingerChris and BajaBlood&pop;\n2022 Champion\n&push;&main-color=#d4cc33;Cestrion&pop;\nCGC 2022 Champions\n&push;&main-color=#d4cc33;Cosmonawt and Cestrion&pop;\n2021 Champion\n&push;&main-color=#d4cc33;Dyceron&pop;\n2020 Champion\n&push;&main-color=#d4cc33;Dyceron&pop;"
+                "Metroid Prime 2: Echoes Randomizer Tournament\n\n\n2025 Co-op Champions\n&push;&main-color=#d4cc33;Naii the Baf, Bruh inc. and JayBee&pop;",
+                "Metroid Prime 2: Echoes Randomizer Tournament\n\n\n2025 Co-op Champions\n&push;&main-color=#d4cc33;Naii the Baf, Bruh inc. and JayBee&pop;\n2025 Mentor Champion\n&push;&main-color=#d4cc33;Storm&pop;\n2024 Champion\n&push;&main-color=#d4cc33;Naii the Baf&pop;\nCGC 2023 Champions\n&push;&main-color=#d4cc33;TheGingerChris and BajaBlood&pop;\n2022 Champion\n&push;&main-color=#d4cc33;Cestrion&pop;\nCGC 2022 Champions\n&push;&main-color=#d4cc33;Cosmonawt and Cestrion&pop;\n2021 Champion\n&push;&main-color=#d4cc33;Dyceron&pop;\n2020 Champion\n&push;&main-color=#d4cc33;Dyceron&pop;"
             ]
         },
         {
@@ -3792,9 +3708,9 @@
         {
             "asset_id": 1696621841,
             "strings": [
-                "The Flying Ing Cache in &push;&main-color=#FF3333;Sky Temple Grounds - Accursed Lake&pop; contains &push;&main-color=#d4cc33;World 7&pop;'s &push;&main-color=#FF6705B3;missile-related upgrade&pop;.",
+                "The Flying Ing Cache in &push;&main-color=#FF3333;Sky Temple Grounds - Accursed Lake&pop; contains &push;&main-color=#d4cc33;World 7&pop;'s &push;&main-color=#FF6705B3;missile system&pop;.",
                 "",
-                "The Flying Ing Cache in &push;&main-color=#FF3333;Sky Temple Grounds - Accursed Lake&pop; contains &push;&main-color=#d4cc33;World 7&pop;'s &push;&main-color=#FF6705B3;missile-related upgrade&pop;."
+                "The Flying Ing Cache in &push;&main-color=#FF3333;Sky Temple Grounds - Accursed Lake&pop; contains &push;&main-color=#d4cc33;World 7&pop;'s &push;&main-color=#FF6705B3;missile system&pop;."
             ]
         },
         {
@@ -3816,9 +3732,9 @@
         {
             "asset_id": 686343194,
             "strings": [
-                "The Flying Ing Cache in &push;&main-color=#FF3333;Sky Temple Grounds - Ing Reliquary&pop; contains &push;&main-color=#d4cc33;World 7&pop;'s &push;&main-color=#FF6705B3;missile-related upgrade&pop;.",
+                "The Flying Ing Cache in &push;&main-color=#FF3333;Sky Temple Grounds - Ing Reliquary&pop; contains &push;&main-color=#d4cc33;World 7&pop;'s &push;&main-color=#FF6705B3;missile system&pop;.",
                 "",
-                "The Flying Ing Cache in &push;&main-color=#FF3333;Sky Temple Grounds - Ing Reliquary&pop; contains &push;&main-color=#d4cc33;World 7&pop;'s &push;&main-color=#FF6705B3;missile-related upgrade&pop;."
+                "The Flying Ing Cache in &push;&main-color=#FF3333;Sky Temple Grounds - Ing Reliquary&pop; contains &push;&main-color=#d4cc33;World 7&pop;'s &push;&main-color=#FF6705B3;missile system&pop;."
             ]
         },
         {
@@ -3880,9 +3796,9 @@
         {
             "asset_id": 4021961856,
             "strings": [
-                "&push;&main-color=#d4cc33;World 7&pop;'s &push;&main-color=#FF6705B3;major upgrade&pop; can be found in &push;&main-color=#FF3333;Sky Temple Grounds - Phazon Grounds&pop;.",
+                "&push;&main-color=#d4cc33;World 7&pop;'s &push;&main-color=#FF6705B3;major item&pop; can be found in &push;&main-color=#FF3333;Sky Temple Grounds - Phazon Grounds&pop;.",
                 "",
-                "&push;&main-color=#d4cc33;World 7&pop;'s &push;&main-color=#FF6705B3;major upgrade&pop; can be found in &push;&main-color=#FF3333;Sky Temple Grounds - Phazon Grounds&pop;."
+                "&push;&main-color=#d4cc33;World 7&pop;'s &push;&main-color=#FF6705B3;major item&pop; can be found in &push;&main-color=#FF3333;Sky Temple Grounds - Phazon Grounds&pop;."
             ]
         },
         {
@@ -3896,9 +3812,9 @@
         {
             "asset_id": 1489382579,
             "strings": [
-                "The Flying Ing Cache in &push;&main-color=#FF3333;Dark Torvus Bog - Poisoned Bog&pop; contains &push;&main-color=#d4cc33;World 2&pop;'s &push;&main-color=#FF6705B3;miscellaneous system&pop;.",
+                "The Flying Ing Cache in &push;&main-color=#FF3333;Dark Torvus Bog - Poisoned Bog&pop; contains &push;&main-color=#d4cc33;World 2&pop;'s &push;&main-color=#FF6705B3;bonus upgrade&pop;.",
                 "",
-                "The Flying Ing Cache in &push;&main-color=#FF3333;Dark Torvus Bog - Poisoned Bog&pop; contains &push;&main-color=#d4cc33;World 2&pop;'s &push;&main-color=#FF6705B3;miscellaneous system&pop;."
+                "The Flying Ing Cache in &push;&main-color=#FF3333;Dark Torvus Bog - Poisoned Bog&pop; contains &push;&main-color=#d4cc33;World 2&pop;'s &push;&main-color=#FF6705B3;bonus upgrade&pop;."
             ]
         },
         {
@@ -3928,17 +3844,17 @@
         {
             "asset_id": 1238191924,
             "strings": [
-                "&push;&main-color=#45F731;By this point in your run, you should have consumed at least 200 mL of water to maintain optimum hydration.&pop;",
+                "&push;&main-color=#45F731;Did you know that Bigfoot and Santa Claus exist in the Metroid Prime canon?&pop;",
                 "",
-                "&push;&main-color=#45F731;By this point in your run, you should have consumed at least 200 mL of water to maintain optimum hydration.&pop;"
+                "&push;&main-color=#45F731;Did you know that Bigfoot and Santa Claus exist in the Metroid Prime canon?&pop;"
             ]
         },
         {
             "asset_id": 2677320745,
             "strings": [
-                "&push;&main-color=#45F731;I hear. Them. Everywhere. They're coming. Can't sleep. Ever. They'll eat me. Eat.&pop;",
+                "&push;&main-color=#45F731;Morphing and staying still may attract some flying friends.&pop;",
                 "",
-                "&push;&main-color=#45F731;I hear. Them. Everywhere. They're coming. Can't sleep. Ever. They'll eat me. Eat.&pop;"
+                "&push;&main-color=#45F731;Morphing and staying still may attract some flying friends.&pop;"
             ]
         },
         {
@@ -4625,7 +4541,9 @@
         988679813
     ],
     "maps_to_never_reveal": [],
+    "new_patcher_only": false,
     "_randovania_meta": {
-        "layout_was_user_modified": false
+        "layout_was_user_modified": false,
+        "in_race_setting": false
     }
 }

@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import dataclasses
+import typing
 from typing import TYPE_CHECKING
 
 from randovania.exporter import item_names
 from randovania.game_description import default_database
 from randovania.game_description.db.pickup_node import PickupNode
+from randovania.game_description.game_database_view import GameDatabaseView
 from randovania.game_description.pickup.pickup_entry import (
     ConditionalResources,
     PickupEntry,
@@ -19,7 +21,6 @@ if TYPE_CHECKING:
 
     from randovania.game.game_enum import RandovaniaGame
     from randovania.game_description.assignment import PickupTarget
-    from randovania.game_description.db.region_list import RegionList
     from randovania.game_description.game_patches import GamePatches
     from randovania.game_description.resources.pickup_index import PickupIndex
     from randovania.game_description.resources.resource_info import ResourceGainTuple
@@ -70,11 +71,16 @@ def _conditional_resources_for_pickup(pickup: PickupEntry) -> list[ConditionalRe
 
 
 def _pickup_description(pickup: PickupEntry) -> str:
-    if not pickup.pickup_category.is_expansion:
+    if not pickup.is_expansion:
         if len(pickup.progression) > 1:
-            return "Provides the following in order: {}.".format(
-                ", ".join(conditional.name for conditional in pickup.conditional_resources)
-            )
+
+            def _all_conditionals_have_names(names: list[str | None]) -> typing.TypeGuard[list[str]]:
+                return all(name is not None for name in names)
+
+            names = [conditional.name for conditional in pickup.conditional_resources]
+            assert _all_conditionals_have_names(names)
+
+            return "Provides the following in order: {}.".format(", ".join(names))
         else:
             return ""
 
@@ -131,7 +137,11 @@ def _get_all_hud_text(
     conditionals: list[ConditionalResources],
     memo_data: dict[str, str],
 ) -> list[str]:
-    return [_get_single_hud_text(conditional.name, memo_data, conditional.resources) for conditional in conditionals]
+    return [
+        _get_single_hud_text(conditional.name, memo_data, conditional.resources)
+        for conditional in conditionals
+        if conditional.name is not None
+    ]
 
 
 def _calculate_collection_text(
@@ -362,7 +372,7 @@ def _get_visual_model(
 def export_all_indices(
     patches: GamePatches,
     useless_target: PickupTarget,
-    region_list: RegionList,
+    game_view: GameDatabaseView,
     rng: Random,
     model_style: PickupModelStyle,
     data_source: PickupModelDataSource,
@@ -373,7 +383,7 @@ def export_all_indices(
     Creates the patcher data for all pickups in the game
     :param patches:
     :param useless_target:
-    :param region_list:
+    :param game_view:
     :param rng:
     :param model_style:
     :param data_source:
@@ -386,7 +396,7 @@ def export_all_indices(
     pickup_list = list(pickup_assignment.values())
     rng.shuffle(pickup_list)
 
-    indices = sorted(node.pickup_index for node in region_list.iterate_nodes() if isinstance(node, PickupNode))
+    indices = sorted(node.pickup_index for _, _, node in game_view.iterate_nodes_of_type(PickupNode))
 
     pickups = [
         exporter.export(
@@ -402,13 +412,15 @@ def export_all_indices(
     return pickups
 
 
-class GenericAcquiredMemo(dict):
-    def __missing__(self, key):
+class GenericAcquiredMemo(dict[str, str]):
+    def __missing__(self, key: str) -> str:
         return f"{key} acquired!"
 
 
-def create_pickup_exporter(memo_data: dict, players_config: PlayersConfiguration, game: RandovaniaGame):
-    exporter = PickupExporterSolo(memo_data, game)
+def create_pickup_exporter(
+    memo_data: dict, players_config: PlayersConfiguration, game: RandovaniaGame
+) -> PickupExporter:
+    exporter: PickupExporter = PickupExporterSolo(memo_data, game)
     if players_config.is_multiworld:
         exporter = PickupExporterMulti(exporter, players_config)
     return exporter

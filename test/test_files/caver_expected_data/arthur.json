@@ -284,17 +284,11 @@
             "entrances": {},
             "hints": {
                 "0310": {
-                    "text": "I hear that a major upgrade can be found in Hermit Gunsmith.",
+                    "text": "Rumour has it, a major item can be found in Hermit Gunsmith.",
                     "facepic": "0000",
                     "ending": "<NOD<END"
                 }
             }
-        },
-        "CentW": {
-            "pickups": {},
-            "music": {},
-            "entrances": {},
-            "hints": {}
         },
         "Chako": {
             "pickups": {
@@ -540,24 +534,6 @@
             "entrances": {},
             "hints": {}
         },
-        "EgEnd1": {
-            "pickups": {},
-            "music": {},
-            "entrances": {},
-            "hints": {}
-        },
-        "EgEnd2": {
-            "pickups": {},
-            "music": {},
-            "entrances": {},
-            "hints": {}
-        },
-        "Egg1": {
-            "pickups": {},
-            "music": {},
-            "entrances": {},
-            "hints": {}
-        },
         "Egg6": {
             "pickups": {
                 "0201": "<EVE0068"
@@ -755,7 +731,7 @@
             "entrances": {},
             "hints": {
                 "0210": {
-                    "text": "Rumour has it, a Progressive Polar Star can be found in Yamashita Farm.",
+                    "text": "I hear that a Progressive Polar Star can be found in Yamashita Farm.",
                     "facepic": "0000",
                     "ending": "<NOD<END"
                 }
@@ -897,12 +873,6 @@
                     "original_id": "0007"
                 }
             },
-            "entrances": {},
-            "hints": {}
-        },
-        "Hell4": {
-            "pickups": {},
-            "music": {},
             "entrances": {},
             "hints": {}
         },
@@ -1356,7 +1326,7 @@
                     "ending": "<NOD<END"
                 },
                 "0502": {
-                    "text": "I hear that the Cure-All is hidden in Plantation.",
+                    "text": "They say the Cure-All can be found in Plantation.",
                     "facepic": "0000",
                     "ending": "<NOD<END"
                 }
@@ -1499,12 +1469,6 @@
             "entrances": {},
             "hints": {}
         },
-        "MiBox": {
-            "pickups": {},
-            "music": {},
-            "entrances": {},
-            "hints": {}
-        },
         "Mimi": {
             "pickups": {
                 "0202": "<EVE0030"
@@ -1631,12 +1595,6 @@
                     "original_id": "0026"
                 }
             },
-            "entrances": {},
-            "hints": {}
-        },
-        "Ostep": {
-            "pickups": {},
-            "music": {},
             "entrances": {},
             "hints": {}
         },
@@ -1873,12 +1831,6 @@
                     "original_id": "0030"
                 }
             },
-            "entrances": {},
-            "hints": {}
-        },
-        "Prefa2": {
-            "pickups": {},
-            "music": {},
             "entrances": {},
             "hints": {}
         },
@@ -2359,12 +2311,12 @@
             "entrances": {},
             "hints": {
                 "0205": {
-                    "text": "I hear that a major item can be found in Camp.",
+                    "text": "Rumour has it, a major item can be found in Camp.",
                     "facepic": "0000",
                     "ending": "<NOD<END"
                 },
                 "0201": {
-                    "text": "Rumour has it, a major item can be found in Egg No. 06.",
+                    "text": "I hear that a major item is in Egg No. 06.",
                     "facepic": "0000",
                     "ending": "<NOD<END"
                 }
@@ -2387,12 +2339,6 @@
             "pickups": {
                 "0305": "<PRI<MSG<TUR<IT+0000\r\nGot =Nothing=!<WAI0025<NOD<EVE0015"
             },
-            "music": {},
-            "entrances": {},
-            "hints": {}
-        },
-        "WeedS": {
-            "pickups": {},
             "music": {},
             "entrances": {},
             "hints": {}
@@ -2452,6 +2398,7 @@
     ],
     "uuid": "{00000000-0000-1111-0000-000000000000}",
     "_randovania_meta": {
-        "layout_was_user_modified": true
+        "layout_was_user_modified": true,
+        "in_race_setting": false
     }
 }

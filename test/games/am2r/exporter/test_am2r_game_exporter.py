@@ -14,35 +14,11 @@ from randovania.games.am2r.exporter.game_exporter import (
     AM2RGameExportParams,
     _run_patcher,
 )
-from randovania.patching.patchers.exceptions import UnableToExportError
 
 if TYPE_CHECKING:
     from collections.abc import Callable
     from multiprocessing.connection import Connection
     from pathlib import Path
-
-
-def test_export_game_raises_without_dotnet(mocker):
-    mocker.patch("subprocess.run", side_effect=FileNotFoundError)
-
-    exporter = AM2RGameExporter()
-
-    with pytest.raises(UnableToExportError):
-        exporter._do_export_game(
-            MagicMock(), AM2RGameExportParams(spoiler_output=None, input_path=None, output_path=None), MagicMock()
-        )
-
-
-def test_export_game_raises_with_wrong_dotnet_exit_code(mocker):
-    dotnet_process = mocker.patch("subprocess.run")
-    dotnet_process.returncode = 1
-
-    exporter = AM2RGameExporter()
-
-    with pytest.raises(UnableToExportError):
-        exporter._do_export_game(
-            MagicMock(), AM2RGameExportParams(spoiler_output=None, input_path=None, output_path=None), MagicMock()
-        )
 
 
 @pytest.mark.parametrize("patch_data_name", ["starter_preset", "door_lock"])
@@ -75,8 +51,10 @@ def test_do_export_game(test_files_dir, mocker, patch_data_name: str, tmp_path):
     )
     progress_update = MagicMock()
 
+    randovania_meta = MagicMock()
+
     # Run
-    exporter._do_export_game(patch_data, export_params, progress_update)
+    exporter._do_export_game(patch_data, export_params, progress_update, randovania_meta)
 
     # Assert
     submit.assert_called_with(ANY, patch_data, export_params, ANY)

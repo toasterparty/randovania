@@ -4,32 +4,38 @@ import asyncio
 import asyncio.futures
 import concurrent.futures
 import threading
-
-from PySide6.QtCore import Signal
+import typing
 
 import randovania.games.prime2.patcher.csharp_subprocess
 from randovania.lib.background_task import AbortBackgroundTask
+from randovania.lib.signal import RdvSignal
+from randovania.lib.status_update_lib import ProgressUpdateCallable
 
 
 class BackgroundTaskInProgressError(Exception):
     pass
 
 
+class BackgroundTask[T](typing.Protocol):
+    def __call__(self, progress_update: ProgressUpdateCallable) -> T: ...
+
+
 class BackgroundTaskMixin:
-    progress_update_signal = Signal(str, int)
-    background_tasks_button_lock_signal = Signal(bool)
+    progress_update_signal = RdvSignal[[str, int]]()
+    background_tasks_button_lock_signal = RdvSignal[[bool]]()
     abort_background_task_requested: bool = False
     _background_thread: threading.Thread | None = None
 
-    def _start_thread_for(self, target):
+    def _start_thread_for(self, target: typing.Callable[[], None]) -> None:
         randovania.games.prime2.patcher.csharp_subprocess.IO_LOOP = asyncio.get_event_loop()
         self._background_thread = threading.Thread(target=target, name=f"BackgroundThread for {self}")
         self._background_thread.start()
 
-    def run_in_background_thread(self, target, starting_message: str):
+    def run_in_background_thread(self, target: BackgroundTask[None], starting_message: str) -> None:
+        loop = asyncio.get_event_loop()
         last_progress = 0.0
 
-        def progress_update(message: str, progress: float | None):
+        def progress_update(message: str, progress: float | None) -> None:
             nonlocal last_progress
             if progress is None:
                 progress = last_progress
@@ -37,35 +43,35 @@ class BackgroundTaskMixin:
                 last_progress = progress
 
             if self.abort_background_task_requested:
-                self.progress_update_signal.emit(f"{message} - Aborted", int(progress * 100))
+                loop.call_soon_threadsafe(self.progress_update_signal.emit, f"{message} - Aborted", int(progress * 100))
                 raise AbortBackgroundTask
             else:
-                self.progress_update_signal.emit(message, int(progress * 100))
+                loop.call_soon_threadsafe(self.progress_update_signal.emit, message, int(progress * 100))
 
-        def thread(**_kwargs):
+        def thread() -> None:
             try:
-                target(progress_update=progress_update, **_kwargs)
+                target(progress_update=progress_update)
             except AbortBackgroundTask:
                 pass
             finally:
                 self._background_thread = None
-                self.background_tasks_button_lock_signal.emit(True)
+                loop.call_soon_threadsafe(self.background_tasks_button_lock_signal.emit, True)
 
         if self._background_thread:
             raise BackgroundTaskInProgressError("Trying to start a new background thread while one exists already.")
 
         self.abort_background_task_requested = False
-        progress_update(starting_message, 0)
+        self.progress_update_signal.emit(starting_message, 0)
 
         self._start_thread_for(thread)
         self.background_tasks_button_lock_signal.emit(False)
 
-    async def run_in_background_async(self, target, starting_message: str):
-        fut = concurrent.futures.Future()
+    async def run_in_background_async[T](self, target: BackgroundTask[T], starting_message: str) -> T:
+        fut: concurrent.futures.Future[T] = concurrent.futures.Future()
 
-        def work(**_kwargs):
+        def work(progress_update: ProgressUpdateCallable) -> None:
             try:
-                fut.set_result(target(**_kwargs))
+                fut.set_result(target(progress_update))
             except AbortBackgroundTask:
                 fut.cancel()
             except Exception as e:
@@ -75,7 +81,7 @@ class BackgroundTaskMixin:
 
         return await asyncio.futures.wrap_future(fut)
 
-    def stop_background_process(self):
+    def stop_background_process(self) -> None:
         self.abort_background_task_requested = True
 
     @property

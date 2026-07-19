@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import pprint
 import typing
 from typing import TYPE_CHECKING, TextIO
 
@@ -7,7 +8,7 @@ from randovania.game_description.data_writer import REGION_NAME_TO_FILE_NAME_RE
 from randovania.game_description.db.configurable_node import ConfigurableNode
 from randovania.game_description.db.dock_node import DockNode
 from randovania.game_description.db.event_node import EventNode
-from randovania.game_description.db.hint_node import HintNode
+from randovania.game_description.db.hint_node import HintNode, SpecificLocationHintNode, SpecificPickupHintNode
 from randovania.game_description.db.pickup_node import PickupNode
 from randovania.game_description.db.teleporter_network_node import TeleporterNetworkNode
 from randovania.game_description.requirements.array_base import RequirementArrayBase
@@ -18,16 +19,17 @@ from randovania.game_description.requirements.requirement_template import Requir
 from randovania.game_description.requirements.resource_requirement import ResourceRequirement
 from randovania.game_description.resources.resource_type import ResourceType
 from randovania.layout.base.trick_level import LayoutTrickLevel
+from randovania.lib import frozen_lib
 
 if TYPE_CHECKING:
-    from collections.abc import Iterator
+    from collections.abc import Iterable, Iterator, Mapping
     from pathlib import Path
 
     from randovania.game_description.db.area import Area
     from randovania.game_description.db.node import Node
-    from randovania.game_description.db.region_list import RegionList
+    from randovania.game_description.game_database_view import GameDatabaseView, ResourceDatabaseView
     from randovania.game_description.game_description import GameDescription
-    from randovania.game_description.resources.resource_database import ResourceDatabase
+    from randovania.game_description.hint_features import HintFeature
 
 
 def pretty_print_resource_requirement(requirement: ResourceRequirement) -> str:
@@ -37,15 +39,15 @@ def pretty_print_resource_requirement(requirement: ResourceRequirement) -> str:
         return requirement.pretty_text
 
 
-def get_template_name(db: ResourceDatabase, requirement: RequirementTemplate) -> str:
+def get_template_name(db: ResourceDatabaseView, requirement: RequirementTemplate) -> str:
     try:
-        return db.requirement_template[requirement.template_name].display_name
+        return db.get_template_requirement(requirement.template_name).display_name
     except KeyError:
         return f"Unknown Template ({requirement.template_name})"
 
 
 def pretty_print_requirement_array(
-    requirement: RequirementArrayBase, db: ResourceDatabase, level: int
+    requirement: RequirementArrayBase, db: ResourceDatabaseView, level: int
 ) -> Iterator[tuple[int, str]]:
     if len(requirement.items) == 1 and requirement.comment is None:
         yield from pretty_format_requirement(requirement.items[0], db, level)
@@ -83,7 +85,7 @@ def pretty_print_requirement_array(
 
 
 def pretty_format_requirement(
-    requirement: Requirement, db: ResourceDatabase, level: int = 0
+    requirement: Requirement, db: ResourceDatabaseView, level: int = 0
 ) -> Iterator[tuple[int, str]]:
     if requirement == Requirement.impossible():
         yield level, "Impossible"
@@ -108,7 +110,7 @@ def pretty_format_requirement(
 
 def pretty_print_requirement(
     requirement: Requirement,
-    db: ResourceDatabase,
+    db: ResourceDatabaseView,
     prefix: str = "",
     print_function: typing.Callable[[str], None] = print,
 ) -> None:
@@ -116,11 +118,11 @@ def pretty_print_requirement(
         print_function("{}{}{}".format(prefix, "    " * nested_level, text))
 
 
-def pretty_print_node_type(node: Node, region_list: RegionList, db: ResourceDatabase) -> str:
+def pretty_print_node_type(node: Node, game_view: GameDatabaseView, db: ResourceDatabaseView) -> str:
     if isinstance(node, DockNode):
         try:
-            other = region_list.node_by_identifier(node.default_connection)
-            other_name = region_list.node_name(other)
+            other = game_view.node_by_identifier(node.default_connection)
+            other_name = other.full_name(with_region=False)
         except IndexError as e:
             other_name = f"(Area {node.default_connection.area}, index {node.default_connection.node}) [{e}]"
 
@@ -138,7 +140,10 @@ def pretty_print_node_type(node: Node, region_list: RegionList, db: ResourceData
         return message
 
     elif isinstance(node, PickupNode):
-        return f"Pickup {node.pickup_index.index}; Category? {node.location_category.long_name}"
+        message = f"Pickup {node.pickup_index.index}; Category? {node.location_category.long_name}"
+        if node.custom_index_group is not None:
+            message += f"; Index Group: {node.custom_index_group}"
+        return message
 
     elif isinstance(node, EventNode):
         return f"Event {node.event.long_name}"
@@ -147,7 +152,15 @@ def pretty_print_node_type(node: Node, region_list: RegionList, db: ResourceData
         return "Configurable Node"
 
     elif isinstance(node, HintNode):
-        return "Hint"
+        message = f"{node.kind.long_name} Hint"
+        if (requirement := str(node.requirement_to_collect)) != "Trivial":
+            message += f"; Requirement? {requirement}"
+        if isinstance(node, SpecificLocationHintNode):
+            message += f"; Target? {node.target_index}"
+        elif isinstance(node, SpecificPickupHintNode):
+            details = game_view.get_game_enum().hints.specific_pickup_hints[node.specific_pickup_hint_id]
+            message += f"; Target? {details.long_name}"
+        return message
 
     elif isinstance(node, TeleporterNetworkNode):
         unlocked_pretty = list(pretty_format_requirement(node.is_unlocked, db))
@@ -160,10 +173,32 @@ def pretty_print_node_type(node: Node, region_list: RegionList, db: ResourceData
     return ""
 
 
-def pretty_print_area(game: GameDescription, area: Area, print_function: typing.Callable[[str], None] = print) -> None:
+def pretty_print_hint_features(features: Iterable[HintFeature]) -> str:
+    return f"Hint Features - {', '.join([feature.long_name for feature in sorted(features)])}"
+
+
+def _pretty_print_extra(
+    prefix: str,
+    extra: Mapping[str, typing.Any],
+    print_function: typing.Callable[[str], None],
+) -> None:
+    for extra_name, extra_field in extra.items():
+        extra_field_decoded = frozen_lib.unwrap(extra_field)
+        split = " "
+        if isinstance(extra_field_decoded, dict | list):
+            extra_field_decoded = pprint.pformat(extra_field_decoded, width=120, sort_dicts=False)
+            if "\n" in extra_field_decoded:
+                split = "\n"
+
+        print_function(f"{prefix}Extra - {extra_name}:{split}{extra_field_decoded}")
+
+
+def pretty_print_area(game: GameDatabaseView, area: Area, print_function: typing.Callable[[str], None] = print) -> None:
     print_function(area.name)
-    for extra_name, extra_field in area.extra.items():
-        print_function(f"Extra - {extra_name}: {extra_field}")
+    _pretty_print_extra("", area.extra, print_function)
+
+    if area.hint_features:
+        print_function(pretty_print_hint_features(area.hint_features))
 
     for i, node in enumerate(area.nodes):
         if node.is_derived_node:
@@ -177,13 +212,14 @@ def pretty_print_area(game: GameDescription, area: Area, print_function: typing.
         print_function(message)
         print_function(f"  * Layers: {', '.join(node.layers)}")
 
-        description_line = pretty_print_node_type(node, game.region_list, game.resource_database)
+        description_line = pretty_print_node_type(node, game, game.get_resource_database_view())
         if description_line:
             print_function(f"  * {description_line}")
+        if isinstance(node, PickupNode) and node.hint_features:
+            print_function(f"  * {pretty_print_hint_features(node.hint_features)}")
         if node.description:
             print_function(f"  * {node.description}")
-        for extra_name, extra_field in node.extra.items():
-            print_function(f"  * Extra - {extra_name}: {extra_field}")
+        _pretty_print_extra("  * ", node.extra, print_function)
 
         if isinstance(node, DockNode):
             for label, req in (
@@ -194,20 +230,20 @@ def pretty_print_area(game: GameDescription, area: Area, print_function: typing.
                     print_function(f"  * Override default {label} requirement:")
                     pretty_print_requirement(
                         req.simplify(keep_comments=True),
-                        game.resource_database,
+                        game.get_resource_database_view(),
                         prefix="    ",
                         print_function=print_function,
                     )
                     print_function("")
 
-        for target_node, requirement in game.region_list.area_connections_from(node):
+        for target_node, requirement in area.connections[node].items():
             if target_node.is_derived_node:
                 continue
 
             print_function(f"  > {target_node.name}")
             pretty_print_requirement(
                 requirement.simplify(keep_comments=True),
-                game.resource_database,
+                game.get_resource_database_view(),
                 prefix="      ",
                 print_function=print_function,
             )

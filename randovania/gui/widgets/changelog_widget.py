@@ -8,6 +8,7 @@ from PySide6 import QtCore, QtGui, QtWidgets
 from qasync import asyncSlot
 
 from randovania.gui.widgets.delayed_text_label import DelayedTextLabel
+from randovania.lib import http_lib
 
 
 class ChangeLogWidget(QtWidgets.QWidget):
@@ -41,7 +42,7 @@ class ChangeLogWidget(QtWidgets.QWidget):
 
     def select_version_index_changed(self) -> None:
         selected_widget = cast(
-            QtWidgets.QScrollArea,
+            "QtWidgets.QScrollArea",
             self.findChild(QtWidgets.QScrollArea, f"scroll_area {self.select_version.currentText()}"),
         )
 
@@ -104,7 +105,7 @@ class ChangeLogWidget(QtWidgets.QWidget):
                 new_version_text.append(version_text_part_label)
 
                 try:
-                    async with aiohttp.ClientSession() as session:
+                    async with http_lib.http_session() as session:
                         async with session.get(parsed_link) as response:
                             if response.status == 200:
                                 image = QtGui.QImage()

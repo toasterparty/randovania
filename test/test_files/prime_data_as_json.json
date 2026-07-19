@@ -1,5 +1,5 @@
 {
-    "schema_version": 27,
+    "schema_version": 33,
     "game": "prime2",
     "resource_database": {
         "items": {
@@ -223,6 +223,7 @@
             "to_shuffle_proportion": 1.0
         }
     },
+    "hint_feature_database": {},
     "used_trick_levels": {},
     "flatten_to_set_on_patch": false,
     "regions": [
@@ -235,6 +236,7 @@
             "areas": {
                 "Landing Site": {
                     "default_node": "Save Station",
+                    "hint_features": [],
                     "extra": {
                         "asset_id": 1655756413,
                         "in_dark_aether": false
@@ -341,6 +343,7 @@
                 },
                 "Service Access": {
                     "default_node": "Door to Landing Site",
+                    "hint_features": [],
                     "extra": {
                         "asset_id": 2679590972,
                         "in_dark_aether": false
@@ -423,11 +426,10 @@
                                 "default"
                             ],
                             "extra": {
-                                "hint_index": 2,
                                 "string_asset_id": 2000
                             },
                             "valid_starting_location": false,
-                            "kind": "specific-pickup",
+                            "kind": "specific-location",
                             "requirement_to_collect": {
                                 "type": "and",
                                 "data": {
@@ -445,6 +447,7 @@
                                     ]
                                 }
                             },
+                            "target_index": 2,
                             "connections": {}
                         },
                         "Pirate Lore": {
@@ -482,6 +485,14 @@
                     }
                 }
             }
+        },
+        {
+            "name": "Sky Temple Grounds",
+            "extra": {
+                "asset_id": 1006255871,
+                "light_name": "Temple Grounds"
+            },
+            "areas": {}
         }
     ]
 }

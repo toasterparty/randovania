@@ -1,17 +1,25 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import randovania.game.data
 import randovania.game.development_state
 import randovania.game.generator
 import randovania.game.gui
+import randovania.game.hints
 import randovania.game.layout
 import randovania.game.web_info
 from randovania.games.prime2.layout.echoes_configuration import EchoesConfiguration
 from randovania.games.prime2.layout.echoes_cosmetic_patches import EchoesCosmeticPatches
 from randovania.games.prime2.layout.preset_describer import EchoesPresetDescriber
 
+if TYPE_CHECKING:
+    from randovania.exporter.game_exporter import GameExporter
+    from randovania.exporter.patch_data_factory import PatchDataFactory
+    from randovania.interface_common.options import PerGameOptions
 
-def _options():
+
+def _options() -> type[PerGameOptions]:
     from randovania.games.prime2.exporter.options import EchoesPerGameOptions
 
     return EchoesPerGameOptions
@@ -23,6 +31,7 @@ def _gui() -> randovania.game.gui.GameGui:
     )
     from randovania.games.prime2 import gui
     from randovania.games.prime2.layout import progressive_items
+    from randovania.gui.game_details.hint_details_tab import HintDetailsTab
 
     return randovania.game.gui.GameGui(
         tab_provider=gui.prime2_preset_tabs,
@@ -32,17 +41,16 @@ def _gui() -> randovania.game.gui.GameGui:
         spoiler_visualizer=(
             PrimeTrilogyTeleporterDetailsTab,
             gui.TranslatorGateDetailsTab,
-            gui.PortalDetailsTab,
-            gui.EchoesHintDetailsTab,
+            HintDetailsTab,
         ),
         game_tab=gui.EchoesGameTabWidget,
+        hide_database_map_view=True,
     )
 
 
 def _generator() -> randovania.game.generator.GameGenerator:
     from randovania.games.prime2.generator.base_patches_factory import EchoesBasePatchesFactory
     from randovania.games.prime2.generator.bootstrap import EchoesBootstrap
-    from randovania.games.prime2.generator.hint_distributor import EchoesHintDistributor
     from randovania.games.prime2.generator.pickup_pool.pool_creator import echoes_specific_pool
     from randovania.generator.filler.weights import ActionWeights
 
@@ -50,18 +58,31 @@ def _generator() -> randovania.game.generator.GameGenerator:
         pickup_pool_creator=echoes_specific_pool,
         bootstrap=EchoesBootstrap(),
         base_patches_factory=EchoesBasePatchesFactory(),
-        hint_distributor=EchoesHintDistributor(),
         action_weights=ActionWeights(),
     )
 
 
-def _patch_data_factory():
+def _hints() -> randovania.game.hints.GameHints:
+    from randovania.games.prime2.generator.hint_distributor import EchoesHintDistributor
+
+    return randovania.game.hints.GameHints(
+        hint_distributor=EchoesHintDistributor(),
+        specific_pickup_hints={
+            "sky_temple_keys": randovania.game.hints.SpecificHintDetails(
+                long_name="Sky Temple Key Hints",
+                description="This controls how precise the hints for Sky Temple Keys in Sky Temple Gateway are.",
+            )
+        },
+    )
+
+
+def _patch_data_factory() -> type[PatchDataFactory]:
     from randovania.games.prime2.exporter.patch_data_factory import EchoesPatchDataFactory
 
     return EchoesPatchDataFactory
 
 
-def _exporter():
+def _exporter() -> GameExporter:
     from randovania.games.prime2.exporter.game_exporter import EchoesGameExporter
 
     return EchoesGameExporter()
@@ -73,15 +94,21 @@ def _hash_words() -> list[str]:
     return HASH_WORDS
 
 
-# ruff: noqa: E501
+def _test_data() -> randovania.game.game_test_data.GameTestData:
+    return randovania.game.game_test_data.GameTestData(
+        expected_seed_hash="3LNNNRTE",
+        database_collectable_ignore_events=("Event91", "Event92", "Event97"),
+    )
 
+
+# ruff: noqa: E501
 game_data: randovania.game.data.GameData = randovania.game.data.GameData(
     short_name="Echoes",
     long_name="Metroid Prime 2: Echoes",
     development_state=randovania.game.development_state.DevelopmentState.STABLE,
     presets=[
-        {"path": "starter_preset.rdvpreset"},
-        {"path": "darkszero_deluxe.rdvpreset"},
+        "starter_preset.rdvpreset",
+        "darkszero_deluxe.rdvpreset",
     ],
     faq=[
         (
@@ -126,6 +153,21 @@ This means you need Boost Ball to fight Spider Guardian.""",
             "Why can't I use the Kinetic Orb Cannon in Sanctuary Entrance?",
             "The morph cannon will only be active once the scan post has been scanned and the room has been reloaded.",
         ),
+        (
+            "How do I use the light energy transports?",
+            """To use a light energy transport, simply enter the light energy/holograms with Light Suit. The following rooms behave differently and do not require Light Suit, and may have additional requirements in order to use the transports:
+
+#### Energy Controllers
+The light energy transports that are unlocked upon returning the Sanctuary Energy and going back to Main Energy Controller.
+
+#### Sky Temple Gateway (Sky Temple Grounds)
+
+The light energy transport unlocked when returning all the Sky Temple Keys.
+
+#### Sky Temple Energy Controller (Sky Temple)
+
+Taking the transport hologram at the center of this room.""",
+        ),
     ],
     web_info=randovania.game.web_info.GameWebInfo(
         what_can_randomize=[
@@ -149,7 +191,11 @@ This means you need Boost Ball to fight Spider Guardian.""",
     options=_options,
     gui=_gui,
     generator=_generator,
+    hints=_hints,
     patch_data_factory=_patch_data_factory,
     exporter=_exporter,
+    test_data=_test_data,
+    reject_undocumented_tricks_in_database=False,
     defaults_available_in_game_sessions=True,
+    racetime_url="https://racetime.gg/mp2r/data",
 )

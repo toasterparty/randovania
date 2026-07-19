@@ -5,11 +5,12 @@ from typing import TYPE_CHECKING
 from randovania.game_description.db.dock_node import DockNode
 from randovania.game_description.db.node_identifier import NodeIdentifier
 from randovania.games.prime1.layout.prime_configuration import PrimeConfiguration
-from randovania.generator.base_patches_factory import BasePatchesFactory
+from randovania.generator.base_patches_factory import BasePatchesFactory, weaknesses_for_unlocked_saves
 from randovania.generator.teleporter_distributor import (
     get_dock_connections_assignment_for_teleporter,
     get_teleporter_connections,
 )
+from randovania.layout.lib.teleporters import TeleporterShuffleMode
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
@@ -17,50 +18,56 @@ if TYPE_CHECKING:
 
     from randovania.game_description.db.dock import DockWeakness
     from randovania.game_description.db.node import Node
-    from randovania.game_description.game_description import GameDescription
+    from randovania.game_description.game_database_view import GameDatabaseView
     from randovania.game_description.game_patches import GamePatches
-    from randovania.layout.base.base_configuration import BaseConfiguration
 
 
-class PrimeBasePatchesFactory(BasePatchesFactory):
-    def create_base_patches(
-        self,
-        configuration: BaseConfiguration,
-        rng: Random,
-        game: GameDescription,
-        is_multiworld: bool,
-        player_index: int,
-        rng_required: bool = True,
+class PrimeBasePatchesFactory(BasePatchesFactory[PrimeConfiguration]):
+    def assign_static_dock_weakness(
+        self, configuration: PrimeConfiguration, game: GameDatabaseView, initial_patches: GamePatches
     ) -> GamePatches:
-        assert isinstance(configuration, PrimeConfiguration)
-        parent = super().create_base_patches(configuration, rng, game, is_multiworld, player_index, rng_required)
+        parent = super().assign_static_dock_weakness(configuration, game, initial_patches)
 
         nic = NodeIdentifier.create
-        get_node = game.region_list.typed_node_by_identifier
+        get_node = game.typed_node_by_identifier
 
         dock_weakness: list[tuple[DockNode, DockWeakness]] = []
-        power_weak = game.dock_weakness_database.get_by_weakness("door", "Normal Door (Forced)")
+        power_weak = game.get_dock_weakness("door", "Normal Door (Forced)")
 
-        if configuration.main_plaza_door and not configuration.dock_rando.is_enabled():
+        if configuration.main_plaza_door:
             dock_weakness.append(
                 (get_node(nic("Chozo Ruins", "Main Plaza", "Door from Plaza Access"), DockNode), power_weak),
             )
 
         if configuration.blue_save_doors:
-            for area in game.region_list.all_areas:
-                if area.extra.get("unlocked_save_station"):
-                    for node in area.nodes:
-                        if isinstance(node, DockNode) and node.dock_type.short_name == "door":
-                            dock_weakness.append((node, power_weak))
-                            # TODO: This is not correct in entrance rando
-                            dock_weakness.append((get_node(node.default_connection, DockNode), power_weak))
+            dock_weakness.extend(
+                weaknesses_for_unlocked_saves(
+                    game,
+                    unlocked_weakness=power_weak,
+                    target_dock_type=game.find_dock_type_by_short_name("door"),
+                    area_filter=lambda area: area.extra.get("unlocked_save_station") is True,
+                )
+            )
 
         return parent.assign_dock_weakness(dock_weakness)
 
     def dock_connections_assignment(
-        self, configuration: PrimeConfiguration, game: GameDescription, rng: Random
+        self, configuration: PrimeConfiguration, game: GameDatabaseView, rng: Random
     ) -> Iterable[tuple[DockNode, Node]]:
+        yield from super().dock_connections_assignment(configuration, game, rng)
+
         teleporter_connection = get_teleporter_connections(configuration.teleporters, game, rng)
+
+        if configuration.teleporters.mode == TeleporterShuffleMode.ONE_WAY_ANYTHING:
+            credits_node = configuration.teleporters.get_credits_node()
+            if (
+                credits_node in configuration.teleporters.valid_targets
+                and credits_node not in teleporter_connection.values()
+            ):
+                # If nothing goes to credits, randomly assign one
+                random_key = rng.choice(list(teleporter_connection.keys()))
+                teleporter_connection[random_key] = credits_node
+
         dock_assignment = get_dock_connections_assignment_for_teleporter(
             configuration.teleporters, game, teleporter_connection
         )

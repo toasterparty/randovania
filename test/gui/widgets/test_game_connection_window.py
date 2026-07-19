@@ -142,10 +142,10 @@ async def test_add_connector_builder_dread(window: GameConnectionWindow, abort, 
         assert window.game_connection.add_connection_builder.call_args[0][0].ip == "my_ip"
 
 
-@pytest.mark.parametrize("system", ["Darwin", "Windows"])
+@pytest.mark.parametrize("system", ["darwin", "win32"])
 def test_setup_builder_ui_all_builders(skip_qtbot, system, mocker: MockerFixture, is_dev_version, is_frozen):
     # Setup
-    mocker.patch("platform.system", return_value=system)
+    mocker.patch("sys.platform", system)
 
     game_connection = MagicMock()
     game_connection.connection_builders = [
@@ -163,7 +163,7 @@ def test_setup_builder_ui_all_builders(skip_qtbot, system, mocker: MockerFixture
 
     # Assert
     has_debug = ConnectorBuilderChoice.DEBUG.is_usable()
-    if system == "Darwin":
+    if system == "darwin":
         print(list(window.ui_for_builder.keys()))
         assert len(window.ui_for_builder) == 1 + has_debug
     else:
@@ -189,6 +189,7 @@ def test_update_builder_ui(skip_qtbot, mocker: MockerFixture):
         builder_a := MagicMock(spec=ConnectorBuilder),
         builder_b := MagicMock(spec=ConnectorBuilder),
         builder_c := MagicMock(spec=ConnectorBuilder),
+        builder_d := MagicMock(spec=ConnectorBuilder),
     ]
     builder_a.pretty_text = "ConnectorBuilder A"
     builder_a.get_status_message.return_value = None
@@ -196,6 +197,9 @@ def test_update_builder_ui(skip_qtbot, mocker: MockerFixture):
     builder_b.get_status_message.return_value = "Connecting!"
     builder_c.pretty_text = "ConnectorBuilder C"
     builder_c.get_status_message.return_value = None
+    builder_d.pretty_text = "ConnectorBuilder D"
+    builder_d.get_status_message.return_value = None
+    builder_d.enabled = False
 
     connector_a = MagicMock()
     connector_a.description.return_value = "Game A"
@@ -214,12 +218,14 @@ def test_update_builder_ui(skip_qtbot, mocker: MockerFixture):
     assert window.ui_for_builder[builder_b].description.text() == "ConnectorBuilder B"
     assert window.ui_for_builder[builder_a].status.text() == "Not Connected."
     assert window.ui_for_builder[builder_b].status.text() == "Not Connected. Connecting!"
+    assert window.ui_for_builder[builder_d].status.text() == "Disabled."
 
     game_connection.get_connector_for_builder = MagicMock(
         side_effect=lambda builder: {
             builder_a: connector_a,
             builder_b: connector_b,
             builder_c: connector_c,
+            builder_d: None,
         }[builder]
     )
 
@@ -240,11 +246,11 @@ def test_update_builder_ui(skip_qtbot, mocker: MockerFixture):
         }[uid]
     )
     window_manager.multiworld_client.get_world_sync_error = MagicMock(
-        side_effect=lambda uid: (
+        side_effect=(
             {
                 connector_c.layout_uuid: error.ServerError(),
             }
-        ).get(uid)
+        ).get
     )
 
     window.update_builder_ui()

@@ -9,8 +9,9 @@ from randovania.game.game_enum import RandovaniaGame
 from randovania.layout.layout_description import LayoutDescription
 from randovania.layout.versioned_preset import VersionedPreset
 from randovania.network_common import multiplayer_session
+from randovania.network_common.discord_preferences import GuildPreferences
+from randovania.network_common.game_details import GameDetails
 from randovania.network_common.multiplayer_session import (
-    GameDetails,
     MultiplayerSessionAction,
     MultiplayerSessionActions,
     MultiplayerWorld,
@@ -55,8 +56,8 @@ def test_multiplayer_session_create_session_entry(clean_database, has_descriptio
             spoiler=True,
             word_hash="Some Words",
         )
-        worlds.append(MultiplayerWorld(id=w1.uuid, name="Prime 1", preset_raw=w1.preset))
-        worlds.append(MultiplayerWorld(id=w2.uuid, name="Prime 2", preset_raw=w2.preset))
+        worlds.append(MultiplayerWorld(id=w1.uuid, name="Prime 1", preset_raw=w1.preset, has_been_beaten=False))
+        worlds.append(MultiplayerWorld(id=w2.uuid, name="Prime 2", preset_raw=w2.preset, has_been_beaten=False))
         actions.append(
             MultiplayerSessionAction(
                 provider=w1.uuid, receiver=w2.uuid, pickup="Power Bomb Expansion", location=34, time=dt
@@ -80,6 +81,7 @@ def test_multiplayer_session_create_session_entry(clean_database, has_descriptio
         visibility=MultiplayerSessionVisibility.HIDDEN,
         allow_coop=False,
         allow_everyone_claim_world=False,
+        allow_abandon_worlds=True,
     )
     assert result_actions == MultiplayerSessionActions(session_id=1, actions=actions)
 
@@ -114,3 +116,57 @@ def test_multiplayer_session_defaults_to_now(clean_database):
 
     session: database.MultiplayerSession = database.MultiplayerSession.get_by_id(1)
     assert (datetime.datetime.now(datetime.UTC) - session.creation_datetime) < datetime.timedelta(seconds=5)
+
+
+def test_async_race_active_pause(clean_database):
+    someone = database.User.create(name="Someone")
+    room = database.AsyncRaceRoom.create(
+        name="Debug",
+        creator=someone,
+        layout_description_json=b"",
+        game_details_json="{}",
+        start_date=datetime.datetime.now(datetime.UTC),
+        end_date=datetime.datetime.now(datetime.UTC) + datetime.timedelta(days=30),
+        allow_pause=True,
+    )
+    entry = database.AsyncRaceEntry.create(
+        room=room,
+        user=someone,
+    )
+
+    assert database.AsyncRaceEntryPause.active_pause(entry) is None
+    database.AsyncRaceEntryPause.create(entry=entry, start=datetime.datetime.now(datetime.UTC))
+
+    pause = database.AsyncRaceEntryPause.active_pause(entry)
+    assert pause is not None
+    pause.end = datetime.datetime.now(datetime.UTC)
+    pause.save()
+
+    assert database.AsyncRaceEntryPause.active_pause(entry) is None
+
+    assert entry.pauses == [pause]
+
+
+@pytest.fixture
+def database_for_guild_preferences(db_path):
+    # No longer needed after adding to all_classes
+    test_db = SqliteDatabase(db_path, uri=True)
+
+    with test_db.bind_ctx([database.DiscordGuildPreferences]):
+        test_db.create_tables([database.DiscordGuildPreferences])
+        yield test_db
+
+
+def test_discord_guild_preferences(database_for_guild_preferences):
+    db_preferences = database.DiscordGuildPreferences.get_with_default(1000)
+    assert db_preferences.get_preferences() == GuildPreferences()
+    db_preferences.set_preferences(
+        GuildPreferences(
+            multiworld_interest_ping_cooldown=120,
+        )
+    )
+    db_preferences.save()
+
+    assert database.DiscordGuildPreferences.get_with_default(1000).get_preferences() == GuildPreferences(
+        multiworld_interest_ping_cooldown=120,
+    )

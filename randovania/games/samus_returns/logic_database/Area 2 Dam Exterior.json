@@ -11,6 +11,10 @@
     "areas": {
         "Dam Exterior": {
             "default_node": "Elevator to Area 2 Dam Entryway",
+            "hint_features": [
+                "elevator",
+                "teleporter"
+            ],
             "extra": {
                 "total_boundings": {
                     "x1": -13000.0,
@@ -162,6 +166,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 34,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Elevator to Area 2 Dam Entryway": {
                             "type": "and",
@@ -1282,6 +1288,10 @@
         },
         "Arachnus Arena": {
             "default_node": "Room Center",
+            "hint_features": [
+                "boss",
+                "chozo_statue"
+            ],
             "extra": {
                 "total_boundings": {
                     "x1": -3100.0,
@@ -1329,6 +1339,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 37,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Room Center": {
                             "type": "and",
@@ -1577,6 +1589,7 @@
         },
         "Fan Funnel": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "total_boundings": {
                     "x1": -1000.0,
@@ -1647,13 +1660,8 @@
                                                     "data": "Lay Bomb"
                                                 },
                                                 {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "Spring",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
+                                                    "type": "template",
+                                                    "data": "Use Spring Ball"
                                                 }
                                             ]
                                         }
@@ -1750,6 +1758,9 @@
         },
         "Critter Playground": {
             "default_node": "Start Point",
+            "hint_features": [
+                "baby"
+            ],
             "extra": {
                 "total_boundings": {
                     "x1": -1850.0,
@@ -1805,6 +1816,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 35,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Rock Icicle Corridor": {
                             "type": "and",
@@ -2581,6 +2594,9 @@
         },
         "Metroid Caverns Entrance": {
             "default_node": null,
+            "hint_features": [
+                "baby"
+            ],
             "extra": {
                 "total_boundings": {
                     "x1": -14800.0,
@@ -2779,13 +2795,8 @@
                                             "comment": "Cross the crumble blocks",
                                             "items": [
                                                 {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "Spider",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
+                                                    "type": "template",
+                                                    "data": "Use Spider Ball"
                                                 },
                                                 {
                                                     "type": "resource",
@@ -2897,6 +2908,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 39,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Metroid Caverns Save Station": {
                             "type": "and",
@@ -2987,6 +3000,7 @@
         },
         "Spike Ravine": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "total_boundings": {
                     "x1": -16000.0,
@@ -3034,6 +3048,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 32,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Tunnel to Metroid Caverns Entrance (Bottom)": {
                             "type": "and",
@@ -3369,6 +3385,7 @@
         },
         "Metroid Caverns Ammo Recharge Station Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "total_boundings": {
                     "x1": -16000.0,
@@ -3483,6 +3500,7 @@
         },
         "Metroid Caverns Maze": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "total_boundings": {
                     "x1": -11200.0,
@@ -3530,6 +3548,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 36,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Tunnel to Metroid Caverns Save Station": {
                             "type": "template",
@@ -3574,6 +3594,7 @@
         },
         "Metroid Caverns Save Station": {
             "default_node": "Save Station",
+            "hint_features": [],
             "extra": {
                 "total_boundings": {
                     "x1": -13000.0,
@@ -3842,6 +3863,9 @@
         },
         "Metroid Caverns Alpha Arena North West": {
             "default_node": "Room Center",
+            "hint_features": [
+                "alpha_metroid"
+            ],
             "extra": {
                 "total_boundings": {
                     "x1": -18600.0,
@@ -4249,13 +4273,8 @@
                                                                 }
                                                             },
                                                             {
-                                                                "type": "resource",
-                                                                "data": {
-                                                                    "type": "items",
-                                                                    "name": "Spring",
-                                                                    "amount": 1,
-                                                                    "negate": false
-                                                                }
+                                                                "type": "template",
+                                                                "data": "Use Spring Ball"
                                                             },
                                                             {
                                                                 "type": "resource",
@@ -4318,6 +4337,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 179,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Room Center": {
                             "type": "and",
@@ -4332,6 +4353,7 @@
         },
         "Metroid Caverns Lobby": {
             "default_node": "Start Point",
+            "hint_features": [],
             "extra": {
                 "total_boundings": {
                     "x1": -21850.0,
@@ -4531,6 +4553,10 @@
         },
         "Metroid Caverns Alpha Arena South West": {
             "default_node": "Start Point",
+            "hint_features": [
+                "alpha_metroid",
+                "heat"
+            ],
             "extra": {
                 "total_boundings": {
                     "x1": -25900.0,
@@ -4693,6 +4719,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 180,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Metroid Caverns Lobby": {
                             "type": "and",
@@ -4707,6 +4735,7 @@
         },
         "Metroid Caverns Alpha Arena East Access": {
             "default_node": "Start Point",
+            "hint_features": [],
             "extra": {
                 "total_boundings": {
                     "x1": -11200.0,
@@ -4832,13 +4861,8 @@
                                                         "comment": null,
                                                         "items": [
                                                             {
-                                                                "type": "resource",
-                                                                "data": {
-                                                                    "type": "items",
-                                                                    "name": "Spring",
-                                                                    "amount": 1,
-                                                                    "negate": false
-                                                                }
+                                                                "type": "template",
+                                                                "data": "Use Spring Ball"
                                                             },
                                                             {
                                                                 "type": "and",
@@ -4895,6 +4919,11 @@
         },
         "Metroid Caverns Teleporter": {
             "default_node": "Teleporter",
+            "hint_features": [
+                "chozo_seal",
+                "heat",
+                "teleporter"
+            ],
             "extra": {
                 "total_boundings": {
                     "x1": -18600.0,
@@ -5172,6 +5201,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 38,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Below Pickup": {
                             "type": "and",
@@ -5569,6 +5600,9 @@
         },
         "Exterior Alpha+ Arena": {
             "default_node": "Room Center",
+            "hint_features": [
+                "alpha_metroid"
+            ],
             "extra": {
                 "total_boundings": {
                     "x1": -11450.0,
@@ -5756,6 +5790,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 177,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Room Center": {
                             "type": "and",
@@ -5770,6 +5806,7 @@
         },
         "Serene Shelter": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "total_boundings": {
                     "x1": -14400.0,
@@ -5817,6 +5854,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 33,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Exterior Alpha+ Arena": {
                             "type": "and",
@@ -5928,13 +5967,8 @@
                                                                 }
                                                             },
                                                             {
-                                                                "type": "resource",
-                                                                "data": {
-                                                                    "type": "items",
-                                                                    "name": "Spider",
-                                                                    "amount": 1,
-                                                                    "negate": false
-                                                                }
+                                                                "type": "template",
+                                                                "data": "Use Spider Ball"
                                                             },
                                                             {
                                                                 "type": "resource",
@@ -6062,6 +6096,10 @@
         },
         "Metroid Caverns Alpha+ Arena": {
             "default_node": "Room Center",
+            "hint_features": [
+                "alpha_metroid",
+                "heat"
+            ],
             "extra": {
                 "total_boundings": {
                     "x1": -7700.0,
@@ -6224,6 +6262,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 181,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Room Center": {
                             "type": "and",
@@ -6238,6 +6278,9 @@
         },
         "Inner Alpha Arena": {
             "default_node": "Room Center",
+            "hint_features": [
+                "alpha_metroid"
+            ],
             "extra": {
                 "total_boundings": {
                     "x1": -4100.0,
@@ -6379,6 +6422,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 182,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Room Center": {
                             "type": "and",
@@ -6393,6 +6438,7 @@
         },
         "Rock Icicle Corridor": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "total_boundings": {
                     "x1": -4200.0,
@@ -6503,6 +6549,7 @@
         },
         "Maintenance Tunnel": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "total_boundings": {
                     "x1": 580.0,
@@ -6609,6 +6656,7 @@
         },
         "Metroid Caverns Ammo Recharge Station": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "total_boundings": {
                     "x1": -17200.0,
@@ -6707,6 +6755,9 @@
         },
         "Metroid Caverns Alpha Arena East": {
             "default_node": "Room Center",
+            "hint_features": [
+                "alpha_metroid"
+            ],
             "extra": {
                 "total_boundings": {
                     "x1": -7500.0,
@@ -6865,13 +6916,8 @@
                                                                                 "comment": null,
                                                                                 "items": [
                                                                                     {
-                                                                                        "type": "resource",
-                                                                                        "data": {
-                                                                                            "type": "items",
-                                                                                            "name": "Spring",
-                                                                                            "amount": 1,
-                                                                                            "negate": false
-                                                                                        }
+                                                                                        "type": "template",
+                                                                                        "data": "Use Spring Ball"
                                                                                     },
                                                                                     {
                                                                                         "type": "resource",
@@ -6973,6 +7019,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 183,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Room Center": {
                             "type": "and",

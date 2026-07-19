@@ -13,6 +13,7 @@ from randovania.gui.generated.racetime_browser_dialog_ui import Ui_RacetimeBrows
 from randovania.gui.lib import async_dialog, common_qt_lib
 from randovania.gui.lib.qt_network_client import handle_network_errors
 from randovania.layout.permalink import Permalink, UnsupportedPermalink
+from randovania.lib import http_lib
 
 
 @dataclasses.dataclass(frozen=True)
@@ -27,7 +28,7 @@ class RaceEntry:
     game: RandovaniaGame
 
     @classmethod
-    def from_json(cls, data, game) -> RaceEntry:
+    def from_json(cls, data: dict, game: RandovaniaGame) -> RaceEntry:
         return RaceEntry(
             name=data["name"],
             status=data["status"]["value"],
@@ -40,13 +41,6 @@ class RaceEntry:
         )
 
 
-_SUPPORTED_GAME_URLS = {
-    RandovaniaGame.METROID_PRIME: "https://racetime.gg/mpr/data",
-    RandovaniaGame.METROID_PRIME_ECHOES: "https://racetime.gg/mp2r/data",
-    RandovaniaGame.METROID_DREAD: "https://racetime.gg/dread-rando/data",
-    RandovaniaGame.AM2R: "https://racetime.gg/am2r-rdv/data",
-    RandovaniaGame.METROID_SAMUS_RETURNS: "https://racetime.gg/msrr/data",
-}
 _TEST_RESPONSE = {
     "name": "Metroid Prime 2: Echoes Randomizer",
     "short_name": "MP2R",
@@ -106,8 +100,8 @@ _TEST_RESPONSE = {
 }
 
 
-async def _query_server(race_url) -> dict:
-    async with aiohttp.ClientSession() as session:
+async def _query_server(race_url: str) -> dict:
+    async with http_lib.http_session() as session:
         async with session.get(race_url) as response:
             response.raise_for_status()
             return await response.json()
@@ -117,15 +111,15 @@ class RacetimeBrowserDialog(QDialog, Ui_RacetimeBrowserDialog):
     races: list[RaceEntry]
     permalink: Permalink | None = None
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.setupUi(self)
         common_qt_lib.set_default_window_icon(self)
 
         self.refresh_button = QPushButton("Refresh")
-        self.button_box.addButton(self.refresh_button, QDialogButtonBox.ResetRole)
-        self.button_box.button(QDialogButtonBox.Ok).setEnabled(False)
-        self.button_box.button(QDialogButtonBox.Ok).setText("Import")
+        self.button_box.addButton(self.refresh_button, QDialogButtonBox.ButtonRole.ResetRole)
+        self.button_box.button(QDialogButtonBox.StandardButton.Ok).setEnabled(False)
+        self.button_box.button(QDialogButtonBox.StandardButton.Ok).setText("Import")
 
         self.button_box.accepted.connect(self.attempt_join)
         self.button_box.rejected.connect(self.reject)
@@ -144,7 +138,9 @@ class RacetimeBrowserDialog(QDialog, Ui_RacetimeBrowserDialog):
         self.filter_name_edit.textEdited.connect(self.update_list)
 
         self._game_checks = set()
-        for game in _SUPPORTED_GAME_URLS:
+        for game in RandovaniaGame.all_games():
+            if game.data.racetime_url is None:
+                continue
             game_checkbox = QCheckBox(game.long_name)
             game_checkbox.setChecked(True)
             self.game_check_layout.addWidget(game_checkbox)
@@ -160,7 +156,10 @@ class RacetimeBrowserDialog(QDialog, Ui_RacetimeBrowserDialog):
         self.refresh_button.setEnabled(False)
         self.races = []
         try:
-            for game, race_url in _SUPPORTED_GAME_URLS.items():
+            for game in RandovaniaGame.all_games():
+                race_url = game.data.racetime_url
+                if race_url is None:
+                    continue
                 try:
                     raw_races = await _query_server(race_url)
                 except aiohttp.ClientError as e:
@@ -175,20 +174,22 @@ class RacetimeBrowserDialog(QDialog, Ui_RacetimeBrowserDialog):
         finally:
             self.refresh_button.setEnabled(True)
 
-    def on_selection_changed(self):
-        self.button_box.button(QDialogButtonBox.Ok).setEnabled(len(self.table_widget.selectedItems()) > 0)
+    def on_selection_changed(self) -> None:
+        self.button_box.button(QDialogButtonBox.StandardButton.Ok).setEnabled(
+            len(self.table_widget.selectedItems()) > 0
+        )
 
     @property
-    def selected_race(self):
-        return self.table_widget.selectedItems()[0].data(Qt.UserRole)
+    def selected_race(self) -> RaceEntry:
+        return self.table_widget.selectedItems()[0].data(Qt.ItemDataRole.UserRole)
 
     @asyncSlot(QTableWidgetItem)
-    async def on_double_click(self, item: QTableWidgetItem):
+    async def on_double_click(self, item: QTableWidgetItem) -> None:
         await self.attempt_join()
 
     @asyncSlot()
     @handle_network_errors
-    async def attempt_join(self):
+    async def attempt_join(self) -> None:
         if not self.races:
             return
 
@@ -210,9 +211,9 @@ class RacetimeBrowserDialog(QDialog, Ui_RacetimeBrowserDialog):
             )
         else:
             self.permalink = permalink
-            return self.accept()
+            self.accept()
 
-    def update_list(self):
+    def update_list(self) -> None:
         self.table_widget.clear()
         self.table_widget.setHorizontalHeaderLabels(["Name", "Game", "Status", "Entrants", "Goal", "Info", "Opened At"])
 
@@ -237,17 +238,17 @@ class RacetimeBrowserDialog(QDialog, Ui_RacetimeBrowserDialog):
         self.table_widget.setRowCount(len(visible_races))
         for i, session in enumerate(visible_races):
             name = QTableWidgetItem(session.name)
-            status = QTableWidgetItem(session.verbose_status)
+            status_item = QTableWidgetItem(session.verbose_status)
             entrants = QTableWidgetItem(str(session.entrants))
             goal = QTableWidgetItem(session.goal)
             info = QTableWidgetItem(session.info)
             opened_at = QTableWidgetItem(session.opened_at.astimezone().strftime("%c"))
             game_name = QTableWidgetItem(session.game.short_name)
 
-            name.setData(Qt.UserRole, session)
+            name.setData(Qt.ItemDataRole.UserRole, session)
             self.table_widget.setItem(i, 0, name)
             self.table_widget.setItem(i, 1, game_name)
-            self.table_widget.setItem(i, 2, status)
+            self.table_widget.setItem(i, 2, status_item)
             self.table_widget.setItem(i, 3, entrants)
             self.table_widget.setItem(i, 4, goal)
             self.table_widget.setItem(i, 5, info)

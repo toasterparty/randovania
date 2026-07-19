@@ -1,12 +1,16 @@
 from __future__ import annotations
 
 import asyncio
+import typing
 from typing import TYPE_CHECKING
 
 from PySide6 import QtWidgets
 from qasync import asyncSlot
 
 from randovania import monitoring
+from randovania.gui.async_race_room_window import AsyncRaceRoomWindow
+from randovania.gui.dialog.async_race.async_race_creation_dialog import AsyncRaceCreationDialog
+from randovania.gui.dialog.async_race.async_race_room_browser_dialog import AsyncRaceRoomBrowserDialog
 from randovania.gui.dialog.login_prompt_dialog import LoginPromptDialog
 from randovania.gui.dialog.multiplayer_session_browser_dialog import MultiplayerSessionBrowserDialog
 from randovania.gui.dialog.text_prompt_dialog import TextPromptDialog
@@ -19,11 +23,22 @@ if TYPE_CHECKING:
     from randovania.gui.lib.window_manager import WindowManager
     from randovania.interface_common.options import Options
     from randovania.interface_common.preset_manager import PresetManager
+    from randovania.network_common.async_race_room import AsyncRaceRoomEntry
+
+
+class BaseBrowser[T](typing.Protocol):
+    def __init__(self, network_client: QtNetworkClient) -> None: ...
+
+    @handle_network_errors  # type: ignore[type-var]
+    async def refresh(self, *, ignore_limit: bool = False) -> bool: ...
+
+    joined_session: T | None
 
 
 class OnlineInteractions(QtWidgets.QWidget):
     network_client: QtNetworkClient
     _login_window: QtWidgets.QDialog | None = None
+    _async_race_creation: AsyncRaceCreationDialog | None = None
 
     def __init__(
         self,
@@ -32,7 +47,7 @@ class OnlineInteractions(QtWidgets.QWidget):
         network_client: QtNetworkClient,
         main_window: Ui_MainWindow,
         options: Options,
-    ):
+    ) -> None:
         super().__init__(window_manager)
 
         self.window_manager = window_manager
@@ -44,44 +59,91 @@ class OnlineInteractions(QtWidgets.QWidget):
         # Signals
         main_window.browse_sessions_button.clicked.connect(self._browse_for_session)
         main_window.host_new_game_button.clicked.connect(self._host_game_session)
+        main_window.browse_async_races_button.clicked.connect(self._browse_async_races)
 
         # Menu Bar
         main_window.menu_action_login_window.triggered.connect(self._action_login_window)
+        main_window.menu_action_async_race.triggered.connect(self._action_create_async_race)
 
-    @asyncSlot()
-    @handle_network_errors
-    async def _browse_for_session(self):
+    async def _base_browse[T](
+        self,
+        type_: type[BaseBrowser[T]],
+        wait_message: str,
+    ) -> T | None:
+        """
+        Requests a list of sessions via the given widget, then returns the one the user selected.
+        :param type_: The type of the widget to use to display sessions
+        :param wait_message: Message to display to the user while the sessions are downloaded
+        :return: The selected session, or None if none were selected or an error occurred.
+        """
         if not await self.network_client.ensure_logged_in(self):
-            return
+            return None
 
-        network_client = self.network_client
-        browser = MultiplayerSessionBrowserDialog(network_client)
+        browser = type_(self.network_client)
 
         try:
             result = await wait_dialog.cancellable_wait(
                 self,
                 asyncio.ensure_future(browser.refresh()),
                 "Communicating",
-                "Requesting the session list...",
+                wait_message,
             )
         except asyncio.CancelledError:
-            return
+            return None
 
         if not result:
-            return
+            return None
 
+        assert isinstance(browser, QtWidgets.QDialog)
         if await async_dialog.execute_dialog(browser) == QtWidgets.QDialog.DialogCode.Accepted:
-            await self.window_manager.ensure_multiplayer_session_window(
-                network_client, browser.joined_session.id, self.options
-            )
+            joined_session = browser.joined_session
+            assert joined_session is not None
+            return joined_session
+
+        return None
+
+    async def _create_and_show_async_race_room(self, room: AsyncRaceRoomEntry) -> None:
+        async_room = AsyncRaceRoomWindow(room, self.network_client, self.options, self.window_manager)
+        async_room.show()
+        self.window_manager.track_window(async_room)
+        await async_room.request_room_update_events()
 
     @asyncSlot()
     @handle_network_errors
-    async def _action_login_window(self):
-        if self._login_window is not None:
-            return self._login_window.show()
+    async def _browse_async_races(self) -> None:
+        """
+        Displays a selection widget for async races and then opens a widget for displaying the selected one.
+        """
+        room = await self._base_browse(
+            AsyncRaceRoomBrowserDialog,
+            "Requesting the room list...",
+        )
+        if room is not None:
+            await self._create_and_show_async_race_room(room)
 
-        self._login_window = LoginPromptDialog(self.network_client)
+    @asyncSlot()
+    @handle_network_errors
+    async def _browse_for_session(self) -> None:
+        """
+        Displays a selection widget for multiplayer sessions and then opens a widget for displaying the selected one.
+        """
+        session = await self._base_browse(
+            MultiplayerSessionBrowserDialog,
+            "Requesting the session list...",
+        )
+        if session is not None:
+            await self.window_manager.ensure_multiplayer_session_window(self.network_client, session.id, self.options)
+
+    @asyncSlot()
+    @handle_network_errors
+    async def _action_login_window(self) -> None:
+        if self._login_window is not None:
+            self._login_window.show()
+            return
+
+        self._login_window = LoginPromptDialog(
+            self.network_client, await self.network_client.query_authentication_methods()
+        )
         try:
             await async_dialog.execute_dialog(self._login_window)
         finally:
@@ -89,7 +151,35 @@ class OnlineInteractions(QtWidgets.QWidget):
 
     @asyncSlot()
     @handle_network_errors
-    async def _host_game_session(self):
+    async def _action_create_async_race(self) -> None:
+        if not await self.network_client.ensure_logged_in(self):
+            return
+
+        if self._async_race_creation is not None:
+            self._async_race_creation.raise_()
+            return
+
+        self._async_race_creation = AsyncRaceCreationDialog(
+            self,
+            self.window_manager,
+            self.options,
+        )
+        try:
+            result = await async_dialog.execute_dialog(self._async_race_creation)
+
+            if result == QtWidgets.QDialog.DialogCode.Accepted:
+                assert self._async_race_creation.layout_description is not None
+                room = await self.network_client.create_async_race_room(
+                    self._async_race_creation.layout_description,
+                    self._async_race_creation.create_settings_object(),
+                )
+                await self._create_and_show_async_race_room(room)
+        finally:
+            self._async_race_creation = None
+
+    @asyncSlot()
+    @handle_network_errors
+    async def _host_game_session(self) -> None:
         if not await self.network_client.ensure_logged_in(self):
             return
 

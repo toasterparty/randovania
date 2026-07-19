@@ -1,5 +1,5 @@
 {
-    "schema_version": 27,
+    "schema_version": 33,
     "game": "blank",
     "resource_database": {
         "items": {
@@ -79,6 +79,10 @@
             "Damage": {
                 "long_name": "Normal Damage",
                 "extra": {}
+            },
+            "Caltrops": {
+                "long_name": "Caltrops Damage",
+                "extra": {}
             }
         },
         "versions": {
@@ -119,7 +123,28 @@
                 }
             }
         },
-        "damage_reductions": [],
+        "damage_reductions": [
+            {
+                "name": "Caltrops",
+                "reductions": [
+                    {
+                        "name": "Jump",
+                        "quantity": 1,
+                        "multiplier": 0.5
+                    },
+                    {
+                        "name": "Jump",
+                        "quantity": 2,
+                        "multiplier": 0.0
+                    },
+                    {
+                        "name": "DoubleJump",
+                        "quantity": 1,
+                        "multiplier": 0.0
+                    }
+                ]
+            }
+        ],
         "energy_tank_item_index": "Health"
     },
     "layers": [
@@ -353,6 +378,50 @@
             "force_change_two_way": false,
             "resolver_attempts": 125,
             "to_shuffle_proportion": 1.0
+        }
+    },
+    "hint_feature_database": {
+        "boss": {
+            "long_name": "Boss",
+            "hint_details": [
+                "near ",
+                "a boss"
+            ]
+        },
+        "ledge": {
+            "long_name": "Ledge",
+            "hint_details": [
+                "on ",
+                "a high ledge"
+            ]
+        },
+        "hint1": {
+            "long_name": "Hint Feature 1",
+            "hint_details": [
+                "",
+                "1"
+            ]
+        },
+        "hint2": {
+            "long_name": "Hint Feature 2",
+            "hint_details": [
+                "",
+                "2"
+            ]
+        },
+        "hint3": {
+            "long_name": "Hint Feature 3",
+            "hint_details": [
+                "",
+                "3"
+            ]
+        },
+        "hint4": {
+            "long_name": "Hint Feature 4",
+            "hint_details": [
+                "",
+                "4"
+            ]
         }
     },
     "used_trick_levels": {

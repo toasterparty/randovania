@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import dataclasses
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
@@ -11,14 +12,16 @@ if TYPE_CHECKING:
     from randovania.exporter.game_exporter import GameExporter
     from randovania.exporter.patch_data_factory import PatchDataFactory
     from randovania.game.development_state import DevelopmentState
+    from randovania.game.game_test_data import GameTestData
     from randovania.game.generator import GameGenerator
     from randovania.game.gui import GameGui
+    from randovania.game.hints import GameHints
     from randovania.game.layout import GameLayout
     from randovania.game_description.game_description import GameDescription
     from randovania.interface_common.options import PerGameOptions
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, kw_only=True)
 class GameData:
     """Contains all game-specific behavior as required by Randovania."""
 
@@ -31,10 +34,11 @@ class GameData:
     development_state: DevelopmentState
     """Controls how mature the game is considered to be. Various part of the UI display different games depending on
     the development state.
-    Games start in DEVELOPMENT, change to EXPERIMENTAL when somewhat usable and move to STABLE when given approval."""
+    Games start in SOURCE_ONLY, change to STAGING when somewhat usable and move to STABLE when given approval."""
 
-    presets: Iterable[dict[str, str]]
-    """List of at least one dict mapping the key "path" to a path to the given preset."""
+    presets: Iterable[str]
+    """List of preset filenames that should be included by default for this game.
+    The file must exist in the "presets" subdirectory of the game."""
 
     faq: Iterable[tuple[str, str]]
     """List of question to markdown-formatted response of FAQ entries."""
@@ -54,10 +58,18 @@ class GameData:
     generator: Callable[[], GameGenerator]
     """Contains game-specific generation data."""
 
+    hints: Callable[[], GameHints]
+
     patch_data_factory: Callable[[], type[PatchDataFactory]]
 
     exporter: Callable[[], GameExporter]
     """Capable of exporting everything needed to play the randomized game."""
+
+    test_data: Callable[[], GameTestData]
+    """Contains data and configuration parameters to allow the test suit to assert things properly for this game."""
+
+    reject_undocumented_tricks_in_database: bool = True
+    """If a test should check and fail if there's any undocumented trick in the database."""
 
     defaults_available_in_game_sessions: bool = False
     """If this game is allowed by default in online game sessions."""
@@ -69,8 +81,11 @@ class GameData:
     multiple_start_nodes_per_area: bool = False
     """If this game allows multiple start nodes per area."""
 
-    web_info: GameWebInfo = GameWebInfo()
+    web_info: GameWebInfo = dataclasses.field(default_factory=GameWebInfo)
     """Contains a handful of fields displayed primarily on the website."""
+
+    racetime_url: str | None = None
+    """The URL to the racetime.gg data endpoint for this game, if available."""
 
     logic_db_integrity: Callable[[GameDescription], Iterator[str]] = lambda game: iter(())
     """A function checking for game specific database integrity errors."""

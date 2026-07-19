@@ -79,7 +79,7 @@ class AM2RExecutor:
             await asyncio.wait_for(writer.drain(), timeout=30)
 
             self.logger.debug("Waiting for API details response.")
-            response = typing.cast(bytes, await self._read_response())
+            response = typing.cast("bytes", await self._read_response())
             api_version, self.layout_uuid_str = response.decode("ascii").split(",")
             if int(api_version) != self._current_version:
                 raise AM2RConnectionException("API versions mismatch!")
@@ -92,7 +92,7 @@ class AM2RExecutor:
             self._socket.api_version = int(api_version)
 
             loop = asyncio.get_event_loop()
-            loop.create_task(self.read_loop())
+            self._read_loop_task = loop.create_task(self.read_loop())
             self.logger.info("Connected")
 
             return None
@@ -128,7 +128,7 @@ class AM2RExecutor:
         ret_bytes: bytearray = bytearray(type.to_bytes())
         if msg is not None:
             ret_bytes.extend(msg)
-        return ret_bytes
+        return bytes(ret_bytes)
 
     async def _read_response(self) -> bytes | None:
         if self._socket is None:
@@ -168,7 +168,7 @@ class AM2RExecutor:
                 if packet_type == PacketType.PACKET_NEW_INVENTORY:
                     self.signals.new_inventory.emit(response.decode("utf-8"))
                 elif packet_type == PacketType.PACKET_COLLECTED_INDICES:
-                    self.signals.new_collected_locations.emit(response.decode("utf-8"))
+                    self.signals.new_collected_locations.emit(response)
                 elif packet_type == PacketType.PACKET_RECEIVED_PICKUPS:
                     self.signals.new_received_pickups.emit(response.decode("utf-8"))
                 elif packet_type == PacketType.PACKET_GAME_STATE:

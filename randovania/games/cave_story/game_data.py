@@ -1,5 +1,14 @@
 from __future__ import annotations
 
+import typing
+
+import randovania.game.hints
+
+if typing.TYPE_CHECKING:
+    from randovania.exporter.game_exporter import GameExporter
+    from randovania.exporter.patch_data_factory import PatchDataFactory
+    from randovania.interface_common.options import PerGameOptions
+
 import randovania.game.data
 import randovania.game.development_state
 import randovania.game.generator
@@ -14,29 +23,29 @@ from randovania.games.cave_story.layout.preset_describer import (
 )
 
 
-def _options():
+def _options() -> type[PerGameOptions]:
     from randovania.games.cave_story.exporter.options import CSPerGameOptions
 
     return CSPerGameOptions
 
 
-def _gui():
+def _gui() -> randovania.game.gui.GameGui:
     from randovania.games.cave_story import gui
     from randovania.games.cave_story.layout import progressive_items
+    from randovania.gui.game_details.hint_details_tab import HintDetailsTab
 
     return randovania.game.gui.GameGui(
         tab_provider=gui.cs_preset_tabs,
         cosmetic_dialog=gui.CSCosmeticPatchesDialog,
         export_dialog=gui.CSGameExportDialog,
         progressive_item_gui_tuples=progressive_items.tuples(),
-        spoiler_visualizer=(gui.CSHintDetailsTab,),
+        spoiler_visualizer=(HintDetailsTab,),
         game_tab=gui.CSGameTabWidget,
     )
 
 
-def _generator():
+def _generator() -> randovania.game.generator.GameGenerator:
     from randovania.games.cave_story.generator.bootstrap import CSBootstrap
-    from randovania.games.cave_story.generator.hint_distributor import CSHintDistributor
     from randovania.games.cave_story.generator.pool_creator import pool_creator
     from randovania.generator.base_patches_factory import BasePatchesFactory
     from randovania.generator.filler.weights import ActionWeights
@@ -45,18 +54,26 @@ def _generator():
         pickup_pool_creator=pool_creator,
         bootstrap=CSBootstrap(),
         base_patches_factory=BasePatchesFactory(),
-        hint_distributor=CSHintDistributor(),
         action_weights=ActionWeights(),
     )
 
 
-def _patch_data_factory():
+def _hints() -> randovania.game.hints.GameHints:
+    from randovania.games.cave_story.generator.hint_distributor import CSHintDistributor
+
+    return randovania.game.hints.GameHints(
+        hint_distributor=CSHintDistributor(),
+        specific_pickup_hints={},
+    )
+
+
+def _patch_data_factory() -> type[PatchDataFactory]:
     from randovania.games.cave_story.exporter.patch_data_factory import CSPatchDataFactory
 
     return CSPatchDataFactory
 
 
-def _exporter():
+def _exporter() -> GameExporter:
     from randovania.games.cave_story.exporter.game_exporter import CSGameExporter
 
     return CSGameExporter()
@@ -68,14 +85,33 @@ def _hash_words() -> list[str]:
     return HASH_WORDS
 
 
+def _test_data() -> randovania.game.game_test_data.GameTestData:
+    return randovania.game.game_test_data.GameTestData(
+        expected_seed_hash="NKV2PHOC",
+        database_collectable_ignore_events=(
+            "camp",
+            "eventBadEnd",
+            "eventBestEnd",
+            "eventCurly",
+            "eventCurly2",
+            "eventCurly3",
+            "eventCurly4",
+            "eventHell4",
+            "eventPress",
+        ),
+        # Unknown reason why
+        database_collectable_ignore_pickups=(30, 31, 41, 45),
+    )
+
+
 game_data: randovania.game.data.GameData = randovania.game.data.GameData(
     short_name="CS",
     long_name="Cave Story",
     development_state=randovania.game.development_state.DevelopmentState.STABLE,
     presets=[
-        {"path": "starter_preset.rdvpreset"},
-        {"path": "multiworld-starter-preset.rdvpreset"},
-        {"path": "classic.rdvpreset"},
+        "starter_preset.rdvpreset",
+        "multiworld-starter-preset.rdvpreset",
+        "classic.rdvpreset",
     ],
     faq=[],
     web_info=randovania.game.web_info.GameWebInfo(
@@ -85,7 +121,7 @@ game_data: randovania.game.data.GameData = randovania.game.data.GameData(
         ],
         need_to_play=[
             (
-                "The game is included with Randovania. Windows or Wine is needed to play Freeware."
+                "The game is included with Randovania. Windows or Wine is needed to play Freeware. "
                 "Windows or Linux is needed to play Cave Story Tweaked"
             ),
         ],
@@ -99,8 +135,11 @@ game_data: randovania.game.data.GameData = randovania.game.data.GameData(
     ),
     options=_options,
     gui=_gui,
+    hints=_hints,
     generator=_generator,
     patch_data_factory=_patch_data_factory,
     exporter=_exporter,
+    test_data=_test_data,
+    reject_undocumented_tricks_in_database=False,
     defaults_available_in_game_sessions=True,
 )

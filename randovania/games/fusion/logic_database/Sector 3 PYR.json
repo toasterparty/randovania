@@ -6,10 +6,45 @@
     "areas": {
         "Entrance Lobby": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 30",
                 "room_id": [
                     0
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 8,
+                        "y": 2
+                    },
+                    {
+                        "x": 8,
+                        "y": 3
+                    },
+                    {
+                        "x": 8,
+                        "y": 4
+                    },
+                    {
+                        "x": 8,
+                        "y": 5
+                    },
+                    {
+                        "x": 9,
+                        "y": 2
+                    },
+                    {
+                        "x": 9,
+                        "y": 3
+                    },
+                    {
+                        "x": 9,
+                        "y": 4
+                    },
+                    {
+                        "x": 9,
+                        "y": 5
+                    }
                 ]
             },
             "nodes": {
@@ -165,6 +200,36 @@
                                                             {
                                                                 "type": "template",
                                                                 "data": "Can Screw Single Walljump"
+                                                            },
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "tricks",
+                                                                    "name": "WallJump",
+                                                                    "amount": 2,
+                                                                    "negate": false
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "type": "and",
+                                                    "data": {
+                                                        "comment": "Using a Frozen Geruta to Climb the Room: https://youtu.be/c8_2jq1NWUQ",
+                                                        "items": [
+                                                            {
+                                                                "type": "template",
+                                                                "data": "Can Freeze Enemies With Any Weapon"
+                                                            },
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "tricks",
+                                                                    "name": "StandOnFrozenEnemies",
+                                                                    "amount": 3,
+                                                                    "negate": false
+                                                                }
                                                             },
                                                             {
                                                                 "type": "resource",
@@ -357,12 +422,19 @@
         },
         "Entrance Save Room": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 31",
                 "room_id": [
                     1
                 ],
-                "unlocked_save_station": true
+                "minimap_coordinates": [
+                    {
+                        "x": 6,
+                        "y": 2
+                    }
+                ],
+                "unlocked_save_recharge_station": true
             },
             "nodes": {
                 "Door to Entrance Recharge Room": {
@@ -483,10 +555,17 @@
         },
         "Entrance Navigation Room": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 32",
                 "room_id": [
                     2
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 5,
+                        "y": 2
+                    }
                 ]
             },
             "nodes": {
@@ -521,7 +600,7 @@
                     "override_default_lock_requirement": null,
                     "ui_custom_name": null,
                     "connections": {
-                        "Door to Elevator to Main Deck": {
+                        "Door to Sector 3 (PYR) Entrance Elevator": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -530,7 +609,7 @@
                         }
                     }
                 },
-                "Door to Elevator to Main Deck": {
+                "Door to Sector 3 (PYR) Entrance Elevator": {
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
@@ -551,7 +630,7 @@
                     "dock_type": "Door",
                     "default_connection": {
                         "region": "Sector 3 (PYR)",
-                        "area": "Elevator to Main Deck",
+                        "area": "Sector 3 (PYR) Entrance Elevator",
                         "node": "Door to Entrance Navigation Room"
                     },
                     "default_dock_weakness": "Open Hatch",
@@ -590,7 +669,7 @@
                         "default"
                     ],
                     "extra": {
-                        "hint_name": "Sector3Entrance",
+                        "hint_name": "SECTOR_3_ENTRANCE",
                         "location_precision": "REGION_ONLY",
                         "item_precision": "PRECISE_CATEGORY"
                     },
@@ -605,7 +684,7 @@
                                     "type": "resource",
                                     "data": {
                                         "type": "items",
-                                        "name": "L2Locks",
+                                        "name": "L3Locks",
                                         "amount": 1,
                                         "negate": false
                                     }
@@ -614,7 +693,7 @@
                         }
                     },
                     "connections": {
-                        "Door to Elevator to Main Deck": {
+                        "Door to Sector 3 (PYR) Entrance Elevator": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -627,10 +706,45 @@
         },
         "Security Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 33",
                 "room_id": [
                     3
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 4,
+                        "y": 5
+                    },
+                    {
+                        "x": 4,
+                        "y": 6
+                    },
+                    {
+                        "x": 5,
+                        "y": 5
+                    },
+                    {
+                        "x": 5,
+                        "y": 6
+                    },
+                    {
+                        "x": 6,
+                        "y": 5
+                    },
+                    {
+                        "x": 6,
+                        "y": 6
+                    },
+                    {
+                        "x": 7,
+                        "y": 5
+                    },
+                    {
+                        "x": 7,
+                        "y": 6
+                    }
                 ]
             },
             "nodes": {
@@ -650,11 +764,14 @@
                         "area": 3,
                         "room": 3,
                         "blockx": 44,
-                        "blocky": 13
+                        "blocky": 13,
+                        "infant_weight": 0.3
                     },
                     "valid_starting_location": false,
                     "pickup_index": 42,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Behind Wall": {
                             "type": "and",
@@ -824,7 +941,7 @@
                                                 {
                                                     "type": "and",
                                                     "data": {
-                                                        "comment": null,
+                                                        "comment": "Eliminate Sidehoppers and get up",
                                                         "items": [
                                                             {
                                                                 "type": "or",
@@ -887,7 +1004,7 @@
                                                                                         "data": {
                                                                                             "type": "tricks",
                                                                                             "name": "ShinesparkTrick",
-                                                                                            "amount": 2,
+                                                                                            "amount": 3,
                                                                                             "negate": false
                                                                                         }
                                                                                     }
@@ -917,6 +1034,32 @@
                                                             {
                                                                 "type": "template",
                                                                 "data": "Can Freeze Enemies With Any Weapon"
+                                                            }
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "type": "and",
+                                                    "data": {
+                                                        "comment": "Kill enemies with shinespark and then get up. Respark at the right for a while to lure the sidehoppers to jump to the right.",
+                                                        "items": [
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "items",
+                                                                    "name": "SpeedBooster",
+                                                                    "amount": 1,
+                                                                    "negate": false
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "tricks",
+                                                                    "name": "ShinesparkTrick",
+                                                                    "amount": 3,
+                                                                    "negate": false
+                                                                }
                                                             }
                                                         ]
                                                     }
@@ -966,13 +1109,8 @@
                                         }
                                     },
                                     {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
-                                            "name": "MorphBall",
-                                            "amount": 1,
-                                            "negate": false
-                                        }
+                                        "type": "template",
+                                        "data": "Can Use Any Bombs"
                                     },
                                     {
                                         "type": "or",
@@ -984,10 +1122,6 @@
                                                     "data": {
                                                         "comment": "Need a bounce item to reach top tunnel",
                                                         "items": [
-                                                            {
-                                                                "type": "template",
-                                                                "data": "Can Use Any Bombs"
-                                                            },
                                                             {
                                                                 "type": "template",
                                                                 "data": "Can Bounce in Ball"
@@ -1008,10 +1142,6 @@
                                                                     "amount": 2,
                                                                     "negate": false
                                                                 }
-                                                            },
-                                                            {
-                                                                "type": "template",
-                                                                "data": "Can Use Power Bombs"
                                                             }
                                                         ]
                                                     }
@@ -1028,10 +1158,19 @@
         },
         "Level 2 Security Room": {
             "default_node": null,
+            "hint_features": [
+                "security_room"
+            ],
             "extra": {
                 "map_name": "Sector 34",
                 "room_id": [
                     4
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 3,
+                        "y": 5
+                    }
                 ]
             },
             "nodes": {
@@ -1066,7 +1205,7 @@
                     "override_default_lock_requirement": null,
                     "ui_custom_name": null,
                     "connections": {
-                        "Event - L2 Locks": {
+                        "Pickup (L2 Locks)": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -1115,37 +1254,12 @@
                         }
                     }
                 },
-                "Event - L2 Locks": {
-                    "node_type": "event",
-                    "heal": false,
-                    "coordinates": {
-                        "x": 138.3298638184466,
-                        "y": 79.76857799395205,
-                        "z": 0.0
-                    },
-                    "description": "",
-                    "layers": [
-                        "default"
-                    ],
-                    "extra": {},
-                    "valid_starting_location": false,
-                    "event_name": "Level2Locks",
-                    "connections": {
-                        "Pickup (L2 Locks)": {
-                            "type": "and",
-                            "data": {
-                                "comment": null,
-                                "items": []
-                            }
-                        }
-                    }
-                },
                 "Pickup (L2 Locks)": {
                     "node_type": "pickup",
                     "heal": false,
                     "coordinates": {
-                        "x": 110.17,
-                        "y": 116.34,
+                        "x": 134.93,
+                        "y": 64.84,
                         "z": 0.0
                     },
                     "description": "",
@@ -1155,11 +1269,14 @@
                     "extra": {
                         "area": 3,
                         "room": 4,
-                        "source": "Level2"
+                        "source": "LEVEL_2",
+                        "infant_weight": 0.3
                     },
                     "valid_starting_location": false,
                     "pickup_index": 117,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Security Access": {
                             "type": "and",
@@ -1174,10 +1291,25 @@
         },
         "Checkpoint Crossing": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 35",
                 "room_id": [
                     5
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 10,
+                        "y": 3
+                    },
+                    {
+                        "x": 10,
+                        "y": 4
+                    },
+                    {
+                        "x": 10,
+                        "y": 5
+                    }
                 ]
             },
             "nodes": {
@@ -1251,9 +1383,9 @@
                                         }
                                     },
                                     {
-                                        "type": "or",
+                                        "type": "and",
                                         "data": {
-                                            "comment": "Tank damage from Fune",
+                                            "comment": "Tank damage from Fune: https://youtu.be/rfQQZ2NVSj4",
                                             "items": [
                                                 {
                                                     "type": "resource",
@@ -1261,6 +1393,15 @@
                                                         "type": "damage",
                                                         "name": "NormalDamage",
                                                         "amount": 80,
+                                                        "negate": false
+                                                    }
+                                                },
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "tricks",
+                                                        "name": "DamageBoosts",
+                                                        "amount": 1,
                                                         "negate": false
                                                     }
                                                 }
@@ -1421,11 +1562,32 @@
         },
         "Bob's Abode": {
             "default_node": null,
+            "hint_features": [
+                "geron"
+            ],
             "extra": {
                 "map_name": "Sector 36",
                 "room_id": [
                     6,
                     24
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 11,
+                        "y": 3
+                    },
+                    {
+                        "x": 11,
+                        "y": 4
+                    },
+                    {
+                        "x": 12,
+                        "y": 3
+                    },
+                    {
+                        "x": 12,
+                        "y": 4
+                    }
                 ]
             },
             "nodes": {
@@ -1445,13 +1607,16 @@
                         "area": 3,
                         "room": 6,
                         "blockx": 5,
-                        "blocky": 17
+                        "blocky": 17,
+                        "infant_weight": 0.3
                     },
                     "valid_starting_location": false,
                     "pickup_index": 43,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
-                        "Door to B.O.X. Access": {
+                        "Door to B.O.X. Arena Access": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -1475,6 +1640,27 @@
                                     {
                                         "type": "template",
                                         "data": "Can Use Any Bombs"
+                                    }
+                                ]
+                            }
+                        },
+                        "Other to Namihe's Lair": {
+                            "type": "and",
+                            "data": {
+                                "comment": null,
+                                "items": [
+                                    {
+                                        "type": "resource",
+                                        "data": {
+                                            "type": "items",
+                                            "name": "MorphBall",
+                                            "amount": 1,
+                                            "negate": false
+                                        }
+                                    },
+                                    {
+                                        "type": "template",
+                                        "data": "Can Break Single Bomb Blocks"
                                     }
                                 ]
                             }
@@ -1512,7 +1698,7 @@
                     "override_default_lock_requirement": null,
                     "ui_custom_name": null,
                     "connections": {
-                        "Door to B.O.X. Access": {
+                        "Door to B.O.X. Arena Access": {
                             "type": "or",
                             "data": {
                                 "comment": null,
@@ -1597,7 +1783,7 @@
                         }
                     }
                 },
-                "Door to B.O.X. Access": {
+                "Door to B.O.X. Arena Access": {
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
@@ -1618,7 +1804,7 @@
                     "dock_type": "Door",
                     "default_connection": {
                         "region": "Sector 3 (PYR)",
-                        "area": "B.O.X. Access",
+                        "area": "B.O.X. Arena Access",
                         "node": "Door to Bob's Abode"
                     },
                     "default_dock_weakness": "L2 Hatch",
@@ -1749,7 +1935,7 @@
                                 ]
                             }
                         },
-                        "Door to B.O.X. Access": {
+                        "Door to B.O.X. Arena Access": {
                             "type": "or",
                             "data": {
                                 "comment": null,
@@ -1842,10 +2028,40 @@
         },
         "Alcove": {
             "default_node": null,
+            "hint_features": [
+                "multiple-pickups",
+                "pillar"
+            ],
             "extra": {
                 "map_name": "Sector 38",
                 "room_id": [
                     8
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 10,
+                        "y": 1
+                    },
+                    {
+                        "x": 10,
+                        "y": 2
+                    },
+                    {
+                        "x": 11,
+                        "y": 1
+                    },
+                    {
+                        "x": 11,
+                        "y": 2
+                    },
+                    {
+                        "x": 12,
+                        "y": 1
+                    },
+                    {
+                        "x": 12,
+                        "y": 2
+                    }
                 ]
             },
             "nodes": {
@@ -1865,17 +2081,22 @@
                         "area": 3,
                         "room": 8,
                         "blockx": 9,
-                        "blocky": 9
+                        "blocky": 9,
+                        "infant_weight": 0.3
                     },
                     "valid_starting_location": false,
                     "pickup_index": 44,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Other to Entrance Lobby": {
-                            "type": "and",
+                            "type": "resource",
                             "data": {
-                                "comment": null,
-                                "items": []
+                                "type": "items",
+                                "name": "MorphBall",
+                                "amount": 1,
+                                "negate": false
                             }
                         },
                         "Above E-Tank": {
@@ -1908,11 +2129,14 @@
                         "area": 3,
                         "room": 8,
                         "blockx": 22,
-                        "blocky": 13
+                        "blocky": 13,
+                        "infant_weight": 0.3
                     },
                     "valid_starting_location": false,
                     "pickup_index": 45,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Above E-Tank": {
                             "type": "and",
@@ -2092,6 +2316,27 @@
                                             "amount": 1,
                                             "negate": false
                                         }
+                                    },
+                                    {
+                                        "type": "or",
+                                        "data": {
+                                            "comment": "Deal with Sidehopper",
+                                            "items": [
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Kill Tough Beam-Resistant Enemy"
+                                                },
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "tricks",
+                                                        "name": "Combat",
+                                                        "amount": 3,
+                                                        "negate": false
+                                                    }
+                                                }
+                                            ]
+                                        }
                                     }
                                 ]
                             }
@@ -2105,7 +2350,7 @@
                                         "type": "resource",
                                         "data": {
                                             "type": "items",
-                                            "name": "SpeedBooster",
+                                            "name": "MorphBall",
                                             "amount": 1,
                                             "negate": false
                                         }
@@ -2113,10 +2358,10 @@
                                     {
                                         "type": "resource",
                                         "data": {
-                                            "type": "misc",
-                                            "name": "DoorLockRando",
+                                            "type": "items",
+                                            "name": "SpeedBooster",
                                             "amount": 1,
-                                            "negate": true
+                                            "negate": false
                                         }
                                     },
                                     {
@@ -2156,8 +2401,25 @@
                                         }
                                     },
                                     {
-                                        "type": "template",
-                                        "data": "Can Kill Tough Beam-Resistant Enemy"
+                                        "type": "or",
+                                        "data": {
+                                            "comment": "Deal with Sidehopper",
+                                            "items": [
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Kill Tough Beam-Resistant Enemy"
+                                                },
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "tricks",
+                                                        "name": "Combat",
+                                                        "amount": 3,
+                                                        "negate": false
+                                                    }
+                                                }
+                                            ]
+                                        }
                                     }
                                 ]
                             }
@@ -2682,7 +2944,72 @@
                                                     "data": {
                                                         "type": "tricks",
                                                         "name": "WallJump",
+                                                        "amount": 2,
+                                                        "negate": false
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "and",
+                                        "data": {
+                                            "comment": "Bomb Jump Out of Tunnel and Walljump: https://youtu.be/lG-_kouQp6c",
+                                            "items": [
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Bounce in Ball"
+                                                },
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "tricks",
+                                                        "name": "MidAirMorph",
+                                                        "amount": 2,
+                                                        "negate": false
+                                                    }
+                                                },
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "tricks",
+                                                        "name": "WallJump",
+                                                        "amount": 3,
+                                                        "negate": false
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "and",
+                                        "data": {
+                                            "comment": "Morph Jump Extend: https://youtu.be/YeWy3s8ma7E",
+                                            "items": [
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "items",
+                                                        "name": "MorphBall",
                                                         "amount": 1,
+                                                        "negate": false
+                                                    }
+                                                },
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "tricks",
+                                                        "name": "JumpExtends",
+                                                        "amount": 5,
+                                                        "negate": false
+                                                    }
+                                                },
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "tricks",
+                                                        "name": "WallJump",
+                                                        "amount": 5,
                                                         "negate": false
                                                     }
                                                 }
@@ -2698,13 +3025,139 @@
                                 "comment": null,
                                 "items": [
                                     {
-                                        "type": "template",
-                                        "data": "Can Break Single Bomb Blocks"
+                                        "type": "resource",
+                                        "data": {
+                                            "type": "items",
+                                            "name": "MorphBall",
+                                            "amount": 1,
+                                            "negate": false
+                                        }
                                     },
                                     {
                                         "type": "or",
                                         "data": {
-                                            "comment": "Get through Sidehoppers",
+                                            "comment": null,
+                                            "items": [
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Use Power Bombs"
+                                                },
+                                                {
+                                                    "type": "and",
+                                                    "data": {
+                                                        "comment": null,
+                                                        "items": [
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "items",
+                                                                    "name": "ScrewAttack",
+                                                                    "amount": 1,
+                                                                    "negate": false
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "tricks",
+                                                                    "name": "Knowledge",
+                                                                    "amount": 1,
+                                                                    "negate": false
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "type": "and",
+                                                    "data": {
+                                                        "comment": "Break Bomb Block with Bombs",
+                                                        "items": [
+                                                            {
+                                                                "type": "template",
+                                                                "data": "Can Use Bombs"
+                                                            },
+                                                            {
+                                                                "type": "or",
+                                                                "data": {
+                                                                    "comment": null,
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "template",
+                                                                            "data": "Can Use Springball"
+                                                                        },
+                                                                        {
+                                                                            "type": "or",
+                                                                            "data": {
+                                                                                "comment": "Break via Mid-Air Morph",
+                                                                                "items": [
+                                                                                    {
+                                                                                        "type": "resource",
+                                                                                        "data": {
+                                                                                            "type": "tricks",
+                                                                                            "name": "MidAirMorph",
+                                                                                            "amount": 2,
+                                                                                            "negate": false
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "type": "and",
+                                                                                        "data": {
+                                                                                            "comment": null,
+                                                                                            "items": [
+                                                                                                {
+                                                                                                    "type": "resource",
+                                                                                                    "data": {
+                                                                                                        "type": "tricks",
+                                                                                                        "name": "MidAirMorph",
+                                                                                                        "amount": 1,
+                                                                                                        "negate": false
+                                                                                                    }
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "template",
+                                                                                                    "data": "Have Any Jump Upgrade"
+                                                                                                }
+                                                                                            ]
+                                                                                        }
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "type": "and",
+                                                                            "data": {
+                                                                                "comment": "Use frozen Sidehopper to reach and destroy bomb block",
+                                                                                "items": [
+                                                                                    {
+                                                                                        "type": "resource",
+                                                                                        "data": {
+                                                                                            "type": "tricks",
+                                                                                            "name": "StandOnFrozenEnemies",
+                                                                                            "amount": 2,
+                                                                                            "negate": false
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "type": "template",
+                                                                                        "data": "Can Freeze Enemies With Any Weapon"
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "or",
+                                        "data": {
+                                            "comment": "Get through Sidehopper",
                                             "items": [
                                                 {
                                                     "type": "template",
@@ -2748,10 +3201,53 @@
         },
         "Deserted Runway": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 39",
                 "room_id": [
                     9
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 13,
+                        "y": 0
+                    },
+                    {
+                        "x": 13,
+                        "y": 1
+                    },
+                    {
+                        "x": 14,
+                        "y": 0
+                    },
+                    {
+                        "x": 14,
+                        "y": 1
+                    },
+                    {
+                        "x": 15,
+                        "y": 0
+                    },
+                    {
+                        "x": 15,
+                        "y": 1
+                    },
+                    {
+                        "x": 16,
+                        "y": 0
+                    },
+                    {
+                        "x": 16,
+                        "y": 1
+                    },
+                    {
+                        "x": 17,
+                        "y": 0
+                    },
+                    {
+                        "x": 17,
+                        "y": 1
+                    }
                 ]
             },
             "nodes": {
@@ -2771,11 +3267,14 @@
                         "area": 3,
                         "room": 9,
                         "blockx": 42,
-                        "blocky": 8
+                        "blocky": 8,
+                        "infant_weight": 0.3
                     },
                     "valid_starting_location": false,
                     "pickup_index": 46,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Alcove": {
                             "type": "and",
@@ -2865,18 +3364,26 @@
                                         "data": "Can Kill Tough Beam-Resistant Enemy"
                                     },
                                     {
-                                        "type": "resource",
+                                        "type": "and",
                                         "data": {
-                                            "type": "tricks",
-                                            "name": "Combat",
-                                            "amount": 2,
-                                            "negate": false
+                                            "comment": "Damageless: https://youtu.be/Uh3011dLFT4",
+                                            "items": [
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "tricks",
+                                                        "name": "Combat",
+                                                        "amount": 2,
+                                                        "negate": false
+                                                    }
+                                                }
+                                            ]
                                         }
                                     },
                                     {
                                         "type": "and",
                                         "data": {
-                                            "comment": null,
+                                            "comment": "Damage boost through sidehoppers",
                                             "items": [
                                                 {
                                                     "type": "resource",
@@ -2902,7 +3409,7 @@
                                 ]
                             }
                         },
-                        "Door to Chute Access": {
+                        "Other to Chute Access": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -2919,7 +3426,7 @@
                                 ]
                             }
                         },
-                        "Door to Glass Tube to Sector 1 (SRX)": {
+                        "Door to Sector 3 (PYR) Eastbound Glass Tube": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -3021,18 +3528,26 @@
                                         "data": "Can Kill Tough Beam-Resistant Enemy"
                                     },
                                     {
-                                        "type": "resource",
+                                        "type": "and",
                                         "data": {
-                                            "type": "tricks",
-                                            "name": "Combat",
-                                            "amount": 2,
-                                            "negate": false
+                                            "comment": "Damageless: https://youtu.be/hTpd4NYrqiA",
+                                            "items": [
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "tricks",
+                                                        "name": "Combat",
+                                                        "amount": 2,
+                                                        "negate": false
+                                                    }
+                                                }
+                                            ]
                                         }
                                     },
                                     {
                                         "type": "and",
                                         "data": {
-                                            "comment": null,
+                                            "comment": "Damage boost through sidehoppers",
                                             "items": [
                                                 {
                                                     "type": "resource",
@@ -3060,7 +3575,7 @@
                         }
                     }
                 },
-                "Door to Chute Access": {
+                "Other to Chute Access": {
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
@@ -3078,13 +3593,13 @@
                         ]
                     },
                     "valid_starting_location": false,
-                    "dock_type": "Door",
+                    "dock_type": "Other",
                     "default_connection": {
                         "region": "Sector 3 (PYR)",
                         "area": "Chute Access",
                         "node": "Other to Deserted Runway"
                     },
-                    "default_dock_weakness": "Open Hatch",
+                    "default_dock_weakness": "Open Passage",
                     "exclude_from_dock_rando": false,
                     "incompatible_dock_weaknesses": [],
                     "override_default_open_requirement": null,
@@ -3110,7 +3625,7 @@
                         }
                     }
                 },
-                "Door to Glass Tube to Sector 1 (SRX)": {
+                "Door to Sector 3 (PYR) Eastbound Glass Tube": {
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
@@ -3131,7 +3646,7 @@
                     "dock_type": "Door",
                     "default_connection": {
                         "region": "Sector 3 (PYR)",
-                        "area": "Glass Tube to Sector 1 (SRX)",
+                        "area": "Sector 3 (PYR) Eastbound Glass Tube",
                         "node": "Door to Deserted Runway"
                     },
                     "default_dock_weakness": "L0 Hatch",
@@ -3164,10 +3679,41 @@
         },
         "Red Tower": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 310",
                 "room_id": [
                     10
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 13,
+                        "y": 4
+                    },
+                    {
+                        "x": 13,
+                        "y": 5
+                    },
+                    {
+                        "x": 13,
+                        "y": 6
+                    },
+                    {
+                        "x": 13,
+                        "y": 7
+                    },
+                    {
+                        "x": 13,
+                        "y": 8
+                    },
+                    {
+                        "x": 13,
+                        "y": 9
+                    },
+                    {
+                        "x": 13,
+                        "y": 10
+                    }
                 ]
             },
             "nodes": {
@@ -3349,10 +3895,45 @@
         },
         "Lava Reservoirs": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 311",
                 "room_id": [
                     11
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 9,
+                        "y": 10
+                    },
+                    {
+                        "x": 9,
+                        "y": 11
+                    },
+                    {
+                        "x": 10,
+                        "y": 10
+                    },
+                    {
+                        "x": 10,
+                        "y": 11
+                    },
+                    {
+                        "x": 11,
+                        "y": 10
+                    },
+                    {
+                        "x": 11,
+                        "y": 11
+                    },
+                    {
+                        "x": 12,
+                        "y": 10
+                    },
+                    {
+                        "x": 12,
+                        "y": 11
+                    }
                 ]
             },
             "nodes": {
@@ -3612,10 +4193,48 @@
         },
         "Lava Maze": {
             "default_node": null,
+            "hint_features": [
+                "climbable",
+                "extreme-temp"
+            ],
             "extra": {
                 "map_name": "Sector 312",
                 "room_id": [
                     12
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 7,
+                        "y": 9
+                    },
+                    {
+                        "x": 7,
+                        "y": 10
+                    },
+                    {
+                        "x": 7,
+                        "y": 11
+                    },
+                    {
+                        "x": 7,
+                        "y": 12
+                    },
+                    {
+                        "x": 8,
+                        "y": 9
+                    },
+                    {
+                        "x": 8,
+                        "y": 10
+                    },
+                    {
+                        "x": 8,
+                        "y": 11
+                    },
+                    {
+                        "x": 8,
+                        "y": 12
+                    }
                 ]
             },
             "nodes": {
@@ -3635,11 +4254,14 @@
                         "area": 3,
                         "room": 12,
                         "blockx": 12,
-                        "blocky": 25
+                        "blocky": 25,
+                        "infant_weight": 0.3
                     },
                     "valid_starting_location": false,
                     "pickup_index": 47,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Lava Reservoirs": {
                             "type": "and",
@@ -3803,7 +4425,7 @@
                                                 {
                                                     "type": "and",
                                                     "data": {
-                                                        "comment": "Suitless",
+                                                        "comment": "Suitless: https://youtu.be/CP8-grGfQOs",
                                                         "items": [
                                                             {
                                                                 "type": "resource",
@@ -4045,10 +4667,17 @@
         },
         "Sova Suite": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 313",
                 "room_id": [
                     13
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 9,
+                        "y": 9
+                    }
                 ]
             },
             "nodes": {
@@ -4208,10 +4837,21 @@
         },
         "Pyrochamber Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 314",
                 "room_id": [
                     14
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 10,
+                        "y": 8
+                    },
+                    {
+                        "x": 10,
+                        "y": 9
+                    }
                 ]
             },
             "nodes": {
@@ -4322,7 +4962,7 @@
                                                 {
                                                     "type": "and",
                                                     "data": {
-                                                        "comment": "Jump Extend SWJ Method",
+                                                        "comment": "Kill Funes, SWJ on right wall and jump extend to the left: https://youtu.be/oIyLsGRcNj4",
                                                         "items": [
                                                             {
                                                                 "type": "resource",
@@ -4405,10 +5045,37 @@
         },
         "Pyrochamber": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 315",
                 "room_id": [
                     15
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 8,
+                        "y": 6
+                    },
+                    {
+                        "x": 8,
+                        "y": 7
+                    },
+                    {
+                        "x": 8,
+                        "y": 8
+                    },
+                    {
+                        "x": 9,
+                        "y": 6
+                    },
+                    {
+                        "x": 9,
+                        "y": 7
+                    },
+                    {
+                        "x": 9,
+                        "y": 8
+                    }
                 ]
             },
             "nodes": {
@@ -4494,25 +5161,33 @@
                                     {
                                         "type": "or",
                                         "data": {
-                                            "comment": "Deal with Namihe",
+                                            "comment": "Deal with Namihe.",
                                             "items": [
                                                 {
                                                     "type": "template",
                                                     "data": "Can Kill Tough Beam-Resistant Enemy"
                                                 },
                                                 {
-                                                    "type": "resource",
+                                                    "type": "and",
                                                     "data": {
-                                                        "type": "tricks",
-                                                        "name": "Combat",
-                                                        "amount": 2,
-                                                        "negate": false
+                                                        "comment": "Damageless: https://youtu.be/HJT_F989zzI",
+                                                        "items": [
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "tricks",
+                                                                    "name": "Combat",
+                                                                    "amount": 3,
+                                                                    "negate": false
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 },
                                                 {
                                                     "type": "and",
                                                     "data": {
-                                                        "comment": null,
+                                                        "comment": "Boost past the namihe",
                                                         "items": [
                                                             {
                                                                 "type": "resource",
@@ -4638,7 +5313,7 @@
                                                 {
                                                     "type": "and",
                                                     "data": {
-                                                        "comment": null,
+                                                        "comment": "Damage boost past Namihe",
                                                         "items": [
                                                             {
                                                                 "type": "resource",
@@ -4662,12 +5337,29 @@
                                                     }
                                                 },
                                                 {
-                                                    "type": "resource",
+                                                    "type": "and",
                                                     "data": {
-                                                        "type": "tricks",
-                                                        "name": "Combat",
-                                                        "amount": 2,
-                                                        "negate": false
+                                                        "comment": "Damageless: https://youtu.be/gaBEq7WaHM4",
+                                                        "items": [
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "tricks",
+                                                                    "name": "Combat",
+                                                                    "amount": 2,
+                                                                    "negate": false
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "items",
+                                                                    "name": "MorphBall",
+                                                                    "amount": 1,
+                                                                    "negate": false
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 },
                                                 {
@@ -4686,10 +5378,17 @@
         },
         "Boiler Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 316",
                 "room_id": [
                     16
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 7,
+                        "y": 8
+                    }
                 ]
             },
             "nodes": {
@@ -4849,11 +5548,30 @@
         },
         "Main Boiler": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 317",
                 "room_id": [
                     17,
                     29
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 5,
+                        "y": 7
+                    },
+                    {
+                        "x": 5,
+                        "y": 8
+                    },
+                    {
+                        "x": 6,
+                        "y": 7
+                    },
+                    {
+                        "x": 6,
+                        "y": 8
+                    }
                 ]
             },
             "nodes": {
@@ -5035,10 +5753,65 @@
         },
         "Sova Processing": {
             "default_node": null,
+            "hint_features": [
+                "extreme-temp",
+                "multiple-pickups",
+                "shutter"
+            ],
             "extra": {
                 "map_name": "Sector 319",
                 "room_id": [
                     19
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 16,
+                        "y": 9
+                    },
+                    {
+                        "x": 16,
+                        "y": 10
+                    },
+                    {
+                        "x": 16,
+                        "y": 11
+                    },
+                    {
+                        "x": 17,
+                        "y": 9
+                    },
+                    {
+                        "x": 17,
+                        "y": 10
+                    },
+                    {
+                        "x": 17,
+                        "y": 11
+                    },
+                    {
+                        "x": 18,
+                        "y": 9
+                    },
+                    {
+                        "x": 18,
+                        "y": 10
+                    },
+                    {
+                        "x": 18,
+                        "y": 11
+                    },
+                    {
+                        "x": 19,
+                        "y": 9
+                    },
+                    {
+                        "x": 19,
+                        "y": 10
+                    },
+                    {
+                        "x": 19,
+                        "y": 11
+                    }
                 ]
             },
             "nodes": {
@@ -5058,11 +5831,14 @@
                         "area": 3,
                         "room": 19,
                         "blockx": 43,
-                        "blocky": 10
+                        "blocky": 10,
+                        "infant_weight": 0.3
                     },
                     "valid_starting_location": false,
                     "pickup_index": 48,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Beside Pickups": {
                             "type": "and",
@@ -5089,11 +5865,14 @@
                         "area": 3,
                         "room": 19,
                         "blockx": 19,
-                        "blocky": 13
+                        "blocky": 13,
+                        "infant_weight": 0.3
                     },
                     "valid_starting_location": false,
                     "pickup_index": 49,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Beside Lava": {
                             "type": "and",
@@ -5780,6 +6559,15 @@
                                                                                                 }
                                                                                             ]
                                                                                         }
+                                                                                    },
+                                                                                    {
+                                                                                        "type": "resource",
+                                                                                        "data": {
+                                                                                            "type": "items",
+                                                                                            "name": "ScrewAttack",
+                                                                                            "amount": 1,
+                                                                                            "negate": false
+                                                                                        }
                                                                                     }
                                                                                 ]
                                                                             }
@@ -5953,12 +6741,23 @@
                 }
             }
         },
-        "Elevator to Main Deck": {
+        "Sector 3 (PYR) Entrance Elevator": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 320",
                 "room_id": [
                     20
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 4,
+                        "y": 1
+                    },
+                    {
+                        "x": 4,
+                        "y": 2
+                    }
                 ]
             },
             "nodes": {
@@ -5983,7 +6782,7 @@
                     "dock_type": "Elevator",
                     "default_connection": {
                         "region": "Main Deck",
-                        "area": "Elevator to Sector 3 (PYR)",
+                        "area": "Sector Hub Lift 3",
                         "node": "Elevator to Sector 3 (PYR)"
                     },
                     "default_dock_weakness": "Elevator",
@@ -6024,7 +6823,7 @@
                     "default_connection": {
                         "region": "Sector 3 (PYR)",
                         "area": "Entrance Navigation Room",
-                        "node": "Door to Elevator to Main Deck"
+                        "node": "Door to Sector 3 (PYR) Entrance Elevator"
                     },
                     "default_dock_weakness": "L0 Hatch",
                     "exclude_from_dock_rando": false,
@@ -6046,10 +6845,19 @@
         },
         "Data Room": {
             "default_node": null,
+            "hint_features": [
+                "data_room"
+            ],
             "extra": {
                 "map_name": "Sector 321",
                 "room_id": [
                     21
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 18,
+                        "y": 3
+                    }
                 ]
             },
             "nodes": {
@@ -6108,11 +6916,14 @@
                     "extra": {
                         "area": 3,
                         "room": 21,
-                        "source": "PyrData"
+                        "source": "PYR_DATA",
+                        "infant_weight": 0.3
                     },
                     "valid_starting_location": false,
                     "pickup_index": 112,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to B.O.X. Arena": {
                             "type": "and",
@@ -6125,13 +6936,28 @@
                 }
             }
         },
-        "B.O.X. Access": {
+        "B.O.X. Arena Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 322",
                 "room_id": [
                     22,
                     7
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 13,
+                        "y": 3
+                    },
+                    {
+                        "x": 14,
+                        "y": 3
+                    },
+                    {
+                        "x": 15,
+                        "y": 3
+                    }
                 ]
             },
             "nodes": {
@@ -6157,7 +6983,7 @@
                     "default_connection": {
                         "region": "Sector 3 (PYR)",
                         "area": "B.O.X. Arena",
-                        "node": "Door to B.O.X. Access"
+                        "node": "Door to B.O.X. Arena Access"
                     },
                     "default_dock_weakness": "L0 Hatch",
                     "exclude_from_dock_rando": false,
@@ -6204,7 +7030,7 @@
                     "default_connection": {
                         "region": "Sector 3 (PYR)",
                         "area": "Data Save Room",
-                        "node": "Door to B.O.X. Access"
+                        "node": "Door to B.O.X. Arena Access"
                     },
                     "default_dock_weakness": "L0 Hatch",
                     "exclude_from_dock_rando": false,
@@ -6244,7 +7070,7 @@
                     "default_connection": {
                         "region": "Sector 3 (PYR)",
                         "area": "Bob's Abode",
-                        "node": "Door to B.O.X. Access"
+                        "node": "Door to B.O.X. Arena Access"
                     },
                     "default_dock_weakness": "L2 Hatch",
                     "exclude_from_dock_rando": false,
@@ -6266,11 +7092,30 @@
         },
         "B.O.X. Arena": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 323",
                 "room_id": [
                     23,
                     18
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 16,
+                        "y": 2
+                    },
+                    {
+                        "x": 16,
+                        "y": 3
+                    },
+                    {
+                        "x": 17,
+                        "y": 2
+                    },
+                    {
+                        "x": 17,
+                        "y": 3
+                    }
                 ]
             },
             "nodes": {
@@ -6314,7 +7159,7 @@
                         }
                     }
                 },
-                "Door to B.O.X. Access": {
+                "Door to B.O.X. Arena Access": {
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
@@ -6335,7 +7180,7 @@
                     "dock_type": "Door",
                     "default_connection": {
                         "region": "Sector 3 (PYR)",
-                        "area": "B.O.X. Access",
+                        "area": "B.O.X. Arena Access",
                         "node": "Door to B.O.X. Arena"
                     },
                     "default_dock_weakness": "L0 Hatch",
@@ -6460,7 +7305,7 @@
                                 ]
                             }
                         },
-                        "Door to B.O.X. Access": {
+                        "Door to B.O.X. Arena Access": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -6480,12 +7325,12 @@
                         "Event - B.O.X.": {
                             "type": "and",
                             "data": {
-                                "comment": "TODO: xbox kills box",
+                                "comment": null,
                                 "items": [
                                     {
                                         "type": "or",
                                         "data": {
-                                            "comment": "Weapon Requirements",
+                                            "comment": "B.O.X Weapon Requirements (300HP)",
                                             "items": [
                                                 {
                                                     "type": "resource",
@@ -6826,10 +7671,29 @@
         },
         "Main Boiler Control Room": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 325",
                 "room_id": [
                     25
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 3,
+                        "y": 7
+                    },
+                    {
+                        "x": 3,
+                        "y": 8
+                    },
+                    {
+                        "x": 4,
+                        "y": 7
+                    },
+                    {
+                        "x": 4,
+                        "y": 8
+                    }
                 ]
             },
             "nodes": {
@@ -6864,7 +7728,7 @@
                     "override_default_lock_requirement": null,
                     "ui_custom_name": null,
                     "connections": {
-                        "Event - Cooling Unit": {
+                        "Pickup (Cooling Unit)": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -6884,7 +7748,7 @@
                         "Event - Wide Core-X": {
                             "type": "and",
                             "data": {
-                                "comment": "Core-X Requirements",
+                                "comment": "Core-X Requirements (160 HP)",
                                 "items": [
                                     {
                                         "type": "and",
@@ -6997,8 +7861,8 @@
                         }
                     }
                 },
-                "Event - Cooling Unit": {
-                    "node_type": "event",
+                "Pickup (Cooling Unit)": {
+                    "node_type": "pickup",
                     "heal": false,
                     "coordinates": {
                         "x": 135.14,
@@ -7009,9 +7873,19 @@
                     "layers": [
                         "default"
                     ],
-                    "extra": {},
+                    "extra": {
+                        "area": 3,
+                        "room": 25,
+                        "source": "BOILER",
+                        "infant_weight": 0.3
+                    },
                     "valid_starting_location": false,
-                    "event_name": "Cooling",
+                    "pickup_index": 121,
+                    "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [
+                        "systems_console"
+                    ],
                     "connections": {
                         "Door to Main Boiler": {
                             "type": "and",
@@ -7062,11 +7936,17 @@
                     "extra": {
                         "area": 3,
                         "room": 25,
-                        "source": "WideCoreX"
+                        "source": "WIDE_CORE_X",
+                        "boss_hint_name": "Wide Core-X",
+                        "infant_weight": 3.5
                     },
                     "valid_starting_location": false,
                     "pickup_index": 110,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [
+                        "boss"
+                    ],
                     "connections": {
                         "Door to Main Boiler": {
                             "type": "and",
@@ -7081,11 +7961,19 @@
         },
         "Entrance Recharge Room": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 326",
                 "room_id": [
                     26
-                ]
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 7,
+                        "y": 2
+                    }
+                ],
+                "unlocked_save_recharge_station": true
             },
             "nodes": {
                 "Door to Entrance Save Room": {
@@ -7203,10 +8091,29 @@
         },
         "Monkey Bars of Fire": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 327",
                 "room_id": [
                     27
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 4,
+                        "y": 4
+                    },
+                    {
+                        "x": 5,
+                        "y": 4
+                    },
+                    {
+                        "x": 6,
+                        "y": 4
+                    },
+                    {
+                        "x": 7,
+                        "y": 4
+                    }
                 ]
             },
             "nodes": {
@@ -7432,6 +8339,15 @@
                                                             }
                                                         ]
                                                     }
+                                                },
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "items",
+                                                        "name": "L0Locks",
+                                                        "amount": 1,
+                                                        "negate": false
+                                                    }
                                                 }
                                             ]
                                         }
@@ -7647,6 +8563,36 @@
                                                             }
                                                         ]
                                                     }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "and",
+                                        "data": {
+                                            "comment": "Stay on the right side to slowly lure sidehoppers to you: https://youtu.be/MpzAtONGTtA",
+                                            "items": [
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "items",
+                                                        "name": "VariaSuit",
+                                                        "amount": 1,
+                                                        "negate": false
+                                                    }
+                                                },
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "tricks",
+                                                        "name": "Combat",
+                                                        "amount": 3,
+                                                        "negate": false
+                                                    }
+                                                },
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Kill Tough Beam-Resistant Enemy"
                                                 }
                                             ]
                                         }
@@ -7882,6 +8828,15 @@
                                                 {
                                                     "type": "template",
                                                     "data": "Can Break Single Bomb Blocks"
+                                                },
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "items",
+                                                        "name": "L0Locks",
+                                                        "amount": 1,
+                                                        "negate": false
+                                                    }
                                                 }
                                             ]
                                         }
@@ -8100,6 +9055,36 @@
                                                 }
                                             ]
                                         }
+                                    },
+                                    {
+                                        "type": "and",
+                                        "data": {
+                                            "comment": "Stay on the left side to slowly lure Sidehoppers to you:  https://youtu.be/Pahbc5DdG0s",
+                                            "items": [
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "items",
+                                                        "name": "VariaSuit",
+                                                        "amount": 1,
+                                                        "negate": false
+                                                    }
+                                                },
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "tricks",
+                                                        "name": "Combat",
+                                                        "amount": 3,
+                                                        "negate": false
+                                                    }
+                                                },
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Kill Tough Beam-Resistant Enemy"
+                                                }
+                                            ]
+                                        }
                                     }
                                 ]
                             }
@@ -8110,10 +9095,60 @@
         },
         "Fiery Storage": {
             "default_node": null,
+            "hint_features": [
+                "multiple-pickups",
+                "pillar"
+            ],
             "extra": {
                 "map_name": "Sector 328",
                 "room_id": [
                     28
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 1,
+                        "y": 2
+                    },
+                    {
+                        "x": 1,
+                        "y": 3
+                    },
+                    {
+                        "x": 1,
+                        "y": 4
+                    },
+                    {
+                        "x": 1,
+                        "y": 5
+                    },
+                    {
+                        "x": 2,
+                        "y": 2
+                    },
+                    {
+                        "x": 2,
+                        "y": 3
+                    },
+                    {
+                        "x": 2,
+                        "y": 4
+                    },
+                    {
+                        "x": 2,
+                        "y": 5
+                    },
+                    {
+                        "x": 3,
+                        "y": 2
+                    },
+                    {
+                        "x": 3,
+                        "y": 3
+                    },
+                    {
+                        "x": 3,
+                        "y": 4
+                    }
                 ]
             },
             "nodes": {
@@ -8133,11 +9168,14 @@
                         "area": 3,
                         "room": 28,
                         "blockx": 12,
-                        "blocky": 7
+                        "blocky": 7,
+                        "infant_weight": 0.3
                     },
                     "valid_starting_location": false,
                     "pickup_index": 50,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Behind Wall": {
                             "type": "and",
@@ -8164,11 +9202,14 @@
                         "area": 3,
                         "room": 28,
                         "blockx": 36,
-                        "blocky": 27
+                        "blocky": 27,
+                        "infant_weight": 0.3
                     },
                     "valid_starting_location": false,
                     "pickup_index": 51,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Monkey Bars of Fire": {
                             "type": "and",
@@ -8231,7 +9272,7 @@
                         }
                     }
                 },
-                "Door to Glass Tube to Sector 5 (ARC)": {
+                "Door to Sector 3 (PYR) Westbound Glass Tube": {
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
@@ -8252,7 +9293,7 @@
                     "dock_type": "Door",
                     "default_connection": {
                         "region": "Sector 3 (PYR)",
-                        "area": "Glass Tube to Sector 5 (ARC)",
+                        "area": "Sector 3 (PYR) Westbound Glass Tube",
                         "node": "Door to Fiery Storage"
                     },
                     "default_dock_weakness": "L0 Hatch",
@@ -8371,6 +9412,24 @@
                                                                     "amount": 3,
                                                                     "negate": false
                                                                 }
+                                                            },
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "misc",
+                                                                    "name": "DoorLockRando",
+                                                                    "amount": 1,
+                                                                    "negate": true
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "items",
+                                                                    "name": "L0Locks",
+                                                                    "amount": 1,
+                                                                    "negate": false
+                                                                }
                                                             }
                                                         ]
                                                     }
@@ -8450,7 +9509,7 @@
                                                 {
                                                     "type": "and",
                                                     "data": {
-                                                        "comment": "If Door Lock Rando you may be forced to do the spark from the shortcut, the SA blocks do not reform",
+                                                        "comment": "Door Lock Rando may force you to do the spark from the shortcut: https://youtu.be/I5a5RUqrzn4",
                                                         "items": [
                                                             {
                                                                 "type": "resource",
@@ -8482,7 +9541,7 @@
                                 ]
                             }
                         },
-                        "Door to Glass Tube to Sector 5 (ARC)": {
+                        "Door to Sector 3 (PYR) Westbound Glass Tube": {
                             "type": "or",
                             "data": {
                                 "comment": null,
@@ -8505,10 +9564,29 @@
         },
         "Namihe's Lair": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 330",
                 "room_id": [
                     30
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 11,
+                        "y": 5
+                    },
+                    {
+                        "x": 11,
+                        "y": 6
+                    },
+                    {
+                        "x": 12,
+                        "y": 5
+                    },
+                    {
+                        "x": 12,
+                        "y": 6
+                    }
                 ]
             },
             "nodes": {
@@ -8528,11 +9606,14 @@
                         "area": 3,
                         "room": 30,
                         "blockx": 4,
-                        "blocky": 13
+                        "blocky": 13,
+                        "infant_weight": 0.3
                     },
                     "valid_starting_location": false,
                     "pickup_index": 52,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Red Tower": {
                             "type": "and",
@@ -8555,7 +9636,7 @@
                                                 {
                                                     "type": "and",
                                                     "data": {
-                                                        "comment": "Same height as grabbing item: https://youtu.be/T8CZbxC6r6Y",
+                                                        "comment": "Same height as grabbing item: https://youtu.be/T8CZbxC6r6Y?t=79",
                                                         "items": [
                                                             {
                                                                 "type": "template",
@@ -8566,7 +9647,7 @@
                                                                 "data": {
                                                                     "type": "tricks",
                                                                     "name": "JBJ",
-                                                                    "amount": 4,
+                                                                    "amount": 3,
                                                                     "negate": false
                                                                 }
                                                             }
@@ -8576,7 +9657,7 @@
                                                 {
                                                     "type": "and",
                                                     "data": {
-                                                        "comment": null,
+                                                        "comment": "SWJ up",
                                                         "items": [
                                                             {
                                                                 "type": "template",
@@ -8588,6 +9669,84 @@
                                                                     "type": "tricks",
                                                                     "name": "WallJump",
                                                                     "amount": 1,
+                                                                    "negate": false
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                },
+                                                {
+                                                    "type": "and",
+                                                    "data": {
+                                                        "comment": "Manipulate shot for Dboost: https://youtu.be/sgPFgUr8pYI?t=18",
+                                                        "items": [
+                                                            {
+                                                                "type": "or",
+                                                                "data": {
+                                                                    "comment": null,
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "resource",
+                                                                            "data": {
+                                                                                "type": "damage",
+                                                                                "name": "NormalDamage",
+                                                                                "amount": 54,
+                                                                                "negate": false
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "type": "and",
+                                                                            "data": {
+                                                                                "comment": null,
+                                                                                "items": [
+                                                                                    {
+                                                                                        "type": "resource",
+                                                                                        "data": {
+                                                                                            "type": "items",
+                                                                                            "name": "VariaSuit",
+                                                                                            "amount": 1,
+                                                                                            "negate": false
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "type": "resource",
+                                                                                        "data": {
+                                                                                            "type": "items",
+                                                                                            "name": "GravitySuit",
+                                                                                            "amount": 1,
+                                                                                            "negate": false
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "type": "resource",
+                                                                                        "data": {
+                                                                                            "type": "damage",
+                                                                                            "name": "NormalDamage",
+                                                                                            "amount": 43,
+                                                                                            "negate": false
+                                                                                        }
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "tricks",
+                                                                    "name": "WallJump",
+                                                                    "amount": 3,
+                                                                    "negate": false
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "tricks",
+                                                                    "name": "DamageBoosts",
+                                                                    "amount": 3,
                                                                     "negate": false
                                                                 }
                                                             }
@@ -8669,7 +9828,7 @@
                                                                 "data": {
                                                                     "type": "tricks",
                                                                     "name": "JBJ",
-                                                                    "amount": 4,
+                                                                    "amount": 3,
                                                                     "negate": false
                                                                 }
                                                             },
@@ -8697,6 +9856,10 @@
                                                                     "amount": 2,
                                                                     "negate": false
                                                                 }
+                                                            },
+                                                            {
+                                                                "type": "template",
+                                                                "data": "Can Kill Tough Beam-Resistant Enemy"
                                                             }
                                                         ]
                                                     }
@@ -8780,6 +9943,45 @@
                     "override_default_lock_requirement": null,
                     "ui_custom_name": null,
                     "connections": {
+                        "Pickup (Power Bomb Tank)": {
+                            "type": "and",
+                            "data": {
+                                "comment": "Shinespark: https://youtu.be/4LkNz-cjgUI",
+                                "items": [
+                                    {
+                                        "type": "template",
+                                        "data": "Can Use Power Bombs"
+                                    },
+                                    {
+                                        "type": "resource",
+                                        "data": {
+                                            "type": "items",
+                                            "name": "SpeedBooster",
+                                            "amount": 1,
+                                            "negate": false
+                                        }
+                                    },
+                                    {
+                                        "type": "resource",
+                                        "data": {
+                                            "type": "tricks",
+                                            "name": "ShinesparkTrick",
+                                            "amount": 4,
+                                            "negate": false
+                                        }
+                                    },
+                                    {
+                                        "type": "resource",
+                                        "data": {
+                                            "type": "misc",
+                                            "name": "EntranceRando",
+                                            "amount": 1,
+                                            "negate": true
+                                        }
+                                    }
+                                ]
+                            }
+                        },
                         "Door to Red Tower": {
                             "type": "and",
                             "data": {
@@ -8812,11 +10014,19 @@
         },
         "Data Recharge Room": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 331",
                 "room_id": [
                     31
-                ]
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 16,
+                        "y": 4
+                    }
+                ],
+                "unlocked_save_recharge_station": true
             },
             "nodes": {
                 "Door to Data Save Room": {
@@ -8859,7 +10069,7 @@
                         }
                     }
                 },
-                "Door to Data Storage": {
+                "Door to Geron's Treasure": {
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
@@ -8880,7 +10090,7 @@
                     "dock_type": "Door",
                     "default_connection": {
                         "region": "Sector 3 (PYR)",
-                        "area": "Data Storage",
+                        "area": "Geron's Treasure",
                         "node": "Door to Data Recharge Room"
                     },
                     "default_dock_weakness": "L0 Hatch",
@@ -8921,7 +10131,7 @@
                                 "items": []
                             }
                         },
-                        "Door to Data Storage": {
+                        "Door to Geron's Treasure": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -8934,15 +10144,22 @@
         },
         "Data Save Room": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 332",
                 "room_id": [
                     32
                 ],
-                "unlocked_save_station": true
+                "minimap_coordinates": [
+                    {
+                        "x": 15,
+                        "y": 4
+                    }
+                ],
+                "unlocked_save_recharge_station": true
             },
             "nodes": {
-                "Door to B.O.X. Access": {
+                "Door to B.O.X. Arena Access": {
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
@@ -8963,7 +10180,7 @@
                     "dock_type": "Door",
                     "default_connection": {
                         "region": "Sector 3 (PYR)",
-                        "area": "B.O.X. Access",
+                        "area": "B.O.X. Arena Access",
                         "node": "Door to Data Save Room"
                     },
                     "default_dock_weakness": "L0 Hatch",
@@ -9020,7 +10237,7 @@
                     "override_default_lock_requirement": null,
                     "ui_custom_name": null,
                     "connections": {
-                        "Door to B.O.X. Access": {
+                        "Door to B.O.X. Arena Access": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -9047,7 +10264,7 @@
                     },
                     "valid_starting_location": true,
                     "connections": {
-                        "Door to B.O.X. Access": {
+                        "Door to B.O.X. Arena Access": {
                             "type": "and",
                             "data": {
                                 "comment": null,
@@ -9058,12 +10275,21 @@
                 }
             }
         },
-        "Data Storage": {
+        "Geron's Treasure": {
             "default_node": null,
+            "hint_features": [
+                "geron"
+            ],
             "extra": {
                 "map_name": "Sector 333",
                 "room_id": [
                     33
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 17,
+                        "y": 4
+                    }
                 ]
             },
             "nodes": {
@@ -9083,11 +10309,14 @@
                         "area": 3,
                         "room": 33,
                         "blockx": 15,
-                        "blocky": 10
+                        "blocky": 10,
+                        "infant_weight": 0.3
                     },
                     "valid_starting_location": false,
                     "pickup_index": 53,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Data Recharge Room": {
                             "type": "and",
@@ -9120,7 +10349,7 @@
                     "default_connection": {
                         "region": "Sector 3 (PYR)",
                         "area": "Data Recharge Room",
-                        "node": "Door to Data Storage"
+                        "node": "Door to Geron's Treasure"
                     },
                     "default_dock_weakness": "L0 Hatch",
                     "exclude_from_dock_rando": false,
@@ -9147,10 +10376,29 @@
         },
         "Processing Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 334",
                 "room_id": [
                     34
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 14,
+                        "y": 9
+                    },
+                    {
+                        "x": 14,
+                        "y": 10
+                    },
+                    {
+                        "x": 15,
+                        "y": 9
+                    },
+                    {
+                        "x": 15,
+                        "y": 10
+                    }
                 ]
             },
             "nodes": {
@@ -9170,11 +10418,14 @@
                         "area": 3,
                         "room": 34,
                         "blockx": 10,
-                        "blocky": 15
+                        "blocky": 15,
+                        "infant_weight": 0.3
                     },
                     "valid_starting_location": false,
                     "pickup_index": 54,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Red Tower": {
                             "type": "and",
@@ -9279,7 +10530,7 @@
                                                                             "data": {
                                                                                 "type": "tricks",
                                                                                 "name": "JBJ",
-                                                                                "amount": 4,
+                                                                                "amount": 3,
                                                                                 "negate": false
                                                                             }
                                                                         }
@@ -9422,12 +10673,29 @@
                                                                     "comment": null,
                                                                     "items": [
                                                                         {
-                                                                            "type": "resource",
+                                                                            "type": "or",
                                                                             "data": {
-                                                                                "type": "items",
-                                                                                "name": "WideBeam",
-                                                                                "amount": 1,
-                                                                                "negate": false
+                                                                                "comment": null,
+                                                                                "items": [
+                                                                                    {
+                                                                                        "type": "resource",
+                                                                                        "data": {
+                                                                                            "type": "items",
+                                                                                            "name": "WaveBeam",
+                                                                                            "amount": 1,
+                                                                                            "negate": false
+                                                                                        }
+                                                                                    },
+                                                                                    {
+                                                                                        "type": "resource",
+                                                                                        "data": {
+                                                                                            "type": "items",
+                                                                                            "name": "WideBeam",
+                                                                                            "amount": 1,
+                                                                                            "negate": false
+                                                                                        }
+                                                                                    }
+                                                                                ]
                                                                             }
                                                                         },
                                                                         {
@@ -9480,12 +10748,29 @@
                                                                                         }
                                                                                     },
                                                                                     {
-                                                                                        "type": "resource",
+                                                                                        "type": "and",
                                                                                         "data": {
-                                                                                            "type": "items",
-                                                                                            "name": "PlasmaBeam",
-                                                                                            "amount": 1,
-                                                                                            "negate": false
+                                                                                            "comment": "Very precise and needs lots of luck",
+                                                                                            "items": [
+                                                                                                {
+                                                                                                    "type": "resource",
+                                                                                                    "data": {
+                                                                                                        "type": "items",
+                                                                                                        "name": "PlasmaBeam",
+                                                                                                        "amount": 1,
+                                                                                                        "negate": false
+                                                                                                    }
+                                                                                                },
+                                                                                                {
+                                                                                                    "type": "resource",
+                                                                                                    "data": {
+                                                                                                        "type": "tricks",
+                                                                                                        "name": "Combat",
+                                                                                                        "amount": 4,
+                                                                                                        "negate": false
+                                                                                                    }
+                                                                                                }
+                                                                                            ]
                                                                                         }
                                                                                     }
                                                                                 ]
@@ -9553,10 +10838,60 @@
         },
         "Garbage Chute": {
             "default_node": null,
+            "hint_features": [
+                "extreme-temp",
+                "multiple-pickups"
+            ],
             "extra": {
                 "map_name": "Sector 335",
                 "room_id": [
                     35
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 20,
+                        "y": 1
+                    },
+                    {
+                        "x": 20,
+                        "y": 2
+                    },
+                    {
+                        "x": 20,
+                        "y": 3
+                    },
+                    {
+                        "x": 20,
+                        "y": 4
+                    },
+                    {
+                        "x": 20,
+                        "y": 5
+                    },
+                    {
+                        "x": 20,
+                        "y": 6
+                    },
+                    {
+                        "x": 20,
+                        "y": 7
+                    },
+                    {
+                        "x": 20,
+                        "y": 8
+                    },
+                    {
+                        "x": 20,
+                        "y": 9
+                    },
+                    {
+                        "x": 20,
+                        "y": 10
+                    },
+                    {
+                        "x": 20,
+                        "y": 11
+                    }
                 ]
             },
             "nodes": {
@@ -9576,11 +10911,14 @@
                         "area": 3,
                         "room": 35,
                         "blockx": 4,
-                        "blocky": 27
+                        "blocky": 27,
+                        "infant_weight": 0.3
                     },
                     "valid_starting_location": false,
                     "pickup_index": 55,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Beside Pickup": {
                             "type": "and",
@@ -9607,11 +10945,14 @@
                         "area": 3,
                         "room": 35,
                         "blockx": 15,
-                        "blocky": 86
+                        "blocky": 86,
+                        "infant_weight": 0.3
                     },
                     "valid_starting_location": false,
                     "pickup_index": 56,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Sova Processing": {
                             "type": "or",
@@ -10037,10 +11378,21 @@
         },
         "Chute Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 336",
                 "room_id": [
                     36
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 18,
+                        "y": 1
+                    },
+                    {
+                        "x": 19,
+                        "y": 1
+                    }
                 ]
             },
             "nodes": {
@@ -10085,18 +11437,26 @@
                                         "data": "Can Kill Tough Beam-Resistant Enemy"
                                     },
                                     {
-                                        "type": "resource",
+                                        "type": "and",
                                         "data": {
-                                            "type": "tricks",
-                                            "name": "Combat",
-                                            "amount": 2,
-                                            "negate": false
+                                            "comment": "Damageless: https://youtu.be/_3o2ESgGXjg",
+                                            "items": [
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "tricks",
+                                                        "name": "Combat",
+                                                        "amount": 2,
+                                                        "negate": false
+                                                    }
+                                                }
+                                            ]
                                         }
                                     },
                                     {
                                         "type": "and",
                                         "data": {
-                                            "comment": null,
+                                            "comment": "Damage boost through sidehoppers",
                                             "items": [
                                                 {
                                                     "type": "resource",
@@ -10146,7 +11506,7 @@
                     "default_connection": {
                         "region": "Sector 3 (PYR)",
                         "area": "Deserted Runway",
-                        "node": "Door to Chute Access"
+                        "node": "Other to Chute Access"
                     },
                     "default_dock_weakness": "Open Passage",
                     "exclude_from_dock_rando": false,
@@ -10165,18 +11525,26 @@
                                         "data": "Can Kill Tough Beam-Resistant Enemy"
                                     },
                                     {
-                                        "type": "resource",
+                                        "type": "and",
                                         "data": {
-                                            "type": "tricks",
-                                            "name": "Combat",
-                                            "amount": 2,
-                                            "negate": false
+                                            "comment": "Damageless: https://youtu.be/cYxWd3P7R5c",
+                                            "items": [
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "tricks",
+                                                        "name": "Combat",
+                                                        "amount": 2,
+                                                        "negate": false
+                                                    }
+                                                }
+                                            ]
                                         }
                                     },
                                     {
                                         "type": "and",
                                         "data": {
-                                            "comment": null,
+                                            "comment": "Damage boost through sidehoppers",
                                             "items": [
                                                 {
                                                     "type": "resource",
@@ -10206,12 +11574,19 @@
                 }
             }
         },
-        "Glass Tube to Sector 5 (ARC)": {
+        "Sector 3 (PYR) Westbound Glass Tube": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 337",
                 "room_id": [
                     37
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 0,
+                        "y": 5
+                    }
                 ]
             },
             "nodes": {
@@ -10231,11 +11606,14 @@
                         "area": 3,
                         "room": 37,
                         "blockx": 15,
-                        "blocky": 3
+                        "blocky": 3,
+                        "infant_weight": 0.3
                     },
                     "valid_starting_location": false,
                     "pickup_index": 57,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Fiery Storage": {
                             "type": "and",
@@ -10268,7 +11646,7 @@
                     "default_connection": {
                         "region": "Sector 3 (PYR)",
                         "area": "Fiery Storage",
-                        "node": "Door to Glass Tube to Sector 5 (ARC)"
+                        "node": "Door to Sector 3 (PYR) Westbound Glass Tube"
                     },
                     "default_dock_weakness": "L0 Hatch",
                     "exclude_from_dock_rando": false,
@@ -10285,7 +11663,7 @@
                                     {
                                         "type": "and",
                                         "data": {
-                                            "comment": null,
+                                            "comment": "Get up with Bombs",
                                             "items": [
                                                 {
                                                     "type": "template",
@@ -10303,14 +11681,14 @@
                                                             {
                                                                 "type": "and",
                                                                 "data": {
-                                                                    "comment": "JBJ: https://youtu.be/xyR9PAwAMYM",
+                                                                    "comment": "JBJ: https://youtu.be/zAUo2uAluG0",
                                                                     "items": [
                                                                         {
                                                                             "type": "resource",
                                                                             "data": {
                                                                                 "type": "tricks",
                                                                                 "name": "JBJ",
-                                                                                "amount": 4,
+                                                                                "amount": 2,
                                                                                 "negate": false
                                                                             }
                                                                         }
@@ -10330,7 +11708,7 @@
                                     {
                                         "type": "and",
                                         "data": {
-                                            "comment": null,
+                                            "comment": "Get up with Screw",
                                             "items": [
                                                 {
                                                     "type": "resource",
@@ -10386,7 +11764,7 @@
                     "dock_type": "area_transition",
                     "default_connection": {
                         "region": "Sector 5 (ARC)",
-                        "area": "Glass Tube to Sector 3 (PYR)",
+                        "area": "Sector 5 (ARC) Eastbound Glass Tube",
                         "node": "Area Transition to Sector 3 (PYR)"
                     },
                     "default_dock_weakness": "Open Passage",
@@ -10407,12 +11785,19 @@
                 }
             }
         },
-        "Glass Tube to Sector 1 (SRX)": {
+        "Sector 3 (PYR) Eastbound Glass Tube": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Sector 338",
                 "room_id": [
                     38
+                ],
+                "minimap_coordinates": [
+                    {
+                        "x": 18,
+                        "y": 0
+                    }
                 ]
             },
             "nodes": {
@@ -10438,7 +11823,7 @@
                     "default_connection": {
                         "region": "Sector 3 (PYR)",
                         "area": "Deserted Runway",
-                        "node": "Door to Glass Tube to Sector 1 (SRX)"
+                        "node": "Door to Sector 3 (PYR) Eastbound Glass Tube"
                     },
                     "default_dock_weakness": "L0 Hatch",
                     "exclude_from_dock_rando": false,
@@ -10477,7 +11862,7 @@
                     "dock_type": "area_transition",
                     "default_connection": {
                         "region": "Sector 1 (SRX)",
-                        "area": "Glass Tube to Sector 3 (PYR)",
+                        "area": "Sector 1 (SRX) Westbound Glass Tube",
                         "node": "Area Transition to Sector 3 (PYR)"
                     },
                     "default_dock_weakness": "Open Passage",

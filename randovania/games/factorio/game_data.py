@@ -6,6 +6,7 @@ import randovania.game.data
 import randovania.game.development_state
 import randovania.game.generator
 import randovania.game.gui
+import randovania.game.hints
 import randovania.game.layout
 from randovania.games.factorio import layout
 
@@ -31,20 +32,28 @@ def _gui() -> randovania.game.gui.GameGui:
         export_dialog=gui.FactorioGameExportDialog,
         progressive_item_gui_tuples=(),
         spoiler_visualizer=(),
+        hide_database_map_view=True,
     )
 
 
 def _generator() -> randovania.game.generator.GameGenerator:
     from randovania.games.factorio import generator
     from randovania.generator.filler.weights import ActionWeights
-    from randovania.generator.hint_distributor import AllJokesHintDistributor
 
     return randovania.game.generator.GameGenerator(
         pickup_pool_creator=generator.pool_creator,
         bootstrap=generator.FactorioBootstrap(),
         base_patches_factory=generator.FactorioBasePatchesFactory(),
-        hint_distributor=AllJokesHintDistributor(),
         action_weights=ActionWeights(),
+    )
+
+
+def _hints() -> randovania.game.hints.GameHints:
+    from randovania.generator.hint_distributor import AllJokesHintDistributor
+
+    return randovania.game.hints.GameHints(
+        hint_distributor=AllJokesHintDistributor(),
+        specific_pickup_hints={},
     )
 
 
@@ -66,12 +75,18 @@ def _hash_words() -> list[str]:
     return HASH_WORDS
 
 
+def _test_data() -> randovania.game.game_test_data.GameTestData:
+    return randovania.game.game_test_data.GameTestData(
+        expected_seed_hash="DYZ3JNCR",
+    )
+
+
 game_data: randovania.game.data.GameData = randovania.game.data.GameData(
     short_name="Factorio",
     long_name="Factorio",
-    development_state=randovania.game.development_state.DevelopmentState.EXPERIMENTAL,
+    development_state=randovania.game.development_state.DevelopmentState.STABLE,
     presets=[
-        {"path": "starter_preset.rdvpreset"},
+        "starter_preset.rdvpreset",
     ],
     faq=[
         ("What versions of the game is supported?", "Only Factorio 2.0 is supported."),
@@ -79,8 +94,8 @@ game_data: randovania.game.data.GameData = randovania.game.data.GameData(
         ("Are other mods supported?", "Only mods that don't add new researches are compatible."),
         (
             "Is multiplayer supported?",
-            "Yes. Since the generated randomizer mod file isn't in the mod portal, "
-            "it'll be necessary to either share the mod file or have everyone export it themselves.",
+            "Yes. As the exported game uses a startup mod setting, it is synced naturally for multiplayer games "
+            "and works like any other Factorio mod.",
         ),
     ],
     web_info=randovania.game.web_info.GameWebInfo(
@@ -102,7 +117,9 @@ game_data: randovania.game.data.GameData = randovania.game.data.GameData(
     options=_options,
     gui=_gui,
     generator=_generator,
+    hints=_hints,
     patch_data_factory=_patch_data_factory,
     exporter=_exporter,
+    test_data=_test_data,
     multiple_start_nodes_per_area=True,
 )

@@ -6,6 +6,7 @@
     "areas": {
         "Hideout Entrance": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a01",
                 "minimap_data": [
@@ -103,6 +104,7 @@
         },
         "Ramulken Road": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a02",
                 "minimap_data": [
@@ -127,6 +129,13 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "137191": "oMoto",
+                    "137192": "oMoto",
+                    "137188": "oRamulkenTrigger",
+                    "137189": "oRamulkenTrigger",
+                    "137190": "oRamulkenTrigger"
                 }
             },
             "nodes": {
@@ -211,6 +220,7 @@
         },
         "Skreek and Ramulken Pool": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a03",
                 "minimap_data": [
@@ -239,6 +249,10 @@
                 "liquid_info": {
                     "liquid_type": 1,
                     "liquid_level": 432
+                },
+                "enemy_data": {
+                    "137443": "oRamulkenTrigger",
+                    "137444": "oRamulkenTrigger"
                 }
             },
             "nodes": {
@@ -423,6 +437,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 60,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Middle pillars": {
                             "type": "and",
@@ -485,6 +501,7 @@
         },
         "Rocky Boulder": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a04",
                 "minimap_data": [
@@ -590,6 +607,7 @@
         },
         "Skreek and Skorp Space": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a05",
                 "minimap_data": [
@@ -618,6 +636,14 @@
                 "liquid_info": {
                     "liquid_type": 1,
                     "liquid_level": 200
+                },
+                "enemy_data": {
+                    "137849": "oSkorp",
+                    "137850": "oSkorp",
+                    "137851": "oSkorp",
+                    "137852": "oSkorp",
+                    "137853": "oSkorp",
+                    "137950": "oSkorp"
                 }
             },
             "nodes": {
@@ -712,6 +738,7 @@
         },
         "Hideout Hub": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a06",
                 "minimap_data": [
@@ -1020,6 +1047,7 @@
         },
         "Hideout Hub Access West": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a07",
                 "minimap_data": [
@@ -1124,6 +1152,7 @@
         },
         "Hideout Alpha Nest Access West": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a08",
                 "minimap_data": [
@@ -1233,6 +1262,7 @@
         },
         "Hideout Alpha Nest": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a09",
                 "minimap_data": [
@@ -1468,6 +1498,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 372,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Event - Alpha": {
                             "type": "and",
@@ -1482,6 +1514,7 @@
         },
         "Hideout Omega Nest Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a09A",
                 "minimap_data": [
@@ -1603,6 +1636,7 @@
         },
         "Hideout Omega Nest": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a09B",
                 "minimap_data": [
@@ -2092,6 +2126,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 392,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Event - Omega": {
                             "type": "and",
@@ -2106,6 +2142,7 @@
         },
         "Hideout Storage": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a09C",
                 "minimap_data": [
@@ -2179,6 +2216,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 51,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Horizontal Dock to Hideout Omega Nest": {
                             "type": "and",
@@ -2193,6 +2232,7 @@
         },
         "Hideout Alpha Nest Access East": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a10",
                 "minimap_data": [
@@ -2353,6 +2393,7 @@
         },
         "Hideout Hub Access East": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a11",
                 "minimap_data": [
@@ -2520,6 +2561,7 @@
         },
         "Ridley Room": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a12",
                 "minimap_data": [
@@ -2544,6 +2586,16 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "139093": "oSkorp",
+                    "139094": "oSkorp",
+                    "139095": "oSkorp",
+                    "139088": "oRamulkenTrigger",
+                    "139089": "oRamulkenTrigger",
+                    "139090": "oRamulkenTrigger",
+                    "139091": "oRamulkenTrigger",
+                    "139092": "oRamulkenTrigger"
                 }
             },
             "nodes": {
@@ -2802,6 +2854,7 @@
         },
         "Skorp Lava Pool": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a13",
                 "minimap_data": [
@@ -2842,6 +2895,22 @@
                 "liquid_info": {
                     "liquid_type": 1,
                     "liquid_level": 288
+                },
+                "enemy_data": {
+                    "139316": "oSkorp",
+                    "139317": "oSkorp",
+                    "139318": "oSkorp",
+                    "139319": "oSkorp",
+                    "139320": "oSkorp",
+                    "139321": "oSkorp",
+                    "139322": "oSkorp",
+                    "139323": "oSkorp",
+                    "139324": "oSkorp",
+                    "139325": "oSkorp",
+                    "139326": "oSkorp",
+                    "139464": "oHalzyn",
+                    "139465": "oHalzyn",
+                    "139476": "oHalzyn"
                 }
             },
             "nodes": {
@@ -3140,6 +3209,7 @@
         },
         "Skorp Lava Pool Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a14",
                 "minimap_data": [
@@ -3283,6 +3353,7 @@
         },
         "Omega Nest Entrance Save Station": {
             "default_node": "Save Station",
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a15",
                 "minimap_data": [
@@ -3365,6 +3436,7 @@
         },
         "8-Shaped Cave": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a16",
                 "minimap_data": [
@@ -3389,6 +3461,12 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "139888": "oHalzyn",
+                    "139889": "oHalzyn",
+                    "139890": "oRamulkenTrigger",
+                    "139891": "oRamulkenTrigger"
                 }
             },
             "nodes": {
@@ -3478,6 +3556,7 @@
         },
         "Glowfly Maze Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a17",
                 "minimap_data": [
@@ -3607,6 +3686,7 @@
         },
         "Glowfly Maze": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a18",
                 "minimap_data": [
@@ -3635,6 +3715,12 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "140699": "oGlowFly",
+                    "140700": "oGlowFly",
+                    "140701": "oGlowFly",
+                    "140702": "oGlowFly"
                 }
             },
             "nodes": {
@@ -3806,6 +3892,7 @@
         },
         "Bubble Lair Shinespark Cave Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6b01",
                 "minimap_data": [
@@ -3916,6 +4003,7 @@
         },
         "Bubble Lair Shinespark Cave": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6b02",
                 "minimap_data": [
@@ -3952,6 +4040,17 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "141257": "oGlowFly",
+                    "141258": "oGlowFly",
+                    "141259": "oGlowFly",
+                    "141260": "oGlowFly",
+                    "141261": "oGlowFly",
+                    "141262": "oGlowFly",
+                    "141263": "oGlowFly",
+                    "141264": "oGlowFly",
+                    "141265": "oGlowFly"
                 }
             },
             "nodes": {
@@ -4399,6 +4498,7 @@
         },
         "Bubble Lair Shinespark Cave East": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6b03",
                 "minimap_data": [
@@ -4566,6 +4666,7 @@
         },
         "Bubble Lair Shinespark Cave West": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6b04",
                 "minimap_data": [
@@ -4675,6 +4776,7 @@
         },
         "Bubble Lair Hub": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6b05",
                 "minimap_data": [
@@ -4727,6 +4829,34 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "141636": "oGlowFly",
+                    "141637": "oGlowFly",
+                    "141638": "oGlowFly",
+                    "141639": "oGlowFly",
+                    "141640": "oGlowFly",
+                    "141641": "oGlowFly",
+                    "141642": "oGlowFly",
+                    "141643": "oGlowFly",
+                    "141644": "oGlowFly",
+                    "141645": "oGlowFly",
+                    "141646": "oGlowFly",
+                    "141647": "oGlowFly",
+                    "141648": "oGlowFly",
+                    "141649": "oGlowFly",
+                    "141702": "oGlowFly",
+                    "141703": "oGlowFly",
+                    "141704": "oGlowFly",
+                    "141705": "oGlowFly",
+                    "141706": "oGlowFly",
+                    "141707": "oGlowFly",
+                    "141708": "oGlowFly",
+                    "141709": "oGlowFly",
+                    "141710": "oGlowFly",
+                    "141711": "oGlowFly",
+                    "141712": "oGlowFly",
+                    "141714": "oGlowFly"
                 }
             },
             "nodes": {
@@ -4955,6 +5085,7 @@
         },
         "Bubble Lair Save Station": {
             "default_node": "Save Station",
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6b06",
                 "minimap_data": [
@@ -5037,6 +5168,7 @@
         },
         "Bubble Lair Omega Nest North West Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6b07",
                 "minimap_data": [
@@ -5247,6 +5379,7 @@
         },
         "Bubble Lair Omega Nest North West": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6b08",
                 "minimap_data": [
@@ -5371,6 +5504,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 394,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Event - Omega": {
                             "type": "and",
@@ -5385,6 +5520,7 @@
         },
         "Bubble Lair Omega Nest East Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6b09",
                 "minimap_data": [
@@ -5545,6 +5681,7 @@
         },
         "Bubble Lair Omega Nest East": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6b10",
                 "minimap_data": [
@@ -5669,6 +5806,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 393,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Event - Omega": {
                             "type": "and",
@@ -5683,6 +5822,7 @@
         },
         "Bubble Lair Omega Nest South West Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6b11",
                 "minimap_data": [
@@ -6059,6 +6199,7 @@
         },
         "Bubble Lair Omega Nest South West": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6b12",
                 "minimap_data": [
@@ -6183,6 +6324,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 395,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Event - Omega": {
                             "type": "and",
@@ -6197,6 +6340,7 @@
         },
         "Bubble Lair Curved Bubble Pillar": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6b13",
                 "minimap_data": [
@@ -6643,6 +6787,7 @@
         },
         "Bubble Lair Halzyn Housing": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6b14",
                 "minimap_data": [
@@ -6699,6 +6844,27 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "144180": "oGlowFly",
+                    "144181": "oGlowFly",
+                    "144182": "oGlowFly",
+                    "144183": "oHalzyn",
+                    "144184": "oHalzyn",
+                    "144185": "oHalzyn",
+                    "144186": "oHalzyn",
+                    "144187": "oHalzyn",
+                    "144188": "oHalzyn",
+                    "144189": "oHalzyn",
+                    "144190": "oHalzyn",
+                    "144191": "oHalzyn",
+                    "144192": "oHalzyn",
+                    "144193": "oHalzyn",
+                    "144194": "oGlowFly",
+                    "144195": "oGlowFly",
+                    "144196": "oGlowFly",
+                    "144197": "oGlowFly",
+                    "144198": "oGlowFly"
                 }
             },
             "nodes": {
@@ -6933,6 +7099,7 @@
         },
         "Bubble Lair Skorp Snag": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6b15",
                 "minimap_data": [
@@ -6957,6 +7124,21 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "144373": "oHalzyn",
+                    "144374": "oHalzyn",
+                    "144375": "oGlowFly",
+                    "144376": "oGlowFly",
+                    "144377": "oGlowFly",
+                    "144378": "oGlowFly",
+                    "144379": "oGlowFly",
+                    "144380": "oGlowFly",
+                    "144381": "oGlowFly",
+                    "144382": "oSkorp",
+                    "144383": "oSkorp",
+                    "144384": "oSkorp",
+                    "144385": "oSkorp"
                 }
             },
             "nodes": {
@@ -7152,6 +7334,7 @@
         },
         "Bubble Lair Exit Save Station": {
             "default_node": "Save Station",
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6b16",
                 "minimap_data": [
@@ -7234,6 +7417,7 @@
         },
         "Waterfalls Entryway": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6b17",
                 "minimap_data": [
@@ -7383,6 +7567,7 @@
         },
         "Hideout Save Station": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a6a10B",
                 "minimap_data": [

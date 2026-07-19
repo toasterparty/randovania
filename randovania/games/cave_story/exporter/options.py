@@ -1,12 +1,25 @@
 from __future__ import annotations
 
 import dataclasses
+import enum
 from pathlib import Path
+from typing import TYPE_CHECKING, Self, override
 
-from caver.patcher import CSPlatform
+if TYPE_CHECKING:
+    from randovania.lib.json_lib import JsonObject
 
 from randovania.game.game_enum import RandovaniaGame
 from randovania.interface_common.options import PerGameOptions, decode_if_not_none
+
+
+class CSPlatform(enum.Enum):
+    """
+    This enum duplicates `caver.patcher.CSPlatform` in order to avoid always importing `caver` during startup.
+    There's a test ensuring they are identical.
+    """
+
+    FREEWARE = "freeware"
+    TWEAKED = "tweaked"
 
 
 @dataclasses.dataclass(frozen=True)
@@ -15,7 +28,7 @@ class CSPerGameOptions(PerGameOptions):
     platform: CSPlatform = CSPlatform.FREEWARE
 
     @property
-    def as_json(self):
+    def as_json(self) -> JsonObject:
         return {
             **super().as_json,
             "output_directory": str(self.output_directory) if self.output_directory is not None else None,
@@ -23,11 +36,22 @@ class CSPerGameOptions(PerGameOptions):
         }
 
     @classmethod
-    def from_json(cls, value: dict) -> CSPerGameOptions:
+    def from_json(cls, value: JsonObject) -> Self:
         game = RandovaniaGame.CAVE_STORY
-        cosmetic_patches = game.data.layout.cosmetic_patches.from_json(value["cosmetic_patches"])
+
+        cosmetic_json = value["cosmetic_patches"]
+        assert isinstance(cosmetic_json, dict)
+        cosmetic_patches = game.data.layout.cosmetic_patches.from_json(cosmetic_json)
+
+        assert isinstance(value["output_directory"], str | None)
+
         return cls(
             cosmetic_patches=cosmetic_patches,
             output_directory=decode_if_not_none(value["output_directory"], Path),
             platform=CSPlatform(value["platform"]),
         )
+
+    @classmethod
+    @override
+    def game_enum(cls) -> RandovaniaGame:
+        return RandovaniaGame.CAVE_STORY

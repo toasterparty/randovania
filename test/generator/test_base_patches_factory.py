@@ -10,7 +10,7 @@ import pytest
 from randovania.game.game_enum import RandovaniaGame
 from randovania.game_description.db.dock_node import DockNode, Node
 from randovania.game_description.db.node_identifier import NodeIdentifier
-from randovania.generator import base_patches_factory
+from randovania.games.blank.generator import BlankBasePatchesFactory
 from randovania.layout.exceptions import InvalidConfiguration
 from randovania.layout.lib.teleporters import TeleporterShuffleMode
 
@@ -27,7 +27,7 @@ def test_add_elevator_connections_to_patches_vanilla(
     expected = echoes_game_patches
 
     if skip_final_bosses:
-        node_ident = NodeIdentifier.create("Temple Grounds", "Sky Temple Gateway", "Elevator to Great Temple")
+        node_ident = NodeIdentifier.create("Sky Temple Grounds", "Sky Temple Gateway", "Elevator to Sky Temple")
         expected = expected.assign_dock_connections(
             [
                 (
@@ -119,27 +119,27 @@ def test_add_elevator_connections_to_dock_connections_random(
 
     if skip_final_bosses:
         ni(
-            "Temple Grounds",
+            "Sky Temple Grounds",
             "Sky Temple Gateway",
-            "Elevator to Great Temple",
+            "Elevator to Sky Temple",
             "Temple Grounds",
             "Credits",
             "Event - Dark Samus 3 and 4",
         )
     else:
         ni(
-            "Temple Grounds",
+            "Sky Temple Grounds",
             "Sky Temple Gateway",
-            "Elevator to Great Temple",
-            "Great Temple",
+            "Elevator to Sky Temple",
+            "Sky Temple",
             "Sky Temple Energy Controller",
             "Save Station",
         )
     ni(
-        "Great Temple",
+        "Sky Temple",
         "Sky Temple Energy Controller",
-        "Elevator to Temple Grounds",
-        "Temple Grounds",
+        "Elevator to Sky Temple Grounds",
+        "Sky Temple Grounds",
         "Sky Temple Gateway",
         "Spawn Point/Front of Teleporter",
     )
@@ -286,7 +286,7 @@ def test_add_elevator_connections_to_dock_connections_random(
     def generator(give_me_a_type):
         return [
             (dock_node, node)
-            for dock_node, node in give_me_a_type.all_dock_connections()
+            for dock_node, node in give_me_a_type.all_dock_connections(echoes_game_patches.game)
             if dock_node.dock_type in teleporter_dock_types
         ]
 
@@ -314,7 +314,7 @@ def test_blue_save_doors(prime_game_description: GameDescription, default_prime_
     results = patches_factory.create_base_patches(configuration, Random(1000), prime_game_description, False, 0)
 
     # Assert
-    weaknesses = list(results.all_dock_weaknesses())
+    weaknesses = list(results.all_dock_weaknesses(prime_game_description))
     assert len(weaknesses) == 24
     assert all(weakness == power_weak for _, weakness in weaknesses)
 
@@ -356,7 +356,7 @@ def test_create_base_patches(mocker):
     patches.append(patches[-1].assign_game_specific.return_value)
     patches.append(patches[-1].check_item_pool.return_value)
 
-    factory = base_patches_factory.BasePatchesFactory()
+    factory = BlankBasePatchesFactory()
 
     # Run
     result = factory.create_base_patches(layout_configuration, rng, game, is_multiworld, player_index=0)
@@ -395,7 +395,7 @@ def test_check_item_pool_ok(mocker, items, max_items, fail):
     mocker.patch(
         "randovania.generator.pickup_pool.pool_creator.get_total_pickup_count", return_value=(items, max_items)
     )
-    base_patches = base_patches_factory.BasePatchesFactory()
+    base_patches = BlankBasePatchesFactory()
 
     if fail:
         with pytest.raises(InvalidConfiguration):

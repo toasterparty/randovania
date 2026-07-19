@@ -3,14 +3,14 @@ from __future__ import annotations
 import typing
 from typing import TYPE_CHECKING
 
-from PySide6 import QtWidgets
-
 from randovania.games.am2r.gui.generated.preset_am2r_gameplay_ui import Ui_PresetAM2RGameplay
 from randovania.games.am2r.layout.am2r_configuration import AM2RConfiguration
 from randovania.gui.lib import signal_handling
 from randovania.gui.preset_settings.preset_tab import PresetTab
 
 if TYPE_CHECKING:
+    from PySide6 import QtWidgets
+
     from randovania.game_description.game_description import GameDescription
     from randovania.gui.lib.window_manager import WindowManager
     from randovania.interface_common.preset_editor import PresetEditor
@@ -18,14 +18,14 @@ if TYPE_CHECKING:
 
 
 class PresetAM2RGameplay(PresetTab, Ui_PresetAM2RGameplay):
-    _CHECKBOX_FIELDS = [
+    _CHECKBOX_FIELDS = (
         "skip_cutscenes",
         "skip_save_cutscene",
         "skip_item_cutscenes",
         "fusion_mode",
         "vertically_flip_gameplay",
         "horizontally_flip_gameplay",
-    ]
+    )
 
     def __init__(self, editor: PresetEditor, game_description: GameDescription, window_manager: WindowManager):
         super().__init__(editor, game_description, window_manager)
@@ -54,7 +54,7 @@ class PresetAM2RGameplay(PresetTab, Ui_PresetAM2RGameplay):
         self.first_suit_spin_box.setValue(config.first_suit_dr)
         self.second_suit_spin_box.setValue(config.second_suit_dr)
         for f in self._CHECKBOX_FIELDS:
-            typing.cast(QtWidgets.QCheckBox, getattr(self, f"{f}_check")).setChecked(getattr(config, f))
+            typing.cast("QtWidgets.QCheckBox", getattr(self, f"{f}_check")).setChecked(getattr(config, f))
 
     def _persist_tank_capacity(self) -> None:
         with self._editor as editor:

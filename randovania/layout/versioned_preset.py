@@ -2,18 +2,18 @@ from __future__ import annotations
 
 import copy
 import json
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Self
 from uuid import UUID
 
 import aiofiles
-import construct  # type: ignore[import-untyped]
+import construct
 import slugify
 
 from randovania.game.game_enum import RandovaniaGame
 from randovania.layout import preset_migration
+from randovania.layout.base.base_configuration import BaseConfiguration
 from randovania.layout.preset import Preset
-from randovania.lib import json_lib
-from randovania.lib.construct_lib import CompressedJsonValue, NullTerminatedCompressedJsonValue
+from randovania.lib import construct_lib, json_lib
 
 if TYPE_CHECKING:
     import io
@@ -21,12 +21,13 @@ if TYPE_CHECKING:
 
 BinaryVersionedPreset = construct.Struct(
     magic=construct.Const(b"RDVP"),
-    version=construct.Rebuild(construct.VarInt, 2),
+    version=construct.Rebuild(construct.VarInt, 3),
     data=construct.Switch(
         construct.this.version,
         {
-            1: NullTerminatedCompressedJsonValue,
-            2: CompressedJsonValue,
+            1: construct_lib.NullTerminatedCompressedJsonValue,
+            2: construct_lib.CompressedZlibJsonValue,
+            3: construct_lib.CompressedZstdJsonValue,
         },
         construct.Error,
     ),
@@ -38,20 +39,22 @@ class InvalidPreset(Exception):
         if isinstance(original_exception, KeyError):
             msg = f"Missing key {original_exception}"
         else:
-            msg = original_exception
+            msg = str(original_exception)
 
         super().__init__(msg)
         self.original_exception = original_exception
 
 
-class VersionedPreset:
+class VersionedPreset[BaseConfigurationT: BaseConfiguration]:
     is_included_preset: bool = False
-    data: dict
+    data: dict | None
     exception: InvalidPreset | None = None
-    _preset: Preset | None = None
+    _preset: Preset[BaseConfigurationT] | None = None
+    _from_layout_description: bool
 
-    def __init__(self, data):
+    def __init__(self, data: dict | None, from_layout_description: bool) -> None:
         self.data = data
+        self._from_layout_description = from_layout_description
 
     @classmethod
     def file_extension(cls) -> str:
@@ -66,6 +69,7 @@ class VersionedPreset:
         if self._preset is not None:
             return self._preset.name
         else:
+            assert self.data is not None
             return self.data["name"]
 
     @property
@@ -73,6 +77,7 @@ class VersionedPreset:
         if self._preset is not None:
             return self._preset.configuration.game
 
+        assert self.data is not None
         if self.data["schema_version"] < 6:
             return RandovaniaGame.METROID_PRIME_ECHOES
 
@@ -83,14 +88,18 @@ class VersionedPreset:
         if self._preset is not None:
             return self._preset.uuid
         else:
+            assert self.data is not None
             return UUID(self.data["uuid"])
 
-    def __eq__(self, other):
+    def __hash__(self) -> int:
+        return hash(self.get_preset())
+
+    def __eq__(self, other: object) -> bool:
         if isinstance(other, VersionedPreset):
             return self.get_preset() == other.get_preset()
         return False
 
-    def is_for_known_game(self):
+    def is_for_known_game(self) -> bool:
         try:
             # self.game is never None, but it might raise ValueError in case the preset is for an unknown game
             return self.game is not None
@@ -98,54 +107,60 @@ class VersionedPreset:
             return False
 
     @property
-    def _converted(self):
+    def _converted(self) -> bool:
         return self._preset is not None or self.exception is not None
 
-    def ensure_converted(self):
+    def ensure_converted(self) -> None:
         if not self._converted:
+            assert self.data is not None
             try:
                 self._preset = Preset.from_json_dict(
-                    preset_migration.convert_to_current_version(copy.deepcopy(self.data))
+                    preset_migration.convert_to_current_version(
+                        copy.deepcopy(self.data),
+                        self.game,
+                        from_layout_description=self._from_layout_description,
+                    )
                 )
             except (ValueError, KeyError, TypeError) as e:
                 self.exception = InvalidPreset(e)
                 raise self.exception from e
 
-    def get_preset(self) -> Preset:
+    def get_preset(self) -> Preset[BaseConfigurationT]:
         self.ensure_converted()
         if self.exception:
             raise self.exception
         else:
+            assert self._preset is not None
             return self._preset
 
     @classmethod
-    def from_str(cls, contents: str) -> VersionedPreset:
-        return cls(json.loads(contents))
+    def from_str(cls, contents: str) -> Self:
+        return cls(json.loads(contents), from_layout_description=False)
 
     @classmethod
-    def from_bytes(cls, contents: bytes) -> VersionedPreset:
+    def from_bytes(cls, contents: bytes) -> Self:
         decoded = BinaryVersionedPreset.parse(contents)
-        return cls(decoded["data"])
+        return cls(decoded["data"], from_layout_description=False)
 
     @classmethod
-    async def from_file(cls, path: Path) -> VersionedPreset:
+    async def from_file(cls, path: Path) -> Self:
         async with aiofiles.open(path) as f:
             return cls.from_str(await f.read())
 
     @classmethod
-    def from_file_sync(cls, path: Path) -> VersionedPreset:
-        return VersionedPreset(json_lib.read_path(path))
+    def from_file_sync(cls, path: Path) -> Self:
+        return cls(json_lib.read_dict(path), from_layout_description=False)
 
     @classmethod
-    def with_preset(cls, preset: Preset) -> VersionedPreset:
-        result = VersionedPreset(None)
+    def with_preset(cls, preset: Preset[BaseConfigurationT]) -> Self:
+        result = cls(None, from_layout_description=False)
         result._preset = preset
         return result
 
-    def save_to_file(self, path: Path):
+    def save_to_file(self, path: Path) -> None:
         json_lib.write_path(path, self.as_json)
 
-    def save_to_io(self, data: io.BytesIO):
+    def save_to_io(self, data: io.BytesIO) -> None:
         data.write(json.dumps(self.as_json, indent=4).encode("utf-8"))
 
     @property
@@ -172,6 +187,7 @@ class VersionedPreset:
     def recover_old_base_uuid(self) -> UUID | None:
         """Returns the base preset uuid that existed in old versions.
         Should be used only for migrating that field to Options, before the preset itself is migrated."""
+        assert self.data is not None
         base_uuid = self.data.get("base_preset_uuid")
         if base_uuid is not None:
             return UUID(base_uuid)

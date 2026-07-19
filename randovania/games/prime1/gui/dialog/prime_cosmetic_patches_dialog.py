@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import dataclasses
 from functools import partial
+from typing import TYPE_CHECKING, override
 
 from PySide6 import QtCore, QtGui, QtWidgets
 
@@ -9,8 +10,11 @@ from randovania.games.prime1.gui.generated.prime_cosmetic_patches_dialog_ui impo
 from randovania.games.prime1.layout.prime_cosmetic_patches import PrimeCosmeticPatches
 from randovania.games.prime1.layout.prime_user_preferences import PrimeUserPreferences, SoundMode
 from randovania.gui.dialog.base_cosmetic_patches_dialog import BaseCosmeticPatchesDialog
-from randovania.gui.lib import slider_updater
+from randovania.gui.lib import color_lib, slider_updater
 from randovania.gui.lib.signal_handling import set_combo_with_value
+
+if TYPE_CHECKING:
+    from randovania.interface_common.options import Options
 
 SUIT_DEFAULT_COLORS = [
     [(255, 173, 50), (220, 25, 45), (132, 240, 60)],  # Power
@@ -20,27 +24,10 @@ SUIT_DEFAULT_COLORS = [
 ]
 
 
-def hue_rotate_color(original_color: tuple[int, int, int], rotation: int) -> tuple[int, int, int]:
-    color = QtGui.QColor.fromRgb(*original_color)
-    h = color.hue() + rotation
-    s = color.saturation()
-    v = color.value()
-    while h >= 360:
-        h -= 360
-    while h < 0:
-        h += 360
-
-    rotated_color = QtGui.QColor.fromHsv(h, s, v)
-    return rotated_color.red(), rotated_color.green(), rotated_color.blue()
-
-
-class PrimeCosmeticPatchesDialog(BaseCosmeticPatchesDialog, Ui_PrimeCosmeticPatchesDialog):
-    _cosmetic_patches: PrimeCosmeticPatches
-
-    def __init__(self, parent: QtWidgets.QWidget | None, current: PrimeCosmeticPatches):
-        super().__init__(parent)
+class PrimeCosmeticPatchesDialog(BaseCosmeticPatchesDialog[PrimeCosmeticPatches], Ui_PrimeCosmeticPatchesDialog):
+    def __init__(self, parent: QtWidgets.QWidget | None, current: PrimeCosmeticPatches, options: Options):
+        super().__init__(parent, current, options)
         self.setupUi(self)
-        self._cosmetic_patches = current
 
         self.field_to_slider_mapping = {
             "screen_brightness": self.screen_brightness_slider,
@@ -89,6 +76,11 @@ class PrimeCosmeticPatchesDialog(BaseCosmeticPatchesDialog, Ui_PrimeCosmeticPatc
         self.connect_signals()
         self.on_new_cosmetic_patches(current)
         self._update_color_squares()
+
+    @classmethod
+    @override
+    def cosmetic_patches_type(cls) -> type[PrimeCosmeticPatches]:
+        return PrimeCosmeticPatches
 
     def connect_signals(self) -> None:
         super().connect_signals()
@@ -171,7 +163,7 @@ class PrimeCosmeticPatchesDialog(BaseCosmeticPatchesDialog, Ui_PrimeCosmeticPatc
 
         for i, suit_colors in enumerate(SUIT_DEFAULT_COLORS):
             for j, color in enumerate(suit_colors):
-                color = hue_rotate_color(color, self._cosmetic_patches.suit_color_rotations[i])
+                color = color_lib.hue_rotate_color(color, self._cosmetic_patches.suit_color_rotations[i])
                 style = "background-color: rgb({},{},{})".format(*color)
                 self.suit_color_preview_squares[i][j].setStyleSheet(style)
 

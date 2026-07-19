@@ -6,6 +6,7 @@
     "areas": {
         "Distribution Entranceway": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5h01",
                 "minimap_data": [
@@ -111,6 +112,7 @@
         },
         "Meboid Blockade Exterior ": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5h02",
                 "minimap_data": [
@@ -235,6 +237,7 @@
         },
         "Distribution Center Exterior West Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5h03",
                 "minimap_data": [
@@ -352,6 +355,7 @@
         },
         "Distribution Center Exterior West": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5h04",
                 "minimap_data": [
@@ -493,6 +497,21 @@
                     "liquid_type": 0,
                     "liquid_level": 1520,
                     "should_be_at_very_front": true
+                },
+                "enemy_data": {
+                    "132242": "oMoheekWater",
+                    "132244": "oMoheekWater",
+                    "132245": "oMoheekWater",
+                    "132247": "oMoheekWater",
+                    "132258": "oMoheekWater",
+                    "132494": "oMoheekWater",
+                    "132521": "oMoheekWater",
+                    "132522": "oMoheekWater",
+                    "132523": "oMoheekWater",
+                    "132524": "oMoheekWater",
+                    "132525": "oMoheekWater",
+                    "132526": "oMoheekWater",
+                    "132527": "oMoheekWater"
                 }
             },
             "nodes": {
@@ -853,6 +872,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 309,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Facility Storage Tower West": {
                             "type": "and",
@@ -867,6 +888,7 @@
         },
         "Distribution Center Exterior East": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5h05",
                 "minimap_data": [
@@ -956,6 +978,9 @@
                     "liquid_type": 0,
                     "liquid_level": 1280,
                     "should_be_at_very_front": true
+                },
+                "enemy_data": {
+                    "132618": "oBlobThrowerWater"
                 }
             },
             "nodes": {
@@ -1067,7 +1092,7 @@
                                                 {
                                                     "type": "or",
                                                     "data": {
-                                                        "comment": "midwall with walljump hypermode",
+                                                        "comment": "midwall with walljump ludicrous",
                                                         "items": [
                                                             {
                                                                 "type": "resource",
@@ -1274,6 +1299,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 302,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Distribution Center Exterior East Access": {
                             "type": "and",
@@ -1288,6 +1315,7 @@
         },
         "Blade Bot Patrol Room": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c01",
                 "minimap_data": [
@@ -1308,6 +1336,14 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "133431": "oBladeBot",
+                    "133432": "oBladeBot",
+                    "133436": "oBladeBot",
+                    "133437": "oBladeBot",
+                    "133440": "oBladeBot",
+                    "133441": "oBladeBot"
                 }
             },
             "nodes": {
@@ -1453,6 +1489,7 @@
         },
         "Robomine Prison": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c02",
                 "minimap_data": [
@@ -1477,6 +1514,14 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "133459": "oRoboMine",
+                    "133460": "oRoboMine",
+                    "133461": "oRoboMine",
+                    "133462": "oRoboMine",
+                    "133463": "oRoboMine",
+                    "133464": "oRoboMine"
                 }
             },
             "nodes": {
@@ -1570,6 +1615,7 @@
         },
         "Energy Distribution Entrance Save Station": {
             "default_node": "Save Station",
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c03",
                 "minimap_data": [
@@ -1699,6 +1745,7 @@
         },
         "Energy Distribution Tower West": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c04",
                 "minimap_data": [
@@ -1719,6 +1766,22 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "133529": "oRoboMine",
+                    "133531": "oBladeBot",
+                    "133532": "oBladeBot",
+                    "133533": "oBladeBot",
+                    "133534": "oBladeBot",
+                    "133535": "oBladeBot",
+                    "133536": "oBladeBot",
+                    "133537": "oBladeBot",
+                    "133538": "oBladeBot",
+                    "133539": "oBladeBot",
+                    "133540": "oBladeBot",
+                    "133541": "oBladeBot",
+                    "133542": "oBladeBot",
+                    "133543": "oRoboMine"
                 }
             },
             "nodes": {
@@ -1873,6 +1936,7 @@
         },
         "Meat Boy Room": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c05",
                 "minimap_data": [
@@ -1897,6 +1961,26 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "133625": "oRoboMine",
+                    "133633": "oBladeBot",
+                    "133634": "oBladeBot",
+                    "133635": "oBladeBot",
+                    "133636": "oBladeBot",
+                    "133637": "oBladeBot",
+                    "133638": "oBladeBot",
+                    "133639": "oBladeBot",
+                    "133640": "oBladeBot",
+                    "133641": "oRoboMine",
+                    "133642": "oRoboMine",
+                    "133643": "oRoboMine",
+                    "133644": "oRoboMine",
+                    "133645": "oRoboMine",
+                    "133646": "oRoboMine",
+                    "133647": "oRoboMine",
+                    "133648": "oRoboMine",
+                    "133674": "oBladeBot"
                 }
             },
             "nodes": {
@@ -1990,6 +2074,7 @@
         },
         "Energy Distribution Activation Shaft": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c06",
                 "minimap_data": [
@@ -2146,6 +2231,7 @@
         },
         "Energy Distribution Activation": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c07",
                 "minimap_data": [
@@ -2334,6 +2420,7 @@
         },
         "Energy Distribution Emergency Exit": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c08",
                 "minimap_data": [
@@ -2362,6 +2449,12 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "133749": "oRoboMine",
+                    "133750": "oRoboMine",
+                    "133751": "oRoboMine",
+                    "133752": "oRoboMine"
                 }
             },
             "nodes": {
@@ -2509,6 +2602,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 300,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Energy Distribution Activation": {
                             "type": "or",
@@ -2567,6 +2662,7 @@
         },
         "EMP Ball Introduction": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c09",
                 "minimap_data": [
@@ -2721,6 +2817,7 @@
         },
         "Energy Distribution Robot Home": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c10",
                 "minimap_data": [
@@ -2737,6 +2834,16 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "133881": "oAutrack",
+                    "133883": "oTPO",
+                    "133884": "oTPO",
+                    "133886": "oTPO",
+                    "133888": "oAutrack",
+                    "133890": "oTPO",
+                    "133894": "oTPO",
+                    "133907": "oRoboMine"
                 }
             },
             "nodes": {
@@ -2824,21 +2931,36 @@
                                         "data": "Can Use Bombs"
                                     },
                                     {
-                                        "type": "resource",
+                                        "type": "and",
                                         "data": {
-                                            "type": "items",
-                                            "name": "Missiles",
-                                            "amount": 2,
-                                            "negate": false
-                                        }
-                                    },
-                                    {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
-                                            "name": "Super Missiles",
-                                            "amount": 1,
-                                            "negate": false
+                                            "comment": null,
+                                            "items": [
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Shoot"
+                                                },
+                                                {
+                                                    "type": "or",
+                                                    "data": {
+                                                        "comment": null,
+                                                        "items": [
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "items",
+                                                                    "name": "Missiles",
+                                                                    "amount": 2,
+                                                                    "negate": false
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "template",
+                                                                "data": "Can Shoot Super Missile"
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
                                         }
                                     }
                                 ]
@@ -2875,6 +2997,7 @@
         },
         "Energy Distribution Tower East": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c11",
                 "minimap_data": [
@@ -2895,6 +3018,11 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "133947": "oRoboMine",
+                    "133956": "oRoboMine",
+                    "133957": "oRoboMine"
                 }
             },
             "nodes": {
@@ -3008,6 +3136,10 @@
                                                             }
                                                         ]
                                                     }
+                                                },
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Shoot"
                                                 }
                                             ]
                                         }
@@ -3299,6 +3431,7 @@
         },
         "Energy Distribution Zeta Nest": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c12",
                 "minimap_data": [
@@ -3767,6 +3900,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 391,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Event - Zeta": {
                             "type": "and",
@@ -3781,6 +3916,7 @@
         },
         "Distribution Facility Tower West": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c13",
                 "minimap_data": [
@@ -3813,6 +3949,19 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "134129": "oBladeBot",
+                    "134156": "oShirk",
+                    "134157": "oShirk",
+                    "134158": "oRoboMine",
+                    "134159": "oRoboMine",
+                    "134160": "oRoboMine",
+                    "134164": "oBladeBot",
+                    "134165": "oBladeBot",
+                    "134166": "oBladeBot",
+                    "134167": "oBladeBot",
+                    "134168": "oShirk"
                 }
             },
             "nodes": {
@@ -4430,6 +4579,7 @@
         },
         "Pipe Hub": {
             "default_node": "Door to Distribution Facility Tower West",
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c14",
                 "minimap_data": [
@@ -5036,6 +5186,7 @@
         },
         "Pipe Hub Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c15",
                 "minimap_data": [
@@ -5052,6 +5203,14 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "134443": "oBladeBot",
+                    "134444": "oBladeBot",
+                    "134445": "oBladeBot",
+                    "134446": "oBladeBot",
+                    "134447": "oBladeBot",
+                    "134448": "oBladeBot"
                 }
             },
             "nodes": {
@@ -5085,10 +5244,15 @@
                     "ui_custom_name": null,
                     "connections": {
                         "Door to Distribution Center Exterior West": {
-                            "type": "and",
+                            "type": "or",
                             "data": {
                                 "comment": null,
-                                "items": []
+                                "items": [
+                                    {
+                                        "type": "template",
+                                        "data": "Can Destroy Shot Block"
+                                    }
+                                ]
                             }
                         },
                         "Event - EMP Slot": {
@@ -5101,21 +5265,41 @@
                                         "data": "Can Use Bombs"
                                     },
                                     {
-                                        "type": "resource",
+                                        "type": "and",
                                         "data": {
-                                            "type": "items",
-                                            "name": "Missiles",
-                                            "amount": 10,
-                                            "negate": false
-                                        }
-                                    },
-                                    {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
-                                            "name": "Super Missiles",
-                                            "amount": 5,
-                                            "negate": false
+                                            "comment": null,
+                                            "items": [
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Shoot"
+                                                },
+                                                {
+                                                    "type": "or",
+                                                    "data": {
+                                                        "comment": null,
+                                                        "items": [
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "items",
+                                                                    "name": "Missiles",
+                                                                    "amount": 10,
+                                                                    "negate": false
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "items",
+                                                                    "name": "Super Missiles",
+                                                                    "amount": 5,
+                                                                    "negate": false
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
                                         }
                                     }
                                 ]
@@ -5155,10 +5339,15 @@
                     "ui_custom_name": null,
                     "connections": {
                         "Door to Pipe Hub": {
-                            "type": "and",
+                            "type": "or",
                             "data": {
                                 "comment": null,
-                                "items": []
+                                "items": [
+                                    {
+                                        "type": "template",
+                                        "data": "Can Destroy Shot Block"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -5192,6 +5381,7 @@
         },
         "Distribution Facility Connecting Path": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c16",
                 "minimap_data": [
@@ -5208,6 +5398,13 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "134452": "oRoboMine",
+                    "134453": "oRoboMine",
+                    "134454": "oRoboMine",
+                    "134455": "oRoboMine",
+                    "134466": "oRoboMine"
                 }
             },
             "nodes": {
@@ -5442,6 +5639,7 @@
         },
         "Distribution Facility Tower East": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c17",
                 "minimap_data": [
@@ -6282,6 +6480,7 @@
         },
         "Alpha Squad Nest": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c18",
                 "minimap_data": [
@@ -6882,6 +7081,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 367,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Event - Left Top Alpha": {
                             "type": "and",
@@ -6910,6 +7111,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 368,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Event - Left Middle Alpha": {
                             "type": "and",
@@ -6938,6 +7141,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 369,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Event - Left Bottom Alpha": {
                             "type": "and",
@@ -6966,6 +7171,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 371,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Event - Right Top Alpha": {
                             "type": "and",
@@ -6994,6 +7201,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 370,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Event - Right Bottom Alpha": {
                             "type": "and",
@@ -7008,6 +7217,7 @@
         },
         "Distribution Facility Save Station": {
             "default_node": "Save Station",
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c19",
                 "minimap_data": [
@@ -7137,6 +7347,7 @@
         },
         "Distribution Facility Intersection": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c20",
                 "minimap_data": [
@@ -7286,6 +7497,7 @@
         },
         "Bullet Hell Room Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c21",
                 "minimap_data": [
@@ -7322,6 +7534,16 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "134728": "oBladeBot",
+                    "134729": "oBladeBot",
+                    "134730": "oBladeBot",
+                    "134731": "oBladeBot",
+                    "134733": "oBladeBot",
+                    "134734": "oBladeBot",
+                    "134741": "oRoboMine",
+                    "134742": "oBladeBot"
                 }
             },
             "nodes": {
@@ -7403,13 +7625,8 @@
                                                         "comment": "RNG dependant",
                                                         "items": [
                                                             {
-                                                                "type": "resource",
-                                                                "data": {
-                                                                    "type": "items",
-                                                                    "name": "Missiles",
-                                                                    "amount": 1,
-                                                                    "negate": false
-                                                                }
+                                                                "type": "template",
+                                                                "data": "Can Shoot Missile"
                                                             },
                                                             {
                                                                 "type": "resource",
@@ -7419,18 +7636,17 @@
                                                                     "amount": 4,
                                                                     "negate": false
                                                                 }
+                                                            },
+                                                            {
+                                                                "type": "template",
+                                                                "data": "Can Shoot"
                                                             }
                                                         ]
                                                     }
                                                 },
                                                 {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "Super Missiles",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
+                                                    "type": "template",
+                                                    "data": "Can Shoot Super Missile"
                                                 }
                                             ]
                                         }
@@ -7905,21 +8121,41 @@
                                         "data": "Can Use Bombs"
                                     },
                                     {
-                                        "type": "resource",
+                                        "type": "and",
                                         "data": {
-                                            "type": "items",
-                                            "name": "Missiles",
-                                            "amount": 20,
-                                            "negate": false
-                                        }
-                                    },
-                                    {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
-                                            "name": "Super Missiles",
-                                            "amount": 10,
-                                            "negate": false
+                                            "comment": null,
+                                            "items": [
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Shoot"
+                                                },
+                                                {
+                                                    "type": "or",
+                                                    "data": {
+                                                        "comment": null,
+                                                        "items": [
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "items",
+                                                                    "name": "Missiles",
+                                                                    "amount": 20,
+                                                                    "negate": false
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "items",
+                                                                    "name": "Super Missiles",
+                                                                    "amount": 10,
+                                                                    "negate": false
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
                                         }
                                     }
                                 ]
@@ -7962,6 +8198,7 @@
         },
         "Bullet Hell Room": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c22",
                 "minimap_data": [
@@ -7990,6 +8227,26 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "134852": "oRoboMine",
+                    "134853": "oRoboMine",
+                    "134854": "oRoboMine",
+                    "134855": "oRoboMine",
+                    "134856": "oRoboMine",
+                    "134857": "oRoboMine",
+                    "134858": "oRoboMine",
+                    "134859": "oRoboMine",
+                    "134860": "oRoboMine",
+                    "134861": "oRoboMine",
+                    "134862": "oRoboMine",
+                    "134863": "oRoboMine",
+                    "134864": "oRoboMine",
+                    "134865": "oRoboMine",
+                    "134866": "oRoboMine",
+                    "134867": "oRoboMine",
+                    "134868": "oRoboMine",
+                    "134869": "oRoboMine"
                 }
             },
             "nodes": {
@@ -8104,6 +8361,7 @@
         },
         "Screw Attack Chamber Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c23",
                 "minimap_data": [
@@ -8124,6 +8382,11 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "135023": "oRoboMine",
+                    "135024": "oRoboMine",
+                    "135025": "oRoboMine"
                 }
             },
             "nodes": {
@@ -8233,6 +8496,7 @@
         },
         "Screw Attack Chamber": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c24",
                 "minimap_data": [
@@ -8304,6 +8568,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 8,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Screw Attack Chamber Access": {
                             "type": "and",
@@ -8318,6 +8584,7 @@
         },
         "Meboid Blockade Interior": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c25",
                 "minimap_data": [
@@ -8406,6 +8673,10 @@
                                                             {
                                                                 "type": "template",
                                                                 "data": "High Mid-Air Morph Tunnel Climb"
+                                                            },
+                                                            {
+                                                                "type": "template",
+                                                                "data": "Can Destroy Shot Block"
                                                             }
                                                         ]
                                                     }
@@ -8539,6 +8810,10 @@
                                                             {
                                                                 "type": "template",
                                                                 "data": "Tunnel Climb"
+                                                            },
+                                                            {
+                                                                "type": "template",
+                                                                "data": "Can Destroy Shot Block"
                                                             }
                                                         ]
                                                     }
@@ -8566,17 +8841,33 @@
                                                         "comment": null,
                                                         "items": [
                                                             {
-                                                                "type": "resource",
+                                                                "type": "and",
                                                                 "data": {
-                                                                    "type": "tricks",
-                                                                    "name": "MidAirMorph",
-                                                                    "amount": 2,
-                                                                    "negate": false
+                                                                    "comment": null,
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "or",
+                                                                            "data": {
+                                                                                "comment": null,
+                                                                                "items": [
+                                                                                    {
+                                                                                        "type": "template",
+                                                                                        "data": "Power Grip Wall"
+                                                                                    },
+                                                                                    {
+                                                                                        "type": "resource",
+                                                                                        "data": {
+                                                                                            "type": "tricks",
+                                                                                            "name": "MidAirMorph",
+                                                                                            "amount": 2,
+                                                                                            "negate": false
+                                                                                        }
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        }
+                                                                    ]
                                                                 }
-                                                            },
-                                                            {
-                                                                "type": "template",
-                                                                "data": "Power Grip Wall"
                                                             },
                                                             {
                                                                 "type": "and",
@@ -8658,6 +8949,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 301,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Pipe to Moheek Hangout": {
                             "type": "or",
@@ -8677,6 +8970,7 @@
         },
         "Moheek Hangout": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c26",
                 "minimap_data": [
@@ -8702,6 +8996,13 @@
                     "liquid_type": 0,
                     "liquid_level": 80,
                     "should_be_at_very_front": true
+                },
+                "enemy_data": {
+                    "135142": "oMoheekWater",
+                    "135143": "oMoheekWater",
+                    "135144": "oMoheekWater",
+                    "135145": "oMoheekWater",
+                    "135146": "oMoheekWater"
                 }
             },
             "nodes": {
@@ -8800,6 +9101,7 @@
         },
         "Waterblob Habitat": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c27",
                 "minimap_data": [
@@ -8825,6 +9127,17 @@
                     "liquid_type": 0,
                     "liquid_level": 80,
                     "should_be_at_very_front": true
+                },
+                "enemy_data": {
+                    "135192": "oBlobThrowerWater",
+                    "135193": "oBlobThrowerWater",
+                    "135185": "oMoheekWater",
+                    "135186": "oMoheekWater",
+                    "135187": "oMoheekWater",
+                    "135188": "oMoheekWater",
+                    "135189": "oMoheekWater",
+                    "135190": "oMoheekWater",
+                    "135191": "oMoheekWater"
                 }
             },
             "nodes": {
@@ -8871,13 +9184,8 @@
                                             "comment": "Freeze the WaterBlob",
                                             "items": [
                                                 {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "Ice Beam",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
+                                                    "type": "template",
+                                                    "data": "Can Shoot Ice Beam"
                                                 }
                                             ]
                                         }
@@ -9042,13 +9350,8 @@
                                             "comment": "Freeze the Waterblob",
                                             "items": [
                                                 {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "Ice Beam",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
+                                                    "type": "template",
+                                                    "data": "Can Shoot Ice Beam"
                                                 }
                                             ]
                                         }
@@ -9174,6 +9477,7 @@
         },
         "Facility Storage Save Station": {
             "default_node": "Save Station",
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c28",
                 "minimap_data": [
@@ -9310,6 +9614,7 @@
         },
         "Facility Storage Intersection East": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c29",
                 "minimap_data": [
@@ -9327,6 +9632,10 @@
                     "liquid_type": 0,
                     "liquid_level": 80,
                     "should_be_at_very_front": true
+                },
+                "enemy_data": {
+                    "135239": "oMoheekWater",
+                    "135240": "oMoheekWater"
                 }
             },
             "nodes": {
@@ -9467,6 +9776,7 @@
         },
         "Dual Gamma Nest": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c30",
                 "minimap_data": [
@@ -9635,6 +9945,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 386,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Event - Left Gamma": {
                             "type": "and",
@@ -9663,6 +9975,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 387,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Event - Right Gamma": {
                             "type": "and",
@@ -9677,6 +9991,7 @@
         },
         "Ice Beam Chamber Access": {
             "default_node": "Pipe to Serris Arena Pipe",
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c31",
                 "minimap_data": [
@@ -9847,8 +10162,20 @@
                                         "data": "Destroy Ice Barrier"
                                     },
                                     {
-                                        "type": "template",
-                                        "data": "Hijump Tunnel Climb"
+                                        "type": "and",
+                                        "data": {
+                                            "comment": null,
+                                            "items": [
+                                                {
+                                                    "type": "template",
+                                                    "data": "Hijump Tunnel Climb"
+                                                },
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Destroy Shot Block"
+                                                }
+                                            ]
+                                        }
                                     }
                                 ]
                             }
@@ -9859,6 +10186,7 @@
         },
         "Ice Beam Chamber": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c32",
                 "minimap_data": [
@@ -9930,6 +10258,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 11,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Event - Ice Beam Item collected": {
                             "type": "and",
@@ -9969,6 +10299,7 @@
         },
         "Distribution Center Exterior East Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5c33",
                 "minimap_data": [
@@ -10048,21 +10379,36 @@
                                                     "data": "Can Use Bombs"
                                                 },
                                                 {
-                                                    "type": "resource",
+                                                    "type": "and",
                                                     "data": {
-                                                        "type": "items",
-                                                        "name": "Missiles",
-                                                        "amount": 2,
-                                                        "negate": false
-                                                    }
-                                                },
-                                                {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "Super Missiles",
-                                                        "amount": 1,
-                                                        "negate": false
+                                                        "comment": null,
+                                                        "items": [
+                                                            {
+                                                                "type": "template",
+                                                                "data": "Can Shoot"
+                                                            },
+                                                            {
+                                                                "type": "or",
+                                                                "data": {
+                                                                    "comment": null,
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "resource",
+                                                                            "data": {
+                                                                                "type": "items",
+                                                                                "name": "Missiles",
+                                                                                "amount": 2,
+                                                                                "negate": false
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "type": "template",
+                                                                            "data": "Can Shoot Super Missile"
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 }
                                             ]
@@ -10145,6 +10491,7 @@
         },
         "Facility Storage Clogged Pipe North": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5b01",
                 "minimap_data": [
@@ -10224,12 +10571,24 @@
                                         }
                                     },
                                     {
-                                        "type": "resource",
+                                        "type": "and",
                                         "data": {
-                                            "type": "tricks",
-                                            "name": "Knowledge",
-                                            "amount": 3,
-                                            "negate": false
+                                            "comment": null,
+                                            "items": [
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "tricks",
+                                                        "name": "Knowledge",
+                                                        "amount": 3,
+                                                        "negate": false
+                                                    }
+                                                },
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Destroy Shot Block"
+                                                }
+                                            ]
                                         }
                                     }
                                 ]
@@ -10310,13 +10669,8 @@
                                             "comment": null,
                                             "items": [
                                                 {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "Super Missiles",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
+                                                    "type": "template",
+                                                    "data": "Can Shoot Super Missile"
                                                 },
                                                 {
                                                     "type": "resource",
@@ -10377,6 +10731,7 @@
         },
         "Serris Arena Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5b02",
                 "minimap_data": [
@@ -10398,6 +10753,11 @@
                     "liquid_type": 0,
                     "liquid_level": -100,
                     "should_be_at_very_front": true
+                },
+                "enemy_data": {
+                    "135414": "oMoheekWater",
+                    "135415": "oMoheekWater",
+                    "135425": "oMoheekWater"
                 }
             },
             "nodes": {
@@ -10580,6 +10940,7 @@
         },
         "Serris Arena": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5b03a",
                 "minimap_data": [
@@ -11037,22 +11398,12 @@
                                                     }
                                                 },
                                                 {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "Missiles",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
+                                                    "type": "template",
+                                                    "data": "Can Shoot Missile"
                                                 },
                                                 {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "Super Missiles",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
+                                                    "type": "template",
+                                                    "data": "Can Shoot Super Missile"
                                                 }
                                             ]
                                         }
@@ -11082,6 +11433,10 @@
                                                 }
                                             ]
                                         }
+                                    },
+                                    {
+                                        "type": "template",
+                                        "data": "Can Shoot"
                                     }
                                 ]
                             }
@@ -11092,6 +11447,7 @@
         },
         "Serris Arena Pipe": {
             "default_node": "Door to Serris Arena",
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5b03",
                 "minimap_data": [
@@ -11205,6 +11561,7 @@
         },
         "Facility Storage Clogged Pipe South": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5b04",
                 "minimap_data": [
@@ -11257,10 +11614,41 @@
                     "ui_custom_name": null,
                     "connections": {
                         "Horizontal Dock to Facility Storage Tower East": {
-                            "type": "and",
+                            "type": "or",
                             "data": {
                                 "comment": null,
-                                "items": []
+                                "items": [
+                                    {
+                                        "type": "template",
+                                        "data": "Can Destroy Shot Block"
+                                    },
+                                    {
+                                        "type": "and",
+                                        "data": {
+                                            "comment": null,
+                                            "items": [
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "tricks",
+                                                        "name": "MidAirMorph",
+                                                        "amount": 3,
+                                                        "negate": false
+                                                    }
+                                                },
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "items",
+                                                        "name": "Morph Ball",
+                                                        "amount": 1,
+                                                        "negate": false
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
                             }
                         }
                     }
@@ -11293,10 +11681,41 @@
                     "ui_custom_name": null,
                     "connections": {
                         "Horizontal Dock to Serris Arena Access": {
-                            "type": "and",
+                            "type": "or",
                             "data": {
                                 "comment": null,
-                                "items": []
+                                "items": [
+                                    {
+                                        "type": "template",
+                                        "data": "Can Destroy Shot Block"
+                                    },
+                                    {
+                                        "type": "and",
+                                        "data": {
+                                            "comment": null,
+                                            "items": [
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "tricks",
+                                                        "name": "MidAirMorph",
+                                                        "amount": 3,
+                                                        "negate": false
+                                                    }
+                                                },
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "items",
+                                                        "name": "Morph Ball",
+                                                        "amount": 1,
+                                                        "negate": false
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
                             }
                         }
                     }
@@ -11305,6 +11724,7 @@
         },
         "Spiky Spider Trial": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5b05",
                 "minimap_data": [
@@ -11773,6 +12193,7 @@
         },
         "Spiky Spider Trial Reward Room": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5b06",
                 "minimap_data": [
@@ -11848,6 +12269,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 303,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Tunnel to Spiky Spider Trial": {
                             "type": "or",
@@ -11893,6 +12316,7 @@
         },
         "Facility Storage Tower East": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5b07",
                 "minimap_data": [
@@ -12280,6 +12704,7 @@
         },
         "Facility Storage Spiked Path Pipe": {
             "default_node": "Door to Facility Storage Spiked Path",
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5b08",
                 "minimap_data": [
@@ -12401,6 +12826,7 @@
         },
         "Facility Storage Spiked Path": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5b09",
                 "minimap_data": [
@@ -12787,6 +13213,7 @@
         },
         "Spiky Space Jump Trial Entrance": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5b15",
                 "minimap_data": [
@@ -12848,16 +13275,40 @@
                                 "comment": null,
                                 "items": [
                                     {
-                                        "type": "template",
-                                        "data": "Underwater Power Grip Wall"
+                                        "type": "and",
+                                        "data": {
+                                            "comment": null,
+                                            "items": [
+                                                {
+                                                    "type": "template",
+                                                    "data": "Underwater Power Grip Wall"
+                                                },
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Destroy Shot Block"
+                                                }
+                                            ]
+                                        }
                                     },
                                     {
-                                        "type": "resource",
+                                        "type": "and",
                                         "data": {
-                                            "type": "tricks",
-                                            "name": "Movement",
-                                            "amount": 1,
-                                            "negate": false
+                                            "comment": null,
+                                            "items": [
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "tricks",
+                                                        "name": "Movement",
+                                                        "amount": 1,
+                                                        "negate": false
+                                                    }
+                                                },
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Shoot"
+                                                }
+                                            ]
                                         }
                                     },
                                     {
@@ -12994,6 +13445,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 304,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Center": {
                             "type": "or",
@@ -13025,10 +13478,15 @@
                     "valid_starting_location": false,
                     "connections": {
                         "Horizontal Dock to Facility Storage Tower East": {
-                            "type": "and",
+                            "type": "or",
                             "data": {
                                 "comment": null,
-                                "items": []
+                                "items": [
+                                    {
+                                        "type": "template",
+                                        "data": "Can Destroy Shot Block"
+                                    }
+                                ]
                             }
                         },
                         "Horizontal Dock to Spiky Space Jump Trial": {
@@ -13079,6 +13537,7 @@
         },
         "Spiky Space Jump Trial": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5b16",
                 "minimap_data": [
@@ -13120,6 +13579,9 @@
                     "liquid_type": 0,
                     "liquid_level": -100,
                     "should_be_at_very_front": true
+                },
+                "enemy_data": {
+                    "136097": "oBlobThrowerWater"
                 }
             },
             "nodes": {
@@ -13570,13 +14032,8 @@
                                                                     "comment": null,
                                                                     "items": [
                                                                         {
-                                                                            "type": "resource",
-                                                                            "data": {
-                                                                                "type": "items",
-                                                                                "name": "Ice Beam",
-                                                                                "amount": 1,
-                                                                                "negate": false
-                                                                            }
+                                                                            "type": "template",
+                                                                            "data": "Can Shoot Ice Beam"
                                                                         },
                                                                         {
                                                                             "type": "resource",
@@ -13599,13 +14056,8 @@
                                                         "comment": "Regular charge by killing plant",
                                                         "items": [
                                                             {
-                                                                "type": "resource",
-                                                                "data": {
-                                                                    "type": "items",
-                                                                    "name": "Ice Beam",
-                                                                    "amount": 1,
-                                                                    "negate": false
-                                                                }
+                                                                "type": "template",
+                                                                "data": "Can Shoot Ice Beam"
                                                             },
                                                             {
                                                                 "type": "or",
@@ -13622,13 +14074,8 @@
                                                                             }
                                                                         },
                                                                         {
-                                                                            "type": "resource",
-                                                                            "data": {
-                                                                                "type": "items",
-                                                                                "name": "Super Missiles",
-                                                                                "amount": 1,
-                                                                                "negate": false
-                                                                            }
+                                                                            "type": "template",
+                                                                            "data": "Can Shoot Super Missile"
                                                                         }
                                                                     ]
                                                                 }
@@ -13662,6 +14109,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 305,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Horizontal Dock to Spiky Space Jump Trial Entrance": {
                             "type": "and",
@@ -13676,6 +14125,7 @@
         },
         "Spiky Space Jump Trial Reward Room": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5b17",
                 "minimap_data": [
@@ -13760,6 +14210,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 306,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Spiky Space Jump Trial": {
                             "type": "or",
@@ -13854,6 +14306,7 @@
         },
         "Facility Storage Tower Route North": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5b20",
                 "minimap_data": [
@@ -14097,6 +14550,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 307,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Facility Storage Tower West": {
                             "type": "and",
@@ -14111,6 +14566,7 @@
         },
         "Facility Storage Tower West": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5b21",
                 "minimap_data": [
@@ -14333,6 +14789,7 @@
         },
         "Facility Storage Tower Route South": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5b22",
                 "minimap_data": [
@@ -14366,6 +14823,9 @@
                     "liquid_type": 0,
                     "liquid_level": -100,
                     "should_be_at_very_front": true
+                },
+                "enemy_data": {
+                    "136494": "oBlobThrowerWater"
                 }
             },
             "nodes": {
@@ -14465,6 +14925,7 @@
         },
         "Gravity Area West Pipe": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5a01",
                 "minimap_data": [
@@ -14603,6 +15064,7 @@
         },
         "Gravity Area Moto Room": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5a02",
                 "minimap_data": [
@@ -14619,6 +15081,9 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "136519": "oMoto"
                 }
             },
             "nodes": {
@@ -14702,6 +15167,7 @@
         },
         "Gravity Area Trapdoor": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5a03",
                 "minimap_data": [
@@ -15018,12 +15484,24 @@
                                 "comment": null,
                                 "items": [
                                     {
-                                        "type": "resource",
+                                        "type": "and",
                                         "data": {
-                                            "type": "items",
-                                            "name": "Long Beam",
-                                            "amount": 1,
-                                            "negate": false
+                                            "comment": null,
+                                            "items": [
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Shoot"
+                                                },
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "items",
+                                                        "name": "Long Beam",
+                                                        "amount": 1,
+                                                        "negate": false
+                                                    }
+                                                }
+                                            ]
                                         }
                                     },
                                     {
@@ -15037,22 +15515,12 @@
                                                         "comment": "No Long Beam needs to check for DLR else you could have missiles + beam door",
                                                         "items": [
                                                             {
-                                                                "type": "resource",
-                                                                "data": {
-                                                                    "type": "items",
-                                                                    "name": "Missiles",
-                                                                    "amount": 1,
-                                                                    "negate": false
-                                                                }
+                                                                "type": "template",
+                                                                "data": "Can Shoot Missile"
                                                             },
                                                             {
-                                                                "type": "resource",
-                                                                "data": {
-                                                                    "type": "items",
-                                                                    "name": "Super Missiles",
-                                                                    "amount": 1,
-                                                                    "negate": false
-                                                                }
+                                                                "type": "template",
+                                                                "data": "Can Shoot Super Missile"
                                                             }
                                                         ]
                                                     }
@@ -15065,6 +15533,10 @@
                                                         "amount": 1,
                                                         "negate": true
                                                     }
+                                                },
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Shoot"
                                                 }
                                             ]
                                         }
@@ -15087,6 +15559,7 @@
         },
         "Gravity Area Corridor": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5a04",
                 "minimap_data": [
@@ -15107,6 +15580,12 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "136615": "oPincherFly",
+                    "136616": "oPincherFly",
+                    "136617": "oPincherFly",
+                    "136618": "oPincherFly"
                 }
             },
             "nodes": {
@@ -15214,6 +15693,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 308,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Middle": {
                             "type": "and",
@@ -15340,6 +15821,7 @@
         },
         "Gravity Area Shaft": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5a05",
                 "minimap_data": [
@@ -15584,36 +16066,38 @@
                             }
                         },
                         "Door to Gravity Chamber Access": {
-                            "type": "or",
+                            "type": "and",
                             "data": {
                                 "comment": "The door cannot be opened unless these conditions are met.",
                                 "items": [
                                     {
-                                        "type": "resource",
+                                        "type": "or",
                                         "data": {
-                                            "type": "items",
-                                            "name": "Gravity Suit",
-                                            "amount": 1,
-                                            "negate": false
+                                            "comment": null,
+                                            "items": [
+                                                {
+                                                    "type": "resource",
+                                                    "data": {
+                                                        "type": "items",
+                                                        "name": "Gravity Suit",
+                                                        "amount": 1,
+                                                        "negate": false
+                                                    }
+                                                },
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Shoot Missile"
+                                                },
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Shoot Super Missile"
+                                                }
+                                            ]
                                         }
                                     },
                                     {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
-                                            "name": "Missiles",
-                                            "amount": 1,
-                                            "negate": false
-                                        }
-                                    },
-                                    {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
-                                            "name": "Super Missiles",
-                                            "amount": 1,
-                                            "negate": false
-                                        }
+                                        "type": "template",
+                                        "data": "Can Shoot"
                                     }
                                 ]
                             }
@@ -15669,13 +16153,12 @@
                                                     }
                                                 },
                                                 {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "Missiles",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
+                                                    "type": "template",
+                                                    "data": "Can Shoot Missile"
+                                                },
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Shoot"
                                                 }
                                             ]
                                         }
@@ -15715,6 +16198,7 @@
         },
         "Gravity Chamber Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5a06",
                 "minimap_data": [
@@ -16094,6 +16578,7 @@
         },
         "Gravity Chamber": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5a07",
                 "minimap_data": [
@@ -16165,6 +16650,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 9,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Gravity Chamber Access": {
                             "type": "and",
@@ -16179,6 +16666,7 @@
         },
         "Gravity Area Barricade": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5a08",
                 "minimap_data": [
@@ -16252,6 +16740,10 @@
                                     {
                                         "type": "template",
                                         "data": "Space Jump Wall"
+                                    },
+                                    {
+                                        "type": "template",
+                                        "data": "Can Destroy Shot Block"
                                     }
                                 ]
                             }
@@ -16304,6 +16796,10 @@
                                     {
                                         "type": "template",
                                         "data": "Space Jump Wall"
+                                    },
+                                    {
+                                        "type": "template",
+                                        "data": "Can Destroy Shot Block"
                                     }
                                 ]
                             }
@@ -16314,6 +16810,7 @@
         },
         "Gravity Area East Pipe": {
             "default_node": "Door to Gravity Area Barricade",
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a5a09",
                 "minimap_data": [

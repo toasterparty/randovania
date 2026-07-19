@@ -8,6 +8,7 @@ from randovania.game_description.resources.location_category import LocationCate
 from randovania.generator.pickup_pool import pool_creator
 from randovania.layout.base.available_locations import RandomizationMode
 from randovania.layout.base.damage_strictness import LayoutDamageStrictness
+from randovania.layout.base.logical_pickup_placement_configuration import LogicalPickupPlacementConfiguration
 from randovania.layout.base.pickup_model import PickupModelStyle
 from randovania.layout.base.standard_pickup_state import StandardPickupState, StandardPickupStateCase
 
@@ -62,6 +63,7 @@ class GamePresetDescriber:
                 expected_case_override.get(standard_pickup.name, standard_pickup.expected_case_for_describer),
                 pickup_state.included_ammo,
             )
+            assert expected_state is not None  # TODO: there's some better way for this
             expected_shuffled = expected_state.num_shuffled_pickups + int(
                 expected_state.include_copy_in_original_location
             )
@@ -94,7 +96,7 @@ class GamePresetDescriber:
         if starting_list:
             result.append("Starts with " + ", ".join(starting_list))
         elif is_vanilla_starting:
-            result.append("Vanilla starting items")
+            result.append("Unmodified starting pickup")
 
         if excluded_list:
             result.append("Excludes " + ", ".join(excluded_list))
@@ -106,6 +108,26 @@ class GamePresetDescriber:
             result.append(", ".join(progressive_list))
 
         return result
+
+    def _hints_info(self, configuration: BaseConfiguration) -> list[str]:
+        strings: list[str] = []
+        game = default_database.game_description_for(configuration.game)
+
+        if game.has_random_hints:
+            if not configuration.hints.enable_random_hints:
+                strings.append("Random hints disabled")
+            elif configuration.hints.use_resolver_hints:
+                strings.append("Uses resolver-based hints")
+
+        if game.has_specific_location_hints:
+            if not configuration.hints.enable_specific_location_hints:
+                strings.append("Specific location hints disabled")
+
+        for hint, mode in configuration.hints.specific_pickup_hints.items():
+            details = configuration.game.hints.specific_pickup_hints[hint]
+            strings.append(f"{details.long_name}: {mode.long_name}")
+
+        return strings
 
     def format_params(self, configuration: BaseConfiguration) -> dict[str, list[str]]:
         """Function providing any game-specific information to display in presets such as the goal."""
@@ -140,23 +162,30 @@ class GamePresetDescriber:
                 f"{configuration.logical_resource_action.long_name} dangerous actions"
             )
 
-        if randomization_mode != RandomizationMode.default():
-            template_strings["Item Pool"].append(randomization_mode.description)
+        excluded_locations_count = configuration.available_locations.get_excluded_locations_count()
+        if excluded_locations_count > 0:
+            template_strings["Logic Settings"].append(f"{excluded_locations_count} locations excluded")
 
-        # Item Pool
+        if randomization_mode != RandomizationMode.default():
+            template_strings["Pickup Pool"].append(randomization_mode.description)
+
+        # Pickup Pool
         per_category_pool = pool_creator.calculate_pool_pickup_count(configuration)
         if configuration.available_locations.randomization_mode is RandomizationMode.FULL:
             pool_items, maximum_size = pool_creator.get_total_pickup_count(per_category_pool)
-            template_strings["Item Pool"].append(f"Size: {pool_items} of {maximum_size}")
+            template_strings["Pickup Pool"].append(f"Size: {pool_items} of {maximum_size}")
         else:
             for category, (count, num_nodes) in per_category_pool.items():
                 if isinstance(category, LocationCategory):
-                    template_strings["Item Pool"].append(f"{category.long_name}: {count}/{num_nodes}")
+                    template_strings["Pickup Pool"].append(f"{category.long_name}: {count}/{num_nodes}")
 
         if random_starting_pickups != "0":
-            template_strings["Item Pool"].append(f"{random_starting_pickups} random starting items")
+            template_strings["Pickup Pool"].append(f"{random_starting_pickups} random starting pickups")
 
-        template_strings["Item Pool"].extend(self._calculate_pickup_pool(configuration))
+        template_strings["Pickup Pool"].extend(self._calculate_pickup_pool(configuration))
+
+        if configuration.logical_pickup_placement is not LogicalPickupPlacementConfiguration.MINIMAL:
+            template_strings["Pickup Pool"].append(f"All {configuration.logical_pickup_placement.value} obtainable")
 
         # Difficulty
         if configuration.damage_strictness != LayoutDamageStrictness.MEDIUM:
@@ -170,7 +199,7 @@ class GamePresetDescriber:
         # Gameplay
         starting_locations = configuration.starting_location.locations
         if len(starting_locations) == 1:
-            area = game_description.region_list.area_by_area_location(starting_locations[0])
+            area = game_description.region_list.area_by_area_location(starting_locations[0].area_identifier)
             starting_location = f"Starts at {game_description.region_list.area_name(area)}"
         else:
             starting_location = f"{len(starting_locations)} starting locations"
@@ -181,27 +210,36 @@ class GamePresetDescriber:
         if dock_rando.is_enabled():
             template_strings["Gameplay"].append(dock_rando.mode.description)
 
+        # Hints
+        hint_strings = self._hints_info(configuration)
+        if hint_strings:
+            template_strings["Hints"].extend(hint_strings)
+
         return template_strings
 
     def progressive_items(self) -> ProgressiveItemTuples:
         return ()
 
 
-def _require_majors_check(ammo_configuration: AmmoPickupConfiguration, ammo_names: list[str]) -> list[bool]:
+def _require_majors_check(
+    ammo_configuration: AmmoPickupConfiguration, ammo_names: list[str], mains_are_default_required: bool
+) -> list[bool]:
     result = [False] * len(ammo_names)
 
     name_index_mapping = {name: i for i, name in enumerate(ammo_names)}
 
     for ammo, state in ammo_configuration.pickups_state.items():
         if ammo.name in name_index_mapping:
-            result[name_index_mapping[ammo.name]] = state.requires_main_item
+            result[name_index_mapping[ammo.name]] = state.requires_main_item != mains_are_default_required
 
     return result
 
 
-def message_for_required_mains(ammo_configuration: AmmoPickupConfiguration, message_to_item: dict[str, str]):
+def message_for_required_mains(
+    ammo_configuration: AmmoPickupConfiguration, message_to_item: dict[str, str], mains_are_default_required: bool
+) -> dict:
     item_names = list(message_to_item.values())
-    main_required = _require_majors_check(ammo_configuration, item_names)
+    main_required = _require_majors_check(ammo_configuration, item_names, mains_are_default_required)
     return dict(zip(message_to_item.keys(), main_required))
 
 

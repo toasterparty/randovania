@@ -6,11 +6,8 @@ from enum import Enum
 from randovania.bitpacking.bitpacking import BitPackDataclass, BitPackEnum
 from randovania.bitpacking.json_dataclass import JsonDataclass
 from randovania.game.game_enum import RandovaniaGame
-from randovania.games.common.prime_family.layout.lib.prime_trilogy_teleporters import (
-    PrimeTrilogyTeleporterConfiguration,
-)
 from randovania.games.prime2.layout.beam_configuration import BeamConfiguration
-from randovania.games.prime2.layout.hint_configuration import HintConfiguration
+from randovania.games.prime2.layout.echoes_teleporters import EchoesTeleporterConfiguration
 from randovania.games.prime2.layout.translator_configuration import TranslatorConfiguration
 from randovania.layout.base.base_configuration import BaseConfiguration
 
@@ -30,7 +27,7 @@ class LayoutSkyTempleKeyMode(BitPackEnum, Enum):
     NINE = 9
 
     @property
-    def num_keys(self):
+    def num_keys(self) -> int:
         if self == self.ALL_BOSSES:
             return 9
         elif self == self.ALL_GUARDIANS:
@@ -48,12 +45,20 @@ class LayoutSafeZone(BitPackDataclass, JsonDataclass):
     )
 
 
+class EchoesNewPatcher(BitPackEnum, Enum):
+    DISABLED = "disabled"
+    BOTH = "both"
+    ONLY = "only"
+
+    def is_enabled(self) -> bool:
+        return self != EchoesNewPatcher.DISABLED
+
+
 @dataclasses.dataclass(frozen=True)
 class EchoesConfiguration(BaseConfiguration):
-    teleporters: PrimeTrilogyTeleporterConfiguration
+    teleporters: EchoesTeleporterConfiguration
     sky_temple_keys: LayoutSkyTempleKeyMode
     translator_configuration: TranslatorConfiguration
-    hints: HintConfiguration
     beam_configuration: BeamConfiguration
     energy_per_tank: int = dataclasses.field(metadata={"min": 1, "max": 1000, "precision": 1})
     safe_zone: LayoutSafeZone
@@ -62,9 +67,8 @@ class EchoesConfiguration(BaseConfiguration):
     varia_suit_damage: float = dataclasses.field(metadata={"min": 0.1, "max": 60.0, "precision": 3.0})
     dark_suit_damage: float = dataclasses.field(metadata={"min": 0.0, "max": 60.0, "precision": 3.0})
     dangerous_energy_tank: bool
-    use_new_patcher: bool
+    use_new_patcher: EchoesNewPatcher
     inverted_mode: bool
-    portal_rando: bool
 
     blue_save_doors: bool
 
@@ -97,7 +101,7 @@ class EchoesConfiguration(BaseConfiguration):
         if self.inverted_mode:
             result.append("Inverted Aether")
 
-        if self.portal_rando:
-            result.append("Portal Rando")
+        if self.use_new_patcher == EchoesNewPatcher.ONLY:
+            result.append("Using the new patcher exclusively")
 
         return result

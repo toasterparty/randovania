@@ -2,13 +2,17 @@ from __future__ import annotations
 
 import copy
 import re
-from typing import TYPE_CHECKING, TypeVar
+from typing import TYPE_CHECKING
 
-from randovania.game_description import game_migration
+from randovania.game_description import game_description_migration
 from randovania.game_description.db.configurable_node import ConfigurableNode
 from randovania.game_description.db.dock_node import DockNode
 from randovania.game_description.db.event_node import EventNode
-from randovania.game_description.db.hint_node import HintNode
+from randovania.game_description.db.hint_node import (
+    HintNode,
+    SpecificLocationHintNode,
+    SpecificPickupHintNode,
+)
 from randovania.game_description.db.node import GenericNode, Node
 from randovania.game_description.db.pickup_node import PickupNode
 from randovania.game_description.db.teleporter_network_node import TeleporterNetworkNode
@@ -28,6 +32,7 @@ if TYPE_CHECKING:
     from randovania.game_description.db.region import Region
     from randovania.game_description.db.region_list import RegionList
     from randovania.game_description.game_description import GameDescription, MinimalLogicData
+    from randovania.game_description.hint_features import HintFeature
     from randovania.game_description.requirements.array_base import RequirementArrayBase
     from randovania.game_description.requirements.base import Requirement
     from randovania.game_description.resources.item_resource_info import ItemResourceInfo
@@ -36,8 +41,6 @@ if TYPE_CHECKING:
     from randovania.game_description.resources.resource_type import ResourceType
     from randovania.game_description.resources.simple_resource_info import SimpleResourceInfo
     from randovania.game_description.resources.trick_resource_info import TrickResourceInfo
-
-    _Resource = TypeVar("_Resource", SimpleResourceInfo, ItemResourceInfo, TrickResourceInfo)
 
 REGION_NAME_TO_FILE_NAME_RE = re.compile(r"[^a-zA-Z0-9\- ]")
 
@@ -137,7 +140,9 @@ def write_trick_resource(resource: TrickResourceInfo) -> dict:
     }
 
 
-def write_array(array: list[_Resource], writer: Callable[[_Resource], dict]) -> dict:
+def write_array[Resource: (SimpleResourceInfo, ItemResourceInfo, TrickResourceInfo)](
+    array: list[Resource], writer: Callable[[Resource], dict]
+) -> dict:
     return {item.short_name: writer(item) for item in array}
 
 
@@ -187,6 +192,7 @@ def write_resource_database(resource_database: ResourceDatabase) -> dict:
                 "reductions": [
                     {
                         "name": reduction.inventory_item.short_name if reduction.inventory_item is not None else None,
+                        "quantity": reduction.item_quantity,
                         "multiplier": reduction.damage_multiplier,
                     }
                     for reduction in reductions
@@ -254,6 +260,11 @@ def write_dock_weakness_database(database: DockWeaknessDatabase) -> dict:
     }
 
 
+# Hint Features
+def write_hint_feature_database(data: dict[str, HintFeature]) -> dict:
+    return {name: feature.as_json for name, feature in data.items()}
+
+
 # Region/Area/Nodes
 
 
@@ -294,6 +305,8 @@ def write_node(node: Node) -> dict:
         data.update(common_fields)
         data["pickup_index"] = node.pickup_index.index
         data["location_category"] = node.location_category.value
+        data["custom_index_group"] = node.custom_index_group
+        data["hint_features"] = [ft.name for ft in sorted(node.hint_features)]
 
     elif isinstance(node, EventNode):
         data["node_type"] = "event"
@@ -308,7 +321,12 @@ def write_node(node: Node) -> dict:
         data["node_type"] = "hint"
         data.update(common_fields)
         data["kind"] = node.kind.value
-        data["requirement_to_collect"] = write_requirement(node.lock_requirement)
+        data["requirement_to_collect"] = write_requirement(node.requirement_to_collect)
+
+        if isinstance(node, SpecificLocationHintNode):
+            data["target_index"] = node.target_index.index
+        elif isinstance(node, SpecificPickupHintNode):
+            data["specific_pickup_hint_id"] = node.specific_pickup_hint_id
 
     elif isinstance(node, TeleporterNetworkNode):
         data["node_type"] = "teleporter_network"
@@ -351,6 +369,7 @@ def write_area(area: Area) -> dict:
     extra = frozen_lib.unwrap(area.extra)
     return {
         "default_node": area.default_node,
+        "hint_features": sorted(feature.name for feature in area.hint_features),
         "extra": extra,
         "nodes": nodes,
     }
@@ -418,7 +437,7 @@ def write_used_trick_levels(game: GameDescription) -> dict[str, list[int]] | Non
 
 def write_game_description(game: GameDescription) -> dict:
     return {
-        "schema_version": game_migration.CURRENT_VERSION,
+        "schema_version": game_description_migration.CURRENT_VERSION,
         "game": game.game.value,
         "resource_database": write_resource_database(game.resource_database),
         "layers": frozen_lib.unwrap(game.layers),
@@ -426,6 +445,7 @@ def write_game_description(game: GameDescription) -> dict:
         "minimal_logic": write_minimal_logic_db(game.minimal_logic),
         "victory_condition": write_requirement(game.victory_condition),
         "dock_weakness_database": write_dock_weakness_database(game.dock_weakness_database),
+        "hint_feature_database": write_hint_feature_database(game.hint_feature_database),
         "used_trick_levels": write_used_trick_levels(game),
         "flatten_to_set_on_patch": game.region_list.flatten_to_set_on_patch,
         "regions": write_region_list(game.region_list),

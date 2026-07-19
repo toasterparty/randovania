@@ -2,57 +2,49 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from randovania.games.dread.generator.pool_creator import DREAD_ARTIFACT_CATEGORY
 from randovania.games.dread.layout.dread_configuration import DreadConfiguration
+from randovania.games.dread.layout.dread_damage_state import DreadDamageState
 from randovania.resolver.bootstrap import Bootstrap
-from randovania.resolver.energy_tank_damage_state import EnergyTankDamageState
 
 if TYPE_CHECKING:
     from random import Random
 
     from randovania.game_description.db.pickup_node import PickupNode
-    from randovania.game_description.game_description import GameDescription
+    from randovania.game_description.game_database_view import GameDatabaseView, ResourceDatabaseView
     from randovania.game_description.game_patches import GamePatches
-    from randovania.game_description.resources.resource_database import ResourceDatabase
     from randovania.game_description.resources.resource_info import ResourceGain
     from randovania.generator.pickup_pool import PoolResults
-    from randovania.layout.base.base_configuration import BaseConfiguration
     from randovania.resolver.damage_state import DamageState
 
 
-def is_dna_node(node: PickupNode, config: BaseConfiguration) -> bool:
-    assert isinstance(config, DreadConfiguration)
+def is_dna_node(node: PickupNode, config: DreadConfiguration) -> bool:
     artifact_config = config.artifacts
     return (
         # must be a boss
         "boss_hint_name" in node.extra
         and (
             # must be an emmi with emmi option
-            node.extra["pickup_type"] == "emmi"
-            and artifact_config.prefer_emmi
+            (node.extra["pickup_type"] == "emmi" and artifact_config.prefer_emmi)
             or
             # or not an emmi but with major boss option
-            not node.extra["pickup_type"] == "emmi"
-            and artifact_config.prefer_major_bosses
+            (not node.extra["pickup_type"] == "emmi" and artifact_config.prefer_major_bosses)
         )
     )
 
 
-class DreadBootstrap(Bootstrap):
-    def create_damage_state(self, game: GameDescription, configuration: BaseConfiguration) -> DamageState:
-        assert isinstance(configuration, DreadConfiguration)
-        return EnergyTankDamageState(
+class DreadBootstrap(Bootstrap[DreadConfiguration]):
+    def create_damage_state(self, game: GameDatabaseView, configuration: DreadConfiguration) -> DamageState:
+        return DreadDamageState(
             configuration.energy_per_tank - 1,
             configuration.energy_per_tank,
-            game.resource_database,
-            game.region_list,
+            game.get_resource_database_view().get_item("ETank"),
+            configuration.immediate_energy_parts,
+            game.get_resource_database_view().get_item("EFragment"),
         )
 
     def _get_enabled_misc_resources(
-        self, configuration: BaseConfiguration, resource_database: ResourceDatabase
+        self, configuration: DreadConfiguration, resource_database: ResourceDatabaseView
     ) -> set[str]:
-        assert isinstance(configuration, DreadConfiguration)
-
         enabled_resources = {"SeparateBeams", "SeparateMissiles"}
 
         logical_patches = {
@@ -73,11 +65,9 @@ class DreadBootstrap(Bootstrap):
 
     def event_resources_for_configuration(
         self,
-        configuration: BaseConfiguration,
-        resource_database: ResourceDatabase,
+        configuration: DreadConfiguration,
+        resource_database: ResourceDatabaseView,
     ) -> ResourceGain:
-        assert isinstance(configuration, DreadConfiguration)
-
         if configuration.hanubia_shortcut_no_grapple:
             for name in ["s080_shipyard:default:grapplepulloff1x2_000", "s080_shipyard:default:grapplepulloff1x2"]:
                 yield resource_database.get_event(name), 1
@@ -88,8 +78,10 @@ class DreadBootstrap(Bootstrap):
         if configuration.x_starts_released:
             yield resource_database.get_event("ElunReleaseX"), 1
 
-    def assign_pool_results(self, rng: Random, patches: GamePatches, pool_results: PoolResults) -> GamePatches:
-        assert isinstance(patches.configuration, DreadConfiguration)
-        locations = self.all_preplaced_item_locations(patches.game, patches.configuration, is_dna_node)
-        self.pre_place_items(rng, locations, pool_results, DREAD_ARTIFACT_CATEGORY)
-        return super().assign_pool_results(rng, patches, pool_results)
+    def assign_pool_results(
+        self, rng: Random, configuration: DreadConfiguration, patches: GamePatches, pool_results: PoolResults
+    ) -> GamePatches:
+        pickups_to_preplace = [pickup for pickup in list(pool_results.to_place) if pickup.gui_category.name == "dna"]
+        locations = self.all_preplaced_pickup_locations(patches.game, configuration, is_dna_node)
+        self.pre_place_pickups(rng, pickups_to_preplace, locations, pool_results, patches.game.game)
+        return super().assign_pool_results(rng, configuration, patches, pool_results)

@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 from randovania.exporter.game_exporter import GameExporter, GameExportParams
 
 if TYPE_CHECKING:
+    from randovania.exporter.patch_data_factory import PatcherDataMeta
     from randovania.lib import status_update_lib
 
 
@@ -16,7 +17,7 @@ class BlankGameExportParams(GameExportParams):
     output_path: Path
 
 
-class BlankGameExporter(GameExporter):
+class BlankGameExporter(GameExporter[BlankGameExportParams]):
     _busy: bool = False
 
     @property
@@ -33,7 +34,7 @@ class BlankGameExporter(GameExporter):
         """
         return False
 
-    def export_params_type(self) -> type[GameExportParams]:
+    def export_params_type(self) -> type[BlankGameExportParams]:
         """
         Returns the type of the GameExportParams expected by this exporter.
         """
@@ -42,8 +43,8 @@ class BlankGameExporter(GameExporter):
     def _do_export_game(
         self,
         patch_data: dict,
-        export_params: GameExportParams,
+        export_params: BlankGameExportParams,
         progress_update: status_update_lib.ProgressUpdateCallable,
+        randovania_meta: PatcherDataMeta,
     ) -> None:
-        assert isinstance(export_params, BlankGameExportParams)
         raise RuntimeError("Needs to be implemented")

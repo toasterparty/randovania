@@ -32,8 +32,8 @@ enum_lib.add_long_name(
     DockRandoMode,
     {
         DockRandoMode.VANILLA: "Vanilla",
-        DockRandoMode.DOCKS: "Doors",
-        DockRandoMode.WEAKNESSES: "Types",
+        DockRandoMode.DOCKS: "Individual Doors",
+        DockRandoMode.WEAKNESSES: "Door Types",
     },
 )
 
@@ -42,7 +42,7 @@ enum_lib.add_per_enum_field(
     "description",
     {
         DockRandoMode.VANILLA: "Original door locks",
-        DockRandoMode.DOCKS: "Randomize the type of each door individually",
+        DockRandoMode.DOCKS: "Randomizes each door individually",
         DockRandoMode.WEAKNESSES: "Randomizes all doors by type, turning all of one type into another",
     },
 )
@@ -92,7 +92,7 @@ class DockTypeState(BitPackValue, DataclassPostInitTypeCheck):
             },
         )
 
-    def bit_pack_encode(self, metadata) -> Iterator[tuple[int, int]]:
+    def bit_pack_encode(self, metadata: dict) -> Iterator[tuple[int, int]]:
         yield from bitpacking.pack_sorted_array_elements(
             sorted(self.can_change_from),
             sorted(self.possible_change_from),
@@ -103,7 +103,7 @@ class DockTypeState(BitPackValue, DataclassPostInitTypeCheck):
         )
 
     @classmethod
-    def bit_pack_unpack(cls, decoder: BitPackDecoder, metadata) -> DockTypeState:
+    def bit_pack_unpack(cls, decoder: BitPackDecoder, metadata: dict) -> DockTypeState:
         reference: DockTypeState = metadata["reference"]
         ref_change_from = sorted(cls._possible_change_from(reference.game, reference.dock_type_name))
         ref_change_to = sorted(cls._possible_change_to(reference.game, reference.dock_type_name))
@@ -169,10 +169,10 @@ class DockRandoConfiguration(BitPackValue, DataclassPostInitTypeCheck):
             },
         )
 
-    def bit_pack_encode(self, metadata) -> Iterator[tuple[int, int]]:
+    def bit_pack_encode(self, metadata: dict) -> Iterator[tuple[int, int]]:
         reference: DockRandoConfiguration = metadata["reference"]
 
-        yield from self.mode.bit_pack_encode(None)
+        yield from self.mode.bit_pack_encode({})
 
         modified_types = sorted(
             dock_type
@@ -184,10 +184,10 @@ class DockRandoConfiguration(BitPackValue, DataclassPostInitTypeCheck):
             yield from self.types_state[dock_type].bit_pack_encode({"reference": reference.types_state[dock_type]})
 
     @classmethod
-    def bit_pack_unpack(cls, decoder: BitPackDecoder, metadata) -> Self:
+    def bit_pack_unpack(cls, decoder: BitPackDecoder, metadata: dict) -> Self:
         reference: DockRandoConfiguration = metadata["reference"]
 
-        mode = DockRandoMode.bit_pack_unpack(decoder, None)
+        mode = DockRandoMode.bit_pack_unpack(decoder, {})
 
         modified_types = bitpacking.decode_sorted_array_elements(
             decoder, sorted(reference.weakness_database.dock_types)
@@ -226,5 +226,13 @@ class DockRandoConfiguration(BitPackValue, DataclassPostInitTypeCheck):
                 dock_rando_params = weakness_database.dock_rando_params.get(dock_type)
                 if dock_rando_params is not None and dock_rando_params.locked in state.can_change_to:
                     result.append(f"{dock_rando_params.locked.name} is unsafe as a target in Door Lock Types")
+
+        return result
+
+    def settings_incompatible_with_map_tracker(self) -> list[str]:
+        result = []
+
+        if self.is_enabled():
+            result.append("Door Lock Rando")
 
         return result

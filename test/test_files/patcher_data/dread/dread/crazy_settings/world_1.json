@@ -3542,7 +3542,6 @@
         "Speed Booster": "Cataris - Teleport to Dairon",
         "Progressive Spin": "Artaria - Teleport to Cataris\nBurenia - Early Gravity Speedboost Room 1",
         "Screw Attack": "Hanubia - Orange EMMI Introduction",
-        "Speed Booster Upgrade": "Artaria - Proto EMMI Introduction\nCataris - Above Z-57 Fight\nDairon - Bomb Room\nFerenia - Pitfall Puzzle Room",
         "Metroid DNA 1": "Artaria - Central Unit Access",
         "Metroid DNA 2": "Burenia - Drogyga Arena",
         "Metroid DNA 3": "Cataris - Central Unit Access"
@@ -3566,6 +3565,7 @@
         },
         "lua": {
             "custom_init": {
+                "show_dna_in_hud": true,
                 "enable_death_counter": false,
                 "enable_room_name_display": "NEVER"
             }
@@ -3578,11 +3578,16 @@
             "cross_bomb": "DEFAULT",
             "power_bomb": "ALTERNATE",
             "closed": "DEFAULT"
-        }
+        },
+        "split_saves": false
     },
     "energy_per_tank": 100,
     "immediate_energy_parts": true,
+    "has_flash_upgrades": true,
+    "has_speed_upgrades": true,
     "enable_remote_lua": true,
+    "enable_logging": false,
+    "skip_item_popups": false,
     "constant_environment_damage": {
         "heat": 20,
         "cold": null,
@@ -7102,8 +7107,12 @@
             "{c1}Metroid DNA 1{c0} is guarded by {c2}E.M.M.I.-02SM{c0}.|{c1}Metroid DNA 2{c0} is guarded by {c2}Drogyga{c0}.|{c1}Metroid DNA 3{c0} is guarded by {c2}E.M.M.I.-03MB{c0}."
         ]
     },
+    "mass_delete_actors": {
+        "to_remove": []
+    },
     "layout_uuid": "00000000-0000-1111-0000-000000000000",
     "_randovania_meta": {
-        "layout_was_user_modified": true
+        "layout_was_user_modified": true,
+        "in_race_setting": false
     }
 }

@@ -11,7 +11,6 @@ from randovania.game_description.db.node_identifier import NodeIdentifier
 from randovania.game_description.editor import Editor
 from randovania.game_description.requirements.base import Requirement
 from randovania.game_description.requirements.node_requirement import NodeRequirement
-from randovania.game_description.resources.resource_collection import ResourceCollection
 from randovania.game_description.resources.resource_database import NamedRequirementTemplate
 
 
@@ -20,7 +19,7 @@ def game_editor(echoes_game_data):
     return Editor(data_reader.decode_data(echoes_game_data))
 
 
-def test_edit_connections(game_editor):
+def test_edit_connections_to_trivial(game_editor):
     # Setup
     landing_site = game_editor.game.region_list.area_by_area_location(AreaIdentifier("Temple Grounds", "Landing Site"))
     source = landing_site.node_with_name("Save Station")
@@ -32,6 +31,20 @@ def test_edit_connections(game_editor):
 
     # Assert
     assert landing_site.connections[source][target] == Requirement.trivial()
+
+
+def test_edit_connections_impossible_to_impossible(game_editor):
+    # Setup
+    landing_site = game_editor.game.region_list.area_by_area_location(AreaIdentifier("Temple Grounds", "Landing Site"))
+    source = landing_site.node_with_name("Door to Service Access")
+    target = landing_site.node_with_name("Door to Hive Access Tunnel")
+    assert target not in landing_site.connections[source]
+
+    # Run
+    game_editor.edit_connections(landing_site, source, target, None)
+
+    # Assert
+    assert target not in landing_site.connections[source]
 
 
 def test_remove_node(game_editor):
@@ -104,7 +117,7 @@ def test_replace_node_unknown_node(game_editor):
     dock = region_list.area_by_area_location(loc2).node_with_name("Door to Landing Site")
 
     # Run
-    with pytest.raises(ValueError, match="Given Door to Landing Site does does not belong to Landing Site."):
+    with pytest.raises(ValueError, match=r"Given Door to Landing Site does does not belong to Landing Site."):
         game_editor.replace_node(landing_site, dock, dock)
 
 
@@ -135,7 +148,7 @@ def test_rename_lock_used_in_node_requirement(game_editor: Editor) -> None:
             NodeIdentifier.create(
                 "Great Temple",
                 "Transport A Access",
-                "Lock - Door to Temple Sanctuary",
+                "Door to Temple Sanctuary",
             )
         ),
     )
@@ -154,5 +167,7 @@ def test_rename_lock_used_in_node_requirement(game_editor: Editor) -> None:
 
     # Assert
     template = game_editor.game.resource_database.requirement_template["Special Requirement Template"]
-    context = game_editor.game.create_node_context(ResourceCollection())
-    assert list(template.requirement.iterate_resource_requirements(context)) != []
+    assert (
+        str(template.requirement)
+        == "Req region Great Temple/area Transport A Access/node Door to Temple Sanctuary (Weird)"
+    )

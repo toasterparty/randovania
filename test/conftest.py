@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import dataclasses
+import functools
 import uuid
 from importlib.util import find_spec
 from pathlib import Path
@@ -14,7 +15,7 @@ from frozendict import frozendict
 from randovania.game.game_enum import RandovaniaGame
 from randovania.game_description import default_database
 from randovania.game_description.game_patches import GamePatches
-from randovania.game_description.pickup.pickup_category import PickupCategory
+from randovania.game_description.hint_features import HintFeature
 from randovania.game_description.pickup.pickup_entry import PickupEntry, PickupGeneratorParams, PickupModel
 from randovania.game_description.resources.item_resource_info import ItemResourceInfo
 from randovania.game_description.resources.location_category import LocationCategory
@@ -35,6 +36,7 @@ if TYPE_CHECKING:
     from randovania.game_description.game_description import GameDescription
     from randovania.game_description.pickup.pickup_database import PickupDatabase
     from randovania.game_description.resources.resource_database import ResourceDatabase
+    from randovania.graph.world_graph import WorldGraph
 
 
 class TestFilesDir:
@@ -105,6 +107,11 @@ def blank_game_description() -> GameDescription:
 @pytest.fixture(scope="session")
 def blank_resource_db(blank_game_description: GameDescription) -> ResourceDatabase:
     return blank_game_description.resource_database
+
+
+@pytest.fixture(scope="session")
+def blank_pickup_database() -> PickupDatabase:
+    return default_database.pickup_database_for_game(RandovaniaGame.BLANK)
 
 
 @pytest.fixture
@@ -193,16 +200,6 @@ def prime_game_description() -> GameDescription:
 
 
 @pytest.fixture(scope="session")
-def corruption_game_data() -> dict:
-    return default_data.read_json_then_binary(RandovaniaGame.METROID_PRIME_CORRUPTION)[1]
-
-
-@pytest.fixture(scope="session")
-def corruption_game_description(corruption_game_data: dict) -> GameDescription:
-    return default_database.game_description_for(RandovaniaGame.METROID_PRIME_CORRUPTION)
-
-
-@pytest.fixture(scope="session")
 def dread_game_description() -> GameDescription:
     return default_database.game_description_for(RandovaniaGame.METROID_DREAD)
 
@@ -220,6 +217,11 @@ def am2r_resource_database() -> ResourceDatabase:
 @pytest.fixture(scope="session")
 def msr_game_description() -> GameDescription:
     return default_database.game_description_for(RandovaniaGame.METROID_SAMUS_RETURNS)
+
+
+@pytest.fixture(scope="session")
+def cs_game_description() -> GameDescription:
+    return default_database.game_description_for(RandovaniaGame.CAVE_STORY)
 
 
 @pytest.fixture(scope="session")
@@ -277,12 +279,29 @@ def is_frozen(request: pytest.FixtureRequest, mocker: pytest_mock.MockerFixture)
 
 
 @pytest.fixture
-def generic_pickup_category() -> PickupCategory:
-    return PickupCategory(
+def generic_pickup_category() -> HintFeature:
+    return HintFeature(
         name="generic",
         long_name="Generic Item Category",
         hint_details=("an ", "unspecified item"),
-        hinted_as_major=False,
+    )
+
+
+@pytest.fixture
+def useless_pickup_category() -> HintFeature:
+    return HintFeature(
+        name="useless",
+        long_name="Useless",
+        hint_details=("", "nothing"),
+    )
+
+
+@pytest.fixture
+def ammo_pickup_category() -> HintFeature:
+    return HintFeature(
+        name="expansion",
+        long_name="Expansion",
+        hint_details=("an ", "expansion"),
     )
 
 
@@ -290,6 +309,13 @@ def generic_pickup_category() -> PickupCategory:
 def default_generator_params() -> PickupGeneratorParams:
     return PickupGeneratorParams(
         preferred_location_category=LocationCategory.MAJOR,
+    )
+
+
+@pytest.fixture
+def default_generator_params_minor() -> PickupGeneratorParams:
+    return PickupGeneratorParams(
+        preferred_location_category=LocationCategory.MINOR,
     )
 
 
@@ -303,8 +329,14 @@ def blank_pickup(
             game=RandovaniaGame.METROID_PRIME_ECHOES,
             name="EnergyTransferModule",
         ),
-        pickup_category=echoes_pickup_database.pickup_categories["suit"],
-        broad_category=echoes_pickup_database.pickup_categories["life_support"],
+        gui_category=echoes_pickup_database.pickup_categories["suit"],
+        hint_features=frozenset(
+            (
+                echoes_pickup_database.pickup_categories["suit"],
+                echoes_pickup_database.pickup_categories["life_support"],
+                echoes_pickup_database.pickup_categories["major"],
+            )
+        ),
         progression=(),
         generator_params=default_generator_params,
         resource_lock=None,
@@ -321,8 +353,13 @@ def dread_spider_pickup(default_generator_params: PickupGeneratorParams) -> Pick
             game=RandovaniaGame.METROID_DREAD,
             name="powerup_spidermagnet",
         ),
-        pickup_category=dread_pickup_database.pickup_categories["misc"],
-        broad_category=dread_pickup_database.pickup_categories["misc"],
+        gui_category=dread_pickup_database.pickup_categories["misc"],
+        hint_features=frozenset(
+            (
+                dread_pickup_database.pickup_categories["misc"],
+                dread_pickup_database.pickup_categories["major"],
+            )
+        ),
         progression=(
             (
                 ItemResourceInfo(
@@ -350,8 +387,13 @@ def msr_ice_beam_pickup(default_generator_params: PickupGeneratorParams) -> Pick
             game=RandovaniaGame.METROID_SAMUS_RETURNS,
             name="powerup_icebeam",
         ),
-        pickup_category=msr_pickup_database.pickup_categories["misc"],
-        broad_category=msr_pickup_database.pickup_categories["misc"],
+        gui_category=msr_pickup_database.pickup_categories["misc"],
+        hint_features=frozenset(
+            (
+                msr_pickup_database.pickup_categories["misc"],
+                msr_pickup_database.pickup_categories["major"],
+            )
+        ),
         progression=(
             (
                 ItemResourceInfo(
@@ -379,8 +421,14 @@ def am2r_varia_pickup(default_generator_params: PickupGeneratorParams) -> Pickup
             game=RandovaniaGame.AM2R,
             name="sItemVariaSuit",
         ),
-        pickup_category=am2r_pickup_database.pickup_categories["suit"],
-        broad_category=am2r_pickup_database.pickup_categories["life_support"],
+        gui_category=am2r_pickup_database.pickup_categories["suit"],
+        hint_features=frozenset(
+            (
+                am2r_pickup_database.pickup_categories["suit"],
+                am2r_pickup_database.pickup_categories["life_support"],
+                am2r_pickup_database.pickup_categories["major"],
+            )
+        ),
         progression=(
             (
                 ItemResourceInfo(
@@ -407,8 +455,8 @@ def cs_panties_pickup(default_generator_params: PickupGeneratorParams) -> Pickup
             game=RandovaniaGame.CAVE_STORY,
             name="",
         ),
-        pickup_category=cs_pickup_database.pickup_categories["useless"],
-        broad_category=cs_pickup_database.pickup_categories["useless"],
+        gui_category=cs_pickup_database.pickup_categories["useless"],
+        hint_features=frozenset((cs_pickup_database.pickup_categories["useless"],)),
         progression=(
             (
                 ItemResourceInfo(
@@ -431,6 +479,7 @@ def cs_panties_pickup(default_generator_params: PickupGeneratorParams) -> Pickup
         generator_params=default_generator_params,
         resource_lock=None,
         unlocks_resource=False,
+        extra=frozendict({"script": "<EVE0085"}),
     )
 
 
@@ -455,6 +504,20 @@ def dataclass_test_lib() -> DataclassTestLib:
 def empty_patches(default_blank_configuration, blank_game_description) -> GamePatches:
     configuration = default_blank_configuration
     return GamePatches.create_from_game(blank_game_description, 0, configuration)
+
+
+@pytest.fixture
+def blank_world_graph(blank_game_description, empty_patches) -> WorldGraph:
+    from randovania.graph.world_graph_factory import create_graph
+
+    return create_graph(
+        database_view=blank_game_description,
+        patches=empty_patches,
+        static_resources=blank_game_description.resource_database.create_resource_collection(),
+        damage_multiplier=1.0,
+        victory_condition=blank_game_description.victory_condition,
+        flatten_to_set_on_patch=False,
+    )
 
 
 @pytest.fixture
@@ -494,6 +557,25 @@ def obfuscator_no_secret(monkeypatch: pytest.MonkeyPatch):
     obfuscator._encrypt = None
 
 
+@pytest.fixture
+def options(tmp_path):
+    from randovania.interface_common.options import Options
+
+    return Options(tmp_path)
+
+
+@pytest.fixture
+def world_database(tmp_path: Path):
+    from randovania.interface_common.world_database import WorldDatabase
+
+    return WorldDatabase(tmp_path.joinpath("world_database"))
+
+
+@pytest.fixture
+def resource_collection(blank_resource_db):
+    return blank_resource_db.create_resource_collection()
+
+
 def pytest_addoption(parser: pytest.Parser) -> None:
     parser.addoption(
         "--skip-generation-tests",
@@ -522,18 +604,23 @@ def pytest_addoption(parser: pytest.Parser) -> None:
 
 
 if all(find_spec(n) is not None for n in ("pytestqt", "qasync")):
-    import asyncio.events
 
-    import qasync
+    @functools.cache
+    def get_event_loop_class() -> type[asyncio.EventLoop]:
+        import asyncio.events
 
-    class EventLoopWithRunningFlag(qasync.QEventLoop):
-        def _before_run_forever(self):
-            super()._before_run_forever()
-            asyncio.events._set_running_loop(self)
+        import qasync
 
-        def _after_run_forever(self):
-            asyncio.events._set_running_loop(None)
-            super()._after_run_forever()
+        class EventLoopWithRunningFlag(qasync.QEventLoop):
+            def _before_run_forever(self):
+                super()._before_run_forever()
+                asyncio.events._set_running_loop(self)
+
+            def _after_run_forever(self):
+                asyncio.events._set_running_loop(None)
+                super()._after_run_forever()
+
+        return EventLoopWithRunningFlag
 
     @pytest.fixture
     def skip_qtbot(request: pytest.FixtureRequest, qtbot: QtBot) -> QtBot:
@@ -543,20 +630,38 @@ if all(find_spec(n) is not None for n in ("pytestqt", "qasync")):
         return qtbot
 
     @pytest.fixture
-    def event_loop(request: pytest.FixtureRequest) -> asyncio.EventLoop:
+    def event_loop_policy(request: pytest.FixtureRequest) -> asyncio.AbstractEventLoopPolicy:
         if "skip_qtbot" in request.fixturenames:
-            loop = EventLoopWithRunningFlag(request.getfixturevalue("qapp"), set_running_loop=False)
+            qapp = request.getfixturevalue("qapp")
+
+            class _QEventLoopPolicy(asyncio.DefaultEventLoopPolicy):
+                def new_event_loop(self) -> asyncio.AbstractEventLoop:
+                    return get_event_loop_class()(qapp, set_running_loop=False)
+
+            return _QEventLoopPolicy()
+        return asyncio.DefaultEventLoopPolicy()
+
+    @pytest.fixture(scope="session")
+    def qapp_cls(request: pytest.FixtureRequest):
+        if request.config.option.skip_gui_tests:
+            import PySide6.QtCore
+
+            return PySide6.QtCore.QCoreApplication
         else:
-            loop = asyncio.get_event_loop_policy().new_event_loop()
-        yield loop
-        loop.close()
+            import PySide6.QtWidgets
+
+            return PySide6.QtWidgets.QApplication
 
 else:
 
     @pytest.fixture
     def skip_qtbot(request: pytest.FixtureRequest) -> QtBot:
         pytest.skip()
-        return "no qtbot"  # noqa
+        return "no qtbot"
+
+    @pytest.fixture(scope="session")
+    def qapp_cls(request: pytest.FixtureRequest) -> None:
+        pytest.skip()
 
 
 def pytest_configure(config: pytest.Config) -> None:
@@ -572,3 +677,98 @@ def pytest_configure(config: pytest.Config) -> None:
         markers.append("not skip_gui_tests")
 
     config.option.markexpr = " and ".join(markers)
+
+
+# The second field indicates the expected result for running the resolver.
+# - True: possible
+# - False: not possible
+# - None: not ran (for multiworld, or particularly bad files)
+SOLO_RDVGAMES = [
+    # Cross Game Multis
+    ("multi-cs+dread+prime1+prime2.rdvgame", None),
+    ("multi-am2r+cs+dread+prime1+prime2.rdvgame", None),
+    ("multi-am2r+cs+dread+prime1+prime2+msr.rdvgame", None),
+    ("prime1_and_2_multi.rdvgame", None),
+    ("cs_echoes_multi_1.rdvgame", None),
+    ("dread_prime1_multiworld.rdvgame", None),  # dread-prime1 multi
+    # AM2R
+    ("am2r/starter_preset.rdvgame", False),  # starter preset
+    ("am2r/door_lock.rdvgame", False),  # starter preset+door lock rando
+    ("am2r/door_lock_open.rdvgame", False),  # starter preset+door lock rando with open transitions
+    ("am2r/progressive_items.rdvgame", False),  # Starter preset+progressive items
+    ("am2r/starting_items.rdvgame", False),  # Starter preset + random starting items
+    ("am2r/transport_pipe_shuffle.rdvgame", False),  # Starter preset + shuffled transport pipes
+    ("am2r/custom_dna_required.rdvgame", False),  # Has 20/30 dna
+    ("am2r/chaos_options.rdvgame", False),  # Has Chaos Options
+    # Blank
+    ("blank/issue-3717.rdvgame", True),
+    # Factorio
+    ("factorio/starter_preset.rdvgame", True),
+    # Fusion
+    ("fusion/starter_preset.rdvgame", True),
+    ("fusion/short_intro.rdvgame", True),
+    ("fusion/all_hidden_with_nothing.rdvgame", True),
+    ("fusion/all_hidden_with_random.rdvgame", True),
+    ("fusion/starting_items.rdvgame", True),
+    ("fusion/lots_of_random_starting_items.rdvgame", True),
+    ("fusion/high_lava_dmg.rdvgame", False),  # expected configured lava dmg too high for solver
+    # Dread
+    ("dread/vanilla.rdvgame", True),  # vanilla
+    ("dread/starter_preset.rdvgame", False),  # starter preset
+    ("dread/crazy_settings.rdvgame", True),  # crazy settings
+    ("dread/dread_dread_multiworld.rdvgame", None),  # dread-dread multi
+    ("dread/elevator_rando.rdvgame", None),  # elevator_rando. Resolver skipped due to slow
+    ("dread/custom_start.rdvgame", False),  # crazy settings
+    ("dread/custom_patcher_data.rdvgame", True),  # custom patcher data
+    ("dread/all_settings.rdvgame", True),  # all settings enabled
+    ("dread/hide_all_with_nothing.rdvgame", None),  # Model+scan+name hidden with nothing data
+    # Planets (Zebeth)
+    ("planets_zebeth/starter_preset.rdvgame", True),  # starter preset (vanilla keys)
+    ("planets_zebeth/starter_preset_shuffle_keys.rdvgame", True),  # starter preset (shuffled keys)
+    # Prime Hunters
+    ("prime_hunters/starter_preset.rdvgame", True),  # starter preset
+    ("prime_hunters/shuffled_force_fields.rdvgame", True),  # starter preset with shuffled force fields
+    (
+        "prime_hunters/starting_items_and_energy_with_nothings.rdvgame",
+        True,
+    ),  # starter preset + random starting items + nothing items + starting energy
+    ("prime_hunters/two_way_unchecked_portal_shuffle.rdvgame", True),  # starter preset + two-way portal shuffle
+    (
+        "prime_hunters/shuffled_extra_locations_and_skip_planet_intros.rdvgame",
+        True,
+    ),  # starter preset with shuffled item refills and shield keys, added extra locations, skip planet intros
+    ("prime_hunters/no_shuffled_octoliths.rdvgame", True),  # starter preset without any shuffled octoliths
+    # Prime 1
+    ("prime1-vanilla.rdvgame", True),  # vanilla
+    ("prime1_crazy_seed.rdvgame", False),  # chaos features
+    ("prime1_crazy_seed_one_way_door.rdvgame", True),  # same as above but 1-way doors
+    ("prime1_refills.rdvgame", True),  # Refill items + custom artifact count
+    ("prime1/damage-check.rdvgame", False),
+    # Prime 2
+    ("seed_a.rdvgame", True),  # extremely old rdvgame
+    ("prime2_seed_b.rdvgame", True),
+    ("prime2/starts_with_cannon_ball.rdvgame", True),
+    ("prime2/door_lock_rando.rdvgame", True),
+    ("prime2/launcher_and_negative_expansions.rdvgame", True),
+    # Prime 2 (OPR)
+    ("prime2_opr/opr-starter-preset.rdvgame", True),
+    ("prime2_opr/dlr-elevator-portal-rando.rdvgame", True),
+    # Samus Returns
+    (
+        "samus_returns/arachnus_boss_start_inventory.rdvgame",
+        True,
+    ),  # arachnus final boss + starting inventory + export ids
+    ("samus_returns/diggernaut_boss_free_placement_dna.rdvgame", True),  # diggernaut final boss + 7/15 dna anywhere
+    ("samus_returns/door_lock.rdvgame", True),  # starter preset + door lock
+    ("samus_returns/door_lock_access_open.rdvgame", True),  # door lock + access open doors
+    ("samus_returns/queen_boss_custom_required_dna.rdvgame", True),  # queen final boss + custom required dna 20/30
+    ("samus_returns/starter_preset.rdvgame", True),  # starter preset
+    ("samus_returns/progressive_beams_and_suits.rdvgame", False),  # starter preset + progressive beam and suit
+    ("samus_returns/non_required_mains.rdvgame", True),  # non-required main for power bombs + hide model
+    # Zero Mission
+    ("zero_mission/starter_preset.rdvgame", True),  # starter preset
+]
+
+COOP_RDVGAMES = [
+    ("multi_coop_am2r+bdg+cs+dread+prime1+echoes+msr.rdvgame", None),
+]

@@ -1,52 +1,56 @@
 from __future__ import annotations
 
+import dataclasses
 from unittest.mock import MagicMock
 
 import pytest
 
 import randovania.generator.filler.player_state
-from randovania.game_description.db.region_list import RegionList
+from randovania.game_description.db.pickup_node import PickupNode
+from randovania.game_description.db.region import Region
 from randovania.game_description.resources.pickup_index import PickupIndex
-from randovania.generator.filler.filler_configuration import FillerConfiguration
-from randovania.layout.base.available_locations import RandomizationMode
-from randovania.layout.base.logical_resource_action import LayoutLogicalResourceAction
+from randovania.graph.world_graph import WorldGraph, WorldGraphNode
 
 
+@pytest.mark.parametrize("single_group", [False, True])
 @pytest.mark.parametrize("has_exclusion", [False, True])
-def test_build_available_indices(has_exclusion: bool):
+def test_build_available_indices(has_exclusion: bool, default_filler_config, single_group):
     # Setup
-    world_a = MagicMock()
-    world_a.pickup_indices = [PickupIndex(1), PickupIndex(2)]
-    world_a.major_pickup_indices = [PickupIndex(1)]
+    region_a = MagicMock(spec=Region)
+    region_a.name = "A"
 
-    world_b = MagicMock()
-    world_b.pickup_indices = [PickupIndex(3), PickupIndex(4)]
-    world_b.major_pickup_indices = [PickupIndex(3)]
+    region_b = MagicMock(spec=Region)
+    region_b.name = "B"
 
-    region_list = MagicMock(spec=RegionList)
-    region_list.regions = [world_a, world_b]
+    def make_pickup(region, i: int) -> MagicMock:
+        result = MagicMock(spec=PickupNode)
+        result.pickup_index = PickupIndex(i)
+        result.custom_index_group = "G" if single_group else None
+
+        graph_node = MagicMock(spec=WorldGraphNode)
+        graph_node.region = region
+        graph_node.area = None
+        graph_node.database_node = result
+        graph_node.pickup_index = result.pickup_index
+        return graph_node
+
+    graph = MagicMock(spec=WorldGraph)
+    graph.nodes = [
+        make_pickup(region_a, 1),
+        make_pickup(region_a, 2),
+        make_pickup(region_b, 3),
+        make_pickup(region_b, 4),
+    ]
 
     if has_exclusion:
         exclusion = frozenset([PickupIndex(3)])
     else:
         exclusion = frozenset()
-    configuration = FillerConfiguration(
-        randomization_mode=RandomizationMode.FULL,
-        minimum_random_starting_pickups=0,
-        maximum_random_starting_pickups=0,
-        indices_to_exclude=exclusion,
-        logical_resource_action=LayoutLogicalResourceAction.RANDOMLY,
-        first_progression_must_be_local=False,
-        minimum_available_locations_for_hint_placement=0,
-        minimum_location_weight_for_hint_placement=0,
-        single_set_for_pickups_that_solve=False,
-        staggered_multi_pickup_placement=False,
-        fallback_to_reweight_with_unsafe=False,
-    )
+    configuration = dataclasses.replace(default_filler_config, indices_to_exclude=exclusion)
 
     # Run
     indices_per_world, all_indices = randovania.generator.filler.player_state.build_available_indices(
-        region_list, configuration
+        graph, configuration
     )
 
     # Assert
@@ -56,5 +60,8 @@ def test_build_available_indices(has_exclusion: bool):
     if has_exclusion:
         b_pickups.remove(PickupIndex(3))
 
-    assert indices_per_world == [a_pickups, b_pickups]
+    if single_group:
+        assert indices_per_world == [all_indices]
+    else:
+        assert indices_per_world == [a_pickups, b_pickups]
     assert all_indices == a_pickups | b_pickups

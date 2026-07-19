@@ -2,27 +2,27 @@ from __future__ import annotations
 
 import typing
 from random import Random
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, ClassVar, override
 
 from randovania import monitoring
 from randovania.exporter import item_names
 from randovania.exporter.hints import credits_spoiler, guaranteed_item_hint
 from randovania.exporter.patch_data_factory import PatchDataFactory
 from randovania.game.game_enum import RandovaniaGame
-from randovania.game_description.db.dock_node import DockNode
 from randovania.games.am2r.exporter.hint_namer import AM2RHintNamer
-from randovania.games.am2r.exporter.joke_hints import JOKE_HINTS
+from randovania.games.am2r.exporter.joke_hints import AM2R_JOKE_HINTS
+from randovania.games.am2r.layout.am2r_configuration import AM2RConfiguration
 from randovania.games.am2r.layout.am2r_cosmetic_patches import AM2RCosmeticPatches, MusicMode
-from randovania.games.am2r.layout.hint_configuration import ItemHintMode
 from randovania.generator.pickup_pool import pickup_creator
+from randovania.layout.base.hint_configuration import SpecificPickupHintMode
 from randovania.layout.lib.teleporters import TeleporterShuffleMode
 from randovania.lib import json_lib, random_lib
 
 if TYPE_CHECKING:
+    from randovania.exporter.patch_data_factory import PatcherDataMeta
     from randovania.exporter.pickup_exporter import ExportedPickupDetails
     from randovania.game_description.game_patches import GamePatches
     from randovania.game_description.pickup.pickup_entry import PickupEntry
-    from randovania.games.am2r.layout.am2r_configuration import AM2RConfiguration
 
 
 def _construct_music_shuffle_dict(music_mode: MusicMode, rng: Random) -> dict[str, str]:
@@ -107,13 +107,11 @@ def _construct_music_shuffle_dict(music_mode: MusicMode, rng: Random) -> dict[st
     return {f"{orig}.ogg": f"{new}.ogg" for orig, new in zip(total_orig, total_new, strict=True)}
 
 
-class AM2RPatchDataFactory(PatchDataFactory):
+class AM2RPatchDataFactory(PatchDataFactory[AM2RConfiguration, AM2RCosmeticPatches]):
     _EASTER_EGG_SHINY = 1024
-    cosmetic_patches: AM2RCosmeticPatches
-    configuration: AM2RConfiguration
 
     # Effect, sprite, header => new_sprite, new_header
-    SHINIES = {
+    SHINIES: ClassVar[dict[tuple[str, str, str], tuple[str, str]]] = {
         ("Missile Tank", "sItemMissile", "Got Missile Tank"): ("sItemShinyMissile", "Got Shiny Missile Tank"),
         ("Hi-Jump Boots", "sItemHijump", "Hi-Jump Boots acquired"): (
             "sItemShinyHijump",
@@ -163,7 +161,7 @@ class AM2RPatchDataFactory(PatchDataFactory):
                 },
             }
 
-            pickup_obj = pickup_map_dict[object_name]
+            pickup_obj: dict = pickup_map_dict[object_name]
             shiny_id = (pickup_obj["item_effect"], pickup_obj["sprite_details"]["name"], pickup_obj["text"]["header"])
 
             if (
@@ -179,7 +177,7 @@ class AM2RPatchDataFactory(PatchDataFactory):
         return pickup_map_dict
 
     def _create_room_dict(self) -> dict:
-        rng = Random(self.description.get_seed_for_player(self.players_config.player_index))
+        rng = Random(self.description.get_seed_for_world(self.players_config.player_index))
 
         return_dict = {}
         for region in self.game.region_list.regions:
@@ -251,16 +249,27 @@ class AM2RPatchDataFactory(PatchDataFactory):
 
     def _create_starting_items_dict(self) -> dict:
         starting_resources = self.patches.starting_resources()
-        return {resource.long_name: quantity for resource, quantity in starting_resources.as_resource_gain()}
+        starting_dict = {resource.long_name: quantity for resource, quantity in starting_resources.as_resource_gain()}
+        # FIXME: remove this when updating to new minor patcher version
+        to_remove = [
+            "Arm Cannon",
+            "Alpha Metroid Lure",
+            "Gamma Metroid Lure",
+            "Zeta Metroid Lure",
+            "Omega Metroid Lure",
+        ]
+        for item in to_remove:
+            starting_dict.pop(item, None)
+        return starting_dict
 
     def _create_starting_location(self) -> dict:
         return {
             "save_room": self.game.region_list.node_by_identifier(self.patches.starting_location).extra["save_room"]
         }
 
-    def _create_hash_dict(self) -> dict:
+    def _create_hash_dict(self, rdv_meta: PatcherDataMeta) -> dict:
         return_dict: dict = {
-            "contains_spoiler": self.description.has_spoiler,
+            "contains_spoiler": not rdv_meta["in_race_setting"],
             "word_hash": self.description.shareable_word_hash,
             "hash": self.description.shareable_hash,
             "session_uuid": str(self.players_config.get_own_uuid()),
@@ -342,21 +351,21 @@ class AM2RPatchDataFactory(PatchDataFactory):
                 "is_dock": True if node.default_dock_weakness.extra.get("is_dock", None) is not None else False,
                 "facing_direction": node.extra["facing"] if node.extra.get("facing", None) is not None else "invalid",
             }
-            for node, weakness in self.patches.all_dock_weaknesses()
+            for node, weakness in self.patches.all_dock_weaknesses(self.game)
         }
 
     def _create_hints(self, rng: Random) -> dict:
-        artifacts = [self.game.resource_database.get_item(f"Metroid DNA {i + 1}") for i in range(46)]
-        ice = [(self.game.resource_database.get_item("Ice Beam"))]
-        dna_hint_mapping = {}
+        artifacts = [self.resource_db.get_item(f"Metroid DNA {i + 1}") for i in range(46)]
+        ice = [(self.resource_db.get_item("Ice Beam"))]
+
         hint_config = self.configuration.hints
         hint_namer = AM2RHintNamer(self.description.all_patches, self.players_config)
-        if hint_config.artifacts != ItemHintMode.DISABLED:
+        if hint_config.specific_pickup_hints["artifacts"] != SpecificPickupHintMode.DISABLED:
             dna_hint_mapping = guaranteed_item_hint.create_guaranteed_hints_for_resources(
                 self.description.all_patches,
                 self.players_config,
                 hint_namer,
-                hint_config.artifacts == ItemHintMode.HIDE_AREA,
+                hint_config.specific_pickup_hints["artifacts"] == SpecificPickupHintMode.HIDE_AREA,
                 artifacts,
                 True,
             )
@@ -371,7 +380,7 @@ class AM2RPatchDataFactory(PatchDataFactory):
         septogg_hints = {}
         gm_newline = "#-#"
         dud_hints = ["This creature did not give any useful DNA hints.", "Metroid DNA is hidden somewhere on SR-388."]
-        joke_hints = JOKE_HINTS + dud_hints
+        joke_hints = AM2R_JOKE_HINTS + dud_hints
         area_to_amount_map = {0: (0, 5), 1: (5, 9), 2: (9, 17), 3: (17, 27), 4: (27, 33), 5: (33, 41), 6: (41, 46)}
 
         def _sort_list_by_region(entry: str) -> int:
@@ -393,16 +402,16 @@ class AM2RPatchDataFactory(PatchDataFactory):
             if not shuffled_hints:
                 joke = rng.choice(joke_hints)
                 joke_hints.remove(joke)
-                shuffled_hints = [hint_namer.format_joke(joke, True)]
+                shuffled_hints = [hint_namer.format_joke(f"*{joke}*", True)]
             septogg_hints[f"septogg_a{i}"] = gm_newline.join(sorted(shuffled_hints, key=_sort_list_by_region))
 
         ice_hint = {}
-        if hint_config.ice_beam != ItemHintMode.DISABLED:
+        if hint_config.specific_pickup_hints["ice_beam"] != SpecificPickupHintMode.DISABLED:
             temp_ice_hint = guaranteed_item_hint.create_guaranteed_hints_for_resources(
                 self.description.all_patches,
                 self.players_config,
                 hint_namer,
-                hint_config.ice_beam == ItemHintMode.HIDE_AREA,
+                hint_config.specific_pickup_hints["ice_beam"] == SpecificPickupHintMode.HIDE_AREA,
                 ice,
                 True,
             )
@@ -433,7 +442,7 @@ class AM2RPatchDataFactory(PatchDataFactory):
 
     def _get_text_data(self) -> dict:
         text_data: dict = typing.cast(
-            dict, json_lib.read_path(RandovaniaGame.AM2R.data_path.joinpath("pickup_database", "text_data.json"))
+            "dict", json_lib.read_path(RandovaniaGame.AM2R.data_path.joinpath("pickup_database", "text_data.json"))
         )
 
         for i in range(1, 47):
@@ -447,16 +456,21 @@ class AM2RPatchDataFactory(PatchDataFactory):
 
     def _get_model_data(self) -> dict[str, int]:
         return typing.cast(
-            dict[str, int],
+            "dict[str, int]",
             json_lib.read_path(RandovaniaGame.AM2R.data_path.joinpath("pickup_database", "model_data.json")),
         )
 
     def game_enum(self) -> RandovaniaGame:
         return RandovaniaGame.AM2R
 
+    @override
+    @classmethod
+    def hint_namer_type(cls) -> type[AM2RHintNamer]:
+        return AM2RHintNamer
+
     def _credits_spoiler(self) -> str:
         spoiler = "*Major Item Locations;;"
-        spoiler_dict = credits_spoiler.generic_credits(
+        spoiler_dict = credits_spoiler.generic_string_credits(
             self.configuration.standard_pickup_configuration,
             self.description.all_patches,
             self.players_config,
@@ -489,7 +503,7 @@ class AM2RPatchDataFactory(PatchDataFactory):
     def create_useless_pickup(self) -> PickupEntry:
         """Used for any location with no PickupEntry assigned to it."""
         return pickup_creator.create_nothing_pickup(
-            self.game.resource_database,
+            self.game.get_resource_database_view(),
             model_name="sItemNothing",
         )
 
@@ -497,7 +511,7 @@ class AM2RPatchDataFactory(PatchDataFactory):
         """The model of this pickup replaces the model of all pickups when PickupModelDataSource is ETM"""
         return pickup_creator.create_visual_nothing(self.game_enum(), "sItemUnknown")
 
-    def create_game_specific_data(self) -> dict:
+    def create_game_specific_data(self, randovania_meta: PatcherDataMeta) -> dict:
         text_data = self._get_text_data()
         model_data = self._get_model_data()
 
@@ -511,15 +525,12 @@ class AM2RPatchDataFactory(PatchDataFactory):
                     "map_name"
                 ],
             }
-            for node, connection in self.patches.all_dock_connections()
-            if (
-                isinstance(node, DockNode)
-                and node.dock_type in self.game.dock_weakness_database.all_teleporter_dock_types
-            )
+            for node, connection in self.patches.all_dock_connections(self.game)
+            if (node.dock_type in self.game.dock_weakness_database.all_teleporter_dock_types)
         }
 
         return {
-            "configuration_identifier": self._create_hash_dict(),
+            "configuration_identifier": self._create_hash_dict(randovania_meta),
             "starting_items": self._create_starting_items_dict(),
             "starting_location": self._create_starting_location(),
             "pickups": self._create_pickups_dict(pickup_list, text_data, model_data, self.rng),
@@ -528,6 +539,6 @@ class AM2RPatchDataFactory(PatchDataFactory):
             "pipes": pipes if self.configuration.teleporters.mode != TeleporterShuffleMode.VANILLA else {},
             "door_locks": self._create_door_locks(),
             "hints": self._create_hints(self.rng),
-            "cosmetics": self._create_cosmetics(self.description.get_seed_for_player(self.players_config.player_index)),
+            "cosmetics": self._create_cosmetics(self.description.get_seed_for_world(self.players_config.player_index)),
             "credits_spoiler": self._credits_spoiler(),
         }

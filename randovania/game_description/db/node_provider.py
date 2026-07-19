@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
     from randovania.game_description.db.area import Area
     from randovania.game_description.db.dock import DockWeakness
-    from randovania.game_description.db.node import Node, NodeContext
+    from randovania.game_description.db.node import Node
     from randovania.game_description.db.node_identifier import NodeIdentifier
     from randovania.game_description.db.region import Region
     from randovania.game_description.db.teleporter_network_node import TeleporterNetworkNode
@@ -39,27 +39,13 @@ class NodeProvider:
     def iterate_nodes(self) -> Iterator[Node]:
         raise NotImplementedError
 
+    def iterate_nodes_of_type[NodeT: Node](self, node_type: type[NodeT]) -> Iterator[NodeT]:
+        yield from (node for node in self.iterate_nodes() if isinstance(node, node_type))
+
     def nodes_to_region(self, node: Node) -> Region:
         raise NotImplementedError
 
     def nodes_to_area(self, node: Node) -> Area:
-        raise NotImplementedError
-
-    def area_connections_from(self, node: Node) -> Iterator[tuple[Node, Requirement]]:
-        """
-        Queries all nodes from the same area you can go from a given node.
-        :param node:
-        :return: Generator of pairs Node + Requirement for going to that node
-        """
-        raise NotImplementedError
-
-    def potential_nodes_from(self, node: Node, context: NodeContext) -> Iterator[tuple[Node, Requirement]]:
-        """
-        Queries all nodes you can go from a given node, checking doors, teleporters and other nodes in the same area.
-        :param node:
-        :param context:
-        :return: Generator of pairs Node + Requirement for going to that node
-        """
         raise NotImplementedError
 
     def node_by_identifier(self, identifier: NodeIdentifier) -> Node:

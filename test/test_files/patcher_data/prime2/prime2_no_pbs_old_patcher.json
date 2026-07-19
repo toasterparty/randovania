@@ -12,36 +12,32 @@
     "dol_patches": {
         "world_uuid": "00000000-0000-1111-0000-000000000000",
         "energy_per_tank": 100,
-        "beam_configurations": [
-            {
-                "item_index": 0,
-                "ammo_a": -1,
-                "ammo_b": -1,
+        "beam_configuration": {
+            "power": {
+                "ammo_a": null,
+                "ammo_b": null,
                 "uncharged_cost": 0,
                 "charged_cost": 0,
                 "combo_missile_cost": 5,
                 "combo_ammo_cost": 0
             },
-            {
-                "item_index": 1,
+            "dark": {
                 "ammo_a": 45,
-                "ammo_b": -1,
+                "ammo_b": null,
                 "uncharged_cost": 1,
                 "charged_cost": 5,
                 "combo_missile_cost": 5,
                 "combo_ammo_cost": 30
             },
-            {
-                "item_index": 2,
+            "light": {
                 "ammo_a": 46,
-                "ammo_b": -1,
+                "ammo_b": null,
                 "uncharged_cost": 1,
                 "charged_cost": 5,
                 "combo_missile_cost": 5,
                 "combo_ammo_cost": 30
             },
-            {
-                "item_index": 3,
+            "annihilator": {
                 "ammo_a": 46,
                 "ammo_b": 45,
                 "uncharged_cost": 1,
@@ -49,9 +45,9 @@
                 "combo_missile_cost": 5,
                 "combo_ammo_cost": 30
             }
-        ],
+        },
         "safe_zone_heal_per_second": 1.0,
-        "user_preferences": {
+        "game_options_defaults": {
             "sound_mode": 1,
             "screen_brightness": 4,
             "screen_x_offset": 0,
@@ -5121,18 +5117,6 @@
             "room_name": "Transport to Temple Transport Violet"
         },
         {
-            "instance_id": 136970379,
-            "origin_location": {
-                "world_asset_id": 1006255871,
-                "area_asset_id": 2278776548
-            },
-            "target_location": {
-                "world_asset_id": 2252328306,
-                "area_asset_id": 2068511343
-            },
-            "room_name": "Sky Temple Gateway"
-        },
-        {
             "instance_id": 3342446,
             "origin_location": {
                 "world_asset_id": 1006255871,
@@ -5155,6 +5139,18 @@
                 "area_asset_id": 408633584
             },
             "room_name": "Transport to Temple Transport Emerald"
+        },
+        {
+            "instance_id": 136970379,
+            "origin_location": {
+                "world_asset_id": 1006255871,
+                "area_asset_id": 2278776548
+            },
+            "target_location": {
+                "world_asset_id": 2252328306,
+                "area_asset_id": 2068511343
+            },
+            "room_name": "Sky Temple Gateway"
         },
         {
             "instance_id": 152,
@@ -5412,8 +5408,8 @@
             "asset_id": 134987008,
             "strings": [
                 "Luminoth Datapac translated.\n(Champions of Aether)",
-                "Metroid Prime 2: Echoes Randomizer Tournament\n\n\n2024 Champion\n&push;&main-color=#d4cc33;Naii the Baf&pop;",
-                "Metroid Prime 2: Echoes Randomizer Tournament\n\n\n2024 Champion\n&push;&main-color=#d4cc33;Naii the Baf&pop;\nCGC 2023 Champions\n&push;&main-color=#d4cc33;TheGingerChris and BajaBlood&pop;\n2022 Champion\n&push;&main-color=#d4cc33;Cestrion&pop;\nCGC 2022 Champions\n&push;&main-color=#d4cc33;Cosmonawt and Cestrion&pop;\n2021 Champion\n&push;&main-color=#d4cc33;Dyceron&pop;\n2020 Champion\n&push;&main-color=#d4cc33;Dyceron&pop;"
+                "Metroid Prime 2: Echoes Randomizer Tournament\n\n\n2025 Co-op Champions\n&push;&main-color=#d4cc33;Naii the Baf, Bruh inc. and JayBee&pop;",
+                "Metroid Prime 2: Echoes Randomizer Tournament\n\n\n2025 Co-op Champions\n&push;&main-color=#d4cc33;Naii the Baf, Bruh inc. and JayBee&pop;\n2025 Mentor Champion\n&push;&main-color=#d4cc33;Storm&pop;\n2024 Champion\n&push;&main-color=#d4cc33;Naii the Baf&pop;\nCGC 2023 Champions\n&push;&main-color=#d4cc33;TheGingerChris and BajaBlood&pop;\n2022 Champion\n&push;&main-color=#d4cc33;Cestrion&pop;\nCGC 2022 Champions\n&push;&main-color=#d4cc33;Cosmonawt and Cestrion&pop;\n2021 Champion\n&push;&main-color=#d4cc33;Dyceron&pop;\n2020 Champion\n&push;&main-color=#d4cc33;Dyceron&pop;"
             ]
         },
         {
@@ -5427,9 +5423,9 @@
         {
             "asset_id": 2558035195,
             "strings": [
-                "&push;&main-color=#45F731;Imagining this hint is left as an exercise to the player.&pop;",
+                "&push;&main-color=#45F731;If you were hoping for a useful hint, then you got the short end of the stick.&pop;",
                 "",
-                "&push;&main-color=#45F731;Imagining this hint is left as an exercise to the player.&pop;"
+                "&push;&main-color=#45F731;If you were hoping for a useful hint, then you got the short end of the stick.&pop;"
             ]
         },
         {
@@ -5643,9 +5639,9 @@
         {
             "asset_id": 1948976790,
             "strings": [
-                "A &push;&main-color=#FF6705B3;major upgrade&pop; can be found in &push;&main-color=#FF3333;Agon Wastes - Mine Shaft&pop;.",
+                "A &push;&main-color=#FF6705B3;major item&pop; can be found in &push;&main-color=#FF3333;Agon Wastes - Mine Shaft&pop;.",
                 "",
-                "A &push;&main-color=#FF6705B3;major upgrade&pop; can be found in &push;&main-color=#FF3333;Agon Wastes - Mine Shaft&pop;."
+                "A &push;&main-color=#FF6705B3;major item&pop; can be found in &push;&main-color=#FF3333;Agon Wastes - Mine Shaft&pop;."
             ]
         },
         {
@@ -6268,7 +6264,9 @@
         988679813
     ],
     "maps_to_never_reveal": [],
+    "new_patcher_only": false,
     "_randovania_meta": {
-        "layout_was_user_modified": true
+        "layout_was_user_modified": true,
+        "in_race_setting": false
     }
 }

@@ -1,8 +1,19 @@
 ----------------
 Landing Site
 Extra - total_boundings: {'x1': -23100.0, 'x2': -3300.0, 'y1': 1700.0, 'y2': 14000.0}
-Extra - polygon: [[-12600.0, 1700.0], [-3300.0, 1700.0], [-3300.0, 14000.0], [-23100.0, 14000.0], [-23100.0, 4100.0], [-18900.0, 4100.0], [-18900.0, 7900.0], [-19700.0, 9300.0], [-12600.0, 8700.0], [-12600.0, 6900.0]]
+Extra - polygon:
+[[-12600.0, 1700.0],
+ [-3300.0, 1700.0],
+ [-3300.0, 14000.0],
+ [-23100.0, 14000.0],
+ [-23100.0, 4100.0],
+ [-18900.0, 4100.0],
+ [-18900.0, 7900.0],
+ [-19700.0, 9300.0],
+ [-12600.0, 8700.0],
+ [-12600.0, 6900.0]]
 Extra - asset_id: collision_camera_000
+Hint Features - Boss
 > Save Station; Heals? False; Spawn Point
   * Layers: default
   * Extra - actor_name: LE_Platform_SaveStation_004
@@ -107,7 +118,19 @@ Extra - asset_id: collision_camera_000
 ----------------
 Twisty Tunnel
 Extra - total_boundings: {'x1': 0.0, 'x2': 9400.0, 'y1': -4200.0, 'y2': 1700.0}
-Extra - polygon: [[0.0, 1700.0], [0.0, -800.0], [5300.0, -800.0], [6300.0, -1400.0], [6300.0, -4200.0], [9400.0, -4200.0], [9400.0, -2400.0], [8400.0, -2300.0], [8300.0, -2100.0], [8300.0, 300.0], [3100.0, 300.0], [3100.0, 1700.0]]
+Extra - polygon:
+[[0.0, 1700.0],
+ [0.0, -800.0],
+ [5300.0, -800.0],
+ [6300.0, -1400.0],
+ [6300.0, -4200.0],
+ [9400.0, -4200.0],
+ [9400.0, -2400.0],
+ [8400.0, -2300.0],
+ [8300.0, -2100.0],
+ [8300.0, 300.0],
+ [3100.0, 300.0],
+ [3100.0, 1700.0]]
 Extra - asset_id: collision_camera_002
 > Pickup (Missile Tank); Heals? False
   * Layers: default
@@ -155,8 +178,17 @@ Extra - asset_id: collision_camera_002
 ----------------
 Morph Ball Chamber
 Extra - total_boundings: {'x1': 9300.0, 'x2': 12600.0, 'y1': -5400.0, 'y2': -2900.0}
-Extra - polygon: [[9300.0, -2900.0], [9300.0, -4400.0], [10200.0, -4610.0], [10200.0, -5400.0], [12600.0, -5400.0], [12600.0, -3800.0], [11250.0, -3800.0], [11250.0, -2900.0]]
+Extra - polygon:
+[[9300.0, -2900.0],
+ [9300.0, -4400.0],
+ [10200.0, -4610.0],
+ [10200.0, -5400.0],
+ [12600.0, -5400.0],
+ [12600.0, -3800.0],
+ [11250.0, -3800.0],
+ [11250.0, -2900.0]]
 Extra - asset_id: collision_camera_003
+Hint Features - Chozo Statue
 > Pickup (Morph Ball); Heals? False
   * Layers: default
   * Pickup 12; Category? Major
@@ -186,7 +218,7 @@ Extra - asset_id: collision_camera_003
               Unmorph Extend (Advanced)
           Any of the following:
               # Defeating the Gravitt
-              Bomb or Power Bomb or Plasma Beam or Screw Attack or Shoot Any Missile or Shoot Wave Beam
+              Plasma Beam or Screw Attack or Wave Beam or Lay Any Bomb or Shoot Any Missile
               # Kill by touching with Lightning Armor
               Lightning Armor and Combat (Beginner)
               # Lure and Counter: https://www.youtube.com/watch?v=lwQG4kqXaoM
@@ -223,8 +255,17 @@ Extra - asset_id: collision_camera_003
 ----------------
 Chozo Seal
 Extra - total_boundings: {'x1': 4550.0, 'x2': 10300.0, 'y1': -8700.0, 'y2': -4000.0}
-Extra - polygon: [[4550.0, -4000.0], [4550.0, -8700.0], [6500.0, -8700.0], [6500.0, -7000.0], [10300.0, -6900.0], [10300.0, -4400.0], [6050.0, -4400.0], [5950.0, -4000.0]]
+Extra - polygon:
+[[4550.0, -4000.0],
+ [4550.0, -8700.0],
+ [6500.0, -8700.0],
+ [6500.0, -7000.0],
+ [10300.0, -6900.0],
+ [10300.0, -4400.0],
+ [6050.0, -4400.0],
+ [5950.0, -4000.0]]
 Extra - asset_id: collision_camera_004
+Hint Features - Chozo Seal
 > Pickup (Missile Tank); Heals? False
   * Layers: default
   * Pickup 4; Category? Minor
@@ -236,13 +277,13 @@ Extra - asset_id: collision_camera_004
 
 > Chozo Seal; Heals? False; Spawn Point; Default Node
   * Layers: default
-  * Hint
+  * Generic Hint
   * Extra - actor_name: LE_ChozoUnlockAreaDNA
   * Extra - actor_type: weightactivatedplatform
   * Extra - start_point_actor_name: ST_ChozoUnlockAreaDNA_Checkpoint
   > Pickup (Missile Tank)
       # Freeze the Gullugg and Melee Clip left - TODO: Video, NSJ
-      Charge Beam and Ice Beam and Space Jump and Melee Clip (Intermediate) and Out of Bounds Movement (Intermediate)
+      Charge Beam and Ice Beam and Morph Ball and Space Jump and Melee Clip (Intermediate) and Out of Bounds Movement (Intermediate)
   > Door to Morph Ball Chamber
       Trivial
   > Door to Scan Pulse Chamber
@@ -302,6 +343,7 @@ Transport to Area 1
 Extra - total_boundings: {'x1': 6400.0, 'x2': 10700.0, 'y1': -10700.0, 'y2': -6800.0}
 Extra - polygon: [[6400.0, -6800.0], [6400.0, -10700.0], [10700.0, -10700.0], [10700.0, -6800.0]]
 Extra - asset_id: collision_camera_006
+Hint Features - Elevator, Teleporter
 > Pickup (Missile Tank); Heals? False
   * Layers: default
   * Pickup 3; Category? Minor
@@ -398,6 +440,7 @@ Charge Beam Chamber
 Extra - total_boundings: {'x1': 1400.0, 'x2': 3000.0, 'y1': -10300.0, 'y2': -9000.0}
 Extra - polygon: [[1400.0, -9000.0], [1400.0, -10300.0], [3000.0, -10300.0], [3000.0, -9000.0]]
 Extra - asset_id: collision_camera_008
+Hint Features - Chozo Statue
 > Pickup (Charge Beam); Heals? False
   * Layers: default
   * Pickup 11; Category? Major
@@ -437,7 +480,16 @@ Extra - asset_id: collision_camera_008
 ----------------
 Alpha Arena
 Extra - total_boundings: {'x1': -5900.0, 'x2': -1000.0, 'y1': -10400.0, 'y2': -5900.0}
-Extra - polygon: [[-1000.0, -5900.0], [-3400.0, -5900.0], [-3400.0, -6700.0], [-3500.0, -7000.0], [-5900.0, -7000.0], [-5900.0, -10400.0], [-1300.0, -10400.0], [-1300.0, -8900.0], [-1000.0, -8800.0]]
+Extra - polygon:
+[[-1000.0, -5900.0],
+ [-3400.0, -5900.0],
+ [-3400.0, -6700.0],
+ [-3500.0, -7000.0],
+ [-5900.0, -7000.0],
+ [-5900.0, -10400.0],
+ [-1300.0, -10400.0],
+ [-1300.0, -8900.0],
+ [-1000.0, -8800.0]]
 Extra - asset_id: collision_camera_010
 > Pickup (Missile Tank); Heals? False
   * Layers: default
@@ -514,6 +566,7 @@ Extra - asset_id: collision_camera_010
 > Pickup (DNA); Heals? False
   * Layers: default
   * Pickup 172; Category? Minor
+  * Hint Features - Alpha Metroid
   * Extra - pickup_type: metroid
   * Extra - spawngroup: SG_Alpha_001
   > Inside Arena
@@ -522,7 +575,16 @@ Extra - asset_id: collision_camera_010
 ----------------
 Scan Pulse Chamber
 Extra - total_boundings: {'x1': -1700.0, 'x2': 4650.0, 'y1': -6300.0, 'y2': -4000.0}
-Extra - polygon: [[-1700.0, -4500.0], [-1700.0, -5258.77978515625], [-400.0, -5258.77978515625], [1400.0, -5800.0], [1400.0, -6300.0], [4650.0, -6300.0], [4650.0, -4000.0], [2300.0, -4000.0], [0.0, -4500.0]]
+Extra - polygon:
+[[-1700.0, -4500.0],
+ [-1700.0, -5258.77978515625],
+ [-400.0, -5258.77978515625],
+ [1400.0, -5800.0],
+ [1400.0, -6300.0],
+ [4650.0, -6300.0],
+ [4650.0, -4000.0],
+ [2300.0, -4000.0],
+ [0.0, -4500.0]]
 Extra - asset_id: collision_camera_011
 > Pickup (Scan Pulse); Heals? False
   * Layers: default
@@ -749,7 +811,16 @@ Extra - asset_id: collision_camera_015
 ----------------
 Hornoad Hallway
 Extra - total_boundings: {'x1': -3400.0, 'x2': 5600.0, 'y1': 1000.0, 'y2': 4600.009765625}
-Extra - polygon: [[2600.0, 2100.0], [3000.0, 2100.0], [3000.0, 1000.0], [5600.0, 1000.0], [5600.0, 4600.009765625], [-3400.0, 4599.990234375], [-3400.0, 1800.0], [-300.0, 1800.0], [1300.0, 2100.0]]
+Extra - polygon:
+[[2600.0, 2100.0],
+ [3000.0, 2100.0],
+ [3000.0, 1000.0],
+ [5600.0, 1000.0],
+ [5600.0, 4600.009765625],
+ [-3400.0, 4599.990234375],
+ [-3400.0, 1800.0],
+ [-300.0, 1800.0],
+ [1300.0, 2100.0]]
 Extra - asset_id: collision_camera_016
 > Door to Twisty Tunnel; Heals? False
   * Layers: default
@@ -847,15 +918,15 @@ Extra - asset_id: collision_camera_018
           Any of the following:
               # Get up
               Grapple Beam or Space Jump or Simple IBJ
-              Spider Ball and Mid-Air Morph (Intermediate) and Wall Jump (Advanced)
+              Mid-Air Morph (Intermediate) and Wall Jump (Advanced) and Use Spider Ball
               # Spider Boost
               Spider Boost (Intermediate) and Can Spider Boost
           Any of the following:
               # Get past crumble blocks - TODO: add videos
-              Phase Drift or Spider Ball
+              Phase Drift or Use Spider Ball
               All of the following:
                   # Phase Drift Skip
-                  Bomb
+                  Lay Bomb
                   Any of the following:
                       Phase Drift Skip (Expert)
                       Space Jump and Phase Drift Skip (Advanced)
@@ -880,7 +951,7 @@ Extra - asset_id: collision_camera_018
   > Room Center
       Any of the following:
           Grapple Beam and Movement (Intermediate)
-          Spider Ball and Diagonal Bomb Jump (Advanced) and Lay Bomb
+          Diagonal Bomb Jump (Advanced) and Lay Bomb and Use Spider Ball
 
 ----------------
 Surface Crumble Block Challenge
@@ -917,6 +988,7 @@ Transport Cache
 Extra - total_boundings: {'x1': 5200.0, 'x2': 6500.0, 'y1': -9458.5498046875, 'y2': -8700.169921875}
 Extra - polygon: [[5200.0, -8700.169921875], [5200.0, -9458.5498046875], [6500.0, -9458.5498046875], [6500.0, -8700.169921875]]
 Extra - asset_id: collision_camera_020
+Hint Features - Baby Blocks
 > Pickup (Power Bomb Tank); Heals? False
   * Layers: default
   * Pickup 10; Category? Minor

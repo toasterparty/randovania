@@ -37,8 +37,8 @@ def describe_artifacts(artifacts: DreadArtifactConfig) -> list[dict[str, bool]]:
         ]
 
 
-def _format_environmental_damage(configuration: DreadConfiguration):
-    def format_dmg(value: int | None):
+def _format_environmental_damage(configuration: DreadConfiguration) -> list[dict[str, bool]]:
+    def format_dmg(value: int | None) -> str:
         if value is None:
             return "Unmodified"
         elif value == 0:
@@ -86,8 +86,10 @@ class DreadPresetDescriber(GamePresetDescriber):
                 message_for_required_mains(
                     configuration.ammo_pickup_configuration,
                     {
-                        "Power Bomb needs Main": "Power Bomb Expansion",
+                        "Power Bomb does not need Main": "Power Bomb Tank",
+                        "Flash Shift does not need Main": "Flash Shift Upgrade",
                     },
+                    mains_are_default_required=True,
                 ),
                 {
                     "Open Hanubia Shortcut": configuration.hanubia_shortcut_no_grapple,
@@ -102,7 +104,8 @@ class DreadPresetDescriber(GamePresetDescriber):
                     "X Starts Released": configuration.x_starts_released,
                 },
                 {
-                    "Power Bomb Limitations": configuration.nerf_power_bombs,
+                    "Disabled Power Bomb Limitations": not configuration.nerf_power_bombs,
+                    "Skip Item Acquisition Popups": configuration.skip_item_popups,
                 },
             ],
             "Environmental Damage": _format_environmental_damage(configuration),

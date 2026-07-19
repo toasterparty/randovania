@@ -95,6 +95,13 @@ Extra - asset_id: collision_camera_002
   * Extra - left_shield_def: None
   * Extra - right_shield_entity: {EMPTY}
   * Extra - right_shield_def: None
+  * Override default open requirement:
+    Any of the following:
+        Traverse Any Shutter Gate
+        All of the following:
+            Flash Shift Skip (Beginner)
+            Movement (Beginner) or Use Spin Boost
+
   > Right Alcove
       Can Slide
 
@@ -132,7 +139,14 @@ Extra - asset_id: collision_camera_002
 ----------------
 EMMI Zone Exit West
 Extra - total_boundings: {'x1': -10500.0, 'x2': -4400.0, 'y1': -4900.0, 'y2': -2100.0}
-Extra - polygon: [[-4400.0, -2100.0], [-10500.0, -2100.0], [-10500.0, -4900.0], [-8400.0, -4900.0], [-8400.0, -3800.0], [-6400.0, -3800.0], [-4400.0, -4100.0]]
+Extra - polygon:
+[[-4400.0, -2100.0],
+ [-10500.0, -2100.0],
+ [-10500.0, -4900.0],
+ [-8400.0, -4900.0],
+ [-8400.0, -3800.0],
+ [-6400.0, -3800.0],
+ [-4400.0, -4100.0]]
 Extra - asset_id: collision_camera_003
 > Dock to Teleport to Burenia (Cyan); Heals? False
   * Layers: default
@@ -314,7 +328,8 @@ Extra - asset_id: collision_camera_006
   > Door to Cold Room (Small)
       Any of the following:
           Speed Booster
-          Movement (Beginner) and Lay Cross Bomb
+          # https://youtu.be/XvvlF8H2qq4
+          Movement (Intermediate) and Lay Cross Bomb
 
 ----------------
 Teleport to Burenia (Cyan)
@@ -662,16 +677,21 @@ Extra - asset_id: collision_camera_012
               Lay Cross Bomb or Lay Power Bomb
               Any of the following:
                   # Then grab the item
-                  Space Jump or Speed Booster or Movement (Advanced)
+                  Space Jump or Movement (Advanced)
                   Movement (Intermediate) and Use Spin Boost
           All of the following:
               Lay Normal Bomb
               Any of the following:
                   # With Normal Bombs, the means to break the blocks blend together with reaching the item
-                  Space Jump
+                  Space Jump and Movement (Beginner)
                   Movement (Intermediate) and Use Spin Boost
                   # https://www.youtube.com/watch?v=AaSlxp8GajA
                   Movement (Advanced)
+          All of the following:
+              Speed Booster
+              Any of the following:
+                  Speed Booster Conservation (Intermediate) and Lay Cross Bomb
+                  Speed Booster Conservation (Beginner) and Lay Power Bomb
 
 > Door from Space Jump Room Access; Heals? False
   * Layers: default
@@ -799,10 +819,18 @@ Extra - asset_id: collision_camera_012
       All of the following:
           Morph Ball
           Any of the following:
-              Grapple Beam
+              Spider Magnet
               All of the following:
                   Gravity Suit
-                  Space Jump or Simple IBJ
+                  Any of the following:
+                      Spin Boost or Simple IBJ
+                      All of the following:
+                          # Slide Jump - https://youtu.be/3mfzhqqZBlc
+                          Slide Jump (Beginner)
+                          Grapple Beam or Single-wall Wall Jump (Intermediate)
+                      # Beginner Wall Jump - https://youtu.be/iHFyp9ON-pM
+                      Flash Shift and Wall Jump (Beginner)
+              Grapple Beam and Grapple Movement (Beginner)
   > Underwater Ledge Left
       Any of the following:
           All of the following:
@@ -833,14 +861,14 @@ Extra - asset_id: collision_camera_012
                   Spider Magnet
                   Any of the following:
                       Use Spin Boost
-                      Morph Ball and Single-wall Wall Jump (Beginner)
+                      Morph Ball and Single-wall Wall Jump (Intermediate)
                       Flash Shift and Wall Jump (Beginner)
               All of the following:
                   # https://www.youtube.com/watch?v=SUxSv6YFK3Y
                   Grapple Beam and Grapple Movement (Intermediate)
                   Any of the following:
                       Use Spin Boost
-                      Morph Ball and Single-wall Wall Jump (Intermediate)
+                      Morph Ball and Single-wall Wall Jump (Advanced)
                       Flash Shift and Wall Jump (Beginner)
   > Tunnel to Pitfall Puzzle Room (Upper)
       All of the following:
@@ -1060,7 +1088,7 @@ Extra - asset_id: collision_camera_016
 
 > Save Station; Heals? False; Spawn Point; Default Node
   * Layers: default
-  * Hint
+  * Generic Hint
   * Extra - actor_name: accesspoint_000
   * Extra - actor_def: actordef:actors/props/accesspoint/charclasses/accesspoint.bmsad
   * Extra - start_point_actor_name: accesspoint_000_platform
@@ -1156,13 +1184,21 @@ Extra - asset_id: collision_camera_017
   * Extra - start_point_actor_name: SP_Checkpoint_Dead_2ChozoRobots
   * Extra - start_point_actor_def: actordef:actors/logic/startpoint/charclasses/startpoint.bmsad
   > Door to Teleport to Burenia (Cyan)
-      No Storm Missile or After Ferenia - Twin Robot Fight
+      Any of the following:
+          After Ferenia - Twin Robot Fight
+          No Storm Missile and Enabled Highly Dangerous Logic
   > Door to Energy Recharge Station (Gate)
-      No Storm Missile or After Ferenia - Twin Robot Fight
+      Any of the following:
+          After Ferenia - Twin Robot Fight
+          No Storm Missile and Enabled Highly Dangerous Logic
   > Door to Navigation Station
-      No Storm Missile or After Ferenia - Twin Robot Fight
+      Any of the following:
+          After Ferenia - Twin Robot Fight
+          No Storm Missile and Enabled Highly Dangerous Logic
   > Event - Twin Robot Fight
-      Storm Missile and Fight Twin Robots
+      All of the following:
+          Fight Twin Robots
+          Storm Missile or Disabled Highly Dangerous Logic
 
 > Start Point 2; Heals? False
   * Layers: default
@@ -1508,7 +1544,7 @@ Extra - asset_id: collision_camera_021
           Any of the following:
               # Open the door from below
               Charge Beam and Wave Beam
-              Knowledge (Beginner) and Disabled Power Bomb Limitations and Lay Power Bomb
+              Disabled Power Bomb Limitations and Lay Power Bomb
           Any of the following:
               # Get to the upper door through the other room
               Flash Shift or Gravity Suit or Spider Magnet or Simple IBJ or Use Spin Boost
@@ -1625,7 +1661,15 @@ Extra - asset_id: collision_camera_023
 ----------------
 Storm Missile Tutorial
 Extra - total_boundings: {'x1': 1500.0, 'x2': 6600.0, 'y1': -2400.0, 'y2': -400.0}
-Extra - polygon: [[6600.0, -1258.0], [4600.0, -1258.0], [4600.0, -400.0], [1500.0, -400.0], [1500.0, -2300.0], [3000.0, -2300.0], [3300.0, -2400.0], [6600.0, -2400.0]]
+Extra - polygon:
+[[6600.0, -1258.0],
+ [4600.0, -1258.0],
+ [4600.0, -400.0],
+ [1500.0, -400.0],
+ [1500.0, -2300.0],
+ [3000.0, -2300.0],
+ [3300.0, -2400.0],
+ [6600.0, -2400.0]]
 Extra - asset_id: collision_camera_024
 > Door to Path to Escue; Heals? False
   * Layers: default
@@ -2191,7 +2235,7 @@ Extra - asset_id: collision_camera_032
               Movement (Advanced)
               Any of the following:
                   # Ledge Warp (Advanced Movement) makes this viable https://youtu.be/ND5zby3zaz8
-                  Diagonal Bomb Jump (Hypermode) and Infinite Bomb Jump (Hypermode) and Lay Normal Bomb
+                  Diagonal Bomb Jump (Ludicrous) and Infinite Bomb Jump (Ludicrous) and Lay Normal Bomb
                   # Ledge Warp is optional but makes attempts easier https://youtu.be/AqlUANN4F_k
                   Slide and Cross Bomb Launch (Advanced) and Lay Cross Bomb
 
@@ -2296,13 +2340,11 @@ Extra - asset_id: collision_camera_034
               Speed Booster and Wave Beam and Speed Booster Conservation (Intermediate) and Disabled Door Lock Randomizer
           All of the following:
               # Requirements to destroy the CU and the EMMI
-              Destroy Central Unit and Lay Small Bomb
+              Destroy Ferenia Central Unit and Lay Small Bomb
               Any of the following:
                   Combat (Advanced)
                   All of the following:
-                      Any of the following:
-                          Push Wide Beam Block
-                          Diffusion Abuse (Intermediate) and Shoot Diffusion Beam
+                      Push Wide Beam Block
                       Any of the following:
                           Shoot Diffusion or Wave
                           Slide and Pseudo-Wave Beam (Beginner)

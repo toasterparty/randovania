@@ -1,73 +1,100 @@
 from __future__ import annotations
 
-import copy
 from typing import TYPE_CHECKING, Self, override
 
 from randovania.game_description.requirements.resource_requirement import ResourceRequirement
 from randovania.resolver.damage_state import DamageState
 
 if TYPE_CHECKING:
-    from randovania.game_description.db.node import Node
-    from randovania.game_description.db.region_list import RegionList
+    from collections.abc import Generator
+
     from randovania.game_description.resources.item_resource_info import ItemResourceInfo
     from randovania.game_description.resources.resource_collection import ResourceCollection
-    from randovania.game_description.resources.resource_database import ResourceDatabase
+    from randovania.graph.world_graph import BaseWorldGraphNode
 
 
 class EnergyTankDamageState(DamageState):
+    __slots__ = ("_damage_reduction_items", "_energy", "_energy_per_tank", "_energy_tank", "_starting_energy")
     _energy: int
     _starting_energy: int
     _energy_per_tank: int
     _energy_tank: ItemResourceInfo
-    _resource_database: ResourceDatabase
-    _region_list: RegionList
+    _damage_reduction_items: list[ItemResourceInfo]
 
     def __init__(
-        self, starting_energy: int, energy_per_tank: int, resource_database: ResourceDatabase, region_list: RegionList
+        self,
+        starting_energy: int,
+        energy_per_tank: int,
+        energy_tank: ItemResourceInfo,
+        damage_reduction_items: list[ItemResourceInfo],
     ):
         self._energy = starting_energy
         self._starting_energy = starting_energy
         self._energy_per_tank = energy_per_tank
-        self._energy_tank = resource_database.energy_tank  # TODO: this should be an argument
-        self._resource_database = resource_database
-        self._region_list = region_list
+        self._energy_tank = energy_tank
+        self._damage_reduction_items = damage_reduction_items
 
-    @override
-    def resource_database(self) -> ResourceDatabase:
-        return self._resource_database
+    def __copy__(self) -> Self:
+        return self._duplicate()
 
-    @override
-    def region_list(self) -> RegionList:
-        return self._region_list
-
-    def _maximum_energy(self, resources: ResourceCollection) -> int:
-        num_tanks = resources[self._energy_tank]
-        return self._starting_energy + (self._energy_per_tank * num_tanks)
-
-    def _at_maximum_energy(self, resources: ResourceCollection) -> Self:
-        result = copy.copy(self)
-        result._energy = result._maximum_energy(resources)
-        return result
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}[{self._energy}]"
 
     @override
     def health_for_damage_requirements(self) -> int:
         return self._energy
 
     @override
-    def is_better_than(self, other: DamageState | None) -> bool:
-        if other is None:
-            return True
-        assert isinstance(other, EnergyTankDamageState)
-        return self._energy > other._energy
+    def resources_for_health(self) -> Generator[ItemResourceInfo]:
+        yield self._energy_tank
 
     @override
-    def apply_damage(self, damage: int) -> Self:
-        result = copy.copy(self)
-        result._energy -= damage
+    def resources_for_general_reduction(self) -> Generator[ItemResourceInfo]:
+        yield from self._damage_reduction_items
+
+    def _maximum_energy(self, resources: ResourceCollection) -> int:
+        num_tanks = resources[self._energy_tank]
+        return self._starting_energy + (self._energy_per_tank * num_tanks)
+
+    def _duplicate(self) -> Self:
+        result = self.__class__(
+            self._starting_energy,
+            self._energy_per_tank,
+            self._energy_tank,
+            self._damage_reduction_items,
+        )
+        result._energy = self._energy
+        return result
+
+    def _at_maximum_energy(self, resources: ResourceCollection) -> Self:
+        maximum_energy = self._maximum_energy(resources)
+        if maximum_energy == self._energy:
+            return self
+        else:
+            result = self._duplicate()
+            result._energy = maximum_energy
+            return result
+
+    @override
+    def is_better_than(self, other: int) -> bool:
+        return self._energy > other
+
+    @override
+    def with_health(self, health: int) -> Self:
+        result = self._duplicate()
+        result._energy = health
         return result
 
     @override
-    def apply_node_heal(self, node: Node, resources: ResourceCollection) -> Self:
+    def apply_damage(self, damage: float) -> Self:
+        if damage <= 0:
+            return self
+        result = self._duplicate()
+        result._energy -= int(damage)
+        return result
+
+    @override
+    def apply_node_heal(self, node: BaseWorldGraphNode, resources: ResourceCollection) -> Self:
         return self._at_maximum_energy(resources)
 
     @override
@@ -76,7 +103,7 @@ class EnergyTankDamageState(DamageState):
 
     @override
     def limited_by_maximum(self, resources: ResourceCollection) -> Self:
-        result = copy.copy(self)
+        result = self._duplicate()
         result._energy = min(result._energy, result._maximum_energy(resources))
         return result
 
@@ -101,14 +128,16 @@ class EnergyTankDamageState(DamageState):
         self, new_resources: ResourceCollection, old_resources: ResourceCollection
     ) -> Self:
         tank_difference = self._energy_tank_difference(new_resources, old_resources)
-        result = copy.copy(self)
+        result = self._duplicate()
         result._energy += tank_difference * self._energy_per_tank
         return result.limited_by_maximum(new_resources)
 
     @override
-    def resource_requirements_for_satisfying_damage(self, damage: int) -> list[ResourceRequirement]:
+    def resource_requirements_for_satisfying_damage(
+        self, damage: int, resources: ResourceCollection
+    ) -> list[list[ResourceRequirement]] | None:
         # A requirement for many "Energy Tanks" is added,
         # which is then decreased by how many tanks is in the state by pickups_to_solve_list
         # FIXME: get the required items for reductions (aka suits)
         tank_count = (damage - self._starting_energy) // self._energy_per_tank
-        return [ResourceRequirement.create(self._energy_tank, tank_count + 1, False)]
+        return [[ResourceRequirement.create(self._energy_tank, tank_count + 1, False)]]

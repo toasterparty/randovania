@@ -4,7 +4,7 @@ import asyncio
 import datetime
 from pathlib import Path
 from typing import TYPE_CHECKING
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import AsyncMock, MagicMock, PropertyMock
 
 import pytest
 from PySide6 import QtWidgets
@@ -21,12 +21,12 @@ if TYPE_CHECKING:
 
 @pytest.fixture(name="client")
 def network_client_fixture(skip_qtbot, mocker, tmpdir):
+    mocker.patch("randovania.lib.http_lib.http_session")
     mocker.patch(
         "randovania.get_configuration",
         return_value={
             "server_address": "http://localhost:5000",
             "socketio_path": "/path",
-            "discord_client_id": 1234,
         },
     )
     return qt_network_client.QtNetworkClient(Path(tmpdir))
@@ -36,6 +36,7 @@ async def test_handle_network_errors_success(skip_qtbot, qapp):
     callee = AsyncMock()
     callee.return_value = MagicMock()
     data = MagicMock()
+    qapp.network_error_widget = qapp
 
     # Run
     wrapped = qt_network_client.handle_network_errors(callee)
@@ -67,6 +68,8 @@ async def test_handle_network_errors_exception(skip_qtbot, qapp, mocker, excepti
     callee.side_effect = exception
     data = MagicMock()
 
+    qapp.network_error_widget = qapp
+
     # Run
     wrapped = qt_network_client.handle_network_errors(callee)
     result = await wrapped(qapp, "foo", data)
@@ -77,29 +80,32 @@ async def test_handle_network_errors_exception(skip_qtbot, qapp, mocker, excepti
     mock_dialog.assert_awaited_once_with(qapp, title, message)
 
 
-async def test_login_to_discord(client, mocker: pytest_mock.MockerFixture):
-    mock_browser_open = mocker.patch("PySide6.QtGui.QDesktopServices.openUrl")
+async def test_login_to_discord(client):
     client.server_call = AsyncMock(return_value="THE_SID")
 
     # Run
-    await client.login_with_discord()
+    result = await client.login_with_discord()
 
     # Assert
-    mock_browser_open.assert_called_once_with("http://localhost:5000/login?sid=THE_SID")
-    client.server_call.assert_awaited_once_with("start_discord_login_flow")
+    assert result == "http://localhost:5000/login?sid=THE_SID"
+    client.server_call.assert_awaited_once_with("get_sid", (), namespace=None, handle_invalid_session=True)
 
 
-async def test_login_to_discord_raise(client, mocker: pytest_mock.MockerFixture):
-    mocker.patch("PySide6.QtGui.QDesktopServices.openUrl", return_value=False)
-    client.server_call = AsyncMock(return_value="THE_SID")
-
-    with pytest.raises(RuntimeError, match="Unable to open a web-browser to login into Discord"):
-        await client.login_with_discord()
-
-
-@pytest.mark.parametrize("connection_state", [ConnectionState.Disconnected, ConnectionState.Connected])
-async def test_ensure_logged_in(client, mocker, connection_state):
+@pytest.mark.parametrize(
+    ("connection_state", "has_user"),
+    [
+        (ConnectionState.Disconnected, False),
+        (ConnectionState.Disconnected, True),
+        (ConnectionState.Connected, True),
+    ],
+)
+async def test_ensure_logged_in(client, mocker: pytest_mock.MockerFixture, connection_state, has_user: bool):
     # Setup
+    mock_execute_dialog = mocker.patch(
+        "randovania.gui.lib.async_dialog.execute_dialog",
+        new_callable=AsyncMock,
+        return_value=QtWidgets.QDialog.DialogCode.Accepted,
+    )
     mock_message_box = mocker.patch("PySide6.QtWidgets.QMessageBox")
 
     async def true():
@@ -109,7 +115,13 @@ async def test_ensure_logged_in(client, mocker, connection_state):
 
     client.connect_to_server = MagicMock(return_value=connect_task)
     client.connection_state = connection_state
-    mocker.patch("randovania.network_client.network_client.NetworkClient.current_user", return_value=MagicMock())
+    client.query_authentication_methods = AsyncMock(return_value=set())
+
+    mocker.patch(
+        "randovania.network_client.network_client.NetworkClient.current_user",
+        return_value=MagicMock() if has_user else None,
+        new_callable=PropertyMock,
+    )
 
     # Run
     result = await client.ensure_logged_in(None)
@@ -117,7 +129,18 @@ async def test_ensure_logged_in(client, mocker, connection_state):
     # Assert
     if connection_state == ConnectionState.Disconnected:
         mock_message_box.assert_called_once()
-    assert result
+        mock_message_box.return_value.close.assert_called_once()
+
+        if has_user:
+            client.query_authentication_methods.assert_not_called()
+            mock_execute_dialog.assert_not_called()
+        else:
+            client.query_authentication_methods.assert_awaited_once_with()
+            mock_execute_dialog.assert_awaited_once()
+    else:
+        mock_message_box.assert_not_called()
+
+    assert result is has_user
 
 
 @pytest.mark.parametrize("in_session", [False, True])

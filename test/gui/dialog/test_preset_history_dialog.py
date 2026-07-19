@@ -40,7 +40,7 @@ async def test_select_item(skip_qtbot, default_preset, tmp_path, mocker: pytest_
     if broken_original:
         preset_data = versioned_preset.as_json
         preset_data["schema_version"] = 1
-        versioned_preset = VersionedPreset(preset_data)
+        versioned_preset = VersionedPreset(preset_data, False)
 
     preset_manager = MagicMock()
     preset_manager.get_previous_versions.return_value = [
@@ -96,7 +96,7 @@ def test_get_old_preset_bad_json():
 
 def test_get_old_preset_bad_formatting():
     assert preset_history_dialog._get_old_preset('{"name": "theName"}') == (
-        "Preset theName at this version can't be used as it contains the following error:\n'layout_configuration'"
+        "Preset theName at this version can't be used as it contains the following error:\n'schema_version'"
     )
 
 

@@ -19,7 +19,7 @@ def test_generate_helper_success(mocker: pytest_mock.MockerFixture) -> None:
     mock_generate.assert_called_once_with(
         generator_params=parameter,
         status_update=None,
-        validate_after_generation=True,
+        resolve_after_generation=True,
         attempts=0,
     )
     assert result == 19
@@ -37,7 +37,7 @@ def test_generate_helper_failure(mocker: pytest_mock.MockerFixture) -> None:
     mock_generate.assert_called_once_with(
         generator_params=parameter,
         status_update=None,
-        validate_after_generation=True,
+        resolve_after_generation=True,
         attempts=0,
     )
     assert result is None
@@ -56,28 +56,25 @@ def test_generate_list_of_permalinks(mocker: pytest_mock.MockerFixture) -> None:
 
 
 def test_compare_reports() -> None:
-    mock = MagicMock()
-    mock.get_preset.return_value.game = RandovaniaGame.BLANK
-
-    parameters = [mock] * 6
+    games = [RandovaniaGame.BLANK] * 6
     reference = [
-        1,
-        2,
-        3,
+        1.0,
+        2.0,
+        3.0,
         None,
         None,
-        6,
+        6.0,
     ]
     results = [
-        5,
-        2,
-        5,
-        4,
+        5.0,
+        2.0,
+        5.0,
+        4.0,
         None,
         None,
     ]
 
-    benchmark.compare_reports(parameters, reference, results)
+    benchmark.compare_reports(games, reference, results)
 
 
 @pytest.mark.parametrize("no_data", [False, True])

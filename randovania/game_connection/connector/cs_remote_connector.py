@@ -5,7 +5,6 @@ from caver.patcher import wrap_msg_text
 
 from randovania.game.game_enum import RandovaniaGame
 from randovania.game_connection.connector.remote_connector import (
-    PickupEntryWithOwner,
     PlayerLocationEvent,
     RemoteConnector,
 )
@@ -14,6 +13,7 @@ from randovania.game_description import default_database
 from randovania.game_description.resources.inventory import Inventory, InventoryItem
 from randovania.games.cave_story.exporter.patch_data_factory import NOTHING_ITEM_SCRIPT
 from randovania.lib.infinite_timer import InfiniteTimer
+from randovania.network_common.remote_pickup import RemotePickup
 
 INDICES_FLAGS_START = 7300
 PUPPIES_FLAGS = tuple(range(5001, 5006))
@@ -26,7 +26,7 @@ ITEM_RECEIVED_FLAG = 7411
 class CSRemoteConnector(RemoteConnector):
     game_state: GameState
     last_inventory: Inventory
-    remote_pickups: tuple[PickupEntryWithOwner, ...]
+    remote_pickups: tuple[RemotePickup, ...]
     current_map: PlayerLocationEvent
 
     _dt: float = 1.0
@@ -130,11 +130,11 @@ class CSRemoteConnector(RemoteConnector):
     async def get_inventory(self) -> Inventory:
         inventory = {}
 
-        item_db = self.game.resource_database.item
-        get_item = self.game.resource_database.get_item
+        resource_db = self.game.get_resource_database_view()
+        get_item = resource_db.get_item
 
         # Normal items
-        normal_items = [item for item in item_db if "flag" in item.extra]
+        normal_items = [item for item in resource_db.get_all_items() if "flag" in item.extra]
         flag_nums = [item.extra["flag"] for item in normal_items]
         flags = await self.executor.get_flags(flag_nums)
 
@@ -194,11 +194,11 @@ class CSRemoteConnector(RemoteConnector):
         # no pending pickups, and pickups to send:
         # send the next pickup!
         await self.executor.set_flag(ITEM_SENT_FLAG, True)
-        provider_name, pickup = self.remote_pickups[num_pickups]
+        provider_name, pickup, _coop_location = self.remote_pickups[num_pickups]
 
         message = f"Received item from ={provider_name}=!"
         message = wrap_msg_text(message, False)
-        pickup_script = self.pickup_db.get_pickup_with_name(pickup.name).extra.get("script", NOTHING_ITEM_SCRIPT)
+        pickup_script = pickup.extra.get("script", NOTHING_ITEM_SCRIPT)
         script = f"<MSG<TUR{message}<FL+{ITEM_RECEIVED_FLAG}{pickup_script}"
         await self.executor.exec_script(script)
 
@@ -210,5 +210,5 @@ class CSRemoteConnector(RemoteConnector):
         script = f"<MSG{text}<WAI0500<END"
         await self.executor.exec_script(script)
 
-    async def set_remote_pickups(self, remote_pickups: tuple[PickupEntryWithOwner, ...]) -> None:
+    async def set_remote_pickups(self, remote_pickups: tuple[RemotePickup, ...]) -> None:
         self.remote_pickups = remote_pickups

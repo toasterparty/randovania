@@ -2,16 +2,19 @@ from __future__ import annotations
 
 import copy
 import dataclasses
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, ClassVar, override
 
 import randovania
 from randovania.game_description.db.dock_node import DockNode
+from randovania.games.prime2 import dark_aether_helper
 from randovania.games.prime2.exporter.patch_data_factory import (
     should_keep_elevator_sounds,
 )
 from randovania.games.prime2.gui.generated.preset_teleporters_prime2_ui import (
     Ui_PresetTeleportersPrime2,
 )
+from randovania.games.prime2.layout.echoes_configuration import EchoesConfiguration
+from randovania.games.prime2_opr.layout.prime2_opr_configuration import EchoesOPRConfiguration
 from randovania.gui.lib import signal_handling
 from randovania.gui.lib.node_list_helper import NodeListHelper
 from randovania.gui.preset_settings.preset_teleporter_tab import PresetTeleporterTab
@@ -21,29 +24,25 @@ from randovania.layout.lib.teleporters import (
 )
 
 if TYPE_CHECKING:
-    from PySide6 import QtWidgets
-
-    from randovania.game_description.db.area import Area
     from randovania.game_description.db.node_identifier import NodeIdentifier
     from randovania.game_description.game_description import GameDescription
-    from randovania.games.common.prime_family.layout.lib.prime_trilogy_teleporters import (
-        PrimeTrilogyTeleporterConfiguration,
-    )
-    from randovania.games.prime2.layout.echoes_configuration import EchoesConfiguration
+    from randovania.games.common.elevators import NodeListGrouping
     from randovania.gui.lib.window_manager import WindowManager
     from randovania.interface_common.preset_editor import PresetEditor
     from randovania.layout.preset import Preset
 
 
-class PresetTeleportersPrime2(PresetTeleporterTab, Ui_PresetTeleportersPrime2, NodeListHelper):
-    custom_weights = {
+class PresetTeleportersPrime2(
+    PresetTeleporterTab[EchoesConfiguration | EchoesOPRConfiguration], Ui_PresetTeleportersPrime2, NodeListHelper
+):
+    custom_weights: ClassVar[dict[str, int]] = {
         "Great Temple": 0,
         "Agon Wastes": 1,
         "Torvus Bog": 2,
         "Sanctuary Fortress": 3,
         "Temple Grounds": 5,
     }
-    teleporter_mode_to_description = {
+    teleporter_mode_to_description: ClassVar[dict[TeleporterShuffleMode, str]] = {
         TeleporterShuffleMode.VANILLA: "All elevators are connected to where they do in the original game.",
         TeleporterShuffleMode.TWO_WAY_RANDOMIZED: (
             "After taking an elevator, the elevator in the room you are in will bring you back to where you were. "
@@ -71,37 +70,35 @@ class PresetTeleportersPrime2(PresetTeleporterTab, Ui_PresetTeleportersPrime2, N
 
     def __init__(
         self,
-        editor: PresetEditor,
+        editor: PresetEditor[EchoesConfiguration | EchoesOPRConfiguration],
         game_description: GameDescription,
         window_manager: WindowManager,
     ):
         super().__init__(editor, game_description, window_manager)
         signal_handling.on_checked(self.skip_final_bosses_check, self._update_require_final_bosses)
-        signal_handling.on_checked(
-            self.teleporters_allow_unvisited_names_check,
-            self._update_allow_unvisited_names,
-        )
 
-    def setup_ui(self):
+    def setup_ui(self) -> None:
         self.setupUi(self)
 
     @classmethod
     def tab_title(cls) -> str:
         return "Elevators"
 
-    def _create_source_teleporters(self):
+    @override
+    def nodes_by_areas_by_region_from_locations(self, all_node_locations: list[NodeIdentifier]) -> NodeListGrouping:
+        return dark_aether_helper.wrap_node_list_grouping(
+            super().nodes_by_areas_by_region_from_locations(all_node_locations)
+        )
+
+    def _create_source_teleporters(self) -> None:
         row = 0
         region_list = self.game_description.region_list
 
         locations = TeleporterList.nodes_list(self.game_enum)
-        node_identifiers: dict[NodeIdentifier, Area] = {
-            loc: region_list.area_by_area_location(loc.area_identifier) for loc in locations
-        }
-        checks: dict[NodeIdentifier, QtWidgets.QCheckBox] = {
-            loc: self._create_check_for_source_teleporters(loc) for loc in locations
-        }
+        node_identifiers = {loc: region_list.area_by_area_location(loc.area_identifier) for loc in locations}
+        checks = {loc: self._create_check_for_source_teleporters(loc) for loc in locations}
         self._teleporters_source_for_location = copy.copy(checks)
-        self._teleporters_source_destination = {}
+        self._teleporters_source_destination: dict[NodeIdentifier, NodeIdentifier | None] = {}
 
         for location in sorted(
             locations,
@@ -140,23 +137,16 @@ class PresetTeleportersPrime2(PresetTeleporterTab, Ui_PresetTeleportersPrime2, N
 
             row += 1
 
-    def _update_require_final_bosses(self, checked: bool):
+    def _update_require_final_bosses(self, checked: bool) -> None:
         with self._editor as editor:
             editor.layout_configuration_teleporters = dataclasses.replace(
-                editor.layout_configuration_teleporters,
+                editor.configuration.teleporters,
                 skip_final_bosses=checked,
             )
 
-    def _update_allow_unvisited_names(self, checked: bool):
-        with self._editor as editor:
-            editor.layout_configuration_teleporters = dataclasses.replace(
-                editor.layout_configuration_teleporters,
-                allow_unvisited_room_names=checked,
-            )
-
-    def on_preset_changed(self, preset: Preset):
-        config: EchoesConfiguration = preset.configuration
-        config_teleporters: PrimeTrilogyTeleporterConfiguration = config.teleporters
+    def on_preset_changed(self, preset: Preset[EchoesConfiguration | EchoesOPRConfiguration]) -> None:
+        config = preset.configuration
+        config_teleporters = config.teleporters
 
         descriptions = [
             "<p>Controls where each elevator connects to.</p>",
@@ -179,13 +169,13 @@ class PresetTeleportersPrime2(PresetTeleporterTab, Ui_PresetTeleportersPrime2, N
 
         for origin, destination in self._teleporters_source_destination.items():
             origin_check = self._teleporters_source_for_location[origin]
-            dest_check = self._teleporters_source_for_location.get(destination)
+            dest_check = self._teleporters_source_for_location.get(destination)  # type: ignore[arg-type]
 
             assert origin_check or dest_check
 
             is_locked = origin in static_nodes
             if not is_locked and not can_shuffle_target:
-                is_locked = (destination in static_nodes) or (origin_check and not dest_check)
+                is_locked = (destination in static_nodes) or (bool(origin_check) and not dest_check)
 
             origin_check.setEnabled(can_shuffle_source and not is_locked)
             origin_check.setChecked(origin not in config_teleporters.excluded_teleporters.locations and not is_locked)
@@ -208,9 +198,7 @@ class PresetTeleportersPrime2(PresetTeleporterTab, Ui_PresetTeleportersPrime2, N
             else:
                 dest_check.setChecked(origin_check.isChecked())
 
-        sound_bug_warning = False
         sound_bug_warning = not should_keep_elevator_sounds(config)
-        self.teleporters_allow_unvisited_names_check.setChecked(config_teleporters.allow_unvisited_room_names)
         self.teleporters_help_sound_bug_label.setVisible(sound_bug_warning)
         self.skip_final_bosses_check.setChecked(config_teleporters.skip_final_bosses)
 

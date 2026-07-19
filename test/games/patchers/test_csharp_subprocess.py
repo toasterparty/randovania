@@ -71,6 +71,8 @@ def test_process_command_no_thread(
     monkeypatch.setattr(asyncio, "WindowsProactorEventLoopPolicy", loop_policy, raising=False)
     input_data = "hello\r\nthis is a nice db\r\n\r\nWe some crazy stuff."
 
+    monkeypatch.setattr(sys, "platform", "win32" if mock_is_windows else "darwin" if mock_is_mac else "linux")
+
     # Run
     csharp_subprocess.process_command(
         [
@@ -92,7 +94,7 @@ def test_process_command_no_thread(
         ],
         input_data,
         read_callback,
-        () if not add_mono or add_mono and not mock_is_mac else mac_paths,
+        () if not add_mono or (add_mono and not mock_is_mac) else mac_paths,
     )
 
     mock_run.assert_called_once_with(mock_process.return_value)

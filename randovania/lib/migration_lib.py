@@ -1,21 +1,34 @@
 from __future__ import annotations
 
 import copy
+import functools
 import typing
-from collections.abc import Callable
+from collections.abc import Sequence
+
+if typing.TYPE_CHECKING:
+    from randovania.game.game_enum import RandovaniaGame
 
 
 class UnsupportedVersion(ValueError):
     pass
 
 
-Migrations = typing.Sequence[Callable[[dict], dict] | None]
+class Migration(typing.Protocol):
+    def __call__(self, __data: dict) -> None: ...
+
+
+class GameMigration(typing.Protocol):
+    def __call__(self, __data: dict, game: RandovaniaGame) -> None: ...
+
+
+Migrations = Sequence[Migration | None]
+GameMigrations = Sequence[GameMigration | None]
 
 
 def apply_migrations(
     data: dict, migrations: Migrations, *, copy_before_migrating: bool = False, version_name: str = "version"
 ) -> dict:
-    schema_version = data.get("schema_version", 1)
+    schema_version = typing.cast("int", data.get("schema_version", 1))
     version = get_version(migrations)
 
     while schema_version < version:
@@ -23,14 +36,14 @@ def apply_migrations(
             data = copy.deepcopy(data)
             copy_before_migrating = False
 
-        migration = migrations[schema_version - 1]
-        if migration is None:
+        apply_migration = migrations[schema_version - 1]
+        if apply_migration is None:
             raise UnsupportedVersion(
                 f"Requested a migration from {version_name} {schema_version}, but it's no longer supported. "
                 f"You can try using an older Randovania version."
             )
 
-        data = migration(data)
+        apply_migration(data)
         schema_version += 1
 
     if schema_version > version:
@@ -44,5 +57,26 @@ def apply_migrations(
     return data
 
 
-def get_version(migrations: Migrations) -> int:
+def apply_migrations_with_game(
+    data: dict,
+    migrations: GameMigrations,
+    game: RandovaniaGame,
+    *,
+    copy_before_migrating: bool = False,
+    version_name: str = "version",
+) -> dict:
+    def wrap(f: GameMigration) -> Migration:
+        @functools.wraps(f)
+        def wrapped(d: dict) -> None:
+            f(d, game=game)
+
+        return wrapped
+
+    wrapped_migrations = [None if migration is None else wrap(migration) for migration in migrations]
+    return apply_migrations(
+        data, wrapped_migrations, copy_before_migrating=copy_before_migrating, version_name=version_name
+    )
+
+
+def get_version(migrations: Sequence) -> int:
     return len(migrations) + 1

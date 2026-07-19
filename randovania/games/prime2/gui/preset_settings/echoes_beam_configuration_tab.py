@@ -2,12 +2,14 @@ from __future__ import annotations
 
 import dataclasses
 import functools
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from PySide6 import QtWidgets
 from PySide6.QtWidgets import QComboBox
 
 from randovania.games.prime2.gui.generated.preset_echoes_beam_configuration_ui import Ui_PresetEchoesBeamConfiguration
+from randovania.games.prime2.layout.echoes_configuration import EchoesConfiguration
+from randovania.games.prime2_opr.layout.prime2_opr_configuration import EchoesOPRConfiguration
 from randovania.gui.lib.signal_handling import set_combo_with_value
 from randovania.gui.preset_settings.preset_tab import PresetTab
 
@@ -26,12 +28,19 @@ _BEAMS = {
 }
 
 
-class PresetEchoesBeamConfiguration(PresetTab, Ui_PresetEchoesBeamConfiguration):
-    def __init__(self, editor: PresetEditor, game_description: GameDescription, window_manager: WindowManager):
+class PresetEchoesBeamConfiguration(
+    PresetTab[EchoesConfiguration | EchoesOPRConfiguration], Ui_PresetEchoesBeamConfiguration
+):
+    def __init__(
+        self,
+        editor: PresetEditor[EchoesConfiguration | EchoesOPRConfiguration],
+        game_description: GameDescription,
+        window_manager: WindowManager,
+    ):
         super().__init__(editor, game_description, window_manager)
         self.setupUi(self)
 
-        def _add_header(text: str, col: int):
+        def _add_header(text: str, col: int) -> None:
             label = QtWidgets.QLabel(self.beam_configuration_group)
             label.setText(text)
             self.beam_configuration_layout.addWidget(label, 0, col)
@@ -50,9 +59,9 @@ class PresetEchoesBeamConfiguration(PresetTab, Ui_PresetEchoesBeamConfiguration)
         self._beam_combo = {}
         self._beam_missile = {}
 
-        def _create_ammo_combo():
+        def _create_ammo_combo() -> QComboBox:
             combo = QComboBox(self.beam_configuration_group)
-            combo.addItem("None", -1)
+            combo.addItem("None", None)
             combo.addItem("Power Bomb", 43)
             combo.addItem("Missile", 44)
             combo.addItem("Dark Ammo", 45)
@@ -116,7 +125,7 @@ class PresetEchoesBeamConfiguration(PresetTab, Ui_PresetEchoesBeamConfiguration)
     def header_name(cls) -> str | None:
         return None
 
-    def _on_ammo_type_combo_changed(self, beam: str, combo: QComboBox, is_ammo_b: bool, _):
+    def _on_ammo_type_combo_changed(self, beam: str, combo: QComboBox, is_ammo_b: bool, _: Any) -> None:
         with self._editor as editor:
             beam_configuration = editor.configuration.beam_configuration
             old_config: BeamAmmoConfiguration = getattr(beam_configuration, beam)
@@ -129,7 +138,7 @@ class PresetEchoesBeamConfiguration(PresetTab, Ui_PresetEchoesBeamConfiguration)
                 "beam_configuration", dataclasses.replace(beam_configuration, **{beam: new_config})
             )
 
-    def _on_ammo_cost_spin_changed(self, beam: str, field_name: str, value: int):
+    def _on_ammo_cost_spin_changed(self, beam: str, field_name: str, value: int) -> None:
         with self._editor as editor:
             beam_configuration = editor.configuration.beam_configuration
             new_config = dataclasses.replace(getattr(beam_configuration, beam), **{field_name: value})
@@ -137,7 +146,7 @@ class PresetEchoesBeamConfiguration(PresetTab, Ui_PresetEchoesBeamConfiguration)
                 "beam_configuration", dataclasses.replace(beam_configuration, **{beam: new_config})
             )
 
-    def on_preset_changed(self, preset: Preset):
+    def on_preset_changed(self, preset: Preset[EchoesConfiguration | EchoesOPRConfiguration]) -> None:
         beam_configuration = preset.configuration.beam_configuration
 
         for beam in _BEAMS:
@@ -145,7 +154,7 @@ class PresetEchoesBeamConfiguration(PresetTab, Ui_PresetEchoesBeamConfiguration)
 
             set_combo_with_value(self._beam_ammo_a[beam], config.ammo_a)
             set_combo_with_value(self._beam_ammo_b[beam], config.ammo_b)
-            self._beam_ammo_b[beam].setEnabled(config.ammo_a != -1)
+            self._beam_ammo_b[beam].setEnabled(config.ammo_a is not None)
             self._beam_uncharged[beam].setValue(config.uncharged_cost)
             self._beam_charged[beam].setValue(config.charged_cost)
             self._beam_combo[beam].setValue(config.combo_ammo_cost)

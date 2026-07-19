@@ -9,8 +9,11 @@ from randovania.games.prime1.layout.prime_configuration import EnemyAttributeRan
 from randovania.interface_common.preset_manager import PresetManager
 
 
-@pytest.mark.parametrize("use_enemy_attribute_randomizer", [False, True])
-def test_prime_format_params(use_enemy_attribute_randomizer):
+@pytest.mark.parametrize(
+    ("use_enemy_attribute_randomizer", "pre_place_artifacts", "pre_place_phazon"),
+    [(False, False, False), (True, True, True)],
+)
+def test_prime_format_params(use_enemy_attribute_randomizer, pre_place_artifacts, pre_place_phazon):
     # Setup
     preset = PresetManager(None).default_preset_for_game(RandovaniaGame.METROID_PRIME).get_preset()
     assert isinstance(preset.configuration, PrimeConfiguration)
@@ -47,20 +50,24 @@ def test_prime_format_params(use_enemy_attribute_randomizer):
     result = RandovaniaGame.METROID_PRIME.data.layout.preset_describer.format_params(configuration)
     expected = {
         "Logic Settings": ["All tricks disabled"],
-        "Item Pool": [
+        "Pickup Pool": [
             "Size: 95 of 100",
-            "Vanilla starting items",
+            "Unmodified starting pickup",
             "Shuffles 2x Charge Beam",
             "6 Artifacts, 6 min actions",
         ],
         "Gameplay": ["Starts at Tallon Overworld - Landing Site"],
-        "Quality of Life": ["Phazon suit hint: Area only"],
+        "Hints": [
+            "Chozo Artifact Hints: Region and area",
+            "Phazon Suit Hint: Region only",
+        ],
         "Difficulty": [],
         "Game Changes": [
-            "Warp to start, Unlocked Vault door, Unlocked Save Station doors, Phazon Elite without Dynamo",
+            "Warp to start, Unlocked Vault door, Phazon Elite without Dynamo",
             "53.1% chance of superheated, 28.7% chance of submerged",
             "Allowed backwards: Frigate, Labs, Upper Mines",
             "Damage reduction: Additive",
+            "Unlocked Save Station doors",
         ],
     }
 
@@ -73,6 +80,11 @@ def test_prime_format_params(use_enemy_attribute_randomizer):
         )
     else:
         expected["Game Changes"].insert(2, "Random Boss Sizes")
+
+    if configuration.pre_place_artifact:
+        expected["Pickup Pool"].append("Pre-place Artifacts")
+    if configuration.pre_place_phazon:
+        expected["Pickup Pool"].append("Pre-place Phazon Suit")
 
     # clean changes in order should trip tests
     expected["Game Changes"].sort()

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import base64
+import copy
+import dataclasses
 import hashlib
 import itertools
 import json
@@ -9,7 +11,7 @@ from dataclasses import dataclass
 from functools import lru_cache
 from random import Random
 
-import construct  # type: ignore[import-untyped]
+import construct
 
 import randovania
 from randovania.game.game_enum import RandovaniaGame
@@ -17,10 +19,10 @@ from randovania.layout import description_migration, game_patches_serializer
 from randovania.layout.generator_parameters import GeneratorParameters
 from randovania.layout.permalink import Permalink
 from randovania.layout.versioned_preset import InvalidPreset, VersionedPreset
-from randovania.lib import json_lib, obfuscator
-from randovania.lib.construct_lib import CompressedJsonValue, NullTerminatedCompressedJsonValue
+from randovania.lib import construct_lib, json_lib, obfuscator
 
 if typing.TYPE_CHECKING:
+    from collections.abc import Sequence
     from pathlib import Path
 
     from randovania.game_description.game_patches import GamePatches
@@ -42,10 +44,10 @@ def shareable_hash(hash_bytes: bytes) -> str:
     return base64.b32encode(hash_bytes).decode()
 
 
-def shareable_word_hash(hash_bytes: bytes, all_games: list[RandovaniaGame]):
+def shareable_word_hash(hash_bytes: bytes, all_games: Sequence[RandovaniaGame]) -> str:
     rng = Random(sum(hash_byte * (2**8) ** i for i, hash_byte in enumerate(hash_bytes)))
 
-    games_left = []
+    games_left: list[RandovaniaGame] = []
     selected_words = []
     for _ in range(3):
         if not games_left:
@@ -68,12 +70,13 @@ def _dict_hash(data: dict) -> str:
 
 BinaryLayoutDescription = construct.Struct(
     magic=construct.Const(b"RDVG"),
-    version=construct.Rebuild(construct.VarInt, 2),
+    version=construct.Rebuild(construct.VarInt, 3),
     data=construct.Switch(
         construct.this.version,
         {
-            1: NullTerminatedCompressedJsonValue,
-            2: CompressedJsonValue,
+            1: construct_lib.NullTerminatedCompressedJsonValue,
+            2: construct_lib.CompressedZlibJsonValue,
+            3: construct_lib.CompressedZstdJsonValue,
         },
         construct.Error,
     ),
@@ -88,8 +91,9 @@ class LayoutDescription:
     all_patches: dict[int, GamePatches]
     item_order: tuple[str, ...]
     user_modified: bool
+    original_dict: dict | None = dataclasses.field(compare=False, default=None)
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         object.__setattr__(self, "__cached_serialized_patches", None)
 
     @classmethod
@@ -129,11 +133,12 @@ class LayoutDescription:
         if "game_modifications" not in json_dict:
             raise InvalidLayoutDescription("Unable to read details of a race game file")
 
-        json_dict = description_migration.convert_to_current_version(json_dict)
+        original_dict = copy.deepcopy(json_dict)
+        json_dict = description_migration.convert_to_current_version(copy.deepcopy(json_dict))
 
-        def get_preset(i, p):
+        def get_preset(i: int, p: dict) -> Preset:
             try:
-                return VersionedPreset(p).get_preset()
+                return VersionedPreset(p, from_layout_description=True).get_preset()
             except InvalidPreset as e:
                 raise InvalidLayoutDescription(f"Invalid preset for world {i + 1}: {e}") from e.original_exception
 
@@ -161,18 +166,23 @@ class LayoutDescription:
                     f"Unable to parse game modifications and the rdvgame has been modified.\n\nOriginal error: {e}"
                 ) from e
 
-        return LayoutDescription(
+        result = cls(
             randovania_version_text=json_dict["info"]["randovania_version"],
             randovania_version_git=bytes.fromhex(json_dict["info"]["randovania_version_git"]),
             generator_parameters=generator_parameters,
             all_patches=all_patches,
             item_order=json_dict["item_order"],
             user_modified=expected_checksum != actual_checksum,
+            original_dict=original_dict,
         )
+
+        # Fill the cache so calling shareable_word_hash is not slow by needing to re-serialize
+        object.__setattr__(result, "__cached_serialized_patches", json_dict["game_modifications"])
+        return result
 
     @classmethod
     def from_file(cls, path: Path) -> typing.Self:
-        return cls.from_json_dict(json_lib.read_path(path))
+        return cls.from_json_dict(json_lib.read_dict(path))
 
     @classmethod
     def bytes_to_dict(cls, data: bytes, *, presets: list[VersionedPreset] | None = None) -> dict:
@@ -205,14 +215,14 @@ class LayoutDescription:
     def all_presets(self) -> typing.Iterable[Preset]:
         return self.generator_parameters.presets
 
-    def get_preset(self, player_index: int) -> Preset:
-        return self.generator_parameters.get_preset(player_index)
+    def get_preset(self, world_index: int) -> Preset:
+        return self.generator_parameters.get_preset(world_index)
 
-    def get_seed_for_player(self, player_index: int) -> int:
-        return self.generator_parameters.seed_number + player_index
+    def get_seed_for_world(self, world_index: int) -> int:
+        return self.generator_parameters.seed_number + world_index
 
     @property
-    def _serialized_patches(self):
+    def _serialized_patches(self) -> list[dict]:
         cached_result = object.__getattribute__(self, "__cached_serialized_patches")
         if cached_result is None:
             cached_result = game_patches_serializer.serialize(self.all_patches)
@@ -221,7 +231,7 @@ class LayoutDescription:
         return cached_result
 
     def as_json(self, *, force_spoiler: bool = False) -> dict:
-        result = {
+        result: dict = {
             "schema_version": description_migration.CURRENT_VERSION,
             "info": {
                 "randovania_version": self.randovania_version_text,
@@ -281,7 +291,7 @@ class LayoutDescription:
     @property
     def shareable_word_hash(self) -> str:
         # We're not using self.all_games because we want multiple copies of a given game in the list,
-        # so a game that has more players is more likely to have words in the hash
+        # so a game that has more worlds is more likely to have words in the hash
         all_games = [preset.game for preset in self.all_presets]
 
         return shareable_word_hash(
@@ -289,5 +299,5 @@ class LayoutDescription:
             all_games,
         )
 
-    def save_to_file(self, json_path: Path):
+    def save_to_file(self, json_path: Path) -> None:
         json_lib.write_path(json_path, self.as_json())

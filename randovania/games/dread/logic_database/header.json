@@ -1,5 +1,5 @@
 {
-    "schema_version": 27,
+    "schema_version": 33,
     "game": "dread",
     "resource_database": {
         "items": {
@@ -390,10 +390,6 @@
             },
             "s010_cave:default:breakablecave017": {
                 "long_name": "Artaria - ArbEnky Blob West",
-                "extra": {}
-            },
-            "s010_cave:default:breakablecave016": {
-                "long_name": "Artaria - ArbEnky Blob East",
                 "extra": {}
             },
             "s010_cave:default:PRP_DB_CV_020": {
@@ -842,6 +838,10 @@
             },
             "CatarisLowerPowerBombTankCeiling": {
                 "long_name": "Cataris - Lower Power Bomb Tank Ceiling",
+                "extra": {}
+            },
+            "CatarisLedgeWarpSetupOutsideDiffusionRoom": {
+                "long_name": "Cataris - Ledge Warp Setup Outside Diffusion Room",
                 "extra": {}
             },
             "ElunSoldier": {
@@ -1974,15 +1974,6 @@
                                     "comment": null,
                                     "items": [
                                         {
-                                            "type": "resource",
-                                            "data": {
-                                                "type": "tricks",
-                                                "name": "Knowledge",
-                                                "amount": 1,
-                                                "negate": false
-                                            }
-                                        },
-                                        {
                                             "type": "template",
                                             "data": "Lay Power Bomb"
                                         },
@@ -2048,12 +2039,12 @@
                     }
                 }
             },
-            "Destroy Central Unit": {
-                "display_name": "Destroy Central Unit",
+            "Destroy Artaria Central Unit": {
+                "display_name": "Destroy Artaria Central Unit",
                 "requirement": {
                     "type": "and",
                     "data": {
-                        "comment": "TODO: Not enough space for Speed Booster without short charges - account for this",
+                        "comment": null,
                         "items": [
                             {
                                 "type": "or",
@@ -2067,6 +2058,49 @@
                                         {
                                             "type": "template",
                                             "data": "Shoot Missile"
+                                        },
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": "Shinespark",
+                                                "items": [
+                                                    {
+                                                        "type": "resource",
+                                                        "data": {
+                                                            "type": "items",
+                                                            "name": "Speed",
+                                                            "amount": 1,
+                                                            "negate": false
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "or",
+                                                        "data": {
+                                                            "comment": "SB Upgrade or Turnaround to charge: https://youtu.be/YVUiMU-zJ_s",
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "items",
+                                                                        "name": "SpeedBoostUpgrade",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Speedbooster",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
                                         }
                                     ]
                                 }
@@ -2097,7 +2131,7 @@
                                                     {
                                                         "type": "or",
                                                         "data": {
-                                                            "comment": null,
+                                                            "comment": "Core bobs up and down slightly, good movement can hit with only Screw Attack",
                                                             "items": [
                                                                 {
                                                                     "type": "template",
@@ -2106,6 +2140,959 @@
                                                                 {
                                                                     "type": "template",
                                                                     "data": "Simple IBJ"
+                                                                },
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "type": "template",
+                                            "data": "Shoot Missile"
+                                        },
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": "Shinespark: https://youtu.be/YVUiMU-zJ_s",
+                                                "items": [
+                                                    {
+                                                        "type": "resource",
+                                                        "data": {
+                                                            "type": "items",
+                                                            "name": "Speed",
+                                                            "amount": 1,
+                                                            "negate": false
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "or",
+                                                        "data": {
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "items",
+                                                                        "name": "SpeedBoostUpgrade",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Speedbooster",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "Destroy Cataris/Dairon Central Unit": {
+                "display_name": "Destroy Cataris/Dairon Central Unit",
+                "requirement": {
+                    "type": "and",
+                    "data": {
+                        "comment": null,
+                        "items": [
+                            {
+                                "type": "or",
+                                "data": {
+                                    "comment": "Requirement for destroying the shell",
+                                    "items": [
+                                        {
+                                            "type": "template",
+                                            "data": "Shoot Charge Beam"
+                                        },
+                                        {
+                                            "type": "template",
+                                            "data": "Shoot Missile"
+                                        },
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": "Shinespark",
+                                                "items": [
+                                                    {
+                                                        "type": "resource",
+                                                        "data": {
+                                                            "type": "items",
+                                                            "name": "Speed",
+                                                            "amount": 1,
+                                                            "negate": false
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "or",
+                                "data": {
+                                    "comment": "Requirement for destroying the core",
+                                    "items": [
+                                        {
+                                            "type": "template",
+                                            "data": "Shoot Beam"
+                                        },
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": null,
+                                                "items": [
+                                                    {
+                                                        "type": "resource",
+                                                        "data": {
+                                                            "type": "items",
+                                                            "name": "Screw",
+                                                            "amount": 1,
+                                                            "negate": false
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "or",
+                                                        "data": {
+                                                            "comment": "Core bobs up and down slightly, good movement can hit with only Screw Attack",
+                                                            "items": [
+                                                                {
+                                                                    "type": "template",
+                                                                    "data": "Use Spin Boost"
+                                                                },
+                                                                {
+                                                                    "type": "template",
+                                                                    "data": "Simple IBJ"
+                                                                },
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "type": "template",
+                                            "data": "Shoot Missile"
+                                        },
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": "Shinespark: https://youtu.be/YVUiMU-zJ_s",
+                                                "items": [
+                                                    {
+                                                        "type": "resource",
+                                                        "data": {
+                                                            "type": "items",
+                                                            "name": "Speed",
+                                                            "amount": 1,
+                                                            "negate": false
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "or",
+                                                        "data": {
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Speedbooster",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "items",
+                                                                        "name": "SpeedBoostUpgrade",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "Destroy Ghavoran Central Unit": {
+                "display_name": "Destroy Ghavoran Central Unit",
+                "requirement": {
+                    "type": "and",
+                    "data": {
+                        "comment": null,
+                        "items": [
+                            {
+                                "type": "or",
+                                "data": {
+                                    "comment": "Requirement for destroying the shell",
+                                    "items": [
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": null,
+                                                "items": [
+                                                    {
+                                                        "type": "resource",
+                                                        "data": {
+                                                            "type": "items",
+                                                            "name": "Charge",
+                                                            "amount": 1,
+                                                            "negate": false
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "or",
+                                                        "data": {
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "and",
+                                                                    "data": {
+                                                                        "comment": null,
+                                                                        "items": [
+                                                                            {
+                                                                                "type": "template",
+                                                                                "data": "Beam Damage 75"
+                                                                            },
+                                                                            {
+                                                                                "type": "resource",
+                                                                                "data": {
+                                                                                    "type": "tricks",
+                                                                                    "name": "Combat",
+                                                                                    "amount": 1,
+                                                                                    "negate": false
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "template",
+                                                                    "data": "Beam Damage 120"
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": null,
+                                                "items": [
+                                                    {
+                                                        "type": "template",
+                                                        "data": "Shoot Missile"
+                                                    },
+                                                    {
+                                                        "type": "or",
+                                                        "data": {
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "template",
+                                                                    "data": "Shoot Super Missile"
+                                                                },
+                                                                {
+                                                                    "type": "template",
+                                                                    "data": "Shoot Ice Missile"
+                                                                },
+                                                                {
+                                                                    "type": "template",
+                                                                    "data": "Shoot Storm Missile"
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": "Shinespark",
+                                                "items": [
+                                                    {
+                                                        "type": "resource",
+                                                        "data": {
+                                                            "type": "items",
+                                                            "name": "Speed",
+                                                            "amount": 1,
+                                                            "negate": false
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "or",
+                                "data": {
+                                    "comment": "Requirement for destroying the core",
+                                    "items": [
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": null,
+                                                "items": [
+                                                    {
+                                                        "type": "template",
+                                                        "data": "Shoot Beam"
+                                                    },
+                                                    {
+                                                        "type": "or",
+                                                        "data": {
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "template",
+                                                                    "data": "Beam Damage 75"
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": null,
+                                                "items": [
+                                                    {
+                                                        "type": "resource",
+                                                        "data": {
+                                                            "type": "items",
+                                                            "name": "Screw",
+                                                            "amount": 1,
+                                                            "negate": false
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "or",
+                                                        "data": {
+                                                            "comment": "Core bobs up and down slightly, good movement can hit with only Screw Attack",
+                                                            "items": [
+                                                                {
+                                                                    "type": "template",
+                                                                    "data": "Use Spin Boost"
+                                                                },
+                                                                {
+                                                                    "type": "template",
+                                                                    "data": "Simple IBJ"
+                                                                },
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": null,
+                                                "items": [
+                                                    {
+                                                        "type": "template",
+                                                        "data": "Shoot Missile"
+                                                    },
+                                                    {
+                                                        "type": "or",
+                                                        "data": {
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "template",
+                                                                    "data": "Shoot Super Missile"
+                                                                },
+                                                                {
+                                                                    "type": "template",
+                                                                    "data": "Shoot Ice Missile"
+                                                                },
+                                                                {
+                                                                    "type": "template",
+                                                                    "data": "Shoot Storm Missile"
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": "Shinespark: https://youtu.be/YVUiMU-zJ_s",
+                                                "items": [
+                                                    {
+                                                        "type": "resource",
+                                                        "data": {
+                                                            "type": "items",
+                                                            "name": "Speed",
+                                                            "amount": 1,
+                                                            "negate": false
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "or",
+                                                        "data": {
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Speedbooster",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "items",
+                                                                        "name": "SpeedBoostUpgrade",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "Destroy Ferenia Central Unit": {
+                "display_name": "Destroy Ferenia Central Unit",
+                "requirement": {
+                    "type": "and",
+                    "data": {
+                        "comment": null,
+                        "items": [
+                            {
+                                "type": "or",
+                                "data": {
+                                    "comment": "Requirement for destroying the shell",
+                                    "items": [
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": null,
+                                                "items": [
+                                                    {
+                                                        "type": "resource",
+                                                        "data": {
+                                                            "type": "items",
+                                                            "name": "Charge",
+                                                            "amount": 1,
+                                                            "negate": false
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "or",
+                                                        "data": {
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "and",
+                                                                    "data": {
+                                                                        "comment": null,
+                                                                        "items": [
+                                                                            {
+                                                                                "type": "template",
+                                                                                "data": "Beam Damage 75"
+                                                                            },
+                                                                            {
+                                                                                "type": "resource",
+                                                                                "data": {
+                                                                                    "type": "tricks",
+                                                                                    "name": "Combat",
+                                                                                    "amount": 2,
+                                                                                    "negate": false
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "and",
+                                                                    "data": {
+                                                                        "comment": null,
+                                                                        "items": [
+                                                                            {
+                                                                                "type": "template",
+                                                                                "data": "Beam Damage 120"
+                                                                            },
+                                                                            {
+                                                                                "type": "resource",
+                                                                                "data": {
+                                                                                    "type": "tricks",
+                                                                                    "name": "Combat",
+                                                                                    "amount": 1,
+                                                                                    "negate": false
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "and",
+                                                                    "data": {
+                                                                        "comment": null,
+                                                                        "items": [
+                                                                            {
+                                                                                "type": "template",
+                                                                                "data": "Beam Damage 240"
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 3,
+                                                                        "negate": false
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": null,
+                                                "items": [
+                                                    {
+                                                        "type": "template",
+                                                        "data": "Shoot Missile"
+                                                    },
+                                                    {
+                                                        "type": "or",
+                                                        "data": {
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 2,
+                                                                        "negate": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "and",
+                                                                    "data": {
+                                                                        "comment": null,
+                                                                        "items": [
+                                                                            {
+                                                                                "type": "template",
+                                                                                "data": "Shoot Super Missile"
+                                                                            },
+                                                                            {
+                                                                                "type": "resource",
+                                                                                "data": {
+                                                                                    "type": "tricks",
+                                                                                    "name": "Combat",
+                                                                                    "amount": 1,
+                                                                                    "negate": false
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "and",
+                                                                    "data": {
+                                                                        "comment": null,
+                                                                        "items": [
+                                                                            {
+                                                                                "type": "template",
+                                                                                "data": "Shoot Ice Missile"
+                                                                            },
+                                                                            {
+                                                                                "type": "resource",
+                                                                                "data": {
+                                                                                    "type": "tricks",
+                                                                                    "name": "Combat",
+                                                                                    "amount": 1,
+                                                                                    "negate": false
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "template",
+                                                                    "data": "Shoot Storm Missile"
+                                                                },
+                                                                {
+                                                                    "type": "template",
+                                                                    "data": "Shoot Super Ice Missile"
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": "Shinespark",
+                                                "items": [
+                                                    {
+                                                        "type": "resource",
+                                                        "data": {
+                                                            "type": "items",
+                                                            "name": "Speed",
+                                                            "amount": 1,
+                                                            "negate": false
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "or",
+                                "data": {
+                                    "comment": "Requirement for destroying the core",
+                                    "items": [
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": null,
+                                                "items": [
+                                                    {
+                                                        "type": "template",
+                                                        "data": "Shoot Beam"
+                                                    },
+                                                    {
+                                                        "type": "or",
+                                                        "data": {
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "and",
+                                                                    "data": {
+                                                                        "comment": null,
+                                                                        "items": [
+                                                                            {
+                                                                                "type": "resource",
+                                                                                "data": {
+                                                                                    "type": "tricks",
+                                                                                    "name": "Combat",
+                                                                                    "amount": 3,
+                                                                                    "negate": false
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "and",
+                                                                    "data": {
+                                                                        "comment": null,
+                                                                        "items": [
+                                                                            {
+                                                                                "type": "resource",
+                                                                                "data": {
+                                                                                    "type": "tricks",
+                                                                                    "name": "Combat",
+                                                                                    "amount": 2,
+                                                                                    "negate": false
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "type": "template",
+                                                                                "data": "Beam Damage 75"
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "and",
+                                                                    "data": {
+                                                                        "comment": null,
+                                                                        "items": [
+                                                                            {
+                                                                                "type": "resource",
+                                                                                "data": {
+                                                                                    "type": "tricks",
+                                                                                    "name": "Combat",
+                                                                                    "amount": 1,
+                                                                                    "negate": false
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "type": "template",
+                                                                                "data": "Beam Damage 120"
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "template",
+                                                                    "data": "Beam Damage 240"
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": null,
+                                                "items": [
+                                                    {
+                                                        "type": "resource",
+                                                        "data": {
+                                                            "type": "items",
+                                                            "name": "Screw",
+                                                            "amount": 1,
+                                                            "negate": false
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "or",
+                                                        "data": {
+                                                            "comment": "Core bobs up and down slightly, good movement can hit with only Screw Attack",
+                                                            "items": [
+                                                                {
+                                                                    "type": "template",
+                                                                    "data": "Use Spin Boost"
+                                                                },
+                                                                {
+                                                                    "type": "template",
+                                                                    "data": "Simple IBJ"
+                                                                },
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": null,
+                                                "items": [
+                                                    {
+                                                        "type": "template",
+                                                        "data": "Shoot Missile"
+                                                    },
+                                                    {
+                                                        "type": "or",
+                                                        "data": {
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 2,
+                                                                        "negate": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "and",
+                                                                    "data": {
+                                                                        "comment": null,
+                                                                        "items": [
+                                                                            {
+                                                                                "type": "template",
+                                                                                "data": "Shoot Super Missile"
+                                                                            },
+                                                                            {
+                                                                                "type": "resource",
+                                                                                "data": {
+                                                                                    "type": "tricks",
+                                                                                    "name": "Combat",
+                                                                                    "amount": 1,
+                                                                                    "negate": false
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "and",
+                                                                    "data": {
+                                                                        "comment": null,
+                                                                        "items": [
+                                                                            {
+                                                                                "type": "template",
+                                                                                "data": "Shoot Ice Missile"
+                                                                            },
+                                                                            {
+                                                                                "type": "resource",
+                                                                                "data": {
+                                                                                    "type": "tricks",
+                                                                                    "name": "Combat",
+                                                                                    "amount": 1,
+                                                                                    "negate": false
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "template",
+                                                                    "data": "Shoot Storm Missile"
+                                                                },
+                                                                {
+                                                                    "type": "template",
+                                                                    "data": "Shoot Super Ice Missile"
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": "Shinespark: https://youtu.be/YVUiMU-zJ_s",
+                                                "items": [
+                                                    {
+                                                        "type": "resource",
+                                                        "data": {
+                                                            "type": "items",
+                                                            "name": "Speed",
+                                                            "amount": 1,
+                                                            "negate": false
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "or",
+                                                        "data": {
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Speedbooster",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "items",
+                                                                        "name": "SpeedBoostUpgrade",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
                                                                 }
                                                             ]
                                                         }
@@ -2337,15 +3324,6 @@
                                         {
                                             "type": "resource",
                                             "data": {
-                                                "type": "tricks",
-                                                "name": "Knowledge",
-                                                "amount": 1,
-                                                "negate": false
-                                            }
-                                        },
-                                        {
-                                            "type": "resource",
-                                            "data": {
                                                 "type": "misc",
                                                 "name": "NerfPowerBombs",
                                                 "amount": 1,
@@ -2404,24 +3382,159 @@
                                         {
                                             "type": "or",
                                             "data": {
-                                                "comment": "Methods of dodging",
+                                                "comment": "Requirements for health and dodging",
                                                 "items": [
                                                     {
-                                                        "type": "resource",
+                                                        "type": "and",
                                                         "data": {
-                                                            "type": "items",
-                                                            "name": "Flash",
-                                                            "amount": 1,
-                                                            "negate": false
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 3,
+                                                                        "negate": false
+                                                                    }
+                                                                }
+                                                            ]
                                                         }
                                                     },
                                                     {
-                                                        "type": "resource",
+                                                        "type": "and",
                                                         "data": {
-                                                            "type": "tricks",
-                                                            "name": "Combat",
-                                                            "amount": 1,
-                                                            "negate": false
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 2,
+                                                                        "negate": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "damage",
+                                                                        "name": "Damage",
+                                                                        "amount": 140,
+                                                                        "negate": false
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "and",
+                                                        "data": {
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "or",
+                                                                    "data": {
+                                                                        "comment": null,
+                                                                        "items": [
+                                                                            {
+                                                                                "type": "resource",
+                                                                                "data": {
+                                                                                    "type": "damage",
+                                                                                    "name": "Damage",
+                                                                                    "amount": 340,
+                                                                                    "negate": false
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "type": "and",
+                                                                                "data": {
+                                                                                    "comment": null,
+                                                                                    "items": [
+                                                                                        {
+                                                                                            "type": "or",
+                                                                                            "data": {
+                                                                                                "comment": null,
+                                                                                                "items": [
+                                                                                                    {
+                                                                                                        "type": "resource",
+                                                                                                        "data": {
+                                                                                                            "type": "items",
+                                                                                                            "name": "Flash",
+                                                                                                            "amount": 1,
+                                                                                                            "negate": false
+                                                                                                        }
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "type": "template",
+                                                                                                        "data": "Use Spin Boost"
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "resource",
+                                                                                            "data": {
+                                                                                                "type": "damage",
+                                                                                                "name": "Damage",
+                                                                                                "amount": 240,
+                                                                                                "negate": false
+                                                                                            }
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "and",
+                                                        "data": {
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "or",
+                                                                    "data": {
+                                                                        "comment": null,
+                                                                        "items": [
+                                                                            {
+                                                                                "type": "resource",
+                                                                                "data": {
+                                                                                    "type": "items",
+                                                                                    "name": "Flash",
+                                                                                    "amount": 1,
+                                                                                    "negate": false
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "type": "template",
+                                                                                "data": "Use Spin Boost"
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "damage",
+                                                                        "name": "Damage",
+                                                                        "amount": 440,
+                                                                        "negate": false
+                                                                    }
+                                                                }
+                                                            ]
                                                         }
                                                     }
                                                 ]
@@ -2922,24 +4035,159 @@
                                         {
                                             "type": "or",
                                             "data": {
-                                                "comment": "Methods to dodge attacks",
+                                                "comment": "Requirements for health and dodging",
                                                 "items": [
                                                     {
-                                                        "type": "resource",
+                                                        "type": "and",
                                                         "data": {
-                                                            "type": "items",
-                                                            "name": "Flash",
-                                                            "amount": 1,
-                                                            "negate": false
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 3,
+                                                                        "negate": false
+                                                                    }
+                                                                }
+                                                            ]
                                                         }
                                                     },
                                                     {
-                                                        "type": "resource",
+                                                        "type": "and",
                                                         "data": {
-                                                            "type": "tricks",
-                                                            "name": "Combat",
-                                                            "amount": 1,
-                                                            "negate": false
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 2,
+                                                                        "negate": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "damage",
+                                                                        "name": "Damage",
+                                                                        "amount": 230,
+                                                                        "negate": false
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "and",
+                                                        "data": {
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "or",
+                                                                    "data": {
+                                                                        "comment": null,
+                                                                        "items": [
+                                                                            {
+                                                                                "type": "resource",
+                                                                                "data": {
+                                                                                    "type": "damage",
+                                                                                    "name": "Damage",
+                                                                                    "amount": 430,
+                                                                                    "negate": false
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "type": "and",
+                                                                                "data": {
+                                                                                    "comment": null,
+                                                                                    "items": [
+                                                                                        {
+                                                                                            "type": "or",
+                                                                                            "data": {
+                                                                                                "comment": null,
+                                                                                                "items": [
+                                                                                                    {
+                                                                                                        "type": "resource",
+                                                                                                        "data": {
+                                                                                                            "type": "items",
+                                                                                                            "name": "Flash",
+                                                                                                            "amount": 1,
+                                                                                                            "negate": false
+                                                                                                        }
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "type": "template",
+                                                                                                        "data": "Use Spin Boost"
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "resource",
+                                                                                            "data": {
+                                                                                                "type": "damage",
+                                                                                                "name": "Damage",
+                                                                                                "amount": 330,
+                                                                                                "negate": false
+                                                                                            }
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "and",
+                                                        "data": {
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "or",
+                                                                    "data": {
+                                                                        "comment": null,
+                                                                        "items": [
+                                                                            {
+                                                                                "type": "resource",
+                                                                                "data": {
+                                                                                    "type": "items",
+                                                                                    "name": "Flash",
+                                                                                    "amount": 1,
+                                                                                    "negate": false
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "type": "template",
+                                                                                "data": "Use Spin Boost"
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "damage",
+                                                                        "name": "Damage",
+                                                                        "amount": 530,
+                                                                        "negate": false
+                                                                    }
+                                                                }
+                                                            ]
                                                         }
                                                     }
                                                 ]
@@ -3474,24 +4722,159 @@
                                         {
                                             "type": "or",
                                             "data": {
-                                                "comment": "Methods of dodging",
+                                                "comment": "Requirements for health and dodging",
                                                 "items": [
                                                     {
-                                                        "type": "resource",
+                                                        "type": "and",
                                                         "data": {
-                                                            "type": "items",
-                                                            "name": "Flash",
-                                                            "amount": 1,
-                                                            "negate": false
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 3,
+                                                                        "negate": false
+                                                                    }
+                                                                }
+                                                            ]
                                                         }
                                                     },
                                                     {
-                                                        "type": "resource",
+                                                        "type": "and",
                                                         "data": {
-                                                            "type": "tricks",
-                                                            "name": "Combat",
-                                                            "amount": 1,
-                                                            "negate": false
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 2,
+                                                                        "negate": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "damage",
+                                                                        "name": "Damage",
+                                                                        "amount": 399,
+                                                                        "negate": false
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "and",
+                                                        "data": {
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "or",
+                                                                    "data": {
+                                                                        "comment": null,
+                                                                        "items": [
+                                                                            {
+                                                                                "type": "resource",
+                                                                                "data": {
+                                                                                    "type": "damage",
+                                                                                    "name": "Damage",
+                                                                                    "amount": 599,
+                                                                                    "negate": false
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "type": "and",
+                                                                                "data": {
+                                                                                    "comment": null,
+                                                                                    "items": [
+                                                                                        {
+                                                                                            "type": "or",
+                                                                                            "data": {
+                                                                                                "comment": null,
+                                                                                                "items": [
+                                                                                                    {
+                                                                                                        "type": "resource",
+                                                                                                        "data": {
+                                                                                                            "type": "items",
+                                                                                                            "name": "Flash",
+                                                                                                            "amount": 1,
+                                                                                                            "negate": false
+                                                                                                        }
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "type": "template",
+                                                                                                        "data": "Use Spin Boost"
+                                                                                                    }
+                                                                                                ]
+                                                                                            }
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "resource",
+                                                                                            "data": {
+                                                                                                "type": "damage",
+                                                                                                "name": "Damage",
+                                                                                                "amount": 499,
+                                                                                                "negate": false
+                                                                                            }
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "and",
+                                                        "data": {
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "or",
+                                                                    "data": {
+                                                                        "comment": null,
+                                                                        "items": [
+                                                                            {
+                                                                                "type": "resource",
+                                                                                "data": {
+                                                                                    "type": "items",
+                                                                                    "name": "Flash",
+                                                                                    "amount": 1,
+                                                                                    "negate": false
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "type": "template",
+                                                                                "data": "Use Spin Boost"
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "damage",
+                                                                        "name": "Damage",
+                                                                        "amount": 699,
+                                                                        "negate": false
+                                                                    }
+                                                                }
+                                                            ]
                                                         }
                                                     }
                                                 ]
@@ -4262,7 +5645,7 @@
                                                         "data": {
                                                             "type": "damage",
                                                             "name": "Damage",
-                                                            "amount": 499,
+                                                            "amount": 530,
                                                             "negate": false
                                                         }
                                                     },
@@ -4285,7 +5668,7 @@
                                                                     "data": {
                                                                         "type": "damage",
                                                                         "name": "Damage",
-                                                                        "amount": 299,
+                                                                        "amount": 330,
                                                                         "negate": false
                                                                     }
                                                                 }
@@ -5555,6 +6938,68 @@
                         ]
                     }
                 }
+            },
+            "Traverse Any Shutter Gate": {
+                "display_name": "Traverse Any Shutter Gate",
+                "requirement": {
+                    "type": "or",
+                    "data": {
+                        "comment": null,
+                        "items": [
+                            {
+                                "type": "resource",
+                                "data": {
+                                    "type": "items",
+                                    "name": "Flash",
+                                    "amount": 1,
+                                    "negate": false
+                                }
+                            },
+                            {
+                                "type": "and",
+                                "data": {
+                                    "comment": null,
+                                    "items": [
+                                        {
+                                            "type": "resource",
+                                            "data": {
+                                                "type": "tricks",
+                                                "name": "FlashSkip",
+                                                "amount": 1,
+                                                "negate": false
+                                            }
+                                        },
+                                        {
+                                            "type": "template",
+                                            "data": "Lay Cross Bomb"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "and",
+                                "data": {
+                                    "comment": null,
+                                    "items": [
+                                        {
+                                            "type": "resource",
+                                            "data": {
+                                                "type": "tricks",
+                                                "name": "FlashSkip",
+                                                "amount": 2,
+                                                "negate": false
+                                            }
+                                        },
+                                        {
+                                            "type": "template",
+                                            "data": "Lay Normal Bomb"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
             }
         },
         "damage_reductions": [
@@ -5563,10 +7008,12 @@
                 "reductions": [
                     {
                         "name": "Varia",
+                        "quantity": 1,
                         "multiplier": 0.75
                     },
                     {
                         "name": "Gravity",
+                        "quantity": 1,
                         "multiplier": 0.5
                     }
                 ]
@@ -5576,10 +7023,12 @@
                 "reductions": [
                     {
                         "name": "Varia",
+                        "quantity": 1,
                         "multiplier": 0.0
                     },
                     {
                         "name": "Gravity",
+                        "quantity": 1,
                         "multiplier": 0.0
                     }
                 ]
@@ -5589,10 +7038,12 @@
                 "reductions": [
                     {
                         "name": "Varia",
+                        "quantity": 1,
                         "multiplier": 0.75
                     },
                     {
                         "name": "Gravity",
+                        "quantity": 1,
                         "multiplier": 0.0
                     }
                 ]
@@ -5602,10 +7053,12 @@
                 "reductions": [
                     {
                         "name": "Varia",
+                        "quantity": 1,
                         "multiplier": 0.75
                     },
                     {
                         "name": "Gravity",
+                        "quantity": 1,
                         "multiplier": 0.0
                     }
                 ]
@@ -5871,63 +7324,8 @@
                             "type": "phase_shift"
                         },
                         "requirement": {
-                            "type": "or",
-                            "data": {
-                                "comment": null,
-                                "items": [
-                                    {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
-                                            "name": "Flash",
-                                            "amount": 1,
-                                            "negate": false
-                                        }
-                                    },
-                                    {
-                                        "type": "and",
-                                        "data": {
-                                            "comment": null,
-                                            "items": [
-                                                {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "tricks",
-                                                        "name": "FlashSkip",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
-                                                },
-                                                {
-                                                    "type": "template",
-                                                    "data": "Lay Cross Bomb"
-                                                }
-                                            ]
-                                        }
-                                    },
-                                    {
-                                        "type": "and",
-                                        "data": {
-                                            "comment": null,
-                                            "items": [
-                                                {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "tricks",
-                                                        "name": "FlashSkip",
-                                                        "amount": 2,
-                                                        "negate": false
-                                                    }
-                                                },
-                                                {
-                                                    "type": "template",
-                                                    "data": "Lay Bomb"
-                                                }
-                                            ]
-                                        }
-                                    }
-                                ]
-                            }
+                            "type": "template",
+                            "data": "Traverse Any Shutter Gate"
                         },
                         "lock": null
                     },
@@ -6485,16 +7883,12 @@
         },
         "dock_rando": {
             "force_change_two_way": true,
-            "resolver_attempts": 250,
+            "resolver_attempts": 500,
             "to_shuffle_proportion": 0.6
         }
     },
+    "hint_feature_database": {},
     "used_trick_levels": {
-        "Knowledge": [
-            1,
-            2,
-            3
-        ],
         "FlashSkip": [
             1,
             2
@@ -6503,8 +7897,12 @@
             1,
             2,
             3,
-            4,
             5
+        ],
+        "Pseudo": [
+            1,
+            2,
+            3
         ],
         "Speedbooster": [
             1,
@@ -6518,7 +7916,7 @@
             3,
             4
         ],
-        "Pseudo": [
+        "DBoost": [
             1,
             2,
             3
@@ -6540,6 +7938,11 @@
             3
         ],
         "SWJ": [
+            2,
+            3,
+            4
+        ],
+        "Knowledge": [
             1,
             2,
             3
@@ -6590,11 +7993,6 @@
             3,
             5
         ],
-        "DBoost": [
-            1,
-            2,
-            3
-        ],
         "ShortBoost": [
             2,
             4
@@ -6608,7 +8006,6 @@
             1
         ],
         "CrossSkip": [
-            1,
             2,
             3,
             4

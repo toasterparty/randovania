@@ -1,11 +1,25 @@
 ----------------
 Transport to Surface and Area 2
 Extra - total_boundings: {'x1': -20550.0, 'x2': -10700.0, 'y1': -4600.0, 'y2': 6000.0}
-Extra - polygon: [[-15300.0, 700.0], [-14900.0, -500.0], [-14900.0, -4600.0], [-11200.0, -4600.0], [-11200.0, -3600.0], [-12000.0, -3500.0], [-12000.0, -2000.0], [-10700.0, -1800.0], [-10700.0, 2100.030029296875], [-17900.0, 2100.0], [-18200.0, 2400.0], [-18200.0, 6000.0], [-20550.0, 6000.0], [-20550.0, 700.0]]
+Extra - polygon:
+[[-15300.0, 700.0],
+ [-14900.0, -500.0],
+ [-14900.0, -4600.0],
+ [-11200.0, -4600.0],
+ [-11200.0, -3600.0],
+ [-12000.0, -3500.0],
+ [-12000.0, -2000.0],
+ [-10700.0, -1800.0],
+ [-10700.0, 2100.030029296875],
+ [-17900.0, 2100.0],
+ [-18200.0, 2400.0],
+ [-18200.0, 6000.0],
+ [-20550.0, 6000.0],
+ [-20550.0, 700.0]]
 Extra - asset_id: collision_camera_000
 > Chozo Seal; Heals? False
   * Layers: default
-  * Hint
+  * Generic Hint
   * Extra - actor_name: LE_ChozoUnlockAreaDNA
   * Extra - actor_type: weightactivatedplatform
   * Extra - start_point_actor_name: ST_ChozoUnlockAreaDNA_Checkpoint
@@ -23,7 +37,7 @@ Extra - asset_id: collision_camera_000
                   All of the following:
                       Any of the following:
                           # Dealing with the crumbles
-                          Spider Ball or Enabled Remove Area 1 Crumble Blocks
+                          Enabled Remove Area 1 Crumble Blocks or Use Spider Ball
                           # https://youtu.be/eVkMBrWB0Wk
                           Phase Drift Skip (Advanced)
                           All of the following:
@@ -32,7 +46,7 @@ Extra - asset_id: collision_camera_000
                               Mid-Air Morph (Beginner) or Movement (Beginner) or Lay Bomb or Use Spring Ball
                       Any of the following:
                           # Reaching the elevator
-                          Power Bomb or Screw Attack
+                          Screw Attack or Lay Power Bomb
                           All of the following:
                               Shoot Any Missile
                               # Break the shot blocks
@@ -59,8 +73,10 @@ Extra - asset_id: collision_camera_000
   * Extra - start_point_actor_name: ST_FromArea02
   > Chozo Seal
       Any of the following:
-          # Freeze the Hornoad by the wall and clip right: https://youtu.be/HdZfUSnqxrE
-          Charge Beam and Ice Beam and Screw Attack and Freeze Enemy with Melee (Intermediate) and Ice Beam Clip (Intermediate)
+          All of the following:
+              # Freeze the Hornoad by the wall and clip right: https://youtu.be/HdZfUSnqxrE
+              Ice Beam and Screw Attack and Ice Beam Clip (Intermediate) and Out of Bounds Movement (Beginner)
+              Charge Beam or Freeze Enemy with Melee (Intermediate)
           All of the following:
               Morph Ball
               Screw Attack or Lay Any Bomb or Shoot Any Missile
@@ -193,6 +209,7 @@ Bomb Chamber
 Extra - total_boundings: {'x1': -2500.0, 'x2': 0.0, 'y1': 4100.0, 'y2': 5700.0}
 Extra - polygon: [[0.0, 4100.0], [0.0, 5700.0], [-2500.0, 5700.0], [-2500.0, 4100.0]]
 Extra - asset_id: collision_camera_008
+Hint Features - Chozo Statue
 > Pickup (Missile Tank); Heals? False
   * Layers: default
   * Pickup 18; Category? Minor
@@ -311,7 +328,7 @@ Extra - asset_id: collision_camera_014
               Space Jump
               All of the following:
                   # Spider Ball up
-                  Spider Ball
+                  Use Spider Ball
                   Any of the following:
                       Lay Any Bomb
                       All of the following:
@@ -336,7 +353,7 @@ Extra - asset_id: collision_camera_014
                       All of the following:
                           # IBJ from mid air
                           Infinite Bomb Jump (Beginner)
-                          Spring Ball or Mid-Air Morph (Beginner)
+                          Mid-Air Morph (Beginner) or Use Spring Ball
               All of the following:
                   # Freeze Chute-Leech
                   Ice Beam
@@ -467,6 +484,7 @@ Extra - asset_id: collision_camera_017
 > Pickup (DNA); Heals? False
   * Layers: default
   * Pickup 176; Category? Minor
+  * Hint Features - Alpha Metroid
   * Extra - pickup_type: metroid
   * Extra - spawngroup: SG_Alpha_004
   > Inside Arena
@@ -475,7 +493,24 @@ Extra - asset_id: collision_camera_017
 ----------------
 Temple Exterior
 Extra - total_boundings: {'x1': -2600.0, 'x2': 11950.0, 'y1': 7600.0, 'y2': 14000.0}
-Extra - polygon: [[11950.0, 7600.0], [11950.0, 13100.0], [9400.0, 13100.0], [8000.0, 14000.0], [3100.0, 14000.0], [1900.0, 13100.0], [-2600.0, 13100.0], [-2600.0, 7600.0], [1400.0, 7600.0], [1400.0, 8700.0], [2800.0, 9300.0], [3400.0, 9300.0], [3400.0, 10400.0], [3800.0, 10600.0], [9100.0, 10600.0], [9200.0, 10500.0], [9200.0, 7600.0]]
+Extra - polygon:
+[[11950.0, 7600.0],
+ [11950.0, 13100.0],
+ [9400.0, 13100.0],
+ [8000.0, 14000.0],
+ [3100.0, 14000.0],
+ [1900.0, 13100.0],
+ [-2600.0, 13100.0],
+ [-2600.0, 7600.0],
+ [1400.0, 7600.0],
+ [1400.0, 8700.0],
+ [2800.0, 9300.0],
+ [3400.0, 9300.0],
+ [3400.0, 10400.0],
+ [3800.0, 10600.0],
+ [9100.0, 10600.0],
+ [9200.0, 10500.0],
+ [9200.0, 7600.0]]
 Extra - asset_id: collision_camera_018
 > Pickup (Missile Tank Crevice); Heals? False
   * Layers: default
@@ -532,7 +567,7 @@ Extra - asset_id: collision_camera_018
                   # Super Jump with Unmorph Extend: https://youtu.be/r8Pb-3bIPGc
                   Morph Ball and Super Jump (Expert) and Unmorph Extend (Advanced)
                   # Super Jump and aim up to Damage Boost off of the Gullugg: https://youtu.be/boCImRu4y2E
-                  Damage Boost (Advanced) and Super Jump (Hypermode)
+                  Damage Boost (Advanced) and Super Jump (Ludicrous)
   > Door to Spider Ball Chamber
       Trivial
   > Tunnel to Spider Ball Chamber
@@ -693,7 +728,13 @@ Extra - asset_id: collision_camera_018
 ----------------
 Metroid Caverns Lobby
 Extra - total_boundings: {'x1': -300.00201416015625, 'x2': 1400.0, 'y1': -1100.0, 'y2': 2000.0}
-Extra - polygon: [[1200.0, -1100.0], [1200.0, 500.0], [1400.0, 600.0], [1400.0, 2000.0], [-300.00201416015625, 2000.0], [-299.99798583984375, -1100.0]]
+Extra - polygon:
+[[1200.0, -1100.0],
+ [1200.0, 500.0],
+ [1400.0, 600.0],
+ [1400.0, 2000.0],
+ [-300.00201416015625, 2000.0],
+ [-299.99798583984375, -1100.0]]
 Extra - asset_id: collision_camera_023
 > Door to Metroid Caverns Alpha Arena South East; Heals? False
   * Layers: default
@@ -762,7 +803,7 @@ Extra - asset_id: collision_camera_024
                   Diagonal Bomb Jump (Intermediate)
                   All of the following:
                       Infinite Bomb Jump (Beginner)
-                      Spring Ball or Mid-Air Morph (Beginner)
+                      Mid-Air Morph (Beginner) or Use Spring Ball
           # Spider Boost: Launch diagonally twice
           Power Bomb ≥ 2 and Spider Boost (Intermediate) and Can Spider Boost
           # Damage Boost: https://youtu.be/o9YeN0y5DeA
@@ -793,7 +834,7 @@ Extra - asset_id: collision_camera_024
               All of the following:
                   # IBJ up: https://youtu.be/HWWMrswtNFg
                   Infinite Bomb Jump (Beginner) and Lay Bomb
-                  Spring Ball or Mid-Air Morph (Beginner)
+                  Mid-Air Morph (Beginner) or Use Spring Ball
               # Spider Boost: https://youtu.be/HWWMrswtNFg?t=18
               Spider Boost (Advanced) and Can Spider Boost
               # Umorph extend: https://youtu.be/HWWMrswtNFg?t=28
@@ -808,6 +849,7 @@ Metroid Caverns Alpha Arena South East
 Extra - total_boundings: {'x1': 1100.0, 'x2': 3800.0, 'y1': -1100.0, 'y2': 400.0}
 Extra - polygon: [[3800.0, -1100.0], [3800.0, 400.0], [1100.0, 400.0], [1100.0, -1100.0]]
 Extra - asset_id: collision_camera_025
+Hint Features - Alpha Metroid
 > Door to Metroid Caverns Lobby; Heals? False
   * Layers: default
   * Power Beam Door to Metroid Caverns Lobby/Door to Metroid Caverns Alpha Arena South East
@@ -835,6 +877,7 @@ Metroid Caverns Alpha Arena North East
 Extra - total_boundings: {'x1': 7500.0, 'x2': 10206.7001953125, 'y1': 700.0, 'y2': 2100.0}
 Extra - polygon: [[10206.7001953125, 700.0], [10206.7001953125, 2100.0], [7500.0, 2100.0], [7500.0, 700.0]]
 Extra - asset_id: collision_camera_027
+Hint Features - Alpha Metroid
 > Door to Metroid Caverns Alpha Arena North East Access; Heals? False
   * Layers: default
   * Power Beam Door to Metroid Caverns Alpha Arena North East Access/Door to Metroid Caverns Alpha Arena North East
@@ -862,6 +905,7 @@ Water Maze
 Extra - total_boundings: {'x1': -5498.08984375, 'x2': -4198.08984375, 'y1': 1600.0, 'y2': 3400.0}
 Extra - polygon: [[-4198.08984375, 1600.0], [-4198.08984375, 3400.0], [-5498.08984375, 3400.0], [-5498.08984375, 1600.0]]
 Extra - asset_id: collision_camera_028
+Hint Features - Baby Blocks
 > Pickup (Aeion Tank); Heals? False
   * Layers: default
   * Pickup 17; Category? Minor
@@ -921,9 +965,7 @@ Extra - asset_id: collision_camera_028
   * Extra - actor_type: doorpowerpower
   * Extra - tile_index: 162
   > Door to Gullugg Gangway (Bottom)
-      All of the following:
-          Plasma Beam
-          Enabled Door Type Randomizer or Disabled Door Lock Randomizer
+      Plasma Beam and Wave Beam and Disabled Door Type Randomizer and Disabled Door Lock Randomizer
   > Door to Metroid Caverns Save Station
       Trivial
 
@@ -964,6 +1006,7 @@ Ice Beam Chamber
 Extra - total_boundings: {'x1': 3800.0, 'x2': 6000.0, 'y1': 2400.0, 'y2': 4100.0}
 Extra - polygon: [[6000.0, 2400.0], [6000.0, 4100.0], [3800.0, 4100.0], [3800.0, 2400.0]]
 Extra - asset_id: collision_camera_030
+Hint Features - Baby Blocks, Chozo Statue
 > Pickup (Ice Beam); Heals? False
   * Layers: default
   * Pickup 27; Category? Major
@@ -1021,13 +1064,16 @@ Magma Pool
 Extra - total_boundings: {'x1': -9600.0, 'x2': -7100.0, 'y1': 700.0, 'y2': 3700.0}
 Extra - polygon: [[-7100.0, 700.0], [-7100.0, 3700.0], [-9600.0, 3700.0], [-9600.0, 700.0]]
 Extra - asset_id: collision_camera_033
+Hint Features - Heated Room
 > Pickup (Missile Tank); Heals? False
   * Layers: default
   * Pickup 15; Category? Minor
   * Extra - actor_name: LE_Item_001
   * Extra - actor_type: item_missiletank
   > Door to Moheek Mount
-      Trivial
+      All of the following:
+          Varia Suit
+          Gravity Suit or Space Jump or Use Spider Ball
 
 > Door to Moheek Mount; Heals? False
   * Layers: default
@@ -1035,20 +1081,23 @@ Extra - asset_id: collision_camera_033
   * Extra - actor_name: Door009
   * Extra - actor_type: doorchargecharge
   > Pickup (Missile Tank)
-      Any of the following:
-          All of the following:
-              Varia Suit
+      All of the following:
+          Varia Suit
+          Any of the following:
+              # Avoiding the lava
               Space Jump or Use Spider Ball
-          All of the following:
-              # Gravity way
-              Gravity Suit
-              Wall Jump (Beginner) or Simple IBJ
-              # Super Jump + Unmorph Extend
-              Morph Ball and Super Jump (Advanced) and Unmorph Extend (Advanced)
+              All of the following:
+                  # Climb via entering the lava
+                  Gravity Suit
+                  Any of the following:
+                      Simple IBJ
+                      # TODO: Add video/revisit
+                      Morph Ball and Super Jump (Advanced) and Unmorph Extend (Advanced) and Wall Jump (Beginner)
   > Door to Gullugg Gangway
-      Any of the following:
-          Gravity Suit
-          Varia Suit and Use Spider Ball
+      All of the following:
+          Varia Suit
+          # Entering or avoiding the lava
+          Gravity Suit or Use Spider Ball
 
 > Door to Gullugg Gangway; Heals? False
   * Layers: default
@@ -1056,12 +1105,13 @@ Extra - asset_id: collision_camera_033
   * Extra - actor_name: Door010
   * Extra - actor_type: doorchargecharge
   > Door to Moheek Mount
-      Any of the following:
-          Gravity Suit
-          Varia Suit and Use Spider Ball
+      All of the following:
+          Varia Suit
+          # Entering or avoiding the lava
+          Gravity Suit or Use Spider Ball
   > Pickup (Super Missile Tank)
       All of the following:
-          Gravity Suit and Morph Ball and Super Missile
+          Gravity Suit and Morph Ball and Super Missile and Varia Suit
           Any of the following:
               Space Jump or Simple IBJ
               All of the following:
@@ -1073,7 +1123,7 @@ Extra - asset_id: collision_camera_033
                       Damage Boost (Intermediate) and Normal Damage ≥ 10
               All of the following:
                   # Spider Ball up
-                  Spider Ball and Mid-Air Morph (Beginner)
+                  Mid-Air Morph (Beginner) and Use Spider Ball
                   # Get enough height to use Spider Ball
                   High Jump Boots or Super Jump (Intermediate)
               Spider Boost (Intermediate) and Can Spider Boost
@@ -1086,7 +1136,7 @@ Extra - asset_id: collision_camera_033
   * Extra - actor_name: HiddenPowerup002
   * Extra - actor_type: item_supermissiletank
   > Door to Gullugg Gangway
-      Gravity Suit
+      Gravity Suit and Varia Suit
 
 ----------------
 Inner Temple West Hall
@@ -1623,6 +1673,7 @@ Metroid Caverns Alpha Arena South West
 Extra - total_boundings: {'x1': -7200.0, 'x2': -3900.0, 'y1': -1100.0, 'y2': 600.0}
 Extra - polygon: [[-3900.0, -1100.0], [-3900.0, 600.0], [-7200.0, 600.0], [-7200.0, -1100.0]]
 Extra - asset_id: collision_camera_054
+Hint Features - Alpha Metroid
 > Tunnel to Metroid Caverns Alpha Arena South West Access (Top); Heals? False
   * Layers: default
   * Tunnel to Metroid Caverns Alpha Arena South West Access/Tunnel to Metroid Caverns Alpha Arena South West (Top)

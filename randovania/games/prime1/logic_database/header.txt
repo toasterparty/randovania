@@ -47,6 +47,66 @@ Templates
           Morph Ball or Movement (Intermediate) or Normal Damage ≥ 30 or Shoot Wave Beam
           Movement (Beginner) and Normal Damage ≥ 12
 
+* Can Use Boost Ball:
+      Boost Ball and Morph Ball
+
+* Can Use Spider Ball:
+      Morph Ball and Spider Ball
+
+* Can Use Bombs:
+      Morph Ball Bomb and Morph Ball
+
+* Can Use Power Bombs:
+      Morph Ball and Power Bomb
+
+* Kill Elite Pirate:
+      All of the following:
+          # Used for killing Elite Pirates. Note that the Phazon Elite in Elite Research does not use this template.
+          Shoot Any Beam
+          Any of the following:
+              Any of the following:
+                  # Circle around Pirate: https://youtu.be/20peXRPG-e0
+                  # Beam only
+                  Combat (Intermediate)
+                  All of the following:
+                      # Missile-spam strat
+                      Combat (Beginner)
+                      Any of the following:
+                          Missile ≥ 10 and Disabled Hard Mode
+                          Missile ≥ 20 and Enabled Hard Mode
+              All of the following:
+                  # Normal Fight
+                  Any of the following:
+                      # Damage requirements
+                      Normal Damage ≥ 200
+                      Combat (Beginner) and Normal Damage ≥ 40
+                  # Weaponry
+                  Charge Beam or Shoot Plasma Beam
+                  # Dodging
+                  Space Jump Boots or Combat (Beginner)
+
+* Has Any Visor:
+      Combat Visor or Scan Visor or Thermal Visor or X-Ray Visor
+
+* Kill Multiple Chozo Ghosts:
+      All of the following:
+          Shoot Power Beam
+          Any of the following:
+              Combat (Intermediate)
+              All of the following:
+                  # Charge Beam makes the fight easier and faster
+                  Charge Beam
+                  Any of the following:
+                      Normal Damage ≥ 90
+                      X-Ray Visor and Normal Damage ≥ 15
+
+* Kill Single Chozo Ghost:
+      All of the following:
+          Shoot Power Beam
+          Any of the following:
+              Combat (Beginner)
+              Charge Beam and Normal Damage ≥ 15
+
 ====================
 Dock Weaknesses
 
@@ -153,7 +213,7 @@ Dock Weaknesses
       Open:
           Shoot Wave Beam
       Lock type: FRONT_BLAST_BACK_FREE_UNLOCK
-          Charge Beam and Missile ≥ 11 and Wavebuster and Shoot Wave Beam
+          Charge Beam and Missile ≥ 10 and Wavebuster and Shoot Wave Beam
 
 
   * Ice Spreader Blast Shield
@@ -229,9 +289,7 @@ Dock Weaknesses
 > Dock
   * Open Passage
       Open:
-          All of the following:
-              Ice Beam or Plasma Beam or Power Beam or Wave Beam
-              Combat Visor or Thermal Visor or X-Ray Visor
+          Trivial
       No lock
 
 
@@ -261,6 +319,12 @@ Dock Weaknesses
   * Frigate Ship Teleporter
       Open:
           After Parasite Queen
+      No lock
+
+
+  * Artifact Temple Teleporter
+      Open:
+          After Meta Ridley
       No lock
 
   > Dock Rando: Disabled

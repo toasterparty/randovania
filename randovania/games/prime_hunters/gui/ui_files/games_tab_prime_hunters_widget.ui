@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>HuntersGameTabWidget</class>
+ <widget class="QTabWidget" name="HuntersGameTabWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>653</width>
+    <height>668</height>
+   </rect>
+  </property>
+  <property name="currentIndex">
+   <number>0</number>
+  </property>
+  <property name="documentMode">
+   <bool>true</bool>
+  </property>
+  <widget class="QWidget" name="tab_intro">
+   <attribute name="title">
+    <string>Introduction</string>
+   </attribute>
+   <layout class="QVBoxLayout" name="intro_layout">
+    <item>
+     <layout class="QHBoxLayout" name="intro_cover_layout">
+      <item>
+       <widget class="QLabel" name="game_cover_label">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="intro_label">
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;Explore the ruins of the Alimbic Cluster and recover the Octoliths, then activate the Alimbic Cannon to open the Oubliette and defeat Gorea.&lt;/p&gt;&lt;p&gt;To get started, use the Quick Generate button to generate a game using the default settings!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QPushButton" name="quick_generate_button">
+      <property name="text">
+       <string>Quick generate</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="intro_spacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+  <widget class="GenerateGameWidget" name="tab_generate_game">
+   <attribute name="title">
+    <string>Play</string>
+   </attribute>
+  </widget>
+  <widget class="QWidget" name="faq_tab">
+   <attribute name="title">
+    <string>FAQ</string>
+   </attribute>
+   <layout class="QGridLayout" name="faq_layout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item row="0" column="0">
+     <widget class="QScrollArea" name="faq_scroll_area">
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="faq_scroll_area_contents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>651</width>
+         <height>641</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="faq_scroll_layout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="faq_label">
+          <property name="text">
+           <string># updated from code</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="differences_tab">
+   <attribute name="title">
+    <string>Differences</string>
+   </attribute>
+   <layout class="QGridLayout" name="gridLayout_2">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item row="0" column="0">
+     <widget class="QScrollArea" name="differences_scroll_area">
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="differences_scroll_area_contents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>651</width>
+         <height>641</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="differences_label">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Various changes have been made to the game to enhance the randomizer experience. These include:&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;All planets, except Oubliette, are accessible from the start.&lt;/li&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Various cutscenes and tutorial texboxes have been removed.&lt;/li&gt;&lt;/ul&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The number of Octoliths required to unlock Oubliette is configurable. The lore scans in &lt;span style=&quot; font-weight:600;&quot;&gt;Alimbic Cannon Control Room&lt;/span&gt; will provide hints to where they can be found.&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The force fields that block access to later parts of planets prior to defeating the first boss of the planets have been removed.&lt;/li&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The escape sequences that occur after defeating the bosses have been removed. This also means the portals that connect to the landing sites can be used without having to leave the planet first.&lt;/li&gt;&lt;/ul&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The fight trigger in Celestial Archives - Data Shrine 01 is now activated by scanning the panel below the pickup to prevent softlocks.&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A proper Missile Launcher pickup has been added which is required in order to fire Missiles.&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Many rooms have been modified with regards to how the doors lock and unlock to prevent softlocks.&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Scan Points have been added above portals that tells their destination.&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Various other minor fixes throughout to improve gameplay.&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="PickupHintFeatureTab" name="pickup_hint_features_tab">
+   <attribute name="title">
+    <string>Pickup Hint Features</string>
+   </attribute>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>GenerateGameWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">randovania/gui/widgets/generate_game_widget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PickupHintFeatureTab</class>
+   <extends>QWidget</extends>
+   <header location="global">randovania.gui.widgets.hint_feature_tab</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

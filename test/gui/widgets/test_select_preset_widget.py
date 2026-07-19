@@ -189,7 +189,7 @@ def test_menu_set_preset_broken(widget: SelectPresetWidget):
     broken_data = copy.deepcopy(widget._window_manager.preset_manager.default_preset_for_game(widget._game).as_json)
     broken_data["schema_version"] = 6
 
-    broken_preset = VersionedPreset(broken_data)
+    broken_preset = VersionedPreset(broken_data, False)
     widget._preset_menu.set_preset(broken_preset)
 
     menu = widget._preset_menu
@@ -216,7 +216,7 @@ def test_menu_set_preset_broken(widget: SelectPresetWidget):
 @pytest.mark.parametrize("confirm", [False, True])
 def test_on_import_preset(widget: SelectPresetWidget, mocker: pytest_mock.MockerFixture, confirm: bool) -> None:
     mock_prompt = mocker.patch("randovania.gui.lib.common_qt_lib.prompt_user_for_preset_file")
-    import_preset_file = typing.cast(MagicMock, widget._window_manager.import_preset_file)
+    import_preset_file = typing.cast("MagicMock", widget._window_manager.import_preset_file)
     if not confirm:
         mock_prompt.return_value = None
 

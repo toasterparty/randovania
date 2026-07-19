@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-import collections
 import dataclasses
 import typing
 import uuid
 
 import pytest
+from frozendict import frozendict
 
 from randovania.bitpacking import bitpacking
 from randovania.bitpacking.bitpacking import BitPackDecoder
@@ -14,7 +14,7 @@ from randovania.game_description.assignment import PickupTarget
 from randovania.game_description.db.dock_node import DockNode
 from randovania.game_description.db.node_identifier import NodeIdentifier
 from randovania.game_description.db.pickup_node import PickupNode
-from randovania.game_description.hint import Hint
+from randovania.game_description.hint import BaseHint
 from randovania.game_description.pickup.pickup_entry import (
     PickupEntry,
     PickupModel,
@@ -44,7 +44,6 @@ from randovania.network_common.pickup_serializer import BitPackPickupEntry
                 "Torvus Bog/Catacombs/Lore Scan",
                 {
                     "hint_type": "location",
-                    "dark_temple": None,
                     "precision": {
                         "location": "detailed",
                         "item": "detailed",
@@ -62,6 +61,7 @@ def patches_with_data(request, echoes_game_description, echoes_game_patches, ech
 
     gt = "Great Temple"
     tg = "Temple Grounds"
+    sg = "Sky Temple Grounds"
     sf = "Sanctuary Fortress"
     aw = "Agon Wastes"
     st = "Sky Temple"
@@ -80,8 +80,8 @@ def patches_with_data(request, echoes_game_description, echoes_game_patches, ech
             f"{gt}/Temple Transport A/Elevator to {tg}": f"{tg}/Temple Transport A/Elevator to {gt}",
             f"{gt}/Temple Transport C/Elevator to {tg}": f"{tg}/Temple Transport C/Elevator to {gt}",
             f"{gt}/Temple Transport B/Elevator to {tg}": f"{tg}/Temple Transport B/Elevator to {gt}",
-            f"{tg}/{st} Gateway/Elevator to {gt}": f"{gt}/{st} Energy Controller/Save Station",
-            f"{gt}/{st} Energy Controller/Elevator to {tg}": f"{tg}/{st} Gateway/Spawn Point/Front of Teleporter",
+            f"{sg}/{st} Gateway/Elevator to {st}": f"{st}/{st} Energy Controller/Save Station",
+            f"{st}/{st} Energy Controller/Elevator to {sg}": f"{sg}/{st} Gateway/Spawn Point/Front of Teleporter",
             f"{aw}/Transport to {tg}/Elevator to {tg}": f"{tg}/Transport to {aw}/Elevator to {aw}",
             f"{aw}/Transport to Torvus Bog/Elevator to Torvus Bog": f"Torvus Bog/Transport to {aw}/Elevator to {aw}",
             f"{aw}/Transport to {sf}/Elevator to {sf}": f"{sf}/Transport to {aw}/Elevator to {aw}",
@@ -95,19 +95,25 @@ def patches_with_data(request, echoes_game_description, echoes_game_patches, ech
             f"{sf}/Aerie/Elevator to Aerie Transport Station": f"{sf}/Aerie Transport Station/Elevator to Aerie",
         },
         "dock_weakness": {},
-        "locations": {},
+        "locations": [],
         "hints": {},
         "game_specific": {},
     }
     patches = dataclasses.replace(echoes_game_patches, player_index=0)
 
-    locations = collections.defaultdict(dict)
+    locations = []
     for region, area, node in game.region_list.all_regions_areas_nodes:
-        if node.is_resource_node and isinstance(node, PickupNode):
-            world_name = region.dark_name if area.in_dark_aether else region.name
-            locations[world_name][game.region_list.node_name(node)] = game_patches_serializer._ETM_NAME
+        if node.is_resource_node() and isinstance(node, PickupNode):
+            locations.append(
+                {
+                    "node_identifier": node.identifier.as_json,
+                    "index": node.pickup_index.index,
+                    "pickup": game_patches_serializer._NOTHING_PICKUP_NAME,
+                    "owner": 0,
+                }
+            )
 
-    data["locations"] = {region: dict(sorted(locations[region].items())) for region in sorted(locations.keys())}
+    data["locations"] = locations
 
     def create_pickup(name, percentage=True):
         return pickup_creator.create_standard_pickup(
@@ -144,11 +150,14 @@ def patches_with_data(request, echoes_game_description, echoes_game_patches, ech
         pickup = create_pickup(pickup_name)
 
         patches = patches.assign_new_pickups([(PickupIndex(5), PickupTarget(pickup, 0))])
-        data["locations"]["Temple Grounds"]["Transport to Agon Wastes/Pickup (Missile)"] = pickup_name
+        data["locations"][4]["pickup"] = pickup_name
 
     if request.param.get("hint"):
         identifier, hint = request.param.get("hint")
-        patches = patches.assign_hint(NodeIdentifier.from_string(identifier), Hint.from_json(hint))
+        patches = patches.assign_hint(
+            NodeIdentifier.from_string(identifier),
+            BaseHint.from_json(hint, game=game, pickup_db=echoes_pickup_database),
+        )
         data["hints"][identifier] = hint
 
     return data, patches
@@ -160,9 +169,11 @@ def test_encode(patches_with_data):
     # Run
     encoded = game_patches_serializer.serialize_single(0, 1, patches)
 
+    expected_locations = expected.pop("locations")
+    encoded_locations = encoded.pop("locations")
+
     # Assert
-    for key, value in expected["locations"].items():
-        assert encoded["locations"][key] == value
+    assert sorted(expected_locations, key=lambda d: d["index"]) == sorted(encoded_locations, key=lambda d: d["index"])
     assert encoded == expected
 
 
@@ -173,10 +184,10 @@ def test_decode(patches_with_data, default_echoes_configuration):
     pool = pool_creator.calculate_pool_results(default_echoes_configuration, game)
 
     # Run
-    decoded = game_patches_serializer.decode_single(0, {0: pool}, game, encoded, default_echoes_configuration)
+    decoded = game_patches_serializer.decode_single(0, {0: pool}, game, encoded, default_echoes_configuration, [game])
 
     # Assert
-    assert set(decoded.all_dock_connections()) == set(expected.all_dock_connections())
+    assert set(decoded.all_dock_connections_identifiers()) == set(expected.all_dock_connections_identifiers())
     assert decoded == expected
 
 
@@ -201,11 +212,11 @@ def test_bit_pack_pickup_entry(
     pickup = PickupEntry(
         name=name,
         model=PickupModel(
-            game=RandovaniaGame.METROID_PRIME_CORRUPTION,
-            name="HyperMissile",
+            game=RandovaniaGame.METROID_DREAD,
+            name="powerup_widebeam",
         ),
-        pickup_category=generic_pickup_category,
-        broad_category=generic_pickup_category,
+        gui_category=generic_pickup_category,
+        hint_features=frozenset((generic_pickup_category,)),
         progression=(
             (
                 find_resource_info_with_long_name(echoes_resource_database.item, "Morph Ball"),
@@ -224,12 +235,13 @@ def test_bit_pack_pickup_entry(
             ),
         ),
         resource_lock=resource_lock,
+        extra=frozendict({"foo": "bar"}),
     )
 
     # Run
     encoded = bitpacking.pack_value(BitPackPickupEntry(pickup, echoes_resource_database))
     decoder = BitPackDecoder(encoded)
-    decoded = BitPackPickupEntry.bit_pack_unpack(decoder, echoes_resource_database)
+    decoded = BitPackPickupEntry.bit_pack_unpack(decoder, {"database": echoes_resource_database}).value
 
     # Assert
     assert pickup == decoded

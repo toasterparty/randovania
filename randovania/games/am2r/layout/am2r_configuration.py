@@ -5,10 +5,9 @@ import dataclasses
 from randovania.bitpacking.bitpacking import BitPackDataclass
 from randovania.bitpacking.json_dataclass import JsonDataclass
 from randovania.game.game_enum import RandovaniaGame
-from randovania.games.am2r.layout.am2r_teleporters import AM2RTeleporterConfiguration
-from randovania.games.am2r.layout.hint_configuration import HintConfiguration
 from randovania.layout.base.base_configuration import BaseConfiguration
 from randovania.layout.base.dock_rando_configuration import DockRandoMode
+from randovania.layout.lib.teleporters import TeleporterConfiguration
 
 
 @dataclasses.dataclass(frozen=True)
@@ -27,14 +26,13 @@ class AM2RConfiguration(BaseConfiguration):
     second_suit_dr: int = dataclasses.field(metadata={"min": 0, "max": 100, "precision": 1})
     softlock_prevention_blocks: bool
     septogg_helpers: bool
-    teleporters: AM2RTeleporterConfiguration
+    teleporters: TeleporterConfiguration
     skip_cutscenes: bool
     skip_save_cutscene: bool
     skip_item_cutscenes: bool
     respawn_bomb_blocks: bool
     screw_blocks: bool
     artifacts: AM2RArtifactConfig
-    hints: HintConfiguration
     fusion_mode: bool
     supers_on_missile_doors: bool
     grave_grotto_blocks: bool

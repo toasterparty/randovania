@@ -7,9 +7,9 @@ from randovania.bitpacking.bitpacking import BitPackDataclass, BitPackEnum
 from randovania.bitpacking.json_dataclass import JsonDataclass
 from randovania.game.game_enum import RandovaniaGame
 from randovania.game_description import default_database
-from randovania.games.dread.layout.dread_teleporters import DreadTeleporterConfiguration
 from randovania.layout.base.base_configuration import BaseConfiguration
 from randovania.layout.base.trick_level import LayoutTrickLevel
+from randovania.layout.lib.teleporters import TeleporterConfiguration
 from randovania.lib import enum_lib
 
 
@@ -19,7 +19,7 @@ class DreadArtifactConfig(BitPackDataclass, JsonDataclass):
     prefer_major_bosses: bool
     required_artifacts: int = dataclasses.field(metadata={"min": 0, "max": 12, "precision": 1})
 
-    def unsupported_features(self):
+    def unsupported_features(self) -> list[str]:
         max_artifacts = 6 * (self.prefer_emmi + self.prefer_major_bosses)
         if self.required_artifacts > max_artifacts:
             return ["Metroid DNA on non-boss/EMMI"]
@@ -49,8 +49,21 @@ enum_lib.add_long_name(
 
 
 @dataclasses.dataclass(frozen=True)
+class DreadLightConfiguration(BitPackDataclass, JsonDataclass):
+    artaria: bool = False
+    burenia: bool = False
+    cataris: bool = False
+    dairon: bool = False
+    elun: bool = False
+    ferenia: bool = False
+    ghavoran: bool = False
+    hanubia: bool = False
+    itorash: bool = False
+
+
+@dataclasses.dataclass(frozen=True)
 class DreadConfiguration(BaseConfiguration):
-    teleporters: DreadTeleporterConfiguration
+    teleporters: TeleporterConfiguration
     energy_per_tank: int = dataclasses.field(metadata={"min": 1, "max": 1000, "precision": 1})
     immediate_energy_parts: bool
     hanubia_shortcut_no_grapple: bool
@@ -59,6 +72,7 @@ class DreadConfiguration(BaseConfiguration):
     raven_beak_damage_table_handling: DreadRavenBeakDamageMode
     allow_highly_dangerous_logic: bool
     nerf_power_bombs: bool
+    skip_item_popups: bool
     warp_to_start: bool
     april_fools_hints: bool
     freesink: bool
@@ -66,6 +80,7 @@ class DreadConfiguration(BaseConfiguration):
     constant_heat_damage: int | None = dataclasses.field(metadata={"min": 0, "max": 1000, "precision": 1})
     constant_cold_damage: int | None = dataclasses.field(metadata={"min": 0, "max": 1000, "precision": 1})
     constant_lava_damage: int | None = dataclasses.field(metadata={"min": 0, "max": 1000, "precision": 1})
+    disabled_lights: DreadLightConfiguration
 
     @classmethod
     def game_enum(cls) -> RandovaniaGame:
@@ -75,7 +90,7 @@ class DreadConfiguration(BaseConfiguration):
         result = super().unsupported_features()
 
         gd = default_database.game_description_for(self.game)
-        for trick in gd.resource_database.trick:
+        for trick in gd.get_resource_database_view().get_all_tricks():
             if trick.hide_from_ui and self.trick_level.level_for_trick(trick) != LayoutTrickLevel.DISABLED:
                 result.append(f"Enabled {trick.long_name}")
 

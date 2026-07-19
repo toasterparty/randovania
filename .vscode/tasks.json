@@ -4,25 +4,46 @@
     "version": "2.0.0",
     "tasks": [
         {
-            
             "label": "Create venv with all exporters",
             "type": "shell",
+            "command": "uv sync --all-extras --all-groups"
+        },
+        {
+            "label": "Regenerate UI",
+            "type": "shell",
             "linux": {
-                "command": "${workspaceFolder}/tools/prepare_virtual_env.sh ; ${workspaceFolder}/venv/Scripts/activate ; pip install -r requirements.txt",
+                "command": "${command:python.interpreterPath} '${workspaceFolder}/tools/uic_wrapper.py' '${workspaceFolder}' --all-ui-files",
+                "options": {
+                    "env": {
+                        "PATH": "${workspaceFolder}/.venv/bin:${env:PATH}"
+                    }
+                }
             },
             "windows": {
-                "command": "@()|${workspaceFolder}/tools/prepare_virtual_env.bat ; ${workspaceFolder}/venv/Scripts/Activate.ps1 ; pip install -r requirements.txt",
+                "command": "& '${command:python.interpreterPath}' '${workspaceFolder}/tools/uic_wrapper.py' '${workspaceFolder}' --all-ui-files",
+                "options": {
+                    "env": {
+                        "PATH": "${workspaceFolder}/.venv/Scripts;${env:PATH}"
+                    }
+                }
             }
         },
         {
-            "label": "Build UI",
-            "type": "shell",
-            "command": "${command:python.interpreterPath} ${workspaceFolder}/setup.py build_ui"
+            "label": "Launch Prerequisites",
+            "dependsOn": [
+                "Create venv with all exporters",
+                "Regenerate UI"
+            ]
         },
         {
             "label": "Run all tests on all cores",
             "type": "shell",
-            "command": "${command:python.interpreterPath} -m pytest -n auto ${workspaceFolder}/test"
+            "linux": {
+                "command": "${command:python.interpreterPath} -m pytest -n auto '${workspaceFolder}/test'"
+            },
+            "windows": {
+                "command": "& '${command:python.interpreterPath}' -m pytest -n auto '${workspaceFolder}/test'"
+            }
         }
     ]
 }

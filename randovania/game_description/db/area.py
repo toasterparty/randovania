@@ -10,6 +10,7 @@ if typing.TYPE_CHECKING:
     from collections.abc import Iterator
 
     from randovania.game_description.db.node import Node
+    from randovania.game_description.hint_features import HintFeature
     from randovania.game_description.requirements.base import Requirement
     from randovania.game_description.resources.pickup_index import PickupIndex
 
@@ -21,6 +22,7 @@ class Area:
     connections: dict[Node, dict[Node, Requirement]]
     extra: dict[str, typing.Any]
     default_node: str | None = None
+    hint_features: frozenset[HintFeature] = frozenset()
 
     def __repr__(self) -> str:
         return f"Area[{self.name}]"
@@ -33,10 +35,6 @@ class Area:
         for node in self.nodes:
             if not node.is_derived_node:
                 yield node
-
-    @property
-    def in_dark_aether(self) -> bool:
-        return self.extra.get("in_dark_aether", False)
 
     def node_with_name(self, node_name: str) -> Node | None:
         """

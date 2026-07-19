@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import dataclasses
 import multiprocessing
-import subprocess
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
@@ -10,11 +9,12 @@ from typing import TYPE_CHECKING, Any
 import randovania
 from randovania import monitoring
 from randovania.exporter.game_exporter import GameExporter, GameExportParams
-from randovania.patching.patchers.exceptions import UnableToExportError
+from randovania.games.common.dotnet import is_dotnet_set_up
 
 if TYPE_CHECKING:
-    from multiprocessing.connection import Connection
+    from multiprocessing.connection import _ConnectionBase
 
+    from randovania.exporter.patch_data_factory import PatcherDataMeta
     from randovania.lib import status_update_lib
 
 
@@ -24,7 +24,7 @@ class AM2RGameExportParams(GameExportParams):
     output_path: Path
 
 
-class AM2RGameExporter(GameExporter):
+class AM2RGameExporter(GameExporter[AM2RGameExportParams]):
     _busy: bool = False
 
     @property
@@ -41,7 +41,7 @@ class AM2RGameExporter(GameExporter):
         """
         return False
 
-    def export_params_type(self) -> type[GameExportParams]:
+    def export_params_type(self) -> type[AM2RGameExportParams]:
         """
         Returns the type of the GameExportParams expected by this exporter.
         """
@@ -50,28 +50,13 @@ class AM2RGameExporter(GameExporter):
     def _do_export_game(
         self,
         patch_data: dict,
-        export_params: GameExportParams,
+        export_params: AM2RGameExportParams,
         progress_update: status_update_lib.ProgressUpdateCallable,
+        randovania_meta: PatcherDataMeta,
     ) -> None:
-        assert isinstance(export_params, AM2RGameExportParams)
-
         # Check if dotnet is available
-        dotnet_ran_fine = False
-        try:
-            dotnet_process = subprocess.run(["dotnet", "--info"], check=False)
-            dotnet_ran_fine = dotnet_process.returncode == 0
-        except FileNotFoundError:
-            dotnet_ran_fine = False
-
-        monitoring.set_tag("am2r_dotnet_ran_fine", dotnet_ran_fine)
-
-        if not dotnet_ran_fine:
-            raise UnableToExportError(
-                "You do not have .NET installed!\n"
-                "Please ensure that it is installed and located in PATH. It can be installed "
-                "from here:\n"
-                "https://aka.ms/dotnet/download"
-            )
+        # Raises error in case it's not set up
+        is_dotnet_set_up()
 
         receiving_pipe, output_pipe = multiprocessing.Pipe(True)
 
@@ -99,9 +84,9 @@ class AM2RGameExporter(GameExporter):
 
 
 @monitoring.trace_function
-def _run_patcher(patch_data: dict, export_params: AM2RGameExportParams, output_pipe: Connection) -> None:
+def _run_patcher(patch_data: dict, export_params: AM2RGameExportParams, output_pipe: _ConnectionBase) -> None:
     # Delay this, so that we only load CLR/dotnet when exporting
-    import am2r_yams
+    import am2r_yams  # type: ignore[import-untyped]
 
     def status_update(message: str, progress: float) -> None:
         output_pipe.send((message, progress))

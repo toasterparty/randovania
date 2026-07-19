@@ -1,8 +1,20 @@
 ----------------
 Wave Beam & Transport to Dam Exterior West
 Extra - total_boundings: {'x1': -10700.0, 'x2': -3300.0, 'y1': -1500.0, 'y2': 2400.0}
-Extra - polygon: [[-8400.0, 2400.0], [-8400.0, 1000.0], [-10700.0, 1000.0], [-10700.0, -1300.0], [-8500.0, -1300.0], [-7500.0, -1500.0], [-5700.0, -1500.0], [-5700.0, -100.0], [-5200.0, 0.0], [-3300.0, 0.0], [-3300.0, 2400.0]]
+Extra - polygon:
+[[-8400.0, 2400.0],
+ [-8400.0, 1000.0],
+ [-10700.0, 1000.0],
+ [-10700.0, -1300.0],
+ [-8500.0, -1300.0],
+ [-7500.0, -1500.0],
+ [-5700.0, -1500.0],
+ [-5700.0, -100.0],
+ [-5200.0, 0.0],
+ [-3300.0, 0.0],
+ [-3300.0, 2400.0]]
 Extra - asset_id: collision_camera009
+Hint Features - Chozo Statue, Elevator
 > Pickup (Wave Beam); Heals? False
   * Layers: default
   * Pickup 46; Category? Major
@@ -52,7 +64,7 @@ Extra - asset_id: collision_camera009
                   Ice Beam and Stand on Frozen Enemy (Beginner)
                   Charge Beam or Freeze Enemy with Melee (Beginner)
               All of the following:
-                  Spider Ball
+                  Use Spider Ball
                   Any of the following:
                       # Avoid or deal with the Wallfire
                       Lightning Armor or Missile ≥ 6 or Super Missile ≥ 2 or Defeat Strong Enemies
@@ -136,6 +148,7 @@ Varia Suit Chamber
 Extra - total_boundings: {'x1': -4200.0, 'x2': -1550.0, 'y1': -1700.0, 'y2': -100.0}
 Extra - polygon: [[-1550.0, -100.0], [-4200.0, -100.0], [-4200.0, -1700.0], [-1550.0, -1700.0]]
 Extra - asset_id: collision_camera040
+Hint Features - Chozo Statue
 > Pickup (Varia Suit); Heals? False
   * Layers: default
   * Pickup 45; Category? Major
@@ -191,7 +204,16 @@ Extra - asset_id: collision_camera040
 ----------------
 Interior Intersection Terminal
 Extra - total_boundings: {'x1': -3400.0, 'x2': 1000.0, 'y1': -4600.0, 'y2': 2400.0}
-Extra - polygon: [[-3400.0, 2400.0], [-3400.0, -4000.0], [-1850.0, -4100.0], [-1850.0, -4600.0], [1000.0, -4600.0], [1000.0, -3000.0], [100.0, -3000.0], [-200.0, -2900.0], [-200.0, 2400.0]]
+Extra - polygon:
+[[-3400.0, 2400.0],
+ [-3400.0, -4000.0],
+ [-1850.0, -4100.0],
+ [-1850.0, -4600.0],
+ [1000.0, -4600.0],
+ [1000.0, -3000.0],
+ [100.0, -3000.0],
+ [-200.0, -2900.0],
+ [-200.0, 2400.0]]
 Extra - asset_id: collision_camera011
 > Ammo Recharge Station; Heals? False
   * Layers: default
@@ -206,12 +228,12 @@ Extra - asset_id: collision_camera011
           Morph Ball
           Any of the following:
               # Breaking the block
-              Power Bomb or Wave Beam
+              Wave Beam or Lay Power Bomb
               # Crouch and shoot through the wall or aim slightly down-right and shoot while jumping
               Precise Aiming (Beginner)
           Any of the following:
               # Dealing with the Gravitt
-              Lightning Armor or Bomb or Power Bomb or Combat (Beginner) or Shoot Any Missile
+              Lightning Armor or Combat (Beginner) or Lay Any Bomb or Shoot Any Missile
               Damage Boost (Beginner) and Normal Damage ≥ 30
   > Right Shaft
       # Clip off the platform and release spider on the right underside https://youtu.be/UQe0WO500mI?t=12
@@ -265,7 +287,7 @@ Extra - asset_id: collision_camera011
       All of the following:
           Shoot Any Missile
           Any of the following:
-              Spider Ball and Lay Any Bomb
+              Lay Any Bomb and Use Spider Ball
               All of the following:
                   Phase Drift and Movement (Beginner)
                   Any of the following:
@@ -273,7 +295,7 @@ Extra - asset_id: collision_camera011
                       All of the following:
                           # https://youtu.be/UmmVvm5H4Ms
                           Lay Bomb
-                          Spring Ball or Mid-Air Morph (Intermediate)
+                          Mid-Air Morph (Intermediate) or Use Spring Ball
               # Jump from the tunnel to enter the top tunnel https://youtu.be/UmmVvm5H4Ms?t=21
               Movement (Intermediate) and Lay Power Bomb
               # Jump from the tunnel to lay the bomb and again to enter the top tunnel<br>https://youtu.be/UmmVvm5H4Ms?t=12
@@ -346,8 +368,22 @@ Extra - asset_id: collision_camera011
 ----------------
 Lava Generator
 Extra - total_boundings: {'x1': -13000.0, 'x2': -5700.0, 'y1': -4600.0, 'y2': -200.0}
-Extra - polygon: [[-5700.0, -1500.0], [-7100.0, -1500.0], [-8700.0, -1000.0], [-9700.0, -1000.0], [-10600.0, -900.0], [-10600.0, -200.0], [-13000.0, -200.0], [-13000.0, -3300.0], [-10100.0, -3300.0], [-8500.0, -4600.0], [-5750.0, -4600.0], [-5750.0, -3400.0], [-5700.0, -3200.0]]
+Extra - polygon:
+[[-5700.0, -1500.0],
+ [-7100.0, -1500.0],
+ [-8700.0, -1000.0],
+ [-9700.0, -1000.0],
+ [-10600.0, -900.0],
+ [-10600.0, -200.0],
+ [-13000.0, -200.0],
+ [-13000.0, -3300.0],
+ [-10100.0, -3300.0],
+ [-8500.0, -4600.0],
+ [-5750.0, -4600.0],
+ [-5750.0, -3400.0],
+ [-5700.0, -3200.0]]
 Extra - asset_id: collision_camera012
+Hint Features - Heated Room
 > Door to Wave Beam & Transport to Dam Exterior West; Heals? False
   * Layers: default
   * Charge Beam Door to Wave Beam & Transport to Dam Exterior West/Door to Lava Generator
@@ -402,16 +438,16 @@ Extra - asset_id: collision_camera012
       Varia Suit
   > Pickup (Missile Tank)
       All of the following:
-          Morph Ball and Varia Suit
+          Varia Suit
           Any of the following:
-              Power Bomb
+              Lay Power Bomb
               All of the following:
-                  Bomb
+                  Lay Bomb
                   Any of the following:
-                      Spider Ball
+                      Use Spider Ball
                       All of the following:
                           # Breaking the Bomb block
-                          Spring Ball or Mid-Air Morph (Intermediate)
+                          Mid-Air Morph (Intermediate) or Use Spring Ball
                           # Dealing with the Wallfire
                           Missile ≥ 6 or Super Missile ≥ 2 or Defeat Strong Enemies
 
@@ -426,6 +462,7 @@ Crumble Cavern
 Extra - total_boundings: {'x1': -5850.0, 'x2': -2700.0, 'y1': -4002.070068359375, 'y2': -2800.0}
 Extra - polygon: [[-5850.0, -2800.0], [-5850.0, -4002.070068359375], [-2700.0, -4002.070068359375], [-2700.0, -2800.0]]
 Extra - asset_id: collision_camera013
+Hint Features - Heated Room
 > Pickup (Power Bomb Tank); Heals? False
   * Layers: default
   * Pickup 43; Category? Minor
@@ -451,7 +488,9 @@ Extra - asset_id: collision_camera013
                       Movement (Expert) or Single-wall Wall Jump (Advanced)
                       All of the following:
                           Movement (Advanced)
-                          Bomb or Power Bomb ≥ 3 or Space Jump
+                          Any of the following:
+                              Space Jump or Lay Bomb
+                              Power Bomb ≥ 3 and Lay Power Bomb
                   All of the following:
                       # Space Jump over
                       Space Jump and Damage Boost (Advanced) and Phase Drift Skip (Advanced)
@@ -460,7 +499,13 @@ Extra - asset_id: collision_camera013
 ----------------
 Whimsical Waterwheels
 Extra - total_boundings: {'x1': -1700.0, 'x2': 3100.0, 'y1': -3100.0, 'y2': -1700.0}
-Extra - polygon: [[-300.0, -1700.0], [-300.0, -2339.639892578125], [-1700.0, -2339.639892578125], [-1700.0, -3100.0], [3100.0, -3100.0], [3100.0, -1700.0]]
+Extra - polygon:
+[[-300.0, -1700.0],
+ [-300.0, -2339.639892578125],
+ [-1700.0, -2339.639892578125],
+ [-1700.0, -3100.0],
+ [3100.0, -3100.0],
+ [3100.0, -1700.0]]
 Extra - asset_id: collision_camera015
 > Door to Interior Intersection Terminal; Heals? False
   * Layers: default
@@ -566,7 +611,14 @@ Extra - asset_id: collision_camera016
 ----------------
 Fleech Fire Containment
 Extra - total_boundings: {'x1': -4000.0, 'x2': 2300.0, 'y1': -8100.0, 'y2': -5400.0}
-Extra - polygon: [[-4000.0, -5400.0], [-4000.0, -8100.0], [-1700.0, -8100.0], [-1700.0, -7100.0], [-400.0, -6200.0], [2300.0, -6200.0], [2300.0, -5400.0]]
+Extra - polygon:
+[[-4000.0, -5400.0],
+ [-4000.0, -8100.0],
+ [-1700.0, -8100.0],
+ [-1700.0, -7100.0],
+ [-400.0, -6200.0],
+ [2300.0, -6200.0],
+ [2300.0, -5400.0]]
 Extra - asset_id: collision_camera017
 > Door to Dam Basement; Heals? False
   * Layers: default
@@ -577,7 +629,7 @@ Extra - asset_id: collision_camera017
       All of the following:
           Morph Ball
           Any of the following:
-              Space Jump or Spider Ball or Single-wall Wall Jump (Beginner) or Wall Jump (Beginner)
+              Space Jump or Single-wall Wall Jump (Beginner) or Wall Jump (Beginner) or Use Spider Ball
               All of the following:
                   # Jump up with Gravity
                   Gravity Suit
@@ -697,6 +749,7 @@ High Jump Boots Chamber
 Extra - total_boundings: {'x1': 2200.0, 'x2': 4700.0, 'y1': -8960.0, 'y2': -7100.0}
 Extra - polygon: [[2200.0, -7100.0], [2200.0, -8960.0], [4700.0, -8960.0], [4700.0, -7100.0]]
 Extra - asset_id: collision_camera021
+Hint Features - Chozo Statue
 > Pickup (High Jump Boots); Heals? False
   * Layers: default
   * Pickup 44; Category? Major
@@ -816,6 +869,7 @@ Gamma Arena
 Extra - total_boundings: {'x1': -5850.0, 'x2': -1750.0, 'y1': -5100.0, 'y2': -3900.0}
 Extra - polygon: [[-1750.0, -3900.0], [-5850.0, -3900.0], [-5850.0, -5100.0], [-1750.0, -5100.0]]
 Extra - asset_id: collision_camera037
+Hint Features - Gamma Metroid
 > Door to Lava Generator; Heals? False
   * Layers: default
   * Charge Beam Door to Lava Generator/Door to Gamma Arena

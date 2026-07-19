@@ -290,12 +290,6 @@
                 }
             }
         },
-        "CentW": {
-            "pickups": {},
-            "music": {},
-            "entrances": {},
-            "hints": {}
-        },
         "Chako": {
             "pickups": {
                 "0211": "<EVE0008"
@@ -540,24 +534,6 @@
             "entrances": {},
             "hints": {}
         },
-        "EgEnd1": {
-            "pickups": {},
-            "music": {},
-            "entrances": {},
-            "hints": {}
-        },
-        "EgEnd2": {
-            "pickups": {},
-            "music": {},
-            "entrances": {},
-            "hints": {}
-        },
-        "Egg1": {
-            "pickups": {},
-            "music": {},
-            "entrances": {},
-            "hints": {}
-        },
         "Egg6": {
             "pickups": {
                 "0201": "<EVE0076"
@@ -716,7 +692,7 @@
             "entrances": {},
             "hints": {
                 "0200": {
-                    "text": "Rumour has it, a major upgrade is hidden in Rest Area.",
+                    "text": "Rumour has it, a weapon is in Rest Area.",
                     "facepic": "0000",
                     "ending": "<NOD<END"
                 }
@@ -755,7 +731,7 @@
             "entrances": {},
             "hints": {
                 "0210": {
-                    "text": "Rumour has it, the Machine Gun is in Chaco's House.",
+                    "text": "Rumour has it, the Machine Gun is hidden in Chaco's House.",
                     "facepic": "0000",
                     "ending": "<NOD<END"
                 }
@@ -897,12 +873,6 @@
                     "original_id": "0007"
                 }
             },
-            "entrances": {},
-            "hints": {}
-        },
-        "Hell4": {
-            "pickups": {},
-            "music": {},
             "entrances": {},
             "hints": {}
         },
@@ -1356,7 +1326,7 @@
                     "ending": "<NOD<END"
                 },
                 "0502": {
-                    "text": "They say the Mimiga Mask is in Labyrinth Shop.",
+                    "text": "Rumour has it, the Mimiga Mask can be found in Labyrinth Shop.",
                     "facepic": "0000",
                     "ending": "<NOD<END"
                 }
@@ -1499,12 +1469,6 @@
             "entrances": {},
             "hints": {}
         },
-        "MiBox": {
-            "pickups": {},
-            "music": {},
-            "entrances": {},
-            "hints": {}
-        },
         "Mimi": {
             "pickups": {
                 "0202": "<EVE0065"
@@ -1631,12 +1595,6 @@
                     "original_id": "0026"
                 }
             },
-            "entrances": {},
-            "hints": {}
-        },
-        "Ostep": {
-            "pickups": {},
-            "music": {},
             "entrances": {},
             "hints": {}
         },
@@ -1873,12 +1831,6 @@
                     "original_id": "0030"
                 }
             },
-            "entrances": {},
-            "hints": {}
-        },
-        "Prefa2": {
-            "pickups": {},
-            "music": {},
             "entrances": {},
             "hints": {}
         },
@@ -2390,12 +2342,6 @@
             "music": {},
             "entrances": {},
             "hints": {}
-        },
-        "WeedS": {
-            "pickups": {},
-            "music": {},
-            "entrances": {},
-            "hints": {}
         }
     },
     "other_tsc": {
@@ -2452,6 +2398,7 @@
     ],
     "uuid": "{00000000-0000-1111-0000-000000000000}",
     "_randovania_meta": {
-        "layout_was_user_modified": true
+        "layout_was_user_modified": true,
+        "in_race_setting": false
     }
 }

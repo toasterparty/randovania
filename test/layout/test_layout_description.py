@@ -29,16 +29,28 @@ def multiworld_rdvgame(test_files_dir: TestFilesDir) -> dict:
 def test_load_multiworld(multiworld_rdvgame: dict) -> None:
     input_data = copy.deepcopy(multiworld_rdvgame)
 
+    expected = description_migration.convert_to_current_version(copy.deepcopy(input_data))
+
     # Run
     result = LayoutDescription.from_json_dict(input_data)
-    input_data["schema_version"] = description_migration.CURRENT_VERSION
+    expected["schema_version"] = description_migration.CURRENT_VERSION
 
-    # Assert
     as_json = result.as_json()
-    del input_data["info"]
+    del expected["info"]
     del as_json["info"]
 
-    assert as_json == input_data
+    input_layouts = []
+    for mods in expected["game_modifications"]:
+        input_layouts.append(mods.pop("locations"))
+    json_layouts = []
+    for mods in as_json["game_modifications"]:
+        json_layouts.append(mods.pop("locations"))
+
+    # Assert
+    assert len(input_layouts) == len(json_layouts)
+    for i in range(len(input_layouts)):
+        assert sorted(input_layouts[i], key=lambda d: d["index"]) == sorted(json_layouts[i], key=lambda d: d["index"])
+    assert as_json == expected
 
 
 @pytest.mark.parametrize("reason", ["ok", "bad_secret", "bad_info"])

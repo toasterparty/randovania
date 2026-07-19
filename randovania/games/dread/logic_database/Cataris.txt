@@ -1,7 +1,14 @@
 ----------------
 Transport to Artaria
 Extra - total_boundings: {'x1': 8400.0, 'x2': 13500.0, 'y1': -7300.0, 'y2': -758.0}
-Extra - polygon: [[13500.0, -758.0], [8400.0, -758.0], [8400.0, -7300.0], [10500.0, -7300.0], [10500.0, -2600.0], [12200.0, -1900.0], [13500.0, -1900.0]]
+Extra - polygon:
+[[13500.0, -758.0],
+ [8400.0, -758.0],
+ [8400.0, -7300.0],
+ [10500.0, -7300.0],
+ [10500.0, -2600.0],
+ [12200.0, -1900.0],
+ [13500.0, -1900.0]]
 Extra - asset_id: collision_camera_000
 > Door to Artaria Transport Access; Heals? False
   * Layers: default
@@ -99,7 +106,7 @@ Extra - asset_id: collision_camera_001
           Simple IBJ or Use Spin Boost
           Speed Booster and Can Slide
           Flash Shift and Wall Jump (Intermediate)
-          Morph Ball and Single-wall Wall Jump (Intermediate)
+          Morph Ball and Single-wall Wall Jump (Advanced)
 
 ----------------
 Navigation Station Southeast
@@ -134,7 +141,7 @@ Extra - asset_id: collision_camera_002
 
 > Save Station; Heals? False; Spawn Point; Default Node
   * Layers: default
-  * Hint
+  * Generic Hint
   * Extra - actor_name: accesspoint
   * Extra - actor_def: actordef:actors/props/accesspoint/charclasses/accesspoint.bmsad
   * Extra - start_point_actor_name: accesspoint_platform
@@ -369,7 +376,19 @@ Extra - asset_id: collision_camera_007
 ----------------
 Above Z-57 Fight
 Extra - total_boundings: {'x1': 300.0, 'x2': 4500.0, 'y1': -8400.0, 'y2': -2100.0}
-Extra - polygon: [[4500.0, -2100.0], [300.0, -2100.0], [300.0, -3400.0], [2300.0, -3700.0], [1300.0, -4100.0], [300.0, -4100.0], [300.0, -5500.0], [1150.0, -5600.0], [1150.0, -7825.0], [1500.0, -7825.0], [2300.0, -8400.0], [4500.0, -8400.0]]
+Extra - polygon:
+[[4500.0, -2100.0],
+ [300.0, -2100.0],
+ [300.0, -3400.0],
+ [2300.0, -3700.0],
+ [1300.0, -4100.0],
+ [300.0, -4100.0],
+ [300.0, -5500.0],
+ [1150.0, -5600.0],
+ [1150.0, -7825.0],
+ [1500.0, -7825.0],
+ [2300.0, -8400.0],
+ [4500.0, -8400.0]]
 Extra - asset_id: collision_camera_009
 > Door to Z-57 Heat Room East; Heals? False
   * Layers: default
@@ -434,9 +453,11 @@ Extra - asset_id: collision_camera_009
           All of the following:
               Use Spin Boost
               Any of the following:
-                  Flash Shift or Slide Jump (Beginner)
+                  Flash Shift
                   # https://youtu.be/mRHB7DHbfbg
                   Stand on Frozen Enemy (Beginner) and Shoot Ice Missile
+                  # https://youtu.be/vAEv8hhDYOE
+                  Slide and Slide Jump (Beginner) and Wall Jump (Intermediate)
   > Pickup Corner
       Screw Attack
   > Between Thermal Gates
@@ -503,11 +524,12 @@ Extra - asset_id: collision_camera_009
               All of the following:
                   Use Spin Boost
                   Any of the following:
+                      # https://youtu.be/vAEv8hhDYOE
                       Wall Jump (Beginner)
                       # https://youtu.be/mRHB7DHbfbg
                       Stand on Frozen Enemy (Beginner) and Shoot Ice Missile
               Flash Shift and Wall Jump (Intermediate)
-              Morph Ball and Single-wall Wall Jump (Intermediate)
+              Morph Ball and Single-wall Wall Jump (Advanced)
 
 > Between Thermal Gates; Heals? False
   * Layers: default
@@ -760,7 +782,7 @@ Extra - asset_id: collision_camera_014
               Grapple Beam or After Cataris - Move Magnet Walls Button or Use Spin Boost
           Grapple Beam and Grapple Movement (Beginner)
           Flash Shift and Wall Jump (Intermediate)
-          Morph Ball and Single-wall Wall Jump (Advanced)
+          Morph Ball and Single-wall Wall Jump (Expert)
   > Event - Activate Magnet Walls
       All of the following:
           Knowledge (Advanced)
@@ -787,7 +809,7 @@ Extra - asset_id: collision_camera_014
               Grapple Beam or After Cataris - Move Magnet Walls Button or Use Spin Boost
           Flash Shift and Wall Jump (Intermediate)
           Grapple Beam and Grapple Movement (Beginner)
-          Morph Ball and Single-wall Wall Jump (Advanced)
+          Morph Ball and Single-wall Wall Jump (Expert)
 
 > Door to Energy Recharge Station; Heals? False
   * Layers: default
@@ -842,7 +864,15 @@ player to reload the room to see.
 ----------------
 Teleport to Artaria (Blue)
 Extra - total_boundings: {'x1': 13400.0, 'x2': 19600.0, 'y1': -1200.0, 'y2': 8400.0}
-Extra - polygon: [[19600.0, 8400.0], [13400.0, 8400.0], [13400.0, 3000.0], [15400.0, 3000.0], [15400.0, 1300.0], [16400.0, 1300.0], [16400.0, -1200.0], [19600.0, -1200.0]]
+Extra - polygon:
+[[19600.0, 8400.0],
+ [13400.0, 8400.0],
+ [13400.0, 3000.0],
+ [15400.0, 3000.0],
+ [15400.0, 1300.0],
+ [16400.0, 1300.0],
+ [16400.0, -1200.0],
+ [19600.0, -1200.0]]
 Extra - asset_id: collision_camera_015
 > Door to Artaria Transport Access; Heals? False
   * Layers: default
@@ -1006,7 +1036,7 @@ Extra - asset_id: collision_camera_015
                   Heat/Cold Runs (Intermediate) and Heat Damage ≥ 300
               Any of the following:
                   Simple IBJ
-                  Morph Ball and Single-wall Wall Jump (Intermediate)
+                  Morph Ball and Single-wall Wall Jump (Advanced)
           All of the following:
               # https://youtu.be/j5l9mCXL-m8
               Phantom Cloak and Speed Booster and Speed Booster Conservation (Intermediate) and Disabled Door Lock Randomizer and Can Slide
@@ -1065,7 +1095,7 @@ Extra - asset_id: collision_camera_015
               Any of the following:
                   Simple IBJ
                   # SWJ: https://youtu.be/eS4UULex4Vk
-                  Morph Ball and Slide and Single-wall Wall Jump (Intermediate) and Slide Jump (Beginner)
+                  Morph Ball and Slide and Single-wall Wall Jump (Advanced) and Slide Jump (Beginner)
                   Stand on Frozen Enemy (Beginner) and Shoot Ice Missile
                   # https://youtu.be/q4yodUPmfQU
                   Phantom Cloak and Speed Booster and Speed Booster Conservation (Intermediate) and Disabled Door Lock Randomizer and Can Slide
@@ -1194,7 +1224,7 @@ Extra - asset_id: collision_camera_018
           Speed Booster and Disabled Door Lock Randomizer
           Grapple Beam and Grapple Movement (Beginner)
           Flash Shift and Wall Jump (Beginner)
-          Morph Ball and Single-wall Wall Jump (Intermediate)
+          Morph Ball and Single-wall Wall Jump (Advanced)
 
 > Door to Moving Magnet Walls (Tall) (Cloak); Heals? False
   * Layers: default
@@ -1344,7 +1374,8 @@ Extra - asset_id: collision_camera_019
               Lay Small Bomb
               Movement (Beginner) and Shoot Beam
           Any of the following:
-              Simple IBJ or Use Spin Boost
+              Simple IBJ
+              Movement (Beginner) and Use Spin Boost
               Slide and Slide Jump (Intermediate)
               Stand on Frozen Enemy (Beginner) and Shoot Ice Missile
           Any of the following:
@@ -1415,6 +1446,17 @@ Extra - asset_id: collision_camera_020
   * Extra - left_shield_def: None
   * Extra - right_shield_entity: {EMPTY}
   * Extra - right_shield_def: None
+  * Override default open requirement:
+    Any of the following:
+        Spider Magnet or Traverse Any Shutter Gate
+        All of the following:
+            Flash Shift Skip (Beginner)
+            Any of the following:
+                Wall Jump (Beginner) or Use Spin Boost
+                Speed Booster and Speed Booster Conservation (Intermediate)
+                Grapple Beam and Grapple Movement (Beginner)
+                Morph Ball and Slide and Movement (Beginner)
+
   > Door to EMMI Zone East Tower Access (Upper)
       Can Slide
   > Tunnel to EMMI Zone Item Tunnel
@@ -1440,6 +1482,17 @@ Extra - asset_id: collision_camera_020
   * Extra - left_shield_def: None
   * Extra - right_shield_entity: {EMPTY}
   * Extra - right_shield_def: None
+  * Override default open requirement:
+    Any of the following:
+        Spider Magnet or Traverse Any Shutter Gate
+        All of the following:
+            Flash Shift Skip (Beginner)
+            Any of the following:
+                Wall Jump (Beginner) or Use Spin Boost
+                Speed Booster and Speed Booster Conservation (Beginner)
+                Grapple Beam and Grapple Movement (Beginner)
+                Morph Ball and Slide and Movement (Beginner)
+
   > Door to EMMI Zone West Exit Path
       Can Slide
 
@@ -1506,7 +1559,11 @@ Extra - asset_id: collision_camera_021
               Varia Suit
               Heat/Cold Runs (Intermediate) and Heat Damage ≥ 100
   > Event - Blob
-      Lay Small Bomb or Shoot Beam
+      All of the following:
+          Lay Small Bomb or Shoot Beam
+          Any of the following:
+              Varia Suit
+              Heat/Cold Runs (Intermediate) and Heat Damage ≥ 100
 
 > Pickup (Missile Tank); Heals? False
   * Layers: default
@@ -1530,7 +1587,9 @@ Extra - asset_id: collision_camera_021
   * Layers: default
   * Event Cataris - Z-57 Open Passage Blob
   > Door to Above Z-57 Fight
-      Trivial
+      Any of the following:
+          Varia Suit
+          Heat/Cold Runs (Intermediate) and Heat Damage ≥ 100
 
 > Tunnel to Z-57 Heat Room West (Left); Heals? False
   * Layers: default
@@ -1576,7 +1635,13 @@ Extra - asset_id: collision_camera_022
 ----------------
 Long Mouth Statue Room
 Extra - total_boundings: {'x1': -14500.0, 'x2': -10400.0, 'y1': -1000.0, 'y2': 3100.0}
-Extra - polygon: [[-10400.0, 3100.0], [-12500.0, 3100.0], [-12500.0, 1100.0], [-14500.0, 1100.0], [-14500.0, -1000.0], [-10400.0, -1000.0]]
+Extra - polygon:
+[[-10400.0, 3100.0],
+ [-12500.0, 3100.0],
+ [-12500.0, 1100.0],
+ [-14500.0, 1100.0],
+ [-14500.0, -1000.0],
+ [-10400.0, -1000.0]]
 Extra - asset_id: collision_camera_023
 > Dock to EMMI Zone Exits West (Upper); Heals? False
   * Layers: default
@@ -1654,7 +1719,13 @@ Extra - asset_id: collision_camera_023
 ----------------
 Above Kraid
 Extra - total_boundings: {'x1': -18500.0, 'x2': -12400.0, 'y1': -4173.759765625, 'y2': -1300.0}
-Extra - polygon: [[-14400.0, -2300.0], [-14400.0, -1300.0], [-18500.0, -1300.0], [-18500.0, -4173.759765625], [-12400.0, -4173.759765625], [-12400.0, -2300.0]]
+Extra - polygon:
+[[-14400.0, -2300.0],
+ [-14400.0, -1300.0],
+ [-18500.0, -1300.0],
+ [-18500.0, -4173.759765625],
+ [-12400.0, -4173.759765625],
+ [-12400.0, -2300.0]]
 Extra - asset_id: collision_camera_024
 > Door to Kraid Eyedoor Room; Heals? False
   * Layers: default
@@ -1669,7 +1740,9 @@ Extra - asset_id: collision_camera_024
       Lay Small Bomb or Shoot Beam
   > Dock to Kraid Arena
       All of the following:
-          Before Kraid and Can Slide
+          Any of the following:
+              Before Kraid and Can Slide
+              Morph Ball and After Kraid and After Cataris - Diffusion Tutorial Blob 2 and After Cataris - Blob above Kraid and After Cataris - Kraid Eyedoor Ceiling Blob and After Cataris - Kraid Eyedoor Blob
           Any of the following:
               Varia Suit
               Heat/Cold Runs (Intermediate) and Heat Damage ≥ 100
@@ -1794,7 +1867,14 @@ Extra - asset_id: collision_camera_024
 ----------------
 Teleport to Artaria (Red)
 Extra - total_boundings: {'x1': -18500.0, 'x2': -14400.0, 'y1': -700.0009765625, 'y2': 5800.0}
-Extra - polygon: [[-14400.0, 5800.0], [-18500.0, 5800.0], [-18500.0, -700.0009765625], [-16400.0, -700.0009765625], [-16400.0, 4300.0], [-16100.0, 4600.0], [-14400.0, 4600.0]]
+Extra - polygon:
+[[-14400.0, 5800.0],
+ [-18500.0, 5800.0],
+ [-18500.0, -700.0009765625],
+ [-16400.0, -700.0009765625],
+ [-16400.0, 4300.0],
+ [-16100.0, 4600.0],
+ [-14400.0, 4600.0]]
 Extra - asset_id: collision_camera_025
 > Door to Path to Kraid Entryway; Heals? False
   * Layers: default
@@ -2337,6 +2417,7 @@ Extra - asset_id: collision_camera_031
           All of the following:
               Spider Magnet
               After Cataris - Lower Lava Button or Wall Jump (Advanced)
+          Wall Jump (Intermediate) and Use Spin Boost
   > Dock to EMMI Zone Tower West
       Any of the following:
           Flash Shift or Spider Magnet or Speed Booster or Use Spin Boost
@@ -2358,6 +2439,7 @@ Extra - asset_id: collision_camera_031
           All of the following:
               Spider Magnet
               After Cataris - Lower Lava Button or Wall Jump (Advanced)
+          Wall Jump (Intermediate) and Use Spin Boost
 
 > Dock to EMMI Zone Tower West; Heals? False
   * Layers: default
@@ -2741,7 +2823,7 @@ Extra - asset_id: collision_camera_037
   * Layers: default
   * Access Open to Central Unit Access/Door to Central Unit
   > Event - Cataris Central Unit
-      Destroy Central Unit
+      Destroy Cataris/Dairon Central Unit
 
 > Event - Cataris Central Unit; Heals? False
   * Layers: default
@@ -2814,7 +2896,13 @@ Extra - asset_id: collision_camera_038
 ----------------
 Dairon Transport Access
 Extra - total_boundings: {'x1': -1500.0, 'x2': 4500.0, 'y1': 5825.0, 'y2': 10100.0}
-Extra - polygon: [[4500.0, 10100.0], [-1500.0, 10100.0], [-1500.0, 7006.419921875], [-700.0, 6966.419921875], [-700.0, 5825.0], [4500.0, 5825.0]]
+Extra - polygon:
+[[4500.0, 10100.0],
+ [-1500.0, 10100.0],
+ [-1500.0, 7006.419921875],
+ [-700.0, 6966.419921875],
+ [-700.0, 5825.0],
+ [4500.0, 5825.0]]
 Extra - asset_id: collision_camera_040
 > Door to Transport to Dairon; Heals? False
   * Layers: default
@@ -2982,7 +3070,7 @@ Extra - asset_id: collision_camera_042
   * Extra - actor_def: actordef:actors/items/item_energyfragment/charclasses/item_energyfragment.bmsad
   > Tunnel to Lava Button West
       Any of the following:
-          Varia Suit
+          Varia Suit or After Cataris - Lower Lava Button
           Heat/Cold Runs (Beginner) and Heat Damage ≥ 60
 
 > Pickup (Energy Tank); Heals? False
@@ -3018,7 +3106,7 @@ Extra - asset_id: collision_camera_042
   * Slide Tunnel to Lava Button West/Tunnel to Thermal Device Room North
   > Pickup (Energy Part)
       Any of the following:
-          Varia Suit
+          Varia Suit or After Cataris - Lower Lava Button
           Heat/Cold Runs (Beginner) and Heat Damage ≥ 60
 
 > Dock to Lava Button West (Bottom); Heals? False
@@ -3184,7 +3272,7 @@ Extra - asset_id: collision_camera_044
           Heat/Cold Runs (Intermediate) and Heat Damage ≥ 50
   > Tunnel to Teleport to Dairon
       # https://youtu.be/Y3wgVEtidi0
-      Varia Suit and Ledge Warp (Intermediate) and Lay Any Bomb
+      Varia Suit and After Cataris - Ledge Warp Setup Outside Diffusion Room and Ledge Warp (Intermediate)
 
 > Pickup (Power Bomb Tank); Heals? False
   * Layers: default
@@ -3668,6 +3756,9 @@ Extra - asset_id: collision_camera_051
           Any of the following:
               Varia Suit
               Heat/Cold Runs (Intermediate) and Heat Damage ≥ 120
+  > Event - Ledge Warp Setup
+      # https://youtu.be/Y3wgVEtidi0
+      Lay Any Bomb
 
 > Tunnel to Kraid Eyedoor Room; Heals? False
   * Layers: default
@@ -3750,10 +3841,22 @@ Extra - asset_id: collision_camera_051
           Wave Beam
           Pseudo-Wave Beam (Beginner) and Shoot Diffusion Beam
 
+> Event - Ledge Warp Setup; Heals? False
+  * Layers: default
+  * Event Cataris - Ledge Warp Setup Outside Diffusion Room
+  > Tunnel to Diffusion Beam Room
+      Trivial
+
 ----------------
 Green EMMI Introduction Access
 Extra - total_boundings: {'x1': -7100.0, 'x2': -4600.0, 'y1': -4600.0, 'y2': -400.0}
-Extra - polygon: [[-4600.0, -400.0], [-7100.0, -400.0], [-7100.0, -3150.0], [-6700.0, -3272.090087890625], [-6700.0, -4600.0], [-4600.0, -4600.0]]
+Extra - polygon:
+[[-4600.0, -400.0],
+ [-7100.0, -400.0],
+ [-7100.0, -3150.0],
+ [-6700.0, -3272.090087890625],
+ [-6700.0, -4600.0],
+ [-4600.0, -4600.0]]
 Extra - asset_id: collision_camera_052
 > Door to Z-57 Heat Room West (Left); Heals? False
   * Layers: default
@@ -4022,7 +4125,7 @@ Extra - asset_id: collision_camera_058
 
 > Save Station; Heals? False; Spawn Point; Default Node
   * Layers: default
-  * Hint
+  * Generic Hint
   * Extra - actor_name: accesspoint_000
   * Extra - actor_def: actordef:actors/props/accesspoint/charclasses/accesspoint.bmsad
   * Extra - start_point_actor_name: accesspoint_platform_000
@@ -4265,7 +4368,7 @@ Extra - asset_id: collision_camera_063
               Flash Shift or Grapple Beam or Before Elun - Release X Parasites
           Grapple Beam and Grapple Movement (Beginner)
           Flash Shift and Wall Jump (Beginner)
-          Morph Ball and Single-wall Wall Jump (Intermediate)
+          Morph Ball and Single-wall Wall Jump (Advanced)
           Gravity Suit and Speed Booster and After Kraid
   > Tunnel to Diffusion Beam Room (Bottom)
       All of the following:
@@ -4273,6 +4376,9 @@ Extra - asset_id: collision_camera_063
           Any of the following:
               Gravity Suit
               Heat/Cold Runs (Intermediate) and Lava Damage ≥ 1000
+  > Event - Kraid
+      # This connection is here to help the generator get to the pickups in Diffusion Beam room before placing Wave or Diffusion to get out from here.
+      After Kraid
 
 > Dock from Above Kraid; Heals? False
   * Layers: default
@@ -4296,8 +4402,8 @@ Extra - asset_id: collision_camera_063
               Lay Normal Bomb
           Any of the following:
               # Energy Requirements
-              Combat (Intermediate) or Normal Damage ≥ 299
-              Combat (Beginner) and Normal Damage ≥ 199
+              Combat (Intermediate) or Normal Damage ≥ 264
+              Combat (Beginner) and Normal Damage ≥ 198
 
 > Tunnel to Diffusion Beam Room (Top); Heals? False
   * Layers: default

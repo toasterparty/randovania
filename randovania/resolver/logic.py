@@ -1,126 +1,90 @@
 from __future__ import annotations
 
+import gc
 from typing import TYPE_CHECKING
 
-from randovania.game_description.db.resource_node import ResourceNode
-from randovania.game_description.requirements.requirement_set import RequirementSet
-from randovania.resolver import debug
+from randovania.graph.graph_requirement import GraphRequirementSet
 from randovania.resolver.exceptions import ResolverTimeoutError
+from randovania.resolver.logging import (
+    ResolverLogger,
+    TextResolverLogger,
+)
 
 if TYPE_CHECKING:
-    from randovania.game_description.db.node import Node
-    from randovania.game_description.db.region_list import RegionList
+    from collections.abc import Sequence
+
     from randovania.game_description.game_description import GameDescription
-    from randovania.game_description.requirements.base import Requirement
+    from randovania.game_description.resources.resource_info import ResourceInfo
+    from randovania.graph.state import State
+    from randovania.graph.world_graph import WorldGraph, WorldGraphNode
     from randovania.layout.base.base_configuration import BaseConfiguration
-    from randovania.resolver.damage_state import DamageState
-    from randovania.resolver.state import State
-
-
-def n(node: Node, region_list: RegionList, with_region: bool = False) -> str:
-    return region_list.node_name(node, with_region) if node is not None else "None"
-
-
-def energy_string(state: State) -> str:
-    return f" [{state.game_state_debug_string()}]" if debug.debug_level() >= 2 else ""
 
 
 class Logic:
     """Extra information that persists even after a backtrack, to prevent irrelevant backtracking."""
 
-    game: GameDescription
-    configuration: BaseConfiguration
-    additional_requirements: list[RequirementSet]
+    dangerous_resources: frozenset[ResourceInfo]
+
+    additional_requirements: list[GraphRequirementSet]
+    prioritize_hints: bool
+    all_nodes: Sequence[WorldGraphNode]
+    graph: WorldGraph
+    game: GameDescription | None
+
+    logger: ResolverLogger
+
     _attempts: int
-    _current_indent: int = 0
-    _last_printed_additional: dict[Node, RequirementSet]
 
-    def __init__(self, game: GameDescription, configuration: BaseConfiguration):
-        self.game = game
+    def __init__(
+        self,
+        graph: WorldGraph,
+        configuration: BaseConfiguration,
+        *,
+        prioritize_hints: bool = False,
+        record_paths: bool = False,
+        disable_gc: bool = True,
+    ):
+        self.all_nodes = graph.nodes
+        self.graph = graph
+
         self.configuration = configuration
-        self.additional_requirements = [RequirementSet.trivial()] * len(game.region_list.all_nodes)
+        self.num_nodes = len(self.all_nodes)
+        self._victory_condition = graph.victory_condition
+        self.dangerous_resources = graph.dangerous_resources
+        self.additional_requirements = [GraphRequirementSet.trivial()] * self.num_nodes
+        self.prioritize_hints = prioritize_hints
+        self.record_paths = record_paths
+        self.disable_gc = disable_gc
 
-    def get_additional_requirements(self, node: Node) -> RequirementSet:
+        self.logger = TextResolverLogger()
+
+    def get_additional_requirements(self, node: WorldGraphNode) -> GraphRequirementSet:
         return self.additional_requirements[node.node_index]
 
-    def set_additional_requirements(self, node: Node, req: RequirementSet):
+    def set_additional_requirements(self, node: WorldGraphNode, req: GraphRequirementSet) -> None:
         self.additional_requirements[node.node_index] = req
 
-    def victory_condition(self, state: State) -> Requirement:
-        return self.game.victory_condition
-
-    def _indent(self, offset=0):
-        return " " * (self._current_indent - offset)
+    def victory_condition(self, state: State) -> GraphRequirementSet:
+        return self._victory_condition
 
     def get_attempts(self) -> int:
         return self._attempts
 
-    def resolver_start(self):
+    def resolver_start(self) -> None:
         self._attempts = 0
-        self._current_indent = 0
-        self._last_printed_additional = {}
+        if self.disable_gc:
+            gc.disable()
+        self.logger.logger_start()
 
-    def start_new_attempt(self, state: State, max_attempts: int | None):
+    def resolver_quit(self) -> None:
+        if self.disable_gc:
+            gc.enable()
+
+    def start_new_attempt(self, state: State, max_attempts: int | None) -> None:
         if max_attempts is not None and self._attempts >= max_attempts:
             raise ResolverTimeoutError(f"Timed out after {max_attempts} attempts")
 
         self._attempts += 1
-        self._current_indent += 1
-
-        if debug.debug_level() > 0:
-            region_list = state.region_list
-
-            resources = []
-            if isinstance(state.node, ResourceNode):
-                context_state = state.previous_state or state
-                for resource, quantity in state.node.resource_gain_on_collect(context_state.node_context()):
-                    text = f"{resource.resource_type.name[0]}: {resource.long_name}"
-                    if quantity > 1:
-                        text += f" x{quantity}"
-                    resources.append(text)
-
-            if debug.debug_level() >= 3:
-                for node in state.path_from_previous_state[1:]:
-                    debug.print_function(f"{self._indent(1)}: {n(node, region_list=region_list)}")
-            debug.print_function(
-                f"{self._indent(1)}> {n(state.node, region_list=region_list)}{energy_string(state)} for {resources}"
-            )
-
-    def log_checking_satisfiable_actions(self, state: State, actions: list[tuple[ResourceNode, DamageState]]):
-        if debug.debug_level() > 1:
-            debug.print_function(f"{self._indent()}# Satisfiable Actions")
-            for action, _ in actions:
-                debug.print_function(f"{self._indent(-1)}= {n(action, region_list=state.region_list)}")
-
-    def log_rollback(
-        self, state: State, has_action, possible_action: bool, additional_requirements: RequirementSet | None = None
-    ):
-        if debug.debug_level() > 0:
-            show_reqs = debug.debug_level() > 1 and additional_requirements is not None
-            debug.print_function(
-                "{}* Rollback {}; Had action? {}; Possible Action? {}{}".format(
-                    self._indent(),
-                    n(state.node, region_list=state.region_list),
-                    has_action,
-                    possible_action,
-                    "; Additional Requirements:" if show_reqs else "",
-                )
-            )
-            if show_reqs:
-                self.print_requirement_set(additional_requirements, -1)
-        self._current_indent -= 1
-
-    def log_skip_action_missing_requirement(self, node: Node, game: GameDescription):
-        if debug.debug_level() > 1:
-            requirement_set = self.get_additional_requirements(node)
-            if node in self._last_printed_additional and self._last_printed_additional[node] == requirement_set:
-                debug.print_function(f"{self._indent()}* Skip {n(node, region_list=game.region_list)}, same additional")
-            else:
-                debug.print_function(
-                    f"{self._indent()}* Skip {n(node, region_list=game.region_list)}, missing additional:"
-                )
-                self.print_requirement_set(requirement_set, -1)
-                self._last_printed_additional[node] = requirement_set
-
-    def print_requirement_set(self, requirement_set: RequirementSet, indent: int = 0):
-        requirement_set.pretty_print(self._indent(indent), print_function=debug.print_function)
+        if self.disable_gc and self._attempts % 50 == 0:
+            gc.collect(1)
+        self.logger.log_action(state)

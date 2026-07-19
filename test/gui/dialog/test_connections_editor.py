@@ -18,7 +18,7 @@ from randovania.gui.dialog import connections_editor
 from randovania.gui.lib import signal_handling
 
 if TYPE_CHECKING:
-    import pytestqt.qtbot  # type: ignore[import-untyped]
+    import pytestqt.qtbot
 
     from randovania.game_description.game_description import GameDescription
 
@@ -78,9 +78,7 @@ def test_build_change_root(
 
     elif resource_type == NodeRequirement:
         expected = NodeRequirement(
-            next(
-                node for node in echoes_game_description.region_list.iterate_nodes() if isinstance(node, ResourceNode)
-            ).identifier
+            next(node for node in echoes_game_description.region_list.iterate_nodes_of_type(ResourceNode)).identifier
         )
 
     elif resource_type == RequirementTemplate:

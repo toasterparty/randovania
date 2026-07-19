@@ -51,7 +51,7 @@ class ClientInterests(IntEnum):
 # FIXME: This is a copy of ODR's implementation just that the first param is a path instead of a name
 # for a file within ODR's template folder
 def replace_lua_template(file: Path, replacement: dict[str, Any], wrap_strings: bool = False) -> str:
-    from open_dread_rando.misc_patches.lua_util import lua_convert  # type: ignore
+    from open_dread_rando.misc_patches.lua_util import lua_convert  # type: ignore[import-untyped]
 
     code = file.read_text()
     for key, content in replacement.items():
@@ -75,7 +75,11 @@ def get_bootstrapper_for(game: GameDescription) -> list[str]:
     replacements = {
         "num_pickup_nodes": game.region_list.num_pickup_nodes,
         "inventory": "{{{}}}".format(
-            ",".join(repr(r.extra["item_id"]) for r in game.resource_database.item if "item_id" in r.extra)
+            ",".join(
+                repr(r.extra["item_id"])
+                for r in game.get_resource_database_view().get_all_items()
+                if "item_id" in r.extra
+            )
         ),
     }
 
@@ -155,7 +159,7 @@ class DreadExecutor:
             await asyncio.wait_for(writer.drain(), timeout=30)
 
             self.logger.debug("Waiting for API details response.")
-            response = typing.cast(bytes, await self._read_response())
+            response = typing.cast("bytes", await self._read_response())
             (api_version, buffer_size, bootstrap, self.layout_uuid_str, self.version) = response.decode("ascii").split(
                 ","
             )
@@ -179,8 +183,8 @@ class DreadExecutor:
             await self._read_response()
 
             loop = asyncio.get_event_loop()
-            loop.create_task(self._send_keep_alive())
-            loop.create_task(self.read_loop())
+            self._keep_alive_task = loop.create_task(self._send_keep_alive())
+            self._read_loop_task = loop.create_task(self.read_loop())
             self.logger.info("Connected")
 
             return None
@@ -212,13 +216,13 @@ class DreadExecutor:
         return self._socket is not None
 
     def _build_packet(self, type: PacketType, msg: bytes | None) -> bytes:
-        retBytes: bytearray = bytearray(type.to_bytes())
+        ret_bytes: bytearray = bytearray(type.to_bytes())
         if msg is not None:
             if type == PacketType.PACKET_REMOTE_LUA_EXEC:
-                retBytes.extend(len(msg).to_bytes(length=4, byteorder="little"))
+                ret_bytes.extend(len(msg).to_bytes(length=4, byteorder="little"))
             if type in [PacketType.PACKET_REMOTE_LUA_EXEC, PacketType.PACKET_HANDSHAKE]:
-                retBytes.extend(msg)
-        return retBytes
+                ret_bytes.extend(msg)
+        return bytes(ret_bytes)
 
     async def _read_response(self) -> bytes | None:
         if self._socket is None:

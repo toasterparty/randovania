@@ -1,3 +1,6 @@
+# mypy: disable-error-code="no-redef"
+# we specifically abuse redefinition in this class to import game_module
+
 from __future__ import annotations
 
 import typing
@@ -16,6 +19,8 @@ if typing.TYPE_CHECKING:
     from randovania.game.data import GameData
     from randovania.game.generator import GameGenerator
     from randovania.game.gui import GameGui
+    from randovania.game.hints import GameHints
+    from randovania.game_description.game_description import GameDescription
     from randovania.interface_common.options import PerGameOptions
 
 
@@ -23,8 +28,6 @@ class RandovaniaGame(BitPackEnum, Enum):
     BLANK = "blank"
     METROID_PRIME = "prime1"
     METROID_PRIME_ECHOES = "prime2"
-    METROID_PRIME_CORRUPTION = "prime3"
-    SUPER_METROID = "super_metroid"
     METROID_DREAD = "dread"
     METROID_SAMUS_RETURNS = "samus_returns"
     CAVE_STORY = "cave_story"
@@ -32,6 +35,9 @@ class RandovaniaGame(BitPackEnum, Enum):
     FUSION = "fusion"
     FACTORIO = "factorio"
     METROID_PLANETS_ZEBETH = "planets_zebeth"
+    METROID_PRIME_HUNTERS = "prime_hunters"
+    METROID_ZERO_MISSION = "zero_mission"
+    METROID_PRIME_ECHOES_OPR = "prime2_opr"
 
     @property
     def data(self) -> GameData:
@@ -41,10 +47,6 @@ class RandovaniaGame(BitPackEnum, Enum):
             import randovania.games.prime1.game_data as game_module
         elif self == RandovaniaGame.METROID_PRIME_ECHOES:
             import randovania.games.prime2.game_data as game_module
-        elif self == RandovaniaGame.METROID_PRIME_CORRUPTION:
-            import randovania.games.prime3.game_data as game_module
-        elif self == RandovaniaGame.SUPER_METROID:
-            import randovania.games.super_metroid.game_data as game_module
         elif self == RandovaniaGame.METROID_DREAD:
             import randovania.games.dread.game_data as game_module
         elif self == RandovaniaGame.METROID_SAMUS_RETURNS:
@@ -59,6 +61,12 @@ class RandovaniaGame(BitPackEnum, Enum):
             import randovania.games.factorio.game_data as game_module
         elif self == RandovaniaGame.METROID_PLANETS_ZEBETH:
             import randovania.games.planets_zebeth.game_data as game_module
+        elif self == RandovaniaGame.METROID_PRIME_HUNTERS:
+            import randovania.games.prime_hunters.game_data as game_module
+        elif self == RandovaniaGame.METROID_ZERO_MISSION:
+            import randovania.games.zero_mission.game_data as game_module
+        elif self == RandovaniaGame.METROID_PRIME_ECHOES_OPR:
+            import randovania.games.prime2_opr.game_data as game_module
         else:
             raise ValueError(f"Missing import for game: {self.value}")
         return game_module.game_data
@@ -100,9 +108,19 @@ class RandovaniaGame(BitPackEnum, Enum):
         return self.data.generator()
 
     @cached_property
+    def hints(self) -> GameHints:
+        return self.data.hints()
+
+    @cached_property
     def patch_data_factory(self) -> type[PatchDataFactory]:
         return self.data.patch_data_factory()
 
     @cached_property
     def exporter(self) -> GameExporter:
         return self.data.exporter()
+
+    @property
+    def game_description(self) -> GameDescription:
+        from randovania.game_description import default_database
+
+        return default_database.game_description_for(self)

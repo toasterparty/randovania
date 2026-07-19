@@ -317,6 +317,7 @@ Extra - asset_id: collision_camera_002
   > Event - Transport Blob from Below
       Any of the following:
           Shoot Diffusion or Wave
+          # Pseudo with Wide Beam https://youtu.be/97wpf8CFLUo
           Morph Ball and Pseudo-Wave Beam (Beginner) and Shoot Charge Beam and Shoot Wide Beam
 
 > Event - Water Blob Left, Through Wall; Heals? False
@@ -638,6 +639,8 @@ Extra - asset_id: collision_camera_007
                   Cross Bomb Launch (Advanced)
                   # https://youtu.be/ZDpC0yLklMs
                   Cross Bomb Launch (Intermediate) and Use Spin Boost
+          # Horizontal Bomb Jump across the entire gap
+          Diagonal Bomb Jump (Expert) and Lay Normal Bomb
   > Water Bottom
       Trivial
 
@@ -687,14 +690,12 @@ Extra - asset_id: collision_camera_007
                   Before Drogyga and Enabled Highly Dangerous Logic
               Spider Magnet or Speed Booster or Simple IBJ or Use Spin Boost
           All of the following:
-              After Drogyga
+              After Drogyga and Water Bomb Jump (Beginner)
               Any of the following:
+                  Lay Cross Bomb
                   All of the following:
-                      Water Bomb Jump (Beginner)
-                      Any of the following:
-                          Lay Cross Bomb
-                          Spider Magnet and Lay Normal Bomb
-                  Water Bomb Jump (Intermediate) and Lay Normal Bomb
+                      Lay Normal Bomb
+                      Spider Magnet or Single-wall Wall Jump (Intermediate) or Water Bomb Jump (Intermediate)
 
 ----------------
 Teleport to Ferenia
@@ -892,7 +893,7 @@ Extra - asset_id: collision_camera_009
 
 > Save Station; Heals? False; Spawn Point; Default Node
   * Layers: default
-  * Hint
+  * Generic Hint
   * Extra - actor_name: accesspoint_000
   * Extra - actor_def: actordef:actors/props/accesspoint/charclasses/accesspoint.bmsad
   * Extra - start_point_actor_name: accesspoint_000_platform
@@ -928,6 +929,15 @@ Extra - asset_id: collision_camera_010
   * Extra - left_shield_def: None
   * Extra - right_shield_entity: {EMPTY}
   * Extra - right_shield_def: None
+  * Override default open requirement:
+    Any of the following:
+        Traverse Any Shutter Gate
+        All of the following:
+            Speed Booster
+            Any of the following:
+                Speed Booster Conservation (Intermediate)
+                Gravity Suit and Speed Booster Conservation (Beginner)
+
   > Upper Left Magnet Wall
       Trivial
 
@@ -989,6 +999,9 @@ Extra - asset_id: collision_camera_010
   * Extra - left_shield_def: None
   * Extra - right_shield_entity: {EMPTY}
   * Extra - right_shield_def: None
+  * Override default open requirement:
+    Speed Booster or Traverse Any Shutter Gate
+
   > Door to Save Station Middle
       Trivial
 
@@ -1033,7 +1046,7 @@ Extra - asset_id: collision_camera_010
       Any of the following:
           Flash Shift or Spider Magnet or Slide Jump (Beginner) or Simple IBJ or Use Spin Boost
           Speed Booster and Speed Booster Conservation (Intermediate) and Disabled Door Lock Randomizer
-          Morph Ball and Single-wall Wall Jump (Beginner)
+          Morph Ball and Single-wall Wall Jump (Intermediate)
   > Door to Teleport to Ferenia
       Morph Ball
   > Door to Save Station Middle
@@ -1323,7 +1336,13 @@ Extra - asset_id: collision_camera_010
 ----------------
 Main Hub Tower Bottom
 Extra - total_boundings: {'x1': -5000.0, 'x2': -900.0, 'y1': -11800.0, 'y2': -7000.0}
-Extra - polygon: [[-900.0, -7000.0], [-5000.0, -7000.0], [-5000.0, -10700.0], [-4700.0, -11200.0], [-4700.0, -11800.0], [-900.0, -11800.0]]
+Extra - polygon:
+[[-900.0, -7000.0],
+ [-5000.0, -7000.0],
+ [-5000.0, -10700.0],
+ [-4700.0, -11200.0],
+ [-4700.0, -11800.0],
+ [-900.0, -11800.0]]
 Extra - asset_id: collision_camera_010
 > Door to Energy Recharge South; Heals? False
   * Layers: default
@@ -1415,7 +1434,9 @@ Extra - asset_id: collision_camera_010
   > Door to Save Station South Access (Lower)
       All of the following:
           Gravity Suit
-          Speed Booster or Simple IBJ or Use Spin Boost
+          Any of the following:
+              Space Jump or Speed Booster or Simple IBJ
+              Wall Jump (Beginner) and Use Spin Boost
   > Dock to Gravity Suit Room Access
       Screw Attack
   > Water Space Jump Platform
@@ -1456,7 +1477,7 @@ Extra - asset_id: collision_camera_010
           Any of the following:
               Speed Booster and After Burenia - Prepare Speed Boost in Save Station and Speed Booster Conservation (Beginner)
               # https://youtu.be/YkDT2IZG9p8
-              Gravity Suit and Morph Ball and Single-wall Wall Jump (Intermediate)
+              Gravity Suit and Morph Ball and Single-wall Wall Jump (Advanced)
   > Door to Save Station South Access (Upper)
       Gravity Suit
   > Door to Storm Missile Gate Room
@@ -1473,7 +1494,9 @@ Extra - asset_id: collision_camera_010
   > Event - Main Hub Bottom Grapple Block
       Grapple Beam and After Burenia - Main Hub Bottom Blob
   > Ledge above Grapple Block
-      Flash Shift and Gravity Suit and After Burenia - Main Hub Bottom Blob
+      All of the following:
+          Gravity Suit and After Burenia - Main Hub Bottom Blob
+          Flash Shift or Use Spin Boost
   > Water Space Jump Platform
       After Burenia - Main Hub Bottom Blob
 
@@ -1509,11 +1532,13 @@ Extra - asset_id: collision_camera_010
 > Water Space Jump Platform; Heals? False
   * Layers: default
   > Door to Save Station South Access (Lower)
-      Horizontal Water Movement
+      Any of the following:
+          Horizontal Water Movement
+          Gravity Suit and Movement (Beginner) and Use Spin Boost
   > Door to Storm Missile Gate Room
       All of the following:
           Gravity Suit and Morph Ball and After Burenia - Main Hub Bottom Grapple Block
-          Speed Booster or Single-wall Wall Jump (Beginner) or Simple IBJ or Use Spin Boost
+          Speed Booster or Single-wall Wall Jump (Intermediate) or Simple IBJ or Use Spin Boost
   > Above Screw Attack Blocks
       Trivial
   > Alcove Across Grapple Block
@@ -1527,9 +1552,12 @@ Extra - asset_id: collision_camera_010
       All of the following:
           Gravity Suit
           Any of the following:
-              Simple IBJ or Use Spin Boost
-              Morph Ball and Single-wall Wall Jump (Intermediate)
+              Space Jump or Simple IBJ
+              Morph Ball and Single-wall Wall Jump (Advanced)
               Flash Shift and Wall Jump (Intermediate)
+              All of the following:
+                  Use Spin Boost
+                  After Burenia - Main Hub Bottom Grapple Block or Wall Jump (Beginner)
 
 > Dock from Main Hub Tower Middle; Heals? False
   * Layers: default
@@ -1673,6 +1701,13 @@ Extra - asset_id: collision_camera_014
   * Extra - left_shield_def: None
   * Extra - right_shield_entity: {EMPTY}
   * Extra - right_shield_def: None
+  * Override default open requirement:
+    Any of the following:
+        Traverse Any Shutter Gate
+        All of the following:
+            Flash Shift Skip (Beginner)
+            Wall Jump (Beginner) or Use Spin Boost
+
   > Door from Main Hub Tower Top
       Trivial
 
@@ -1900,7 +1935,7 @@ Extra - asset_id: collision_camera_016
 
 > Save Station; Heals? False; Spawn Point; Default Node
   * Layers: default
-  * Hint
+  * Generic Hint
   * Extra - actor_name: accesspoint_001
   * Extra - actor_def: actordef:actors/props/accesspoint/charclasses/accesspoint.bmsad
   * Extra - start_point_actor_name: accesspoint_001_platform
@@ -2747,7 +2782,14 @@ Extra - asset_id: collision_camera_027
 ----------------
 Drogyga Arena
 Extra - total_boundings: {'x1': -1900.0, 'x2': 1000.0, 'y1': 10300.0, 'y2': 11550.0}
-Extra - polygon: [[1000.0, 11500.0], [-1400.0, 11500.0], [-1500.0, 11550.0], [-1800.0, 11550.0], [-1900.0, 11500.0], [-1900.0, 10300.0], [1000.0, 10300.0]]
+Extra - polygon:
+[[1000.0, 11500.0],
+ [-1400.0, 11500.0],
+ [-1500.0, 11550.0],
+ [-1800.0, 11550.0],
+ [-1900.0, 11500.0],
+ [-1900.0, 10300.0],
+ [1000.0, 10300.0]]
 Extra - asset_id: collision_camera_028
 > Before Fight; Heals? False; Default Node
   * Layers: default

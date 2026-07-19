@@ -8,11 +8,12 @@ import time
 from typing import TYPE_CHECKING, NamedTuple
 
 import open_prime_rando.echoes.custom_assets
-from retro_data_structures.asset_manager import AssetManager, IsoFileProvider
+from retro_data_structures.asset_manager import AssetManager
 from retro_data_structures.conversion import conversions
 from retro_data_structures.conversion.asset_converter import AssetConverter, ConvertedAsset
 from retro_data_structures.dependencies import Dependency, all_converted_dependencies
 from retro_data_structures.exceptions import InvalidAssetId, UnknownAssetId
+from retro_data_structures.file_provider import IsoFileProvider
 from retro_data_structures.formats import format_for
 from retro_data_structures.formats.pak import PakBody, PakFile
 from retro_data_structures.formats.pak_gc import PAK_GC
@@ -30,8 +31,8 @@ if TYPE_CHECKING:
 
     from randovania.lib.status_update_lib import ProgressUpdateCallable
 
-PRIME_MODELS_VERSION = 1
-ECHOES_MODELS_VERSION = 3
+PRIME_MODELS_VERSION = 2
+ECHOES_MODELS_VERSION = 5
 
 
 def delete_converted_assets(assets_dir: Path):
@@ -106,7 +107,7 @@ prime1_assets = {
 
 @monitoring.trace_function
 def convert_prime1_pickups(
-    prime1_iso: Path,
+    prime1_iso: Path | None,
     echoes_files_path: Path,
     assets_path: Path,
     patch_data: dict,
@@ -121,6 +122,7 @@ def convert_prime1_pickups(
         converted_assets, randomizer_data_additions = _read_prime1_from_cache(assets_path, updaters)
 
     else:
+        assert prime1_iso is not None
         converted_assets, randomizer_data_additions = _convert_prime1_assets(
             prime1_iso,
             assets_path,
@@ -335,7 +337,7 @@ def _read_prime1_from_cache(assets_path: Path, updaters):
 @monitoring.trace_function
 def convert_prime2_pickups(input_path: Path, output_path: Path, status_update: ProgressUpdateCallable):
     metafile = output_path.joinpath("meta.json")
-    if get_asset_cache_version(output_path) >= ECHOES_MODELS_VERSION:
+    if get_asset_cache_version(output_path) == ECHOES_MODELS_VERSION:
         return json_lib.read_path(metafile)
 
     delete_converted_assets(output_path)
@@ -356,6 +358,14 @@ def convert_prime2_pickups(input_path: Path, output_path: Path, status_update: P
     asset_manager = echoes_asset_manager(input_path)
     open_prime_rando.echoes.custom_assets.create_custom_assets(asset_manager)
 
+    # Fix the Varia Suit's character in the suits ANCS referencing a missing skin.
+    # 0x3A5E2FE1 is Light Suit's skin
+    # this is fixed by Claris' patcher when exporting for Echoes
+    asset_manager.get_file(0xA3E787B7).raw.character_set.characters[0].skin_id = 0x3A5E2FE1
+
+    # Commit the Suit and custom Visors
+    asset_manager.build_modified_files()
+
     logging.info("Loading PAKs")
     status_update("Loading assets from Prime 2 to convert", 0.0)
     converter = AssetConverter(
@@ -365,13 +375,6 @@ def convert_prime2_pickups(input_path: Path, output_path: Path, status_update: P
         converters=conversions.converter_for,
     )
     logging.info(f"Finished loading PAKs: {time.time() - start}")
-
-    # Fix the Varia Suit's character in the suits ANCS referencing a missing skin.
-    # 0x3A5E2FE1 is Light Suit's skin
-    # this is fixed by Claris' patcher when exporting for Echoes
-    suits_ancs = asset_manager.get_parsed_asset(0xA3E787B7)
-    suits_ancs.raw.character_set.characters[0].skin_id = 0x3A5E2FE1
-    asset_manager.replace_asset(0xA3E787B7, suits_ancs)
 
     # Use echoes missile expansion for unlimited missiles instead of missile launcher
     unlimited_missile_data = next(i for i in randomizer_data["ModelData"] if i["Index"] == 42)

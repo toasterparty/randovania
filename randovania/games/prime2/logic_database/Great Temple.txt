@@ -1,7 +1,6 @@
 ----------------
 Temple Transport A
 Extra - asset_id: 408633584
-Extra - in_dark_aether: False
 > Door to Transport A Access; Heals? False
   * Layers: default
   * Normal Door to Transport A Access/Door to Temple Transport A
@@ -21,7 +20,6 @@ Extra - in_dark_aether: False
 ----------------
 Transport A Access
 Extra - asset_id: 3885674414
-Extra - in_dark_aether: False
 > Save Station; Heals? True; Spawn Point; Default Node
   * Layers: default
   > Door to Temple Sanctuary
@@ -65,14 +63,21 @@ Extra - in_dark_aether: False
 > Pickup (Missile); Heals? False
   * Layers: default
   * Pickup 20; Category? Minor
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'MissileExpansion', 'connections': (), 'removals': (65678,), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 1.0}), 'instances': frozendict.frozendict({'pickup': 65689, 'hud_memo': 65681, 'streamed_audio': 65676, 'sound': 65686, 'audio_fade': 65683})})
+  * Extra - location_data:
+{'type': 'standard',
+ 'exclude_memo_from_removal': False,
+ 'original_model': 'MissileExpansion',
+ 'connections': [],
+ 'removals': [65678],
+ 'collision_offset': {'x': 0.0, 'y': 0.0, 'z': 1.0},
+ 'instances': {'pickup': 65689, 'hud_memo': 65681, 'streamed_audio': 65676, 'sound': 65686, 'audio_fade': 65683}}
   > Save Station
       Trivial
 
 ----------------
 Temple Sanctuary
 Extra - asset_id: 2731245106
-Extra - in_dark_aether: False
+Hint Features - Boss, Temple, Translator Gate
 > Door to Transport B Access; Heals? False
   * Layers: default
   * Normal Door to Transport B Access/Door to Temple Sanctuary
@@ -110,7 +115,14 @@ Extra - in_dark_aether: False
 > Pickup (Energy Transfer Module); Heals? False
   * Layers: default
   * Pickup 21; Category? Major
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'EnergyTransferModule', 'connections': (frozendict.frozendict({'target': 268566936, 'message': 'ACTV'}), frozendict.frozendict({'target': 268566936, 'message': 'ZERO'})), 'removals': (131365, 268566702, 268566946), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 1.0}), 'instances': frozendict.frozendict({'pickup': 131367, 'hud_memo': 131360, 'streamed_audio': 131379, 'sound': 131343, 'audio_fade': 131359})})
+  * Extra - location_data:
+{'type': 'standard',
+ 'exclude_memo_from_removal': False,
+ 'original_model': 'EnergyTransferModule',
+ 'connections': [{'target': 268566936, 'message': 'ACTV'}, {'target': 268566936, 'message': 'ZERO'}],
+ 'removals': [131365, 268566702, 268566946],
+ 'collision_offset': {'x': 0.0, 'y': 0.0, 'z': 1.0},
+ 'instances': {'pickup': 131367, 'hud_memo': 131360, 'streamed_audio': 131379, 'sound': 131343, 'audio_fade': 131359}}
   > Room Center
       Trivial
 
@@ -134,7 +146,7 @@ Extra - in_dark_aether: False
               Any of the following:
                   Power Bomb and Combat (Beginner)
                   Boost Ball and Combat (Expert)
-                  Morph Ball Bomb and Combat (Hypermode)
+                  Morph Ball Bomb and Combat (Ludicrous)
           Combat (Intermediate) and Use Screw Attack (Space Jump)
           All of the following:
               Light Beam
@@ -196,7 +208,6 @@ Extra - in_dark_aether: False
 ----------------
 Transport C Access
 Extra - asset_id: 441310400
-Extra - in_dark_aether: False
 > Door to Temple Transport C; Heals? False
   * Layers: default
   * Normal Door to Temple Transport C/Door to Transport C Access
@@ -224,7 +235,6 @@ Extra - in_dark_aether: False
 ----------------
 Controller Transport
 Extra - asset_id: 300223430
-Extra - in_dark_aether: False
 > Door to Temple Sanctuary; Heals? False
   * Layers: default
   * Normal Door to Temple Sanctuary/Door to Controller Transport
@@ -242,7 +252,7 @@ Extra - in_dark_aether: False
 ----------------
 Transport B Access
 Extra - asset_id: 4273454375
-Extra - in_dark_aether: False
+Hint Features - Morph Ball Tunnel
 > Door to Temple Sanctuary; Heals? False; Spawn Point; Default Node
   * Layers: default
   * Normal Door to Temple Sanctuary/Door to Transport B Access
@@ -256,7 +266,7 @@ Extra - in_dark_aether: False
               Any of the following:
                   Morph Ball Bomb
                   # https://www.youtube.com/watch?v=F167mmNCEWc
-                  Boost Ball and Wall Boost (Hypermode)
+                  Boost Ball and Wall Boost (Ludicrous)
           # https://www.youtube.com/watch?v=mwdZjDuRuGM
           Space Jump Boots and Slope Jump (Intermediate)
 
@@ -270,14 +280,20 @@ Extra - in_dark_aether: False
 > Pickup (Missile); Heals? False
   * Layers: default
   * Pickup 22; Category? Minor
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'MissileExpansion', 'connections': (), 'removals': (327910,), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 1.0}), 'instances': frozendict.frozendict({'pickup': 327887, 'hud_memo': 327911, 'streamed_audio': 327906, 'sound': 327891, 'audio_fade': 327904})})
+  * Extra - location_data:
+{'type': 'standard',
+ 'exclude_memo_from_removal': False,
+ 'original_model': 'MissileExpansion',
+ 'connections': [],
+ 'removals': [327910],
+ 'collision_offset': {'x': 0.0, 'y': 0.0, 'z': 1.0},
+ 'instances': {'pickup': 327887, 'hud_memo': 327911, 'streamed_audio': 327906, 'sound': 327891, 'audio_fade': 327904}}
   > Door to Temple Sanctuary
       Trivial
 
 ----------------
 Temple Transport C
 Extra - asset_id: 2556480432
-Extra - in_dark_aether: False
 > Door to Transport C Access; Heals? False
   * Layers: default
   * Normal Door to Transport C Access/Door to Temple Transport C
@@ -297,7 +313,7 @@ Extra - in_dark_aether: False
 ----------------
 Main Energy Controller
 Extra - asset_id: 44045108
-Extra - in_dark_aether: False
+Hint Features - Energy Controller, Light Energy Transport, Luminoth Lore
 > Door to Controller Transport; Heals? False; Spawn Point; Default Node
   * Layers: default
   * Normal Door to Controller Transport/Door to Main Energy Controller
@@ -318,14 +334,38 @@ Extra - in_dark_aether: False
 > Pickup (Violet Translator); Heals? False
   * Layers: default
   * Pickup 23; Category? Major
-  * Extra - location_data: frozendict.frozendict({'type': 'custom', 'exclude_memo_from_removal': False, 'original_model': 'VioletTranslator', 'connections': (), 'removals': (459696, 459075, 134677499), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 1.0}), 'collision_size': frozendict.frozendict({'x': 1.0, 'y': 1.0, 'z': 2.0}), 'layer': 'Default'})
+  * Extra - location_data:
+{'type': 'custom',
+ 'exclude_memo_from_removal': False,
+ 'original_model': 'VioletTranslator',
+ 'connections': [],
+ 'removals': [459696, 459075, 134677499],
+ 'collision_offset': {'x': 0.0, 'y': 0.0, 'z': 1.0},
+ 'collision_size': {'x': 1.0, 'y': 1.0, 'z': 2.0},
+ 'layer': 'Default'}
   > Door to Controller Transport
       Trivial
 
 > Pickup (Light Suit); Heals? False
   * Layers: default
   * Pickup 24; Category? Major
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'LightSuit', 'connections': (frozendict.frozendict({'target': 459647, 'message': 'INCR'}), frozendict.frozendict({'target': 537330382, 'message': 'ACTV'}), frozendict.frozendict({'target': 537330382, 'message': 'ZERO'}), frozendict.frozendict({'target': 458813, 'message': 'STRT'}), frozendict.frozendict({'target': 459538, 'message': 'ULCK'}), frozendict.frozendict({'target': 459661, 'message': 'ACTV'})), 'removals': (537330383, 537330343), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 0.0}), 'instances': frozendict.frozendict({'pickup': 537330375, 'hud_memo': 537330376, 'streamed_audio': 537330381, 'sound': 537330373, 'audio_fade': 537330384})})
+  * Extra - location_data:
+{'type': 'standard',
+ 'exclude_memo_from_removal': False,
+ 'original_model': 'LightSuit',
+ 'connections': [{'target': 459647, 'message': 'INCR'},
+                 {'target': 537330382, 'message': 'ACTV'},
+                 {'target': 537330382, 'message': 'ZERO'},
+                 {'target': 458813, 'message': 'STRT'},
+                 {'target': 459538, 'message': 'ULCK'},
+                 {'target': 459661, 'message': 'ACTV'}],
+ 'removals': [537330383, 537330343],
+ 'collision_offset': {'x': 0.0, 'y': 0.0, 'z': 0.0},
+ 'instances': {'pickup': 537330375,
+               'hud_memo': 537330376,
+               'streamed_audio': 537330381,
+               'sound': 537330373,
+               'audio_fade': 537330384}}
   > Door to Controller Transport
       Trivial
 
@@ -364,7 +404,7 @@ Extra - in_dark_aether: False
 
 > Lore Scan; Heals? False
   * Layers: default
-  * Hint
+  * Generic Hint; Requirement? (Scan Visor ≥ 1 and Violet Translator ≥ 1)
   * Extra - translator: Violet
   * Extra - string_asset_id: 3277287077
   > Door to Controller Transport
@@ -373,7 +413,6 @@ Extra - in_dark_aether: False
 ----------------
 Temple Transport B
 Extra - asset_id: 2399252740
-Extra - in_dark_aether: False
 > Door to Transport B Access; Heals? False
   * Layers: default
   * Normal Door to Transport B Access/Door to Temple Transport B
@@ -389,110 +428,4 @@ Extra - in_dark_aether: False
   * Extra - keep_name_when_vanilla: False
   > Door to Transport B Access
       Trivial
-
-----------------
-Sky Temple Energy Controller
-Extra - asset_id: 2068511343
-Extra - in_dark_aether: True
-> Save Station; Heals? True; Spawn Point; Default Node
-  * Layers: default
-  > Door to Sanctum Access
-      Any of the following:
-          Dark World Damage ≥ 30 and Use Screw Attack (Space Jump)
-          Space Jump Boots and Dark World Damage ≥ 70
-          Slope Jump (Intermediate) and Dark World Damage ≥ 70
-  > Elevator to Temple Grounds
-      Dark World Damage ≥ 20
-
-> Door to Sanctum Access; Heals? False
-  * Layers: default
-  * Normal Door to Sanctum Access/Door to Sky Temple Energy Controller; Dock Lock Rando incompatible with: Boost Ball Blast Shield, Bomb Blast Shield
-  * Extra - dock_name: SouthLight
-  > Save Station
-      All of the following:
-          Before Emperor Ing
-          Any of the following:
-              Dark World Damage ≥ 60
-              Dark World Damage ≥ 30 and Use Screw Attack (Space Jump)
-  > Elevator to Temple Grounds
-      Dark World Damage ≥ 25
-
-> Elevator to Temple Grounds; Heals? False
-  * Layers: default
-  * Elevator to Sky Temple Gateway/Spawn Point/Front of Teleporter
-  * Extra - scan_asset_id: None
-  * Extra - teleporter_instance_id: 589949
-  * Extra - keep_name_when_vanilla: True
-  > Save Station
-      Any of the following:
-          Morph Ball Bomb and Morph Ball and Bomb Jump (Beginner) and Dark World Damage ≥ 80
-          Dark World Damage ≥ 30 and Use Screw Attack (Space Jump)
-          Space Jump Boots and Dark World Damage ≥ 40
-  > Door to Sanctum Access
-      Any of the following:
-          Morph Ball Bomb and Morph Ball and Bomb Jump (Intermediate) and Dark World Damage ≥ 120
-          All of the following:
-              Space Jump Boots
-              Any of the following:
-                  Dark World Damage ≥ 80
-                  Slope Jump (Intermediate) and Dark World Damage ≥ 40
-
-----------------
-Sanctum Access
-Extra - asset_id: 3417147547
-Extra - in_dark_aether: True
-> Door to Sky Temple Energy Controller; Heals? False; Spawn Point; Default Node
-  * Layers: default
-  * Normal Door to Sky Temple Energy Controller/Door to Sanctum Access; Dock Lock Rando incompatible with: Boost Ball Blast Shield, Bomb Blast Shield
-  * Extra - dock_name: Darkbottom
-  > Door to Sanctum
-      Any of the following:
-          Dark World Damage ≥ 50 and Use Screw Attack (Space Jump)
-          # https://www.youtube.com/watch?v=KT5PE0xdq0Y&list=PLevfta9o_QKWuQNXAnmBXtzW4nmU5VLyN&index=56
-          Screw Attack at Z-Axis (Advanced) and Dark World Damage ≥ 70 and Disabled Room Randomizer and Use Screw Attack (No Space Jump)
-
-> Door to Sanctum; Heals? False
-  * Layers: default
-  * Normal Door to Sanctum/Door to Sanctum Access; Dock Lock Rando incompatible with: Boost Ball Blast Shield, Bomb Blast Shield
-  * Extra - dock_name: DarkTop
-  > Door to Sky Temple Energy Controller
-      Dark World Damage ≥ 55
-
-----------------
-Sanctum
-Extra - asset_id: 3619928121
-Extra - in_dark_aether: True
-> Door to Sanctum Access; Heals? False; Spawn Point; Default Node
-  * Layers: default
-  * Normal Door to Sanctum Access/Door to Sanctum; Dock Lock Rando incompatible with: Boost Ball Blast Shield, Bomb Blast Shield
-  * Extra - dock_name: SouthDark
-  > Event - Emperor Ing
-      All of the following:
-          Morph Ball
-          Any of the following:
-              Spider Ball
-              Space Jump Boots and Combat (Hypermode) and Jump Off Enemy (Hypermode) and Slope Jump (Hypermode) and Standable Terrain (Hypermode) and Normal Damage ≥ 500 and Enabled Refill with Drops
-          Any of the following:
-              Morph Ball Bomb
-              Power Bomb ≥ 3 and Knowledge (Beginner)
-          Any of the following:
-              All of the following:
-                  Any of the following:
-                      Charge Beam
-                      Dark Ammo ≥ 50 and Light Ammo ≥ 50
-                  Any of the following:
-                      Annihilator Beam
-                      Dark Beam and Light Beam
-              Combat (Intermediate) and Use Screw Attack (Space Jump)
-          Any of the following:
-              Light Suit
-              Combat (Intermediate) and Dark World Damage ≥ 800
-
-> Event - Emperor Ing; Heals? True
-  * Layers: default
-  * Event Emperor Ing
-  > Door to Sanctum Access
-      Any of the following:
-          Dark World Damage ≥ 40 and Use Screw Attack (Space Jump)
-          Screw Attack at Z-Axis (Intermediate) and Dark World Damage ≥ 50 and Disabled Room Randomizer and Use Screw Attack (No Space Jump)
 

@@ -8,10 +8,11 @@ from pathlib import Path
 from typing import Any
 
 from randovania.game.game_enum import RandovaniaGame
-from randovania.game_description import default_database, trick_documentation
+from randovania.game_description import binary_data, default_database, trick_documentation
+from randovania.game_description.db.pickup_node import PickupNode
 from randovania.game_description.resources.search import MissingResource, find_resource_info_with_long_name
 from randovania.game_description.trick_documentation import TrickUsageState
-from randovania.games import binary_data, default_data
+from randovania.games import default_data
 from randovania.lib import json_lib
 from randovania.lib.enum_lib import iterate_enum
 
@@ -30,7 +31,7 @@ def _get_sorted_list_of_names(input_list: list[Any], prefix: str = "") -> typing
 def decode_data_file(args: Namespace) -> dict:
     json_database: Path | None = args.json_database
     if json_database is not None:
-        return typing.cast(dict, json_lib.read_path(json_database))
+        return typing.cast("dict", json_lib.read_path(json_database))
     else:
         return default_data.read_json_then_binary(RandovaniaGame(args.game))[1]
 
@@ -260,18 +261,15 @@ def refresh_pickup_database_command(sub_parsers: _SubParsersAction) -> None:
 def _list_paths_with_resource(
     game: GameDescription, print_only_area: bool, resource: ResourceInfo, needed_quantity: int | None
 ) -> None:
-    from randovania.game_description.db.node import NodeContext
-    from randovania.game_description.resources.resource_collection import ResourceCollection
-
     count = 0
-    context = NodeContext(None, ResourceCollection(), game.resource_database, game.region_list)
+    database = game.resource_database
 
     for area in game.region_list.all_areas:
         area_had_resource = False
 
         for source, connection in area.connections.items():
             for target, requirement in connection.items():
-                for individual in requirement.iterate_resource_requirements(context):
+                for individual in requirement.iterate_resource_requirements(database):
                     if needed_quantity is None or needed_quantity == individual.amount:
                         area_had_resource = True
                         if not print_only_area:
@@ -282,7 +280,7 @@ def _list_paths_with_resource(
                                     target.name,
                                     sorted(
                                         individual
-                                        for individual in requirement.iterate_resource_requirements(context)
+                                        for individual in requirement.iterate_resource_requirements(database)
                                         if individual.resource != resource
                                     ),
                                 )
@@ -300,22 +298,19 @@ def list_paths_with_dangerous_logic(args: Namespace) -> None:
     print_only_area = args.print_only_area
     count = 0
 
-    from randovania.game_description.db.node import NodeContext
-    from randovania.game_description.resources.resource_collection import ResourceCollection
-
-    context = NodeContext(None, ResourceCollection(), game.resource_database, game.region_list)
+    database = game.resource_database
 
     for area in game.region_list.all_areas:
         area_had_resource = False
 
         for source, connection in area.connections.items():
             for target, requirement in connection.items():
-                for individual in requirement.iterate_resource_requirements(context):
+                for individual in requirement.iterate_resource_requirements(database):
                     if individual.negate:
                         area_had_resource = True
                         if not print_only_area:
                             sorted_resources = sorted(
-                                individual for individual in requirement.iterate_resource_requirements(context)
+                                individual for individual in requirement.iterate_resource_requirements(database)
                             )
                             print(
                                 f"At {game.region_list.area_name(area)}, from {area} to {source.name}:\n"
@@ -383,7 +378,7 @@ def pickups_per_area_command_logic(args: Namespace) -> None:
     for region in gd.region_list.regions:
         num_pickups = sum(1 for node in region.all_nodes if isinstance(node, PickupNode))
         total += num_pickups
-        print(f"{region.correct_name(False)}: {num_pickups}")
+        print(f"{region.name}: {num_pickups}")
     print(f"Total: {total}")
 
 
@@ -438,6 +433,54 @@ def trick_usage_documentation_command(sub_parsers: _SubParsersAction) -> None:
     parser.set_defaults(func=trick_usage_documentation_logic)
 
 
+def features_per_node_command_logic(args: Namespace) -> None:
+    """Reports features for given pickup nodes, taking into account area and node specific features"""
+    db = load_game_description(args)
+    pickup_node_count = 0
+    featureless_nodes = []
+    no_features = 0
+    one_features = 0
+    two_features = 0
+    threeplus_features = 0
+    for area in db.region_list.all_areas:
+        area_features = area.hint_features
+        for node in area.nodes:
+            if isinstance(node, PickupNode):
+                pickup_node_count += 1
+                node_features = node.hint_features
+                all_features = list(area_features)
+                for hint in node_features:
+                    if hint not in area_features:
+                        all_features.append(hint)
+                match len(all_features):
+                    case 0:
+                        no_features += 1
+                        featureless_nodes.append(node.identifier.as_string)
+                    case 1:
+                        one_features += 1
+                    case 2:
+                        two_features += 1
+                    case _:
+                        threeplus_features += 1
+                print(f"{node.identifier.as_string}: {len(all_features)}")
+    print(f"featureless nodes: {featureless_nodes}")
+    print("-----------------------------")
+    print(f"no features:     {no_features}")
+    print(f"1 feature :      {one_features}")
+    print(f"2 features:      {two_features}")
+    print(f"3+ features:     {threeplus_features}")
+    print(f"total pickups: /{pickup_node_count}")
+
+
+def features_per_node_command(sub_parsers: _SubParsersAction) -> None:
+    parser: ArgumentParser = sub_parsers.add_parser(
+        "features-per-node",
+        help="Print how many features per pickup node there are",
+        formatter_class=argparse.MetavarTypeHelpFormatter,
+    )
+    parser.set_defaults(func=features_per_node_command_logic)
+
+
 def create_subparsers(sub_parsers: _SubParsersAction) -> None:
     parser: ArgumentParser = sub_parsers.add_parser("database", help="Actions for database manipulation")
 
@@ -465,6 +508,7 @@ def create_subparsers(sub_parsers: _SubParsersAction) -> None:
     pickups_per_area_command(sub_parsers)
     create_export_videos_command(sub_parsers)
     trick_usage_documentation_command(sub_parsers)
+    features_per_node_command(sub_parsers)
 
     def check_command(args: Namespace) -> None:
         if args.database_command is None:

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Self
 
 from randovania.bitpacking.bitpacking import BitPackEnum
 from randovania.lib import enum_lib
@@ -16,7 +15,7 @@ class PickupModelStyle(BitPackEnum, Enum):
     HIDE_ALL = "hide-all"
 
     @classmethod
-    def default(cls) -> Self:
+    def default(cls) -> PickupModelStyle:
         return cls.ALL_VISIBLE
 
 
@@ -39,14 +38,14 @@ class PickupModelDataSource(BitPackEnum, Enum):
     LOCATION = "location"
 
     @classmethod
-    def default(cls) -> Self:
+    def default(cls) -> PickupModelDataSource:
         return cls.ETM
 
 
 enum_lib.add_long_name(
     PickupModelDataSource,
     {
-        PickupModelDataSource.ETM: "ETM",
+        PickupModelDataSource.ETM: "Nothing",
         PickupModelDataSource.RANDOM: "Random",
         PickupModelDataSource.LOCATION: "Vanilla",
     },

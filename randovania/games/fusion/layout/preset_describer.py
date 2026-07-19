@@ -3,7 +3,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from randovania.games.fusion.layout.fusion_configuration import FusionArtifactConfig, FusionConfiguration
-from randovania.games.fusion.layout.hint_configuration import ItemHintMode
 from randovania.layout.preset_describer import (
     GamePresetDescriber,
     fill_template_strings_from_tree,
@@ -15,23 +14,11 @@ if TYPE_CHECKING:
 
 def describe_artifacts(artifacts: FusionArtifactConfig) -> list[dict[str, bool]]:
     has_artifacts = artifacts.required_artifacts > 0
-    if has_artifacts and artifacts.prefer_anywhere:
+    if has_artifacts:
         return [
             {
                 f"{artifacts.required_artifacts} of {artifacts.placed_artifacts} Metroids Required": True,
-            },
-            {
-                "Place at any item location": artifacts.prefer_anywhere,
-            },
-        ]
-    elif has_artifacts:
-        return [
-            {
-                f"{artifacts.required_artifacts} of {artifacts.placed_artifacts} Metroids Required": True,
-            },
-            {
-                "Place on major bosses": artifacts.prefer_bosses,
-            },
+            }
         ]
     else:
         return [
@@ -41,33 +28,28 @@ def describe_artifacts(artifacts: FusionArtifactConfig) -> list[dict[str, bool]]
         ]
 
 
-_FUSION_HINT_TEXT = {
-    ItemHintMode.DISABLED: None,
-    ItemHintMode.HIDE_AREA: "Area only",
-    ItemHintMode.PRECISE: "Area and room",
-}
-
-
 class FusionPresetDescriber(GamePresetDescriber):
     def format_params(self, configuration: BaseConfiguration) -> dict[str, list[str]]:
         assert isinstance(configuration, FusionConfiguration)
         template_strings = super().format_params(configuration)
 
-        metroid_hint = _FUSION_HINT_TEXT[configuration.hints.artifacts]
-        charge_beam_hint = _FUSION_HINT_TEXT[configuration.hints.charge_beam]
-
         extra_message_tree = {
             "Game Changes": [
                 {f"Energy per Tank: {configuration.energy_per_tank}": configuration.energy_per_tank != 100},
+                {f"Heat Damage: {configuration.heat_damage}/s": configuration.heat_damage != 6},
+                {f"Lava Damage: {configuration.lava_damage}/s": configuration.lava_damage != 20},
+                {f"Cold Damage: {configuration.cold_damage}/s": configuration.cold_damage != 15},
+                {f"Acid Damage: {configuration.acid_damage}/s": configuration.acid_damage != 60},
+                {f"Subzero Damage: {configuration.subzero_damage}/s": configuration.subzero_damage != 6},
                 {
                     "Instant Hatch Transitions": configuration.instant_transitions,
+                    "Instant Morph Button (SELECT)": configuration.instant_morph,
                 },
+                {"Unlocked hatches in Sector Hub": configuration.unlock_sector_hub},
+                {"Unlocked Save and Recharge Station hatches": configuration.open_save_recharge_hatches},
+                {"Vanilla Geron Vulnerabilities": not configuration.adjusted_geron_weaknesses},
             ],
             "Goal": describe_artifacts(configuration.artifacts),
-            "Hints": [
-                {f"Metroid Hint: {metroid_hint}": metroid_hint is not None},
-                {f"Charge Beam Hint: {charge_beam_hint}": charge_beam_hint is not None},
-            ],
         }
 
         fill_template_strings_from_tree(template_strings, extra_message_tree)

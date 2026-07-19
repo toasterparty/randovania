@@ -5,26 +5,30 @@ import dataclasses
 from randovania.bitpacking.bitpacking import BitPackDataclass
 from randovania.bitpacking.json_dataclass import JsonDataclass
 from randovania.game.game_enum import RandovaniaGame
-from randovania.games.fusion.layout.hint_configuration import HintConfiguration
 from randovania.layout.base.base_configuration import BaseConfiguration
 
 
 @dataclasses.dataclass(frozen=True)
 class FusionArtifactConfig(BitPackDataclass, JsonDataclass):
-    prefer_bosses: bool
-    prefer_anywhere: bool
     required_artifacts: int = dataclasses.field(metadata={"min": 0, "max": 20, "precision": 1})
     placed_artifacts: int = dataclasses.field(metadata={"min": 0, "max": 20, "precision": 1})
 
 
 @dataclasses.dataclass(frozen=True)
 class FusionConfiguration(BaseConfiguration):
-    anti_softlock: bool
     instant_transitions: bool
     energy_per_tank: int = dataclasses.field(metadata={"min": 1, "max": 1000, "precision": 1})
+    acid_damage: int = dataclasses.field(metadata={"min": 0, "max": 255, "precision": 1})
+    lava_damage: int = dataclasses.field(metadata={"min": 0, "max": 255, "precision": 1})
+    heat_damage: int = dataclasses.field(metadata={"min": 0, "max": 255, "precision": 1})
+    cold_damage: int = dataclasses.field(metadata={"min": 0, "max": 255, "precision": 1})
+    subzero_damage: int = dataclasses.field(metadata={"min": 0, "max": 255, "precision": 1})
     artifacts: FusionArtifactConfig
-    hints: HintConfiguration
-    open_save_hatches: bool
+    open_save_recharge_hatches: bool
+    unlock_sector_hub: bool
+    short_intro_text: bool
+    instant_morph: bool
+    adjusted_geron_weaknesses: bool
 
     @classmethod
     def game_enum(cls) -> RandovaniaGame:

@@ -1,35 +1,37 @@
 from __future__ import annotations
 
 import dataclasses
+import typing
 from typing import TYPE_CHECKING
 
 from PySide6 import QtCore, QtWidgets
 
 from randovania.games.common import elevators
 from randovania.gui.lib import signal_handling
-from randovania.gui.lib.node_list_helper import NodeListHelper
+from randovania.gui.lib.node_list_helper import AreaCheckBox, NodeCheckBox, NodeListHelper, RegionCheckBox
 from randovania.gui.preset_settings.preset_tab import PresetTab
 from randovania.layout.lib.teleporters import (
     TeleporterList,
     TeleporterShuffleMode,
-    TeleporterTargetList,
 )
 
 if TYPE_CHECKING:
+    from randovania.game.game_enum import RandovaniaGame
     from randovania.game_description.db.area_identifier import AreaIdentifier
     from randovania.game_description.db.node_identifier import NodeIdentifier
     from randovania.game_description.game_description import GameDescription
-    from randovania.gui.lib.scroll_protected import ScrollProtectedComboBox
     from randovania.gui.lib.window_manager import WindowManager
+    from randovania.gui.widgets.scroll_protected import ScrollProtectedComboBox
     from randovania.interface_common.preset_editor import PresetEditor
+    from randovania.layout.base.base_configuration import BaseConfiguration
 
 
-class PresetTeleporterTab(PresetTab, NodeListHelper):
-    _teleporters_source_for_location: dict[NodeIdentifier, QtWidgets.QCheckBox]
-    _teleporters_target_for_region: dict[str, QtWidgets.QCheckBox]
-    _teleporters_target_for_area: dict[AreaIdentifier, QtWidgets.QCheckBox]
-    _teleporters_target_for_node: dict[NodeIdentifier, QtWidgets.QCheckBox]
-    teleporter_mode_to_description: dict[TeleporterShuffleMode, str] = {}
+class PresetTeleporterTab[ConfigurationT: BaseConfiguration](NodeListHelper, PresetTab[ConfigurationT]):
+    _teleporters_source_for_location: dict[NodeIdentifier, NodeCheckBox]
+    _teleporters_target_for_region: dict[str, RegionCheckBox]
+    _teleporters_target_for_area: dict[AreaIdentifier, AreaCheckBox]
+    _teleporters_target_for_node: dict[NodeIdentifier, NodeCheckBox]
+    teleporter_mode_to_description: typing.ClassVar[dict[TeleporterShuffleMode, str]] = {}
     teleporters_layout: QtWidgets.QVBoxLayout
     teleporters_combo: ScrollProtectedComboBox
     teleporters_description_label: QtWidgets.QLabel
@@ -37,7 +39,9 @@ class PresetTeleporterTab(PresetTab, NodeListHelper):
     teleporters_target_group: QtWidgets.QGroupBox
     teleporters_target_layout: QtWidgets.QGridLayout
 
-    def __init__(self, editor: PresetEditor, game_description: GameDescription, window_manager: WindowManager):
+    def __init__(
+        self, editor: PresetEditor[ConfigurationT], game_description: GameDescription, window_manager: WindowManager
+    ) -> None:
         super().__init__(editor, game_description, window_manager)
         self.setup_ui()
 
@@ -52,11 +56,13 @@ class PresetTeleporterTab(PresetTab, NodeListHelper):
         # Teleporters Source
         self._create_source_teleporters()
 
+        target_list = editor.layout_configuration_teleporters.excluded_targets
+
         # Teleporter Target
         result = self.create_node_list_selection(
             self.teleporters_target_group,
             self.teleporters_target_layout,
-            TeleporterTargetList.nodes_list(self.game_enum),
+            target_list.nodes_list(self.game_enum),
             self._on_teleporter_target_check_changed,
         )
         (
@@ -65,7 +71,9 @@ class PresetTeleporterTab(PresetTab, NodeListHelper):
             self._teleporters_target_for_node,
         ) = result
 
-    def setup_ui(self):
+    def setup_ui(self) -> None:
+        """Override and call `self.setupUi(self)`"""
+        # FIXME: there must be a better way
         raise NotImplementedError
 
     @classmethod
@@ -73,17 +81,17 @@ class PresetTeleporterTab(PresetTab, NodeListHelper):
         return None
 
     @property
-    def game_enum(self):
+    def game_enum(self) -> RandovaniaGame:
         return self.game_description.game
 
-    def _update_teleporter_mode(self):
+    def _update_teleporter_mode(self) -> None:
         with self._editor as editor:
             editor.layout_configuration_teleporters = dataclasses.replace(
                 editor.layout_configuration_teleporters,
                 mode=self.teleporters_combo.currentData(),
             )
 
-    def _on_teleporter_source_check_changed(self, checked: bool):
+    def _on_teleporter_source_check_changed(self, checked: bool) -> None:
         with self._editor as editor:
             config = editor.layout_configuration_teleporters
             editor.layout_configuration_teleporters = dataclasses.replace(
@@ -98,7 +106,7 @@ class PresetTeleporterTab(PresetTab, NodeListHelper):
                 ),
             )
 
-    def _on_teleporter_target_check_changed(self, areas: list[NodeIdentifier], checked: bool):
+    def _on_teleporter_target_check_changed(self, areas: list[NodeIdentifier], checked: bool) -> None:
         with self._editor as editor:
             config = editor.layout_configuration_teleporters
             editor.layout_configuration_teleporters = dataclasses.replace(
@@ -106,16 +114,14 @@ class PresetTeleporterTab(PresetTab, NodeListHelper):
                 excluded_targets=config.excluded_targets.ensure_has_locations(areas, not checked),
             )
 
-    def _create_check_for_source_teleporters(self, location: NodeIdentifier) -> QtWidgets.QCheckBox:
-        name = elevators.get_elevator_or_area_name(
-            self.game_description, self.game_description.region_list, location, True
-        )
+    def _create_check_for_source_teleporters(self, location: NodeIdentifier) -> NodeCheckBox:
+        name = elevators.get_elevator_or_area_name(self.game_description.node_by_identifier(location), True)
 
-        check = QtWidgets.QCheckBox(self.teleporters_source_group)
+        check = NodeCheckBox(self.teleporters_source_group)
         check.setText(name)
-        check.area_location = location
+        check.node_location = location
         signal_handling.on_checked(check, self._on_teleporter_source_check_changed)
         return check
 
-    def _create_source_teleporters(self):
+    def _create_source_teleporters(self) -> None:
         raise NotImplementedError

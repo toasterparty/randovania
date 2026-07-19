@@ -8,7 +8,7 @@ import typing
 import uuid
 from enum import Enum
 
-import construct  # type: ignore[import-untyped]
+import construct
 from frozendict import frozendict
 
 from randovania.lib import construct_lib, type_lib
@@ -17,6 +17,7 @@ if typing.TYPE_CHECKING:
     from _typeshed import DataclassInstance
 
     from randovania.lib.construct_stub import CodeGen
+    from randovania.lib.json_lib import JsonType
 
 BinStr = construct.PascalString(construct.VarInt, "utf-8")
 
@@ -39,15 +40,13 @@ construct_lib.add_emit_build(BinStr, _bin_str_emitbuild)
 
 T = typing.TypeVar("T")
 
-JsonValue = str | int | float | list["JsonValue"] | dict[str, "JsonValue"]
-
 
 @typing.runtime_checkable
 class JsonEncodable(typing.Protocol):
     @classmethod
-    def from_json(cls, value: JsonValue) -> typing.Self: ...
+    def from_json(cls, value: JsonType) -> typing.Self: ...
 
-    def as_json(self) -> JsonValue: ...
+    def as_json(self) -> JsonType: ...
 
 
 class DictAdapter(construct.Adapter):
@@ -58,7 +57,7 @@ class DictAdapter(construct.Adapter):
         return list(obj.items())
 
 
-class ConstructTypedStruct(construct.Adapter, typing.Generic[T]):
+class ConstructTypedStruct[T](construct.Adapter):
     def __init__(self, cls: type[T], field_types: dict[str, type]):
         self.cls = cls
         self.field_types = field_types
@@ -85,7 +84,7 @@ class ConstructTypedStruct(construct.Adapter, typing.Generic[T]):
                 obj = Container([
 """
         for field_name in self.field_types.keys():
-            block += f"                    ({repr(field_name)}, obj.{field_name}),\n"
+            block += f"                    ({field_name!r}, obj.{field_name}),\n"
         block += f"""
                 ])
                 return {construct_lib.compile_build_struct(self.subcon, code)}
@@ -177,10 +176,14 @@ def construct_for_type(type_: type) -> construct.Construct:
 
     type_origin = typing.get_origin(type_)
 
+    if isinstance(type_origin, typing.TypeAliasType):
+        type_ = type_origin.__value__
+        type_origin = typing.get_origin(type_)
+
     if type_ in _direct_mapping:
         return _direct_mapping[type_]
 
-    if issubclass(type_, Enum):
+    if isinstance(type_, type) and issubclass(type_, Enum):
         enum_arr = list(type_)
         return construct.ExprAdapter(
             construct.VarInt,
@@ -189,7 +192,7 @@ def construct_for_type(type_: type) -> construct.Construct:
         )
 
     elif type_lib.is_named_tuple(type_):
-        return _construct_for_named_tuple(typing.cast(type[typing.NamedTuple], type_))
+        return _construct_for_named_tuple(typing.cast("type[typing.NamedTuple]", type_))
 
     elif type_origin is list:
         if type_args := typing.get_args(type_):
@@ -247,13 +250,13 @@ def compiled_construct_for_type(type_: type) -> construct.Construct:
     )
 
 
-def encode(obj: T, type_: type[T] | None = None) -> bytes:
+def encode[T](obj: T, type_: type[T] | None = None) -> bytes:
     if type_ is None:
         type_ = type(obj)
     t: type = type_  # workaround for mypy considering type[T] not hashable
     return compiled_construct_for_type(t).build(obj)
 
 
-def decode(data: bytes, type_: type[T]) -> T:
+def decode[T](data: bytes, type_: type[T]) -> T:
     t: type = type_
     return construct_for_type(t).parse(data)

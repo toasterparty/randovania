@@ -9,8 +9,6 @@ from unittest.mock import MagicMock, call, patch
 import pytest
 
 import randovania.interface_common.options
-from randovania.game.game_enum import RandovaniaGame
-from randovania.games.prime2.exporter.options import EchoesPerGameOptions
 from randovania.interface_common import persisted_options
 from randovania.interface_common.options import DecodeFailedException, InfoAlert, Options
 from randovania.lib import migration_lib, version_lib
@@ -54,6 +52,68 @@ def test_migrate_from_v11(option):
             "use_external_models": [],
         },
         "connector_builders": [],
+        "schema_version": persisted_options._CURRENT_OPTIONS_FILE_VERSION,
+    }
+    assert new_data == expected_data
+
+
+def test_migrate_from_v40(option):
+    old_data = {
+        "version": 40,
+        "options": {
+            "game_samus_returns": {
+                "cosmetic_patches": {
+                    "use_laser_color": True,
+                    "use_energy_tank_color": True,
+                    "use_aeion_bar_color": True,
+                    "use_ammo_hud_color": True,
+                    "laser_locked_color": [255, 0, 0],
+                    "laser_unlocked_color": [255, 255, 0],
+                    "grapple_laser_locked_color": [0, 0, 255],
+                    "grapple_laser_unlocked_color": [0, 85, 0],
+                    "energy_tank_color": [255, 0, 0],
+                    "aeion_bar_color": [85, 255, 0],
+                    "ammo_hud_color": [0, 0, 255],
+                    "show_room_names": "ALWAYS",
+                    "music": "vanilla_music",
+                    "music_volume": 100,
+                    "ambience_volume": 100,
+                },
+                "input_file": None,
+                "target_platform": "citra",
+                "output_preference": None,
+            }
+        },
+    }
+
+    # Run
+    new_data = persisted_options.get_persisted_options_from_data(old_data)
+    option.load_from_persisted(new_data, False)
+
+    # Assert
+    expected_data = {
+        "game_samus_returns": {
+            "cosmetic_patches": {
+                "use_laser_color": True,
+                "use_energy_tank_color": True,
+                "use_aeion_bar_color": True,
+                "use_ammo_hud_color": True,
+                "laser_locked_color": [255, 0, 0],
+                "laser_unlocked_color": [255, 255, 0],
+                "grapple_laser_locked_color": [0, 0, 255],
+                "grapple_laser_unlocked_color": [0, 85, 0],
+                "energy_tank_color": [255, 0, 0],
+                "aeion_bar_color": [85, 255, 0],
+                "ammo_hud_color": [0, 0, 255],
+                "show_room_names": "ALWAYS",
+                "music": "vanilla_music",
+                "music_volume": 100,
+                "ambience_volume": 100,
+            },
+            "input_file": None,
+            "target_platform": "azahar",
+            "output_preference": None,
+        },
         "schema_version": persisted_options._CURRENT_OPTIONS_FILE_VERSION,
     }
     assert new_data == expected_data
@@ -130,22 +190,6 @@ def test_getting_unknown_game_should_error(option: Options):
 
     # Assert
     assert str(exception.value) == "game_unknown_game"
-
-
-def test_set_options_for_game_with_wrong_type(option: Options):
-    err = (
-        "Expected <class 'randovania.games.prime1.exporter.options.PrimePerGameOptions'>, "
-        "got <class 'randovania.games.prime2.exporter.options.EchoesPerGameOptions'>"
-    )
-
-    # Run
-    with pytest.raises(ValueError, match=err):
-        option.set_options_for_game(
-            RandovaniaGame.METROID_PRIME,
-            EchoesPerGameOptions(
-                cosmetic_patches=RandovaniaGame.METROID_PRIME_ECHOES.data.layout.cosmetic_patches.default(),
-            ),
-        )
 
 
 def test_load_from_disk_no_data(tmp_path, mocker):

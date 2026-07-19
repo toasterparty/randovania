@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import platform
 
-import dolphin_memory_engine
+import dolphin_memory_engine  # type: ignore[import-untyped]
 import pid
-from dolphin_memory_engine._dolphin_memory_engine import DolphinStatus
+from dolphin_memory_engine._dolphin_memory_engine import DolphinStatus  # type: ignore[import-untyped]
 
 from randovania.game_connection.executor.memory_operation import (
     MemoryOperation,
@@ -16,7 +16,7 @@ MEM1_START = 0x80000000
 MEM1_END = 0x81800000
 
 
-def _validate_range(address: int, size: int):
+def _validate_range(address: int, size: int) -> None:
     if address < MEM1_START or address + size > MEM1_END:
         raise MemoryOperationException(
             f"Range {address:x} -> {address + size:x} is outside of the GameCube memory range."
@@ -24,7 +24,7 @@ def _validate_range(address: int, size: int):
 
 
 class DolphinExecutor(MemoryOperationExecutor):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.dolphin = dolphin_memory_engine
         self._pid = pid.PidFile("randovania-dolphin-backend")
@@ -32,6 +32,18 @@ class DolphinExecutor(MemoryOperationExecutor):
     @property
     def lock_identifier(self) -> str | None:
         return "randovania-dolphin-backend"
+
+    @property
+    def max_output(self) -> int:
+        if self.is_connected():
+            return (2**31) - 1
+        return -1
+
+    @property
+    def max_input(self) -> int:
+        if self.is_connected():
+            return (2**31) - 1
+        return -1
 
     async def connect(self) -> str | None:
         if platform.system() == "Darwin":
@@ -59,11 +71,11 @@ class DolphinExecutor(MemoryOperationExecutor):
 
         return None
 
-    def disconnect(self):
+    def disconnect(self) -> None:
         self._pid.close()
         self.dolphin.un_hook()
 
-    def _test_still_hooked(self):
+    def _test_still_hooked(self) -> None:
         try:
             if len(self.dolphin.read_bytes(0x0, 4)) != 4:
                 raise RuntimeError("Dolphin hook didn't read the correct byte count")
@@ -78,7 +90,7 @@ class DolphinExecutor(MemoryOperationExecutor):
         return self.dolphin.is_hooked()
 
     # Game Backend Stuff
-    def _memory_operation(self, op: MemoryOperation, pointers: dict[int, int | None]) -> bytes | None:
+    def _memory_operation(self, op: MemoryOperation, pointers: dict[int, int]) -> bytes | None:
         op.validate_byte_sizes()
 
         address = op.address
@@ -87,8 +99,6 @@ class DolphinExecutor(MemoryOperationExecutor):
                 raise MemoryOperationException(f"Invalid op: {address:x} is not in pointers")
 
             new_address = pointers[address]
-            if new_address is None:
-                return None
             address = new_address + op.offset
 
         _validate_range(address, op.byte_count)
@@ -123,13 +133,9 @@ class DolphinExecutor(MemoryOperationExecutor):
 
             try:
                 pointers[pointer] = self.dolphin.follow_pointers(pointer, [0])
-            except RuntimeError:
-                pointers[pointer] = None
+            except RuntimeError as e:
                 self.logger.debug(f"Failed to read a valid pointer from {pointer:x}")
-                self._test_still_hooked()
-
-            if not self.dolphin.is_hooked():
-                raise MemoryOperationException("Lost connection do Dolphin")
+                raise MemoryOperationException("Operation tried to read an invalid address") from e
 
         result = {}
         for op in ops:

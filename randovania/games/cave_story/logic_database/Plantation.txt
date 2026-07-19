@@ -2,6 +2,7 @@
 Plantation
 Extra - map_name: Cent
 Extra - starting_script: <TRA0056:0090:0118:0083
+Hint Features - Garden
 > Door to Rest Area; Heals? False
   * Layers: default
   * Door to Rest Area/Door to Plantation
@@ -93,6 +94,7 @@ Extra - starting_script: <TRA0056:0090:0118:0083
 > Pickup (Kanpachi's Bucket); Heals? False
   * Layers: default
   * Pickup 44; Category? Minor
+  * Hint Features - Underwater
   * Extra - event: 0268
   > Lower Level
       Trivial
@@ -148,7 +150,7 @@ Extra - starting_script: <TRA0056:0090:0118:0083
           # https://www.youtube.com/watch?v=qWp-qmW6xb0
           Booster 2.0 and Machine Gun and Damage Boosting (Expert) and Normal Damage ≥ 2
           # https://youtu.be/StXuozoLRe4
-          Booster 2.0 and Damage Boosting (Hypermode)
+          Booster 2.0 and Damage Boosting (Ludicrous)
 
 > Door to Final Cave; Heals? False
   * Layers: default
@@ -167,7 +169,7 @@ Extra - starting_script: <TRA0056:0090:0118:0083
 
 > Hint - Cthulhu; Heals? False
   * Layers: default
-  * Hint
+  * Generic Hint
   * Extra - event: 0310
   * Extra - string_asset_id: 6
   > Lower Level
@@ -259,20 +261,18 @@ Extra - starting_script: <TRA0086:0092:0002:0010
 
 > Hint - Numahachi 1; Heals? False
   * Layers: default
-  * Hint
+  * Specific Location Hint; Target? PickupIndex 30
   * Extra - event: 0301
   * Extra - ending: <CLR<EVE0302
-  * Extra - hint_index: 30
   * Extra - string_asset_id: 12
   > Hint - Numahachi 2
       Trivial
 
 > Hint - Numahachi 2; Heals? False
   * Layers: default
-  * Hint
+  * Specific Location Hint; Target? PickupIndex 31
   * Extra - event: 0302
   * Extra - ending: <CLR<EVE0303
-  * Extra - hint_index: 31
   * Extra - string_asset_id: 13
   > Door to Passage?
       Trivial
@@ -398,6 +398,7 @@ Extra - starting_script: <TRA0061:0099:0007:0013
 Hideout
 Extra - map_name: Momo
 Extra - starting_script: <TRA0058:0093:0009:0004
+Hint Features - Someone's House
 > Door to Plantation; Heals? False; Spawn Point; Default Node
   * Layers: default
   * Door to Plantation/Door to Hideout

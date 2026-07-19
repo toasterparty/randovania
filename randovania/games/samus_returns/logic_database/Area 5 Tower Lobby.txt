@@ -1,7 +1,14 @@
 ----------------
 Lobby Save Station
 Extra - total_boundings: {'x1': -7400.0, 'x2': -1800.0, 'y1': -6400.0, 'y2': -3900.0}
-Extra - polygon: [[-1800.0, -5600.0], [-1900.0, -5600.0], [-5100.0, -4700.0], [-5100.0, -3900.0], [-7400.0, -3900.0], [-7400.0, -6400.0], [-1800.0, -6400.0]]
+Extra - polygon:
+[[-1800.0, -5600.0],
+ [-1900.0, -5600.0],
+ [-5100.0, -4700.0],
+ [-5100.0, -3900.0],
+ [-7400.0, -3900.0],
+ [-7400.0, -6400.0],
+ [-1800.0, -6400.0]]
 Extra - asset_id: collision_camera_001
 > Save Station; Heals? False; Spawn Point; Default Node
   * Layers: default
@@ -19,10 +26,10 @@ Extra - asset_id: collision_camera_001
               Spider Boost (Intermediate) and Can Spider Boost
               All of the following:
                   # Bomb Phase Drift Skip: https://youtu.be/QN5_-f6IIEs?t=20
-                  Bomb and Phase Drift Skip (Expert)
+                  Phase Drift Skip (Expert) and Lay Bomb
                   Lightning Armor or Normal Damage ≥ 20
               # Melee clip. Requires the block to be there, but that doesn't need to be listed here.
-              Melee Clip (Beginner)
+              Melee Clip (Beginner) and Out of Bounds Movement (Beginner)
   > Tunnel to J-Shape Tunnel
       Lay Any Bomb
   > Dock to Phase Drift Chamber
@@ -153,7 +160,7 @@ Extra - asset_id: collision_camera_002
               Any of the following:
                   # Avoiding the Wallfires: https://youtu.be/q5720PA4DrE?t=68
                   Phase Drift and Dodge Enemies (Advanced)
-                  Dodge Enemies (Expert) and Phase Drift Skip (Hypermode)
+                  Dodge Enemies (Expert) and Phase Drift Skip (Ludicrous)
               Any of the following:
                   # Climbing the room
                   Use Spider Ball
@@ -169,8 +176,21 @@ Extra - asset_id: collision_camera_002
 ----------------
 Transport to Areas 4 and 6
 Extra - total_boundings: {'x1': 11300.0, 'x2': 21150.0, 'y1': -14200.0, 'y2': -7000.0}
-Extra - polygon: [[11300.0, -7000.0], [11300.0, -13000.0], [13300.0, -13000.0], [13300.0, -14500.0], [17800.0, -14500.0], [17800.0, -8700.0], [18100.0, -8300.0], [20700.0, -7900.0], [21150.0, -7900.0], [21150.0, -7140.64013671875], [16300.0, -7140.64013671875], [15200.0, -7000.0]]
+Extra - polygon:
+[[11300.0, -7000.0],
+ [11300.0, -13000.0],
+ [13300.0, -13000.0],
+ [13300.0, -14500.0],
+ [17800.0, -14500.0],
+ [17800.0, -8700.0],
+ [18100.0, -8300.0],
+ [20700.0, -7900.0],
+ [21150.0, -7900.0],
+ [21150.0, -7140.64013671875],
+ [16300.0, -7140.64013671875],
+ [15200.0, -7000.0]]
 Extra - asset_id: collision_camera_004
+Hint Features - Chozo Seal, Elevator
 > Pickup (Super Missile Tank); Heals? False
   * Layers: default
   * Pickup 102; Category? Minor
@@ -211,7 +231,7 @@ Extra - asset_id: collision_camera_004
 
 > Chozo Seal; Heals? False
   * Layers: default
-  * Hint
+  * Generic Hint
   * Extra - actor_name: LE_ChozoUnlockAreaDNA
   * Extra - actor_type: weightactivatedplatform
   * Extra - start_point_actor_name: ST_ChozoUnlockAreaDNA_Checkpoint
@@ -266,6 +286,7 @@ Extra - asset_id: collision_camera_004
 > Pickup (Power Bomb Tank); Heals? False
   * Layers: default
   * Pickup 109; Category? Minor
+  * Hint Features - Baby Blocks
   * Extra - actor_name: HiddenPowerup002
   * Extra - actor_type: item_powerbombtank
   > Chozo Seal
@@ -354,7 +375,7 @@ Extra - asset_id: collision_camera_004
       All of the following:
           # IBJ: https://youtu.be/Wa2r5d4QaeY
           Infinite Bomb Jump (Advanced) and Lay Bomb
-          Spring Ball or Mid-Air Morph (Intermediate)
+          Mid-Air Morph (Intermediate) or Use Spring Ball
   > Above Center Tunnel
       Lay Power Bomb
   > Event - Grapple Block Top
@@ -365,8 +386,24 @@ Extra - asset_id: collision_camera_004
 ----------------
 Lobby Teleporter West
 Extra - total_boundings: {'x1': -16800.0, 'x2': -5100.0, 'y1': -7900.0, 'y2': 100.0}
-Extra - polygon: [[-16800.0, -3000.0], [-16800.0, -5800.0], [-12400.0, -5799.89013671875], [-10900.0, -6000.0], [-10900.0, -7900.0], [-8500.0, -7900.0], [-8500.0, -1900.0], [-8197.349609375, -1900.0], [-6700.0, -1600.0], [-5100.0, -1600.0], [-5100.0, 100.0], [-11600.0, 100.0], [-11600.0, -1000.0], [-12600.0, -1200.0], [-12600.0, -3000.0]]
+Extra - polygon:
+[[-16800.0, -3000.0],
+ [-16800.0, -5800.0],
+ [-12400.0, -5799.89013671875],
+ [-10900.0, -6000.0],
+ [-10900.0, -7900.0],
+ [-8500.0, -7900.0],
+ [-8500.0, -1900.0],
+ [-8197.349609375, -1900.0],
+ [-6700.0, -1600.0],
+ [-5100.0, -1600.0],
+ [-5100.0, 100.0],
+ [-11600.0, 100.0],
+ [-11600.0, -1000.0],
+ [-12600.0, -1200.0],
+ [-12600.0, -3000.0]]
 Extra - asset_id: collision_camera_006
+Hint Features - Teleporter
 > Pickup (Aeion Tank); Heals? False
   * Layers: default
   * Pickup 105; Category? Minor
@@ -378,6 +415,7 @@ Extra - asset_id: collision_camera_006
 > Pickup (Power Bomb Tank); Heals? False
   * Layers: default
   * Pickup 106; Category? Minor
+  * Hint Features - Baby Blocks
   * Extra - actor_name: LE_Item_007
   * Extra - actor_type: item_powerbombtank
   > Door to Transport to Tower Interior East
@@ -605,20 +643,28 @@ Extra - asset_id: collision_camera_007
 > Top of Tunnel; Heals? False
   * Layers: default
   > Tunnel to Lobby Save Station
-      All of the following:
-          Lay Any Bomb
-          Space Jump or Spider Ball or Infinite Bomb Jump (Beginner) or Movement (Beginner)
+      Any of the following:
+          Simple IBJ
+          All of the following:
+              Lay Any Bomb
+              Space Jump or Movement (Beginner) or Use Spider Ball
   > Tunnel to Lobby Teleporter West (Top)
-      All of the following:
-          Lay Any Bomb
-          Space Jump or Spider Ball or Infinite Bomb Jump (Beginner) or Movement (Beginner)
+      Any of the following:
+          Simple IBJ
+          All of the following:
+              Lay Any Bomb
+              Space Jump or Movement (Beginner) or Use Spider Ball
   > Tunnel to Lobby Teleporter West (Bottom)
       Morph Ball and After Area 5 (Tower Lobby) - Lobby Teleporter West Grapple Block
 
 ----------------
 Transport to Tower Interior West
 Extra - total_boundings: {'x1': -12800.0, 'x2': -11500.0, 'y1': -679.427001953125, 'y2': 79.42769622802734}
-Extra - polygon: [[-12800.0, 79.42769622802734], [-12800.0, -679.427001953125], [-11500.0, -679.427001953125], [-11500.0, 79.42769622802734]]
+Extra - polygon:
+[[-12800.0, 79.42769622802734],
+ [-12800.0, -679.427001953125],
+ [-11500.0, -679.427001953125],
+ [-11500.0, 79.42769622802734]]
 Extra - asset_id: collision_camera_010
 > Elevator to Area 5 Tower Interior; Heals? False
   * Layers: default
@@ -640,8 +686,17 @@ Extra - asset_id: collision_camera_010
 ----------------
 Lobby Teleporter East
 Extra - total_boundings: {'x1': 5100.0, 'x2': 8800.0, 'y1': -12000.0, 'y2': -5400.0}
-Extra - polygon: [[8800.0, -5400.0], [5950.0, -5400.0], [5950.0, -6400.0], [5400.0, -6782.669921875], [5400.0, -9300.0], [5100.0, -9800.0], [5100.0, -12000.0], [8800.0, -12000.0]]
+Extra - polygon:
+[[8800.0, -5400.0],
+ [5950.0, -5400.0],
+ [5950.0, -6400.0],
+ [5400.0, -6782.669921875],
+ [5400.0, -9300.0],
+ [5100.0, -9800.0],
+ [5100.0, -12000.0],
+ [8800.0, -12000.0]]
 Extra - asset_id: collision_camera_011
+Hint Features - Teleporter
 > Pickup (Missile Tank); Heals? False
   * Layers: default
   * Pickup 103; Category? Minor
@@ -715,7 +770,9 @@ Extra - asset_id: collision_camera_011
       All of the following:
           Morph Ball
           Any of the following:
-              Melee Clip (Beginner) or Fleechswarm Protection
+              Fleechswarm Protection
+              # TODO: Add video
+              Melee Clip (Beginner) and Out of Bounds Movement (Beginner)
               Hazard Runs (Beginner) and Fleech Swarm Damage ≥ 95
   > Door to Alpha+ Arena
       Any of the following:
@@ -778,6 +835,7 @@ Alpha+ Arena
 Extra - total_boundings: {'x1': 3050.0, 'x2': 6050.0, 'y1': -6300.0, 'y2': -5400.0}
 Extra - polygon: [[6050.0, -5400.0], [3050.0, -5400.0], [3050.0, -6300.0], [6050.0, -6300.0]]
 Extra - asset_id: collision_camera_012
+Hint Features - Alpha Metroid
 > Door to Meboid Millpond; Heals? False
   * Layers: default
   * Power Beam Door to Meboid Millpond/Door to Alpha+ Arena
@@ -873,7 +931,7 @@ Extra - asset_id: collision_camera_014
           Any of the following:
               Phase Drift
               # Phase Drift Skip: https://youtu.be/zyXVR-Rcrtc
-              Bomb and Phase Drift Skip (Advanced)
+              Phase Drift Skip (Advanced) and Lay Bomb
               # Spider Boost
               Spider Boost (Intermediate) and Can Spider Boost
 
@@ -1018,6 +1076,7 @@ Gamma+ Arena
 Extra - total_boundings: {'x1': -24700.0, 'x2': -20700.0, 'y1': -4100.0, 'y2': -2100.0}
 Extra - polygon: [[-24700.0, -2100.0], [-24700.0, -4100.0], [-20700.0, -4100.0], [-20700.0, -2100.0]]
 Extra - asset_id: collision_camera_016
+Hint Features - Gamma Metroid
 > Tunnel to Gamma+ Arena Access; Heals? False
   * Layers: default
   * Tunnel to Gamma+ Arena Access/Tunnel to Gamma+ Arena

@@ -1,0 +1,2520 @@
+{
+    "major_locations": [
+        {
+            "source": "MAIN_DECK_DATA",
+            "item": "MORPH_BALL",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Morph Ball ability acquired.\nPress [Down_button_left][Down_button_right] twice to morph.",
+                    "JAPANESE_HIRAGANA": "Morph Ball ability acquired.\nPress [Down_button_left][Down_button_right] twice to morph.",
+                    "ENGLISH": "Morph Ball ability acquired.\nPress [Down_button_left][Down_button_right] twice to morph.",
+                    "GERMAN": "Morph Ball ability acquired.\nPress [Down_button_left][Down_button_right] twice to morph.",
+                    "FRENCH": "Morph Ball ability acquired.\nPress [Down_button_left][Down_button_right] twice to morph.",
+                    "ITALIAN": "Morph Ball ability acquired.\nPress [Down_button_left][Down_button_right] twice to morph.",
+                    "SPANISH": "Morph Ball ability acquired.\nPress [Down_button_left][Down_button_right] twice to morph."
+                }
+            }
+        },
+        {
+            "source": "ARACHNUS",
+            "item": "INFANT_METROID",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "MESSAGE_ID",
+                "message_id": 56
+            }
+        },
+        {
+            "source": "SERRIS",
+            "item": "INFANT_METROID",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "MESSAGE_ID",
+                "message_id": 56
+            }
+        },
+        {
+            "source": "AQA_DATA",
+            "item": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "source": "RIDLEY",
+            "item": "INFANT_METROID",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "MESSAGE_ID",
+                "message_id": 56
+            }
+        },
+        {
+            "source": "TRO_DATA",
+            "item": "POWER_BOMBS",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Data acquired.\nAs a ball, hold [R_button_left][R_button_right] and press [B_button_left][B_button_right].",
+                    "JAPANESE_HIRAGANA": "Power Bomb Data acquired.\nAs a ball, hold [R_button_left][R_button_right] and press [B_button_left][B_button_right].",
+                    "ENGLISH": "Power Bomb Data acquired.\nAs a ball, hold [R_button_left][R_button_right] and press [B_button_left][B_button_right].",
+                    "GERMAN": "Power Bomb Data acquired.\nAs a ball, hold [R_button_left][R_button_right] and press [B_button_left][B_button_right].",
+                    "FRENCH": "Power Bomb Data acquired.\nAs a ball, hold [R_button_left][R_button_right] and press [B_button_left][B_button_right].",
+                    "ITALIAN": "Power Bomb Data acquired.\nAs a ball, hold [R_button_left][R_button_right] and press [B_button_left][B_button_right].",
+                    "SPANISH": "Power Bomb Data acquired.\nAs a ball, hold [R_button_left][R_button_right] and press [B_button_left][B_button_right]."
+                }
+            }
+        },
+        {
+            "source": "YAKUZA",
+            "item": "INFANT_METROID",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "MESSAGE_ID",
+                "message_id": 56
+            }
+        },
+        {
+            "source": "ZAZABI",
+            "item": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "source": "MEGA_X",
+            "item": "PLASMA_BEAM",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Plasma Beam ability acquired.\nBeam now pierces enemies.",
+                    "JAPANESE_HIRAGANA": "Plasma Beam ability acquired.\nBeam now pierces enemies.",
+                    "ENGLISH": "Plasma Beam ability acquired.\nBeam now pierces enemies.",
+                    "GERMAN": "Plasma Beam ability acquired.\nBeam now pierces enemies.",
+                    "FRENCH": "Plasma Beam ability acquired.\nBeam now pierces enemies.",
+                    "ITALIAN": "Plasma Beam ability acquired.\nBeam now pierces enemies.",
+                    "SPANISH": "Plasma Beam ability acquired.\nBeam now pierces enemies."
+                }
+            }
+        },
+        {
+            "source": "NIGHTMARE",
+            "item": "ENERGY_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "JAPANESE_HIRAGANA": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ENGLISH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "GERMAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "FRENCH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ITALIAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "SPANISH": "Energy Tank acquired.\nCapacity increased by 100."
+                }
+            }
+        },
+        {
+            "source": "WIDE_CORE_X",
+            "item": "ICE_MISSILES",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Ice effect added to Missiles.\nUse it to freeze enemies.",
+                    "JAPANESE_HIRAGANA": "Ice effect added to Missiles.\nUse it to freeze enemies.",
+                    "ENGLISH": "Ice effect added to Missiles.\nUse it to freeze enemies.",
+                    "GERMAN": "Ice effect added to Missiles.\nUse it to freeze enemies.",
+                    "FRENCH": "Ice effect added to Missiles.\nUse it to freeze enemies.",
+                    "ITALIAN": "Ice effect added to Missiles.\nUse it to freeze enemies.",
+                    "SPANISH": "Ice effect added to Missiles.\nUse it to freeze enemies."
+                }
+            }
+        },
+        {
+            "source": "WAVE_CORE_X",
+            "item": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "source": "PYR_DATA",
+            "item": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "source": "ARC_DATA_1",
+            "item": "ENERGY_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "JAPANESE_HIRAGANA": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ENGLISH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "GERMAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "FRENCH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ITALIAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "SPANISH": "Energy Tank acquired.\nCapacity increased by 100."
+                }
+            }
+        },
+        {
+            "source": "CHARGE_CORE_X",
+            "item": "INFANT_METROID",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "MESSAGE_ID",
+                "message_id": 56
+            }
+        },
+        {
+            "source": "NETTORI",
+            "item": "DIFFUSION_MISSILES",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Diffusion added to Missiles.\nCharge with [R_button_left][R_button_right], fire with [B_button_left][B_button_right].",
+                    "JAPANESE_HIRAGANA": "Diffusion added to Missiles.\nCharge with [R_button_left][R_button_right], fire with [B_button_left][B_button_right].",
+                    "ENGLISH": "Diffusion added to Missiles.\nCharge with [R_button_left][R_button_right], fire with [B_button_left][B_button_right].",
+                    "GERMAN": "Diffusion added to Missiles.\nCharge with [R_button_left][R_button_right], fire with [B_button_left][B_button_right].",
+                    "FRENCH": "Diffusion added to Missiles.\nCharge with [R_button_left][R_button_right], fire with [B_button_left][B_button_right].",
+                    "ITALIAN": "Diffusion added to Missiles.\nCharge with [R_button_left][R_button_right], fire with [B_button_left][B_button_right].",
+                    "SPANISH": "Diffusion added to Missiles.\nCharge with [R_button_left][R_button_right], fire with [B_button_left][B_button_right]."
+                }
+            }
+        },
+        {
+            "source": "LEVEL_1",
+            "item": "SPACE_JUMP",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Space Jump ability acquired.\nSomersault continually in air.",
+                    "JAPANESE_HIRAGANA": "Space Jump ability acquired.\nSomersault continually in air.",
+                    "ENGLISH": "Space Jump ability acquired.\nSomersault continually in air.",
+                    "GERMAN": "Space Jump ability acquired.\nSomersault continually in air.",
+                    "FRENCH": "Space Jump ability acquired.\nSomersault continually in air.",
+                    "ITALIAN": "Space Jump ability acquired.\nSomersault continually in air.",
+                    "SPANISH": "Space Jump ability acquired.\nSomersault continually in air."
+                }
+            }
+        },
+        {
+            "source": "LEVEL_2",
+            "item": "ENERGY_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "JAPANESE_HIRAGANA": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ENGLISH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "GERMAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "FRENCH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ITALIAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "SPANISH": "Energy Tank acquired.\nCapacity increased by 100."
+                }
+            }
+        },
+        {
+            "source": "LEVEL_3",
+            "item": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "source": "LEVEL_4",
+            "item": "ENERGY_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "JAPANESE_HIRAGANA": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ENGLISH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "GERMAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "FRENCH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ITALIAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "SPANISH": "Energy Tank acquired.\nCapacity increased by 100."
+                }
+            }
+        },
+        {
+            "source": "ANIMALS",
+            "item": "NONE",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Nothing acquired.",
+                    "JAPANESE_HIRAGANA": "Nothing acquired.",
+                    "ENGLISH": "Nothing acquired.",
+                    "GERMAN": "Nothing acquired.",
+                    "FRENCH": "Nothing acquired.",
+                    "ITALIAN": "Nothing acquired.",
+                    "SPANISH": "Nothing acquired."
+                }
+            }
+        },
+        {
+            "source": "BOILER",
+            "item": "NONE",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Nothing acquired.",
+                    "JAPANESE_HIRAGANA": "Nothing acquired.",
+                    "ENGLISH": "Nothing acquired.",
+                    "GERMAN": "Nothing acquired.",
+                    "FRENCH": "Nothing acquired.",
+                    "ITALIAN": "Nothing acquired.",
+                    "SPANISH": "Nothing acquired."
+                }
+            }
+        },
+        {
+            "source": "AUXILIARY_POWER",
+            "item": "NONE",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Nothing acquired.",
+                    "JAPANESE_HIRAGANA": "Nothing acquired.",
+                    "ENGLISH": "Nothing acquired.",
+                    "GERMAN": "Nothing acquired.",
+                    "FRENCH": "Nothing acquired.",
+                    "ITALIAN": "Nothing acquired.",
+                    "SPANISH": "Nothing acquired."
+                }
+            }
+        }
+    ],
+    "minor_locations": [
+        {
+            "area": 0,
+            "room": 7,
+            "block_x": 13,
+            "block_y": 14,
+            "item": "ENERGY_TANK",
+            "item_sprite": "ENERGY_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "JAPANESE_HIRAGANA": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ENGLISH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "GERMAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "FRENCH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ITALIAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "SPANISH": "Energy Tank acquired.\nCapacity increased by 100."
+                }
+            }
+        },
+        {
+            "area": 0,
+            "room": 17,
+            "block_x": 9,
+            "block_y": 20,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 0,
+            "room": 35,
+            "block_x": 14,
+            "block_y": 65,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 0,
+            "room": 38,
+            "block_x": 53,
+            "block_y": 10,
+            "item": "HI_JUMP",
+            "item_sprite": "HI_JUMP",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Hi-Jump and Jumpball\nabilities acquired.",
+                    "JAPANESE_HIRAGANA": "Hi-Jump and Jumpball\nabilities acquired.",
+                    "ENGLISH": "Hi-Jump and Jumpball\nabilities acquired.",
+                    "GERMAN": "Hi-Jump and Jumpball\nabilities acquired.",
+                    "FRENCH": "Hi-Jump and Jumpball\nabilities acquired.",
+                    "ITALIAN": "Hi-Jump and Jumpball\nabilities acquired.",
+                    "SPANISH": "Hi-Jump and Jumpball\nabilities acquired."
+                }
+            }
+        },
+        {
+            "area": 0,
+            "room": 45,
+            "block_x": 4,
+            "block_y": 6,
+            "item": "ENERGY_TANK",
+            "item_sprite": "ENERGY_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "JAPANESE_HIRAGANA": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ENGLISH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "GERMAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "FRENCH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ITALIAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "SPANISH": "Energy Tank acquired.\nCapacity increased by 100."
+                }
+            }
+        },
+        {
+            "area": 0,
+            "room": 47,
+            "block_x": 4,
+            "block_y": 3,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 0,
+            "room": 50,
+            "block_x": 54,
+            "block_y": 8,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 0,
+            "room": 51,
+            "block_x": 5,
+            "block_y": 29,
+            "item": "LEVEL_2",
+            "item_sprite": "LEVEL_2",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Security Level 2 unlocked.\nGreen hatches now active.",
+                    "JAPANESE_HIRAGANA": "Security Level 2 unlocked.\nGreen hatches now active.",
+                    "ENGLISH": "Security Level 2 unlocked.\nGreen hatches now active.",
+                    "GERMAN": "Security Level 2 unlocked.\nGreen hatches now active.",
+                    "FRENCH": "Security Level 2 unlocked.\nGreen hatches now active.",
+                    "ITALIAN": "Security Level 2 unlocked.\nGreen hatches now active.",
+                    "SPANISH": "Security Level 2 unlocked.\nGreen hatches now active."
+                }
+            }
+        },
+        {
+            "area": 0,
+            "room": 57,
+            "block_x": 12,
+            "block_y": 10,
+            "item": "ENERGY_TANK",
+            "item_sprite": "ENERGY_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "JAPANESE_HIRAGANA": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ENGLISH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "GERMAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "FRENCH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ITALIAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "SPANISH": "Energy Tank acquired.\nCapacity increased by 100."
+                }
+            }
+        },
+        {
+            "area": 0,
+            "room": 69,
+            "block_x": 29,
+            "block_y": 29,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 0,
+            "room": 72,
+            "block_x": 13,
+            "block_y": 9,
+            "item": "LEVEL_1",
+            "item_sprite": "LEVEL_1",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Security Level 1 unlocked.\nBlue hatches now active.",
+                    "JAPANESE_HIRAGANA": "Security Level 1 unlocked.\nBlue hatches now active.",
+                    "ENGLISH": "Security Level 1 unlocked.\nBlue hatches now active.",
+                    "GERMAN": "Security Level 1 unlocked.\nBlue hatches now active.",
+                    "FRENCH": "Security Level 1 unlocked.\nBlue hatches now active.",
+                    "ITALIAN": "Security Level 1 unlocked.\nBlue hatches now active.",
+                    "SPANISH": "Security Level 1 unlocked.\nBlue hatches now active."
+                }
+            }
+        },
+        {
+            "area": 0,
+            "room": 73,
+            "block_x": 6,
+            "block_y": 10,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 0,
+            "room": 84,
+            "block_x": 14,
+            "block_y": 10,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 1,
+            "room": 5,
+            "block_x": 27,
+            "block_y": 10,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 1,
+            "room": 17,
+            "block_x": 8,
+            "block_y": 6,
+            "item": "BOMBS",
+            "item_sprite": "BOMBS",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Bomb Data acquired.\nMorph into a ball and press [B_button_left][B_button_right].",
+                    "JAPANESE_HIRAGANA": "Bomb Data acquired.\nMorph into a ball and press [B_button_left][B_button_right].",
+                    "ENGLISH": "Bomb Data acquired.\nMorph into a ball and press [B_button_left][B_button_right].",
+                    "GERMAN": "Bomb Data acquired.\nMorph into a ball and press [B_button_left][B_button_right].",
+                    "FRENCH": "Bomb Data acquired.\nMorph into a ball and press [B_button_left][B_button_right].",
+                    "ITALIAN": "Bomb Data acquired.\nMorph into a ball and press [B_button_left][B_button_right].",
+                    "SPANISH": "Bomb Data acquired.\nMorph into a ball and press [B_button_left][B_button_right]."
+                }
+            }
+        },
+        {
+            "area": 1,
+            "room": 17,
+            "block_x": 44,
+            "block_y": 19,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 1,
+            "room": 30,
+            "block_x": 15,
+            "block_y": 8,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 1,
+            "room": 39,
+            "block_x": 4,
+            "block_y": 6,
+            "item": "ENERGY_TANK",
+            "item_sprite": "ENERGY_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "JAPANESE_HIRAGANA": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ENGLISH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "GERMAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "FRENCH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ITALIAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "SPANISH": "Energy Tank acquired.\nCapacity increased by 100."
+                }
+            }
+        },
+        {
+            "area": 1,
+            "room": 40,
+            "block_x": 12,
+            "block_y": 8,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 1,
+            "room": 43,
+            "block_x": 13,
+            "block_y": 11,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 1,
+            "room": 44,
+            "block_x": 4,
+            "block_y": 8,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 1,
+            "room": 47,
+            "block_x": 10,
+            "block_y": 2,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 1,
+            "room": 50,
+            "block_x": 6,
+            "block_y": 8,
+            "item": "WAVE_BEAM",
+            "item_sprite": "WAVE_BEAM",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Wave Beam ability acquired.\nBeam now penetrates walls.",
+                    "JAPANESE_HIRAGANA": "Wave Beam ability acquired.\nBeam now penetrates walls.",
+                    "ENGLISH": "Wave Beam ability acquired.\nBeam now penetrates walls.",
+                    "GERMAN": "Wave Beam ability acquired.\nBeam now penetrates walls.",
+                    "FRENCH": "Wave Beam ability acquired.\nBeam now penetrates walls.",
+                    "ITALIAN": "Wave Beam ability acquired.\nBeam now penetrates walls.",
+                    "SPANISH": "Wave Beam ability acquired.\nBeam now penetrates walls."
+                }
+            }
+        },
+        {
+            "area": 1,
+            "room": 52,
+            "block_x": 13,
+            "block_y": 7,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 2,
+            "room": 6,
+            "block_x": 29,
+            "block_y": 8,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 2,
+            "room": 9,
+            "block_x": 13,
+            "block_y": 4,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 2,
+            "room": 10,
+            "block_x": 19,
+            "block_y": 35,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 2,
+            "room": 17,
+            "block_x": 44,
+            "block_y": 7,
+            "item": "ENERGY_TANK",
+            "item_sprite": "ENERGY_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "JAPANESE_HIRAGANA": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ENGLISH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "GERMAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "FRENCH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ITALIAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "SPANISH": "Energy Tank acquired.\nCapacity increased by 100."
+                }
+            }
+        },
+        {
+            "area": 2,
+            "room": 21,
+            "block_x": 29,
+            "block_y": 4,
+            "item": "WIDE_BEAM",
+            "item_sprite": "WIDE_BEAM",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Wide Beam ability acquired.\nBeam widens dramatically.",
+                    "JAPANESE_HIRAGANA": "Wide Beam ability acquired.\nBeam widens dramatically.",
+                    "ENGLISH": "Wide Beam ability acquired.\nBeam widens dramatically.",
+                    "GERMAN": "Wide Beam ability acquired.\nBeam widens dramatically.",
+                    "FRENCH": "Wide Beam ability acquired.\nBeam widens dramatically.",
+                    "ITALIAN": "Wide Beam ability acquired.\nBeam widens dramatically.",
+                    "SPANISH": "Wide Beam ability acquired.\nBeam widens dramatically."
+                }
+            }
+        },
+        {
+            "area": 2,
+            "room": 25,
+            "block_x": 4,
+            "block_y": 8,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 2,
+            "room": 27,
+            "block_x": 28,
+            "block_y": 7,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 2,
+            "room": 31,
+            "block_x": 40,
+            "block_y": 7,
+            "item": "CHARGE_BEAM",
+            "item_sprite": "CHARGE_BEAM",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Charge Beam ability acquired.\nPress and hold [B_button_left][B_button_right] to charge.",
+                    "JAPANESE_HIRAGANA": "Charge Beam ability acquired.\nPress and hold [B_button_left][B_button_right] to charge.",
+                    "ENGLISH": "Charge Beam ability acquired.\nPress and hold [B_button_left][B_button_right] to charge.",
+                    "GERMAN": "Charge Beam ability acquired.\nPress and hold [B_button_left][B_button_right] to charge.",
+                    "FRENCH": "Charge Beam ability acquired.\nPress and hold [B_button_left][B_button_right] to charge.",
+                    "ITALIAN": "Charge Beam ability acquired.\nPress and hold [B_button_left][B_button_right] to charge.",
+                    "SPANISH": "Charge Beam ability acquired.\nPress and hold [B_button_left][B_button_right] to charge."
+                }
+            }
+        },
+        {
+            "area": 2,
+            "room": 33,
+            "block_x": 21,
+            "block_y": 8,
+            "item": "MISSILES",
+            "item_sprite": "MISSILES",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Data acquired.\nHold [R_button_left][R_button_right] and press [B_button_left][B_button_right].",
+                    "JAPANESE_HIRAGANA": "Missile Data acquired.\nHold [R_button_left][R_button_right] and press [B_button_left][B_button_right].",
+                    "ENGLISH": "Missile Data acquired.\nHold [R_button_left][R_button_right] and press [B_button_left][B_button_right].",
+                    "GERMAN": "Missile Data acquired.\nHold [R_button_left][R_button_right] and press [B_button_left][B_button_right].",
+                    "FRENCH": "Missile Data acquired.\nHold [R_button_left][R_button_right] and press [B_button_left][B_button_right].",
+                    "ITALIAN": "Missile Data acquired.\nHold [R_button_left][R_button_right] and press [B_button_left][B_button_right].",
+                    "SPANISH": "Missile Data acquired.\nHold [R_button_left][R_button_right] and press [B_button_left][B_button_right]."
+                }
+            }
+        },
+        {
+            "area": 2,
+            "room": 42,
+            "block_x": 5,
+            "block_y": 8,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 2,
+            "room": 47,
+            "block_x": 29,
+            "block_y": 16,
+            "item": "ENERGY_TANK",
+            "item_sprite": "ENERGY_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "JAPANESE_HIRAGANA": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ENGLISH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "GERMAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "FRENCH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ITALIAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "SPANISH": "Energy Tank acquired.\nCapacity increased by 100."
+                }
+            }
+        },
+        {
+            "area": 2,
+            "room": 50,
+            "block_x": 3,
+            "block_y": 7,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 2,
+            "room": 50,
+            "block_x": 3,
+            "block_y": 24,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 2,
+            "room": 54,
+            "block_x": 4,
+            "block_y": 5,
+            "item": "LEVEL_4",
+            "item_sprite": "LEVEL_4",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Security Level 4 unlocked.\nRed hatches now active.",
+                    "JAPANESE_HIRAGANA": "Security Level 4 unlocked.\nRed hatches now active.",
+                    "ENGLISH": "Security Level 4 unlocked.\nRed hatches now active.",
+                    "GERMAN": "Security Level 4 unlocked.\nRed hatches now active.",
+                    "FRENCH": "Security Level 4 unlocked.\nRed hatches now active.",
+                    "ITALIAN": "Security Level 4 unlocked.\nRed hatches now active.",
+                    "SPANISH": "Security Level 4 unlocked.\nRed hatches now active."
+                }
+            }
+        },
+        {
+            "area": 2,
+            "room": 54,
+            "block_x": 9,
+            "block_y": 14,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 2,
+            "room": 55,
+            "block_x": 7,
+            "block_y": 4,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 2,
+            "room": 55,
+            "block_x": 10,
+            "block_y": 26,
+            "item": "ENERGY_TANK",
+            "item_sprite": "ENERGY_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "JAPANESE_HIRAGANA": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ENGLISH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "GERMAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "FRENCH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ITALIAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "SPANISH": "Energy Tank acquired.\nCapacity increased by 100."
+                }
+            }
+        },
+        {
+            "area": 3,
+            "room": 3,
+            "block_x": 44,
+            "block_y": 13,
+            "item": "LEVEL_3",
+            "item_sprite": "LEVEL_3",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Security Level 3 unlocked.\nYellow hatches now active.",
+                    "JAPANESE_HIRAGANA": "Security Level 3 unlocked.\nYellow hatches now active.",
+                    "ENGLISH": "Security Level 3 unlocked.\nYellow hatches now active.",
+                    "GERMAN": "Security Level 3 unlocked.\nYellow hatches now active.",
+                    "FRENCH": "Security Level 3 unlocked.\nYellow hatches now active.",
+                    "ITALIAN": "Security Level 3 unlocked.\nYellow hatches now active.",
+                    "SPANISH": "Security Level 3 unlocked.\nYellow hatches now active."
+                }
+            }
+        },
+        {
+            "area": 3,
+            "room": 6,
+            "block_x": 5,
+            "block_y": 17,
+            "item": "MISSILE_TANK",
+            "item_sprite": "SHINY_MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "languages": {
+                    "JAPANESE_KANJI": "Bob acquired.\nHe says hi to you.",
+                    "JAPANESE_HIRAGANA": "Bob acquired.\nHe says hi to you.",
+                    "ENGLISH": "Bob acquired.\nHe says hi to you.",
+                    "GERMAN": "Bob acquired.\nHe says hi to you.",
+                    "FRENCH": "Bob acquired.\nHe says hi to you.",
+                    "ITALIAN": "Bob acquired.\nHe says hi to you.",
+                    "SPANISH": "Bob acquired.\nHe says hi to you."
+                },
+                "kind": "CUSTOM_MESSAGE"
+            }
+        },
+        {
+            "area": 3,
+            "room": 8,
+            "block_x": 9,
+            "block_y": 9,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 3,
+            "room": 8,
+            "block_x": 22,
+            "block_y": 13,
+            "item": "ENERGY_TANK",
+            "item_sprite": "ENERGY_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "JAPANESE_HIRAGANA": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ENGLISH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "GERMAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "FRENCH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ITALIAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "SPANISH": "Energy Tank acquired.\nCapacity increased by 100."
+                }
+            }
+        },
+        {
+            "area": 3,
+            "room": 9,
+            "block_x": 42,
+            "block_y": 8,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 3,
+            "room": 12,
+            "block_x": 12,
+            "block_y": 25,
+            "item": "SCREW_ATTACK",
+            "item_sprite": "SCREW_ATTACK",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Screw Attack ability regained.\nSomersault into enemies.",
+                    "JAPANESE_HIRAGANA": "Screw Attack ability regained.\nSomersault into enemies.",
+                    "ENGLISH": "Screw Attack ability regained.\nSomersault into enemies.",
+                    "GERMAN": "Screw Attack ability regained.\nSomersault into enemies.",
+                    "FRENCH": "Screw Attack ability regained.\nSomersault into enemies.",
+                    "ITALIAN": "Screw Attack ability regained.\nSomersault into enemies.",
+                    "SPANISH": "Screw Attack ability regained.\nSomersault into enemies."
+                }
+            }
+        },
+        {
+            "area": 3,
+            "room": 19,
+            "block_x": 43,
+            "block_y": 10,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 3,
+            "room": 19,
+            "block_x": 19,
+            "block_y": 13,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 3,
+            "room": 28,
+            "block_x": 12,
+            "block_y": 7,
+            "item": "ENERGY_TANK",
+            "item_sprite": "ENERGY_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "JAPANESE_HIRAGANA": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ENGLISH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "GERMAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "FRENCH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ITALIAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "SPANISH": "Energy Tank acquired.\nCapacity increased by 100."
+                }
+            }
+        },
+        {
+            "area": 3,
+            "room": 28,
+            "block_x": 36,
+            "block_y": 27,
+            "item": "ENERGY_TANK",
+            "item_sprite": "ENERGY_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "JAPANESE_HIRAGANA": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ENGLISH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "GERMAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "FRENCH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ITALIAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "SPANISH": "Energy Tank acquired.\nCapacity increased by 100."
+                }
+            }
+        },
+        {
+            "area": 3,
+            "room": 30,
+            "block_x": 4,
+            "block_y": 13,
+            "item": "ENERGY_TANK",
+            "item_sprite": "ENERGY_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "JAPANESE_HIRAGANA": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ENGLISH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "GERMAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "FRENCH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ITALIAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "SPANISH": "Energy Tank acquired.\nCapacity increased by 100."
+                }
+            }
+        },
+        {
+            "area": 3,
+            "room": 33,
+            "block_x": 15,
+            "block_y": 10,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 3,
+            "room": 34,
+            "block_x": 10,
+            "block_y": 15,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 3,
+            "room": 35,
+            "block_x": 4,
+            "block_y": 27,
+            "item": "ENERGY_TANK",
+            "item_sprite": "ENERGY_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "JAPANESE_HIRAGANA": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ENGLISH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "GERMAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "FRENCH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ITALIAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "SPANISH": "Energy Tank acquired.\nCapacity increased by 100."
+                }
+            }
+        },
+        {
+            "area": 3,
+            "room": 35,
+            "block_x": 15,
+            "block_y": 86,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 3,
+            "room": 37,
+            "block_x": 15,
+            "block_y": 3,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 4,
+            "room": 6,
+            "block_x": 22,
+            "block_y": 29,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 4,
+            "room": 10,
+            "block_x": 12,
+            "block_y": 29,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 4,
+            "room": 13,
+            "block_x": 24,
+            "block_y": 9,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 4,
+            "room": 13,
+            "block_x": 38,
+            "block_y": 15,
+            "item": "ICE_BEAM",
+            "item_sprite": "ICE_BEAM",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Ice effect added to beam.\nUse beam to freeze enemies.",
+                    "JAPANESE_HIRAGANA": "Ice effect added to beam.\nUse beam to freeze enemies.",
+                    "ENGLISH": "Ice effect added to beam.\nUse beam to freeze enemies.",
+                    "GERMAN": "Ice effect added to beam.\nUse beam to freeze enemies.",
+                    "FRENCH": "Ice effect added to beam.\nUse beam to freeze enemies.",
+                    "ITALIAN": "Ice effect added to beam.\nUse beam to freeze enemies.",
+                    "SPANISH": "Ice effect added to beam.\nUse beam to freeze enemies."
+                }
+            }
+        },
+        {
+            "area": 4,
+            "room": 15,
+            "block_x": 44,
+            "block_y": 5,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 4,
+            "room": 17,
+            "block_x": 23,
+            "block_y": 20,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 4,
+            "room": 23,
+            "block_x": 57,
+            "block_y": 19,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 4,
+            "room": 24,
+            "block_x": 40,
+            "block_y": 7,
+            "item": "ENERGY_TANK",
+            "item_sprite": "ENERGY_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "JAPANESE_HIRAGANA": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ENGLISH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "GERMAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "FRENCH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ITALIAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "SPANISH": "Energy Tank acquired.\nCapacity increased by 100."
+                }
+            }
+        },
+        {
+            "area": 4,
+            "room": 28,
+            "block_x": 9,
+            "block_y": 6,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 4,
+            "room": 33,
+            "block_x": 10,
+            "block_y": 13,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 4,
+            "room": 36,
+            "block_x": 3,
+            "block_y": 7,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 4,
+            "room": 38,
+            "block_x": 42,
+            "block_y": 5,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 4,
+            "room": 38,
+            "block_x": 22,
+            "block_y": 10,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 4,
+            "room": 41,
+            "block_x": 15,
+            "block_y": 4,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 4,
+            "room": 46,
+            "block_x": 4,
+            "block_y": 10,
+            "item": "VARIA_SUIT",
+            "item_sprite": "VARIA_SUIT",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Varia Suit effect acquired.\nSurvive extreme temperatures.",
+                    "JAPANESE_HIRAGANA": "Varia Suit effect acquired.\nSurvive extreme temperatures.",
+                    "ENGLISH": "Varia Suit effect acquired.\nSurvive extreme temperatures.",
+                    "GERMAN": "Varia Suit effect acquired.\nSurvive extreme temperatures.",
+                    "FRENCH": "Varia Suit effect acquired.\nSurvive extreme temperatures.",
+                    "ITALIAN": "Varia Suit effect acquired.\nSurvive extreme temperatures.",
+                    "SPANISH": "Varia Suit effect acquired.\nSurvive extreme temperatures."
+                }
+            }
+        },
+        {
+            "area": 5,
+            "room": 4,
+            "block_x": 5,
+            "block_y": 5,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 5,
+            "room": 4,
+            "block_x": 20,
+            "block_y": 8,
+            "item": "SUPER_MISSILES",
+            "item_sprite": "SUPER_MISSILES",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Super Missile Data acquired.\nHold [R_button_left][R_button_right] and press [B_button_left][B_button_right].",
+                    "JAPANESE_HIRAGANA": "Super Missile Data acquired.\nHold [R_button_left][R_button_right] and press [B_button_left][B_button_right].",
+                    "ENGLISH": "Super Missile Data acquired.\nHold [R_button_left][R_button_right] and press [B_button_left][B_button_right].",
+                    "GERMAN": "Super Missile Data acquired.\nHold [R_button_left][R_button_right] and press [B_button_left][B_button_right].",
+                    "FRENCH": "Super Missile Data acquired.\nHold [R_button_left][R_button_right] and press [B_button_left][B_button_right].",
+                    "ITALIAN": "Super Missile Data acquired.\nHold [R_button_left][R_button_right] and press [B_button_left][B_button_right].",
+                    "SPANISH": "Super Missile Data acquired.\nHold [R_button_left][R_button_right] and press [B_button_left][B_button_right]."
+                }
+            }
+        },
+        {
+            "area": 5,
+            "room": 12,
+            "block_x": 3,
+            "block_y": 10,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 5,
+            "room": 14,
+            "block_x": 13,
+            "block_y": 3,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 5,
+            "room": 18,
+            "block_x": 3,
+            "block_y": 3,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 5,
+            "room": 22,
+            "block_x": 3,
+            "block_y": 48,
+            "item": "ENERGY_TANK",
+            "item_sprite": "ENERGY_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "JAPANESE_HIRAGANA": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ENGLISH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "GERMAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "FRENCH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ITALIAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "SPANISH": "Energy Tank acquired.\nCapacity increased by 100."
+                }
+            }
+        },
+        {
+            "area": 5,
+            "room": 23,
+            "block_x": 14,
+            "block_y": 6,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 5,
+            "room": 26,
+            "block_x": 4,
+            "block_y": 6,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 5,
+            "room": 30,
+            "block_x": 23,
+            "block_y": 7,
+            "item": "GRAVITY_SUIT",
+            "item_sprite": "GRAVITY_SUIT",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Gravity Suit effect acquired.\nMove freely in liquids.",
+                    "JAPANESE_HIRAGANA": "Gravity Suit effect acquired.\nMove freely in liquids.",
+                    "ENGLISH": "Gravity Suit effect acquired.\nMove freely in liquids.",
+                    "GERMAN": "Gravity Suit effect acquired.\nMove freely in liquids.",
+                    "FRENCH": "Gravity Suit effect acquired.\nMove freely in liquids.",
+                    "ITALIAN": "Gravity Suit effect acquired.\nMove freely in liquids.",
+                    "SPANISH": "Gravity Suit effect acquired.\nMove freely in liquids."
+                }
+            }
+        },
+        {
+            "area": 5,
+            "room": 33,
+            "block_x": 14,
+            "block_y": 3,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 5,
+            "room": 34,
+            "block_x": 14,
+            "block_y": 8,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 5,
+            "room": 36,
+            "block_x": 8,
+            "block_y": 8,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 5,
+            "room": 47,
+            "block_x": 4,
+            "block_y": 10,
+            "item": "ENERGY_TANK",
+            "item_sprite": "ENERGY_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "JAPANESE_HIRAGANA": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ENGLISH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "GERMAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "FRENCH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ITALIAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "SPANISH": "Energy Tank acquired.\nCapacity increased by 100."
+                }
+            }
+        },
+        {
+            "area": 5,
+            "room": 50,
+            "block_x": 13,
+            "block_y": 8,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 5,
+            "room": 51,
+            "block_x": 11,
+            "block_y": 3,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 6,
+            "room": 0,
+            "block_x": 41,
+            "block_y": 18,
+            "item": "ENERGY_TANK",
+            "item_sprite": "ENERGY_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "JAPANESE_HIRAGANA": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ENGLISH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "GERMAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "FRENCH": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "ITALIAN": "Energy Tank acquired.\nCapacity increased by 100.",
+                    "SPANISH": "Energy Tank acquired.\nCapacity increased by 100."
+                }
+            }
+        },
+        {
+            "area": 6,
+            "room": 15,
+            "block_x": 3,
+            "block_y": 3,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 6,
+            "room": 18,
+            "block_x": 15,
+            "block_y": 3,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 6,
+            "room": 18,
+            "block_x": 29,
+            "block_y": 20,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 6,
+            "room": 24,
+            "block_x": 29,
+            "block_y": 9,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 6,
+            "room": 26,
+            "block_x": 5,
+            "block_y": 6,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 6,
+            "room": 30,
+            "block_x": 19,
+            "block_y": 8,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 6,
+            "room": 30,
+            "block_x": 9,
+            "block_y": 13,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 6,
+            "room": 34,
+            "block_x": 14,
+            "block_y": 8,
+            "item": "SPEED_BOOSTER",
+            "item_sprite": "SPEED_BOOSTER",
+            "jingle": "MAJOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Speed Booster power regained.\nRun until speed boost begins.",
+                    "JAPANESE_HIRAGANA": "Speed Booster power regained.\nRun until speed boost begins.",
+                    "ENGLISH": "Speed Booster power regained.\nRun until speed boost begins.",
+                    "GERMAN": "Speed Booster power regained.\nRun until speed boost begins.",
+                    "FRENCH": "Speed Booster power regained.\nRun until speed boost begins.",
+                    "ITALIAN": "Speed Booster power regained.\nRun until speed boost begins.",
+                    "SPANISH": "Speed Booster power regained.\nRun until speed boost begins."
+                }
+            }
+        },
+        {
+            "area": 6,
+            "room": 38,
+            "block_x": 45,
+            "block_y": 6,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 6,
+            "room": 39,
+            "block_x": 33,
+            "block_y": 10,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 6,
+            "room": 39,
+            "block_x": 10,
+            "block_y": 24,
+            "item": "POWER_BOMB_TANK",
+            "item_sprite": "POWER_BOMB_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "JAPANESE_HIRAGANA": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ENGLISH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "GERMAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "FRENCH": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "ITALIAN": "Power Bomb Tank acquired.\nCapacity increased by 2.",
+                    "SPANISH": "Power Bomb Tank acquired.\nCapacity increased by 2."
+                }
+            }
+        },
+        {
+            "area": 1,
+            "room": 17,
+            "block_x": 25,
+            "block_y": 8,
+            "item": "MISSILE_TANK",
+            "item_sprite": "MISSILE_TANK",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "JAPANESE_HIRAGANA": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ENGLISH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "GERMAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "FRENCH": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "ITALIAN": "Missile Tank acquired.\nCapacity increased by 5.",
+                    "SPANISH": "Missile Tank acquired.\nCapacity increased by 5."
+                }
+            }
+        },
+        {
+            "area": 0,
+            "room": 46,
+            "block_x": 9,
+            "block_y": 8,
+            "item": "NONE",
+            "item_sprite": "Empty",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Nothing acquired.",
+                    "JAPANESE_HIRAGANA": "Nothing acquired.",
+                    "ENGLISH": "Nothing acquired.",
+                    "GERMAN": "Nothing acquired.",
+                    "FRENCH": "Nothing acquired.",
+                    "ITALIAN": "Nothing acquired.",
+                    "SPANISH": "Nothing acquired."
+                }
+            }
+        },
+        {
+            "area": 0,
+            "room": 71,
+            "block_x": 6,
+            "block_y": 9,
+            "item": "NONE",
+            "item_sprite": "Empty",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Nothing acquired.",
+                    "JAPANESE_HIRAGANA": "Nothing acquired.",
+                    "ENGLISH": "Nothing acquired.",
+                    "GERMAN": "Nothing acquired.",
+                    "FRENCH": "Nothing acquired.",
+                    "ITALIAN": "Nothing acquired.",
+                    "SPANISH": "Nothing acquired."
+                }
+            }
+        },
+        {
+            "area": 1,
+            "room": 32,
+            "block_x": 29,
+            "block_y": 9,
+            "item": "NONE",
+            "item_sprite": "Empty",
+            "jingle": "MINOR",
+            "item_messages": {
+                "kind": "CUSTOM_MESSAGE",
+                "languages": {
+                    "JAPANESE_KANJI": "Nothing acquired.",
+                    "JAPANESE_HIRAGANA": "Nothing acquired.",
+                    "ENGLISH": "Nothing acquired.",
+                    "GERMAN": "Nothing acquired.",
+                    "FRENCH": "Nothing acquired.",
+                    "ITALIAN": "Nothing acquired.",
+                    "SPANISH": "Nothing acquired."
+                }
+            }
+        }
+    ]
+}

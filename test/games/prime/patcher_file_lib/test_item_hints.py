@@ -10,19 +10,20 @@ from randovania.exporter.hints.hint_exporter import HintExporter
 from randovania.game_description.assignment import PickupTarget
 from randovania.game_description.db.area import Area
 from randovania.game_description.db.area_identifier import AreaIdentifier
-from randovania.game_description.db.hint_node import HintNode
+from randovania.game_description.db.hint_node import GenericHintNode
 from randovania.game_description.db.node_identifier import NodeIdentifier
 from randovania.game_description.db.pickup_node import PickupNode
 from randovania.game_description.db.region import Region
 from randovania.game_description.db.region_list import RegionList
 from randovania.game_description.hint import (
-    Hint,
     HintDarkTemple,
     HintItemPrecision,
     HintLocationPrecision,
     HintRelativeAreaName,
-    HintType,
+    JokeHint,
+    LocationHint,
     PrecisionPair,
+    RedTempleHint,
     RelativeDataArea,
     RelativeDataItem,
 )
@@ -30,6 +31,7 @@ from randovania.game_description.requirements.base import Requirement
 from randovania.game_description.resources.pickup_index import PickupIndex
 from randovania.games.prime2.exporter import hints
 from randovania.games.prime2.exporter.hint_namer import EchoesHintNamer
+from randovania.games.prime2.exporter.joke_hints import ECHOES_JOKE_HINTS
 from randovania.games.prime2.patcher import echoes_items
 from randovania.interface_common.players_configuration import PlayersConfiguration
 
@@ -42,10 +44,10 @@ def players_config() -> PlayersConfiguration:
     )
 
 
-def _create_region_list(asset_id: int, pickup_index: PickupIndex):
+def _create_region_list(asset_id: int, pickup_index: PickupIndex, num_pickups: int = 0):
     nc = NodeIdentifier.create
 
-    hint_node = HintNode(
+    hint_node = GenericHintNode(
         nc("World", "Area", "Logbook A"),
         0,
         True,
@@ -54,7 +56,6 @@ def _create_region_list(asset_id: int, pickup_index: PickupIndex):
         ("default",),
         {"string_asset_id": asset_id},
         False,
-        None,
         Requirement.trivial(),
     )
     pickup_node = PickupNode(
@@ -82,7 +83,7 @@ def _create_region_list(asset_id: int, pickup_index: PickupIndex):
                                 PickupIndex(i),
                                 True,
                             )
-                            for i in range(pickup_index.index)
+                            for i in range(num_pickups)
                         ],
                         {},
                         {},
@@ -93,13 +94,21 @@ def _create_region_list(asset_id: int, pickup_index: PickupIndex):
         ]
     )
 
-    return hint_node, pickup_node, region_list
+    def iterate_nodes_of_type(*node_types: type):
+        for region, area, node in region_list.all_regions_areas_nodes:
+            if isinstance(node, node_types):
+                yield region, area, node
+
+    game_view = MagicMock()
+    game_view.iterate_nodes_of_type.side_effect = iterate_nodes_of_type
+
+    return hint_node, pickup_node, region_list, game_view
 
 
 @pytest.fixture
-def echoes_hint_exporter(echoes_game_patches) -> HintExporter:
-    namer = EchoesHintNamer({0: echoes_game_patches}, PlayersConfiguration(0, {0: "You"}))
-    return HintExporter(namer, random.Random(0), ["A Joke"])
+def echoes_hint_exporter(echoes_game_patches, players_config) -> HintExporter:
+    namer = EchoesHintNamer({0: echoes_game_patches}, players_config)
+    return HintExporter(namer, random.Random(0), ["A Joke"], echoes_game_patches.game)
 
 
 def test_create_hints_nothing(echoes_game_patches, players_config):
@@ -107,13 +116,12 @@ def test_create_hints_nothing(echoes_game_patches, players_config):
     asset_id = 1000
     pickup_index = PickupIndex(0)
 
-    hint_node, _, region_list = _create_region_list(asset_id, pickup_index)
+    hint_node, _, _, game_view = _create_region_list(asset_id, pickup_index, 5)
 
     patches = dataclasses.replace(
         echoes_game_patches,
         hints={
-            hint_node.identifier: Hint(
-                HintType.LOCATION,
+            hint_node.identifier: LocationHint(
                 PrecisionPair(HintLocationPrecision.DETAILED, HintItemPrecision.DETAILED, include_owner=False),
                 pickup_index,
             )
@@ -121,9 +129,10 @@ def test_create_hints_nothing(echoes_game_patches, players_config):
     )
     rng = MagicMock()
     namer = EchoesHintNamer({0: patches}, players_config)
+    exporter = HintExporter(namer, rng, ECHOES_JOKE_HINTS, game_view)
 
     # Run
-    result = hints.create_patches_hints({0: patches}, players_config, region_list, namer, rng)
+    result = hints.create_patches_hints(patches, exporter)
 
     # Assert
     message = (
@@ -133,17 +142,18 @@ def test_create_hints_nothing(echoes_game_patches, players_config):
     assert result == [{"asset_id": asset_id, "strings": [message, "", message]}]
 
 
-def test_create_hints_item_joke(empty_patches, players_config):
+def test_create_hints_item_joke(echoes_game_patches, players_config):
     # Setup
     asset_id = 1000
-    hint_node, _, region_list = _create_region_list(asset_id, PickupIndex(50))
+    hint_node, _, _, game_view = _create_region_list(asset_id, PickupIndex(50))
 
-    patches = dataclasses.replace(empty_patches, hints={hint_node.identifier: Hint(HintType.JOKE, None)})
+    patches = dataclasses.replace(echoes_game_patches, hints={hint_node.identifier: JokeHint()})
     rng = MagicMock()
     namer = EchoesHintNamer({0: patches}, players_config)
+    exporter = HintExporter(namer, rng, ECHOES_JOKE_HINTS, game_view)
 
     # Run
-    result = hints.create_patches_hints({0: patches}, players_config, region_list, namer, rng)
+    result = hints.create_patches_hints(patches, exporter)
 
     # Assert
     joke = "Your current Chozo Battle Suit version is SA1-4468-VM6-P."
@@ -197,13 +207,13 @@ def test_create_hints_item_dark_temple_keys(
         pickup_assignment={pickup_index: PickupTarget(key, 0) for pickup_index, key in keys},
     )
 
-    hint = Hint(HintType.RED_TEMPLE_KEY_SET, None, dark_temple=HintDarkTemple.TORVUS_BOG)
+    hint = RedTempleHint(dark_temple=HintDarkTemple.TORVUS_BOG)
 
     namer = EchoesHintNamer({0: patches}, players_config)
-    exporter = HintExporter(namer, random.Random(0), ["A Joke"])
+    exporter = HintExporter(namer, random.Random(0), ["A Joke"], MagicMock())
 
     # Run
-    result = exporter.create_message_for_hint(hint, {0: patches}, players_config, True)
+    result = exporter.create_message_for_hint(hint, True)
 
     # Assert
     assert result == expected_message
@@ -247,13 +257,13 @@ def test_create_hints_item_dark_temple_keys_cross_game(
         },
     )
 
-    hint = Hint(HintType.RED_TEMPLE_KEY_SET, None, dark_temple=HintDarkTemple.TORVUS_BOG)
+    hint = RedTempleHint(dark_temple=HintDarkTemple.TORVUS_BOG)
 
     namer = EchoesHintNamer({0: echoes_patches, 1: prime_patches}, players_config)
-    exporter = HintExporter(namer, random.Random(0), ["A Joke"])
+    exporter = HintExporter(namer, random.Random(0), ["A Joke"], echoes_patches.game)
 
     # Run
-    result = exporter.create_message_for_hint(hint, {0: echoes_patches, 1: prime_patches}, players_config, True)
+    result = exporter.create_message_for_hint(hint, True)
 
     # Assert
     assert result == (
@@ -264,12 +274,16 @@ def test_create_hints_item_dark_temple_keys_cross_game(
     )
 
 
-def test_create_message_for_hint_dark_temple_no_keys(empty_patches, players_config, echoes_hint_exporter):
+def test_create_message_for_hint_dark_temple_no_keys(
+    empty_patches, players_config, echoes_hint_exporter, echoes_game_description
+):
     # Setup
-    hint = Hint(HintType.RED_TEMPLE_KEY_SET, None, dark_temple=HintDarkTemple.TORVUS_BOG)
+    hint = RedTempleHint(dark_temple=HintDarkTemple.TORVUS_BOG)
+    patches = dataclasses.replace(empty_patches, game=echoes_game_description)
+    echoes_hint_exporter.namer.all_patches = {0: patches}
 
     # Run
-    result = echoes_hint_exporter.create_message_for_hint(hint, {0: empty_patches}, players_config, True)
+    result = echoes_hint_exporter.create_message_for_hint(hint, True)
 
     # Assert
     assert result == "The keys to &push;&main-color=#FF6705B3;Dark Torvus Temple&pop; are nowhere to be found."
@@ -279,9 +293,6 @@ def test_create_message_for_hint_dark_temple_no_keys(empty_patches, players_conf
     "item",
     [
         (HintItemPrecision.DETAILED, "The", "&push;&main-color=#FF6705B3;Blank Pickup&pop;"),
-        (HintItemPrecision.PRECISE_CATEGORY, "A", "&push;&main-color=#FF6705B3;suit&pop;"),
-        (HintItemPrecision.GENERAL_CATEGORY, "A", "&push;&main-color=#FF6705B3;major upgrade&pop;"),
-        (HintItemPrecision.BROAD_CATEGORY, "A", "&push;&main-color=#FF6705B3;life support system&pop;"),
     ],
 )
 @pytest.mark.parametrize(
@@ -297,7 +308,7 @@ def test_create_hints_item_location(echoes_game_patches, blank_pickup, item, loc
     # Setup
     asset_id = 1000
     pickup_index = PickupIndex(50)
-    hint_node, _, region_list = _create_region_list(asset_id, pickup_index)
+    hint_node, _, _, game_view = _create_region_list(asset_id, pickup_index)
 
     players_config = PlayersConfiguration(
         player_index=0,
@@ -313,8 +324,7 @@ def test_create_hints_item_location(echoes_game_patches, blank_pickup, item, loc
             pickup_index: PickupTarget(blank_pickup, 0),
         },
         hints={
-            hint_node.identifier: Hint(
-                HintType.LOCATION,
+            hint_node.identifier: LocationHint(
                 PrecisionPair(location[0], location_precision, include_owner=owner),
                 pickup_index,
             )
@@ -322,9 +332,10 @@ def test_create_hints_item_location(echoes_game_patches, blank_pickup, item, loc
     )
     rng = MagicMock()
     namer = EchoesHintNamer({0: patches}, players_config)
+    exporter = HintExporter(namer, rng, ECHOES_JOKE_HINTS, game_view)
 
     # Run
-    result = hints.create_patches_hints({0: patches}, players_config, region_list, namer, rng)
+    result = hints.create_patches_hints(patches, exporter)
 
     # Assert
     message = f"{determiner} {item_name} can be found in {location[1]}."
@@ -345,9 +356,6 @@ def test_create_hints_item_location(echoes_game_patches, blank_pickup, item, loc
     "item",
     [
         (HintItemPrecision.DETAILED, "the &push;&main-color=#FF6705B3;Blank Pickup&pop;"),
-        (HintItemPrecision.PRECISE_CATEGORY, "a &push;&main-color=#FF6705B3;suit&pop;"),
-        (HintItemPrecision.GENERAL_CATEGORY, "a &push;&main-color=#FF6705B3;major upgrade&pop;"),
-        (HintItemPrecision.BROAD_CATEGORY, "a &push;&main-color=#FF6705B3;life support system&pop;"),
     ],
 )
 def test_create_hints_guardians(
@@ -361,7 +369,7 @@ def test_create_hints_guardians(
     asset_id = 1000
     pickup_index, guardian = pickup_index_and_guardian
 
-    hint_node, _, region_list = _create_region_list(asset_id, pickup_index)
+    hint_node, _, _, game_view = _create_region_list(asset_id, pickup_index)
 
     patches = dataclasses.replace(
         echoes_game_patches,
@@ -369,18 +377,22 @@ def test_create_hints_guardians(
             pickup_index: PickupTarget(blank_pickup, 0),
         },
         hints={
-            hint_node.identifier: Hint(
-                HintType.LOCATION,
-                PrecisionPair(HintLocationPrecision.GUARDIAN, item[0], include_owner=False),
+            hint_node.identifier: LocationHint(
+                PrecisionPair(
+                    echoes_game_patches.game.hint_feature_database["specific_hint_guardian"],
+                    item[0],
+                    include_owner=False,
+                ),
                 pickup_index,
             )
         },
     )
     rng = MagicMock()
     namer = EchoesHintNamer({0: patches}, players_config)
+    exporter = HintExporter(namer, rng, ECHOES_JOKE_HINTS, game_view)
 
     # Run
-    result = hints.create_patches_hints({0: patches}, players_config, region_list, namer, rng)
+    result = hints.create_patches_hints(patches, exporter)
 
     # Assert
     message = f"{guardian} is guarding {item[1]}."
@@ -391,9 +403,6 @@ def test_create_hints_guardians(
     "item",
     [
         (HintItemPrecision.DETAILED, "the &push;&main-color=#FF6705B3;Blank Pickup&pop;"),
-        (HintItemPrecision.PRECISE_CATEGORY, "a &push;&main-color=#FF6705B3;suit&pop;"),
-        (HintItemPrecision.GENERAL_CATEGORY, "a &push;&main-color=#FF6705B3;major upgrade&pop;"),
-        (HintItemPrecision.BROAD_CATEGORY, "a &push;&main-color=#FF6705B3;life support system&pop;"),
     ],
 )
 def test_create_hints_light_suit_location(echoes_game_patches, players_config, blank_pickup, item):
@@ -401,7 +410,7 @@ def test_create_hints_light_suit_location(echoes_game_patches, players_config, b
     asset_id = 1000
     pickup_index = PickupIndex(50)
 
-    hint_node, _, region_list = _create_region_list(asset_id, pickup_index)
+    hint_node, _, _, game_view = _create_region_list(asset_id, pickup_index)
 
     patches = dataclasses.replace(
         echoes_game_patches,
@@ -409,18 +418,20 @@ def test_create_hints_light_suit_location(echoes_game_patches, players_config, b
             pickup_index: PickupTarget(blank_pickup, 0),
         },
         hints={
-            hint_node.identifier: Hint(
-                HintType.LOCATION,
-                PrecisionPair(HintLocationPrecision.LIGHT_SUIT_LOCATION, item[0], include_owner=False),
+            hint_node.identifier: LocationHint(
+                PrecisionPair(
+                    echoes_game_patches.game.hint_feature_database["specific_hint_2mos"], item[0], include_owner=False
+                ),
                 pickup_index,
             )
         },
     )
     rng = MagicMock()
     namer = EchoesHintNamer({0: patches}, players_config)
+    exporter = HintExporter(namer, rng, ECHOES_JOKE_HINTS, game_view)
 
     # Run
-    result = hints.create_patches_hints({0: patches}, players_config, region_list, namer, rng)
+    result = hints.create_patches_hints(patches, exporter)
 
     # Assert
     message = f"U-Mos's reward for returning the Sanctuary energy is {item[1]}."
@@ -431,8 +442,6 @@ def test_create_hints_light_suit_location(echoes_game_patches, players_config, b
     ("reference_precision", "reference_name"),
     [
         (HintItemPrecision.DETAILED, "the Reference Pickup"),
-        (HintItemPrecision.PRECISE_CATEGORY, "a suit"),
-        (HintItemPrecision.BROAD_CATEGORY, "a life support system"),
     ],
 )
 @pytest.mark.parametrize(
@@ -459,8 +468,7 @@ def test_create_message_for_hint_relative_item(
         ]
     )
 
-    hint = Hint(
-        HintType.LOCATION,
+    hint = LocationHint(
         PrecisionPair(
             HintLocationPrecision.RELATIVE_TO_INDEX,
             HintItemPrecision.DETAILED,
@@ -470,11 +478,11 @@ def test_create_message_for_hint_relative_item(
         PickupIndex(5),
     )
 
-    namer = EchoesHintNamer({0: patches}, PlayersConfiguration(0, {0: "You"}))
-    exporter = HintExporter(namer, random.Random(0), ["A Joke"])
+    namer = EchoesHintNamer({0: patches}, players_config)
+    exporter = HintExporter(namer, random.Random(0), ["A Joke"], echoes_game_patches.game)
 
     # Run
-    result = exporter.create_message_for_hint(hint, {0: patches}, players_config, True)
+    result = exporter.create_message_for_hint(hint, True)
 
     # Assert
     assert result == (
@@ -500,8 +508,7 @@ def test_create_message_for_hint_relative_area(
         ]
     )
 
-    hint = Hint(
-        HintType.LOCATION,
+    hint = LocationHint(
         PrecisionPair(
             HintLocationPrecision.RELATIVE_TO_AREA,
             HintItemPrecision.DETAILED,
@@ -511,15 +518,56 @@ def test_create_message_for_hint_relative_area(
         PickupIndex(5),
     )
 
-    namer = EchoesHintNamer({0: patches}, PlayersConfiguration(0, {0: "You"}))
-    exporter = HintExporter(namer, random.Random(0), ["A Joke"])
+    namer = EchoesHintNamer({0: patches}, players_config)
+    exporter = HintExporter(namer, random.Random(0), ["A Joke"], patches.game)
 
     # Run
-    result = exporter.create_message_for_hint(hint, {0: patches}, players_config, True)
+    result = exporter.create_message_for_hint(hint, True)
 
     # Assert
     assert result == (
         f"The &push;&main-color=#FF6705B3;Blank Pickup&pop; can be found "
         f"&push;&main-color=#FF3333;{distance_text} {10 + (offset or 0)} rooms&pop; away from "
         f"Torvus Bog - Great Bridge."
+    )
+
+
+@pytest.mark.parametrize("item_feature_id", ["suit", "beam"])
+@pytest.mark.parametrize("loc_feature_id", ["half_pipe", "boss"])
+def test_create_message_for_featural_hint(
+    item_feature_id: str,
+    loc_feature_id: str,
+    echoes_game_patches,
+    blank_pickup,
+    echoes_pickup_database,
+    echoes_game_description,
+    players_config,
+):
+    patches = echoes_game_patches.assign_new_pickups(
+        [
+            (PickupIndex(5), PickupTarget(blank_pickup, 0)),
+        ]
+    )
+
+    namer = EchoesHintNamer({0: patches}, players_config)
+    exporter = HintExporter(namer, random.Random(0), ["A Joke"], patches.game)
+
+    loc_feature = echoes_game_description.hint_feature_database[loc_feature_id]
+    item_feature = echoes_pickup_database.pickup_categories[item_feature_id]
+    hint = LocationHint(
+        PrecisionPair(
+            loc_feature,
+            item_feature,
+            include_owner=False,
+        ),
+        PickupIndex(5),
+    )
+
+    # Run
+    result = exporter.create_message_for_hint(hint, True)
+
+    assert result == (
+        f"{item_feature.hint_details[0].capitalize()}"
+        f"&push;&main-color=#FF6705B3;{item_feature.hint_details[1]}&pop; "
+        f"can be found &push;&main-color=#FF3333;{loc_feature.hint_details[1]}&pop;."
     )

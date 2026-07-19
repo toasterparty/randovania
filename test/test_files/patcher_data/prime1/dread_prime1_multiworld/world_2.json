@@ -40,7 +40,7 @@
         "noDoors": false,
         "startingRoom": "Tallon Overworld:Landing Site",
         "warpToStart": true,
-        "springBall": false,
+        "springBallItem": "Spring Ball",
         "incineratorDroneConfig": {
             "eyeWaitInitialRandomTime": 0.0,
             "eyeWaitRandomTime": 0.0,
@@ -62,6 +62,7 @@
         "multiworldDolPatches": true,
         "doorOpenMode": "PrimaryBlastShield",
         "difficultyBehavior": "NormalOnly",
+        "blastShieldLockon": false,
         "disableItemLoss": true,
         "startingItems": {
             "powerBeam": true,
@@ -92,7 +93,7 @@
         },
         "etankCapacity": 100,
         "itemMaxCapacity": {
-            "Energy Tank": 200,
+            "Energy Tank": 127,
             "Power Bomb": 99,
             "Missile": 999,
             "Unknown Item 1": 65536
@@ -138,7 +139,10 @@
             "Artifact of Spirit": false,
             "Artifact of Newborn": false
         },
-        "requiredArtifactCount": 12
+        "requiredArtifactCount": 12,
+        "missileCosts": {
+            "Wavebuster": 8
+        }
     },
     "tweaks": {
         "hudColor": [
@@ -1203,6 +1207,22 @@
                         }
                     ]
                 },
+                "Dynamo Access": {
+                    "deleteIds": [
+                        1573289,
+                        1573288
+                    ],
+                    "triggers": [
+                        {
+                            "id": 1573176,
+                            "active": true
+                        },
+                        {
+                            "id": 1573177,
+                            "active": true
+                        }
+                    ]
+                },
                 "Elite Quarters": {
                     "pickups": [
                         {
@@ -1834,6 +1854,10 @@
                         "2": {
                             "shieldType": "Blue",
                             "blastShieldType": "Missile"
+                        },
+                        "4": {
+                            "shieldType": "Blue",
+                            "blastShieldType": "None"
                         }
                     }
                 },
@@ -2979,6 +3003,7 @@
         0
     ],
     "_randovania_meta": {
-        "layout_was_user_modified": true
+        "layout_was_user_modified": true,
+        "in_race_setting": false
     }
 }

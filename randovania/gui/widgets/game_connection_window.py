@@ -4,10 +4,10 @@ import collections
 import functools
 from typing import TYPE_CHECKING
 
-import wiiload  # type: ignore
+import wiiload  # type: ignore[import-untyped]
 from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtCore import Qt
-from qasync import asyncSlot  # type: ignore
+from qasync import asyncSlot
 
 import randovania
 from randovania.game.game_enum import RandovaniaGame
@@ -52,7 +52,7 @@ class BuilderUi:
     send_arbitrary_message_action: QtGui.QAction | None = None
     connector: RemoteConnector | None = None
 
-    def __init__(self, parent: QtWidgets.QWidget):
+    def __init__(self, parent: QtWidgets.QWidget) -> None:
         self.group = QtWidgets.QGroupBox(parent)
         self.layout = QtWidgets.QGridLayout(self.group)
         self.join_session = None
@@ -78,9 +78,12 @@ class BuilderUi:
         self.layout.addWidget(self.status, 1, 0, 1, 2)
 
     def update_for_disconnected_builder(self, builder: ConnectorBuilder) -> None:
-        message = "Not Connected."
-        if (status := builder.get_status_message()) is not None:
-            message += f" {status}"
+        if builder.enabled:
+            message = "Not Connected."
+            if (status := builder.get_status_message()) is not None:
+                message += f" {status}"
+        else:
+            message = "Disabled."
 
         self.status.setText(message)
         self.open_session_action.setEnabled(False)
@@ -168,7 +171,7 @@ class GameConnectionWindow(QtWidgets.QMainWindow, Ui_GameConnectionWindow):
         network_client: QtNetworkClient,
         options: Options,
         game_connection: GameConnection,
-    ):
+    ) -> None:
         super().__init__()
         common_qt_lib.set_default_window_icon(self)
         self.setupUi(self)
@@ -183,6 +186,10 @@ class GameConnectionWindow(QtWidgets.QMainWindow, Ui_GameConnectionWindow):
         self.add_builder_menu = QtWidgets.QMenu(self.add_builder_button)
         self._builder_actions = {}
         for choice in ConnectorBuilderChoice.all_usable_choices():
+            if choice == ConnectorBuilderChoice.ABANDONED:
+                # an abandoned world connection is bound to a specific world, so it's added from that
+                # world's context menu in the session window instead
+                continue
             action = QtGui.QAction(choice.pretty_text, self.add_builder_menu)
             self._builder_actions[choice] = action
             action.triggered.connect(functools.partial(self._add_connector_builder, choice))
@@ -192,7 +199,7 @@ class GameConnectionWindow(QtWidgets.QMainWindow, Ui_GameConnectionWindow):
         self.help_label.linkActivated.connect(self.window_manager.open_app_navigation_link)
         self.game_connection.BuildersChanged.connect(self.setup_builder_ui)
         self.game_connection.BuildersUpdated.connect(self.update_builder_ui)
-        self.game_connection.GameStateUpdated.connect(self.update_builder_ui)
+        self.game_connection.GameStateUpdated.connect(lambda state: self.update_builder_ui())
         self.world_database.WorldDataUpdate.connect(self.update_builder_ui)
         self.window_manager.multiworld_client.SyncFailure.connect(self.update_builder_ui)
         self.setup_builder_ui()
@@ -268,7 +275,7 @@ class GameConnectionWindow(QtWidgets.QMainWindow, Ui_GameConnectionWindow):
             new_ip = await MSRConnectorPromptDialog.prompt(
                 parent=self,
                 is_modal=True,
-                title="Select Citra or Luma3DS to connect to",
+                title="Select Azahar or Luma3DS to connect to",
                 description="Enter the IP address of your 3DS. It can be found in the system settings.",
             )
             if new_ip is None:
@@ -347,6 +354,11 @@ class GameConnectionWindow(QtWidgets.QMainWindow, Ui_GameConnectionWindow):
             functools.partial(self.game_connection.remove_connection_builder, builder)
         )
 
+        action = ui.menu.addAction("Enabled")
+        action.setCheckable(True)
+        action.setChecked(builder.enabled)
+        action.triggered.connect(functools.partial(self.game_connection.toggle_builder_enabled, builder))
+
         ui.menu.addSeparator()
         ui.open_session_action = ui.menu.addAction("Open Session Window")
         ui.open_session_action.triggered.connect(functools.partial(self._attempt_join, builder))
@@ -397,9 +409,12 @@ class GameConnectionWindow(QtWidgets.QMainWindow, Ui_GameConnectionWindow):
         box.show()
 
         try:
+            builder.logger.debug("Uploading Nintendont to the Wii...")
             await wiiload.upload_file(nintendont_file, [], builder.ip)
+            builder.logger.debug("Nintendont upload successful.")
             box.setText("Upload finished successfully. Check your Wii for more.")
         except Exception as e:
+            builder.logger.warning(f"Error while uploading Nintendont to the Wii: {e}")
             box.setText(f"Error uploading to Wii: {e}")
         finally:
             box.button(QtWidgets.QMessageBox.StandardButton.Ok).setEnabled(True)

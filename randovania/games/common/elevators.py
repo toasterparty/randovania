@@ -1,12 +1,16 @@
 from __future__ import annotations
 
+import typing
 from typing import TYPE_CHECKING
 
 from randovania.game_description.db.dock_node import DockNode
 
 if TYPE_CHECKING:
+    from randovania.game_description.db.area import Area
+    from randovania.game_description.db.area_identifier import AreaIdentifier
+    from randovania.game_description.db.node import Node
     from randovania.game_description.db.node_identifier import NodeIdentifier
-    from randovania.game_description.db.region_list import RegionList
+    from randovania.game_description.db.region import Region
     from randovania.game_description.game_description import GameDescription
 
 
@@ -19,23 +23,19 @@ def get_elevator_name_or_default(game: GameDescription, node_location: NodeIdent
 
 
 def get_elevator_or_area_name(
-    game: GameDescription, region_list: RegionList, node_location: NodeIdentifier, include_world_name: bool
+    node: Node,
+    include_region_name: bool,
 ) -> str:
-    return _get_elevator_or_area_name(game, region_list, node_location, include_world_name)
-
-
-def _get_elevator_or_area_name(
-    game: GameDescription,
-    region_list: RegionList,
-    node_location: NodeIdentifier,
-    include_world_name: bool,
-) -> str:
-    node = game.region_list.node_by_identifier(node_location)
     if isinstance(node, DockNode) and node.ui_custom_name:
         return node.ui_custom_name
     else:
-        area = region_list.area_by_area_location(node_location.area_identifier)
-        if include_world_name:
-            return region_list.area_name(area)
+        if include_region_name:
+            return f"{node.identifier.region} - {node.identifier.area}"
         else:
-            return area.name
+            return node.identifier.area
+
+
+class NodeListGrouping(typing.NamedTuple):
+    region_groups: list[list[Region]]
+    areas_by_region: dict[str, list[Area]]
+    nodes_by_area: dict[AreaIdentifier, list[Node]]

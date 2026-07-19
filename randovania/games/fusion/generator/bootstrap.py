@@ -1,58 +1,78 @@
 from __future__ import annotations
 
+import copy
 import dataclasses
 from typing import TYPE_CHECKING
 
-from randovania.games.fusion.generator.pool_creator import INFANT_METROID_CATEGORY
+from randovania.game_description.resources.damage_reduction import DamageReduction
+from randovania.game_description.resources.location_category import LocationCategory
 from randovania.games.fusion.layout import FusionConfiguration
+from randovania.layout.base.available_locations import RandomizationMode
 from randovania.resolver.bootstrap import Bootstrap
 from randovania.resolver.energy_tank_damage_state import EnergyTankDamageState
 
 if TYPE_CHECKING:
+    from collections.abc import Callable
     from random import Random
 
     from randovania.game_description.db.pickup_node import PickupNode
+    from randovania.game_description.game_database_view import GameDatabaseView, ResourceDatabaseView
     from randovania.game_description.game_description import GameDescription
     from randovania.game_description.game_patches import GamePatches
     from randovania.game_description.resources.resource_collection import ResourceCollection
     from randovania.game_description.resources.resource_database import ResourceDatabase
     from randovania.generator.pickup_pool import PoolResults
-    from randovania.layout.base.base_configuration import BaseConfiguration
     from randovania.resolver.damage_state import DamageState
 
 
-def is_metroid_location(node: PickupNode, config: BaseConfiguration) -> bool:
-    assert isinstance(config, FusionConfiguration)
-    _boss_indices = [100, 106, 114, 104, 115, 107, 110, 102, 109, 108, 111]
-    artifact_config = config.artifacts
-    index = node.pickup_index.index
-    return artifact_config.prefer_bosses and index in _boss_indices
+def is_metroid_location(node: PickupNode, config: FusionConfiguration) -> bool:
+    # Returns True for all locations, enabling Metroids to be pre-placed at any PickupNode
+    return True
 
 
-class FusionBootstrap(Bootstrap):
-    def create_damage_state(self, game: GameDescription, configuration: BaseConfiguration) -> DamageState:
-        assert isinstance(configuration, FusionConfiguration)
+def is_major_metroid_location_predicate(game: GameDescription) -> Callable[[PickupNode, FusionConfiguration], bool]:
+    def is_major_metroid_location(node: PickupNode, config: FusionConfiguration) -> bool:
+        return game.region_list.node_from_pickup_index(node.pickup_index).location_category == LocationCategory.MAJOR
+
+    return is_major_metroid_location
+
+
+def get_metroid_location_predicate(
+    game: GameDescription, config: FusionConfiguration
+) -> Callable[[PickupNode, FusionConfiguration], bool]:
+    return (
+        is_metroid_location
+        if config.available_locations.randomization_mode == RandomizationMode.FULL
+        else is_major_metroid_location_predicate(game)
+    )
+
+
+class FusionBootstrap(Bootstrap[FusionConfiguration]):
+    def create_damage_state(self, game: GameDatabaseView, configuration: FusionConfiguration) -> DamageState:
         return EnergyTankDamageState(
             configuration.energy_per_tank - 1,
             configuration.energy_per_tank,
-            game.resource_database,
-            game.region_list,
+            game.get_resource_database_view().get_item("EnergyTank"),
+            [
+                game.get_resource_database_view().get_item("VariaSuit"),
+                game.get_resource_database_view().get_item("GravitySuit"),
+            ],
         )
 
     def _get_enabled_misc_resources(
-        self, configuration: BaseConfiguration, resource_database: ResourceDatabase
+        self, configuration: FusionConfiguration, resource_database: ResourceDatabaseView
     ) -> set[str]:
         enabled_resources = set()
         if configuration.dock_rando.is_enabled():
             enabled_resources.add("DoorLockRando")
+        if configuration.adjusted_geron_weaknesses:
+            enabled_resources.add("NerfGerons")
         enabled_resources.add("BomblessPBs")
         enabled_resources.add("GeneratorHack")
         return enabled_resources
 
-    def _damage_reduction(self, db: ResourceDatabase, current_resources: ResourceCollection) -> float:
-        num_suits = sum(
-            (1 if current_resources[db.get_item_by_name(suit)] else 0) for suit in ("Varia Suit", "Gravity Suit")
-        )
+    def _damage_reduction(self, db: ResourceDatabaseView, current_resources: ResourceCollection) -> float:
+        num_suits = sum((1 if current_resources[db.get_item(suit)] else 0) for suit in ("VariaSuit", "GravitySuit"))
         dr = 1.0
         if num_suits == 1:
             dr = 0.9
@@ -61,16 +81,44 @@ class FusionBootstrap(Bootstrap):
 
         return dr
 
-    def patch_resource_database(self, db: ResourceDatabase, configuration: BaseConfiguration) -> ResourceDatabase:
-        return dataclasses.replace(db, base_damage_reduction=self._damage_reduction)
+    def patch_resource_database(self, db: ResourceDatabase, configuration: FusionConfiguration) -> ResourceDatabase:
+        damage_reductions = copy.copy(db.damage_reductions)
+        default_lava_dmg = 20
+        default_acid_dmg = 60
+        default_heat_dmg = 6
+        default_cold_dmg = 15
+        damage_reductions[db.get_damage("LavaDamage")] = [
+            DamageReduction(None, 0, configuration.lava_damage / default_lava_dmg),
+            # FIXME the "/ 0.9" is required to offset the base_reduction until it can be ignored
+            DamageReduction(
+                db.get_item_by_display_name("Varia Suit"), 1, (configuration.lava_damage / default_lava_dmg) / 0.9
+            ),
+            DamageReduction(db.get_item_by_display_name("Both Suits"), 2, 0.0),
+        ]
+        damage_reductions[db.get_damage("AcidDamage")] = [
+            DamageReduction(None, 0, configuration.acid_damage / default_acid_dmg),
+        ]
+        damage_reductions[db.get_damage("HeatDamage")] = [
+            DamageReduction(None, 0, configuration.heat_damage / default_heat_dmg),
+            DamageReduction(db.get_item_by_display_name("Varia Suit"), 1, 0.0),
+        ]
+        damage_reductions[db.get_damage("ColdDamage")] = [
+            DamageReduction(None, 0, configuration.cold_damage / default_cold_dmg),
+            DamageReduction(db.get_item_by_display_name("Varia Suit"), 1, 0.0),
+        ]
+        return dataclasses.replace(
+            db, base_damage_reduction=self._damage_reduction, damage_reductions=damage_reductions
+        )
 
-    def assign_pool_results(self, rng: Random, patches: GamePatches, pool_results: PoolResults) -> GamePatches:
-        assert isinstance(patches.configuration, FusionConfiguration)
-        config = patches.configuration.artifacts
-
-        if config.prefer_anywhere:
-            return super().assign_pool_results(rng, patches, pool_results)
-
-        locations = self.all_preplaced_item_locations(patches.game, patches.configuration, is_metroid_location)
-        self.pre_place_items(rng, locations, pool_results, INFANT_METROID_CATEGORY)
-        return super().assign_pool_results(rng, patches, pool_results)
+    def assign_pool_results(
+        self, rng: Random, configuration: FusionConfiguration, patches: GamePatches, pool_results: PoolResults
+    ) -> GamePatches:
+        pickups_to_preplace = [
+            pickup for pickup in list(pool_results.to_place) if pickup.gui_category.name == "InfantMetroid"
+        ]
+        locations = self.all_preplaced_pickup_locations(
+            patches.game, configuration, get_metroid_location_predicate(patches.game, configuration)
+        )
+        weighted_locations = {location: location.extra["infant_weight"] for location in locations}
+        self.pre_place_pickups_weighted(rng, pickups_to_preplace, weighted_locations, pool_results, patches.game.game)
+        return super().assign_pool_results(rng, configuration, patches, pool_results)

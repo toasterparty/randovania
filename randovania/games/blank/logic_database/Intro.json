@@ -4,14 +4,17 @@
     "areas": {
         "Starting Area": {
             "default_node": "Spawn Point",
+            "hint_features": [
+                "hint1"
+            ],
             "extra": {},
             "nodes": {
                 "Spawn Point": {
                     "node_type": "generic",
                     "heal": true,
                     "coordinates": {
-                        "x": 305.34759358288767,
-                        "y": 194.6524064171123,
+                        "x": 304.35,
+                        "y": 194.65,
                         "z": 0.0
                     },
                     "description": "",
@@ -111,11 +114,19 @@
                             }
                         },
                         "Event - Post Weapon": {
-                            "type": "node",
+                            "type": "or",
                             "data": {
-                                "region": "Intro",
-                                "area": "Starting Area",
-                                "node": "Pickup (Weapon)"
+                                "comment": "This connection is for testing a NodeRequirement",
+                                "items": [
+                                    {
+                                        "type": "node",
+                                        "data": {
+                                            "region": "Intro",
+                                            "area": "Starting Area",
+                                            "node": "Pickup (Weapon)"
+                                        }
+                                    }
+                                ]
                             }
                         }
                     }
@@ -124,8 +135,8 @@
                     "node_type": "pickup",
                     "heal": false,
                     "coordinates": {
-                        "x": 61.74306734578382,
-                        "y": 206.22524052065646,
+                        "x": 61.74,
+                        "y": 206.23,
                         "z": 0.0
                     },
                     "description": "",
@@ -136,6 +147,10 @@
                     "valid_starting_location": false,
                     "pickup_index": 0,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [
+                        "hint2"
+                    ],
                     "connections": {
                         "Spawn Point": {
                             "type": "and",
@@ -198,6 +213,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 1,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Spawn Point": {
                             "type": "and",
@@ -248,11 +265,11 @@
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
-                        "x": 236.79308050565535,
-                        "y": 382.63473053892216,
+                        "x": 236.79,
+                        "y": 382.63,
                         "z": 0.0
                     },
-                    "description": "",
+                    "description": "This dock can only be opened from this side! This is because the other side has\na lock that has an Impossible requirement to get destroyed but is of type\n\"FRONT_BLAST_BACK_FREE_UNLOCK\".",
                     "layers": [
                         "default"
                     ],
@@ -284,11 +301,11 @@
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
-                        "x": 203.2258064516129,
-                        "y": 36.44595359366156,
+                        "x": 203.23,
+                        "y": 36.45,
                         "z": 0.0
                     },
-                    "description": "",
+                    "description": "If multiple Docks connect to the same Area, they need to be differentiated by\nhaving an extra identifier in paratheses. In addition, this Dock can not be\nopened from this side! This is because the connecting Dock has a lock of the\ntype \"FRONT_BLAST_BACK_IMPOSSIBLE\".",
                     "layers": [
                         "default"
                     ],
@@ -320,11 +337,11 @@
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
-                        "x": 379.7962648556876,
-                        "y": 12.676853423882278,
+                        "x": 379.8,
+                        "y": 12.68,
                         "z": 0.0
                     },
-                    "description": "",
+                    "description": "If multiple Docks connect to the same Area, they need to be differentiated by\nhaving an extra identifier in paratheses.",
                     "layers": [
                         "default"
                     ],
@@ -356,11 +373,11 @@
                     "node_type": "generic",
                     "heal": false,
                     "coordinates": {
-                        "x": 527.4837511606314,
-                        "y": 37.511606313834704,
+                        "x": 527.48,
+                        "y": 37.51,
                         "z": 0.0
                     },
-                    "description": "",
+                    "description": "If an Area has multiple Spawn Points the game needs some slightly different\nhandling, so let's have one.",
                     "layers": [
                         "default"
                     ],
@@ -477,6 +494,9 @@
         },
         "Boss Arena": {
             "default_node": null,
+            "hint_features": [
+                "boss"
+            ],
             "extra": {
                 "map_name": "Square"
             },
@@ -610,7 +630,7 @@
                         "y": 51.22,
                         "z": 0.0
                     },
-                    "description": "",
+                    "description": "This pickup is on a different layer. Thus, this node and the connection to/out\nof it will only be present if this layer is active",
                     "layers": [
                         "extra_pickups"
                     ],
@@ -618,6 +638,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 5,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Starting Area": {
                             "type": "and",
@@ -632,6 +654,12 @@
         },
         "Explosive Depot": {
             "default_node": null,
+            "hint_features": [
+                "hint1",
+                "hint2",
+                "hint3",
+                "hint4"
+            ],
             "extra": {
                 "map_name": "Square"
             },
@@ -695,6 +723,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 2,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Starting Area": {
                             "type": "and",
@@ -745,6 +775,7 @@
         },
         "Back-Only Lock Room": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Square"
             },
@@ -753,11 +784,11 @@
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
-                        "x": 118.90108671545798,
-                        "y": 13.972055888223537,
+                        "x": 118.9,
+                        "y": 13.97,
                         "z": 0.0
                     },
-                    "description": "",
+                    "description": "This dock can not be opened from this side! This is because this side has a\nlock that has an Impossible requirement to get destroyed but is of type\n\"FRONT_BLAST_BACK_FREE_UNLOCK\".",
                     "layers": [
                         "default"
                     ],
@@ -826,6 +857,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 6,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Starting Area": {
                             "type": "and",
@@ -881,7 +914,7 @@
                         "y": 213.9,
                         "z": 0.0
                     },
-                    "description": "Just so the event+pickup don't become an EventPickup node\n\n",
+                    "description": "The generator combines a path of Event -> Pickup into one EventPickup node.\nThus this Middle Node is placed so that it doesn't do that.",
                     "layers": [
                         "default"
                     ],
@@ -901,6 +934,7 @@
         },
         "Blue Key Room": {
             "default_node": "Spawn Point",
+            "hint_features": [],
             "extra": {
                 "map_name": "Square"
             },
@@ -909,11 +943,11 @@
                     "node_type": "dock",
                     "heal": false,
                     "coordinates": {
-                        "x": 62.983399358611585,
-                        "y": 234.64912280701753,
+                        "x": 62.98,
+                        "y": 234.65,
                         "z": 0.0
                     },
-                    "description": "",
+                    "description": "This Dock can only be opened from this side! This is because this Dock has a\nlock of the type \"FRONT_BLAST_BACK_IMPOSSIBLE\".",
                     "layers": [
                         "default"
                     ],
@@ -1018,6 +1052,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 4,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Spawn Point": {
                             "type": "and",
@@ -1070,6 +1106,7 @@
         },
         "Hint Room": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Square"
             },
@@ -1114,6 +1151,20 @@
                                 "comment": null,
                                 "items": []
                             }
+                        },
+                        "Hint Specific Location": {
+                            "type": "and",
+                            "data": {
+                                "comment": null,
+                                "items": []
+                            }
+                        },
+                        "Hint Specific Pickup": {
+                            "type": "and",
+                            "data": {
+                                "comment": null,
+                                "items": []
+                            }
                         }
                     }
                 },
@@ -1125,7 +1176,7 @@
                         "y": 171.73,
                         "z": 0.0
                     },
-                    "description": "",
+                    "description": "This is a HintNode that requires having a resource in order to read the hint.\nThe node however can still be visited and passed through.",
                     "layers": [
                         "default"
                     ],
@@ -1170,7 +1221,7 @@
                         "y": 81.76,
                         "z": 0.0
                     },
-                    "description": "",
+                    "description": "This is a HintNode that requires no resources to read the hint, and thus can be\nread as soon as it is reached.",
                     "layers": [
                         "default"
                     ],
@@ -1195,11 +1246,82 @@
                             }
                         }
                     }
+                },
+                "Hint Specific Location": {
+                    "node_type": "hint",
+                    "heal": false,
+                    "coordinates": {
+                        "x": 91.12,
+                        "y": 45.82,
+                        "z": 0.0
+                    },
+                    "description": "This is a SpecificLocationHintNode. It provides a hint that always tells you\nabout the pickup with index 0.",
+                    "layers": [
+                        "default"
+                    ],
+                    "extra": {},
+                    "valid_starting_location": false,
+                    "kind": "specific-location",
+                    "requirement_to_collect": {
+                        "type": "and",
+                        "data": {
+                            "comment": null,
+                            "items": []
+                        }
+                    },
+                    "target_index": 0,
+                    "connections": {
+                        "Door to Explosive Depot": {
+                            "type": "and",
+                            "data": {
+                                "comment": null,
+                                "items": []
+                            }
+                        }
+                    }
+                },
+                "Hint Specific Pickup": {
+                    "node_type": "hint",
+                    "heal": false,
+                    "coordinates": {
+                        "x": 75.88,
+                        "y": 204.18,
+                        "z": 0.0
+                    },
+                    "description": "This is a SpecificPickupHintNode. It doesn't actually place any hints on its\nown - that gets handled later, by the game exporter. This node exists so that\nthe generator can have an increased weight for actions that unlock it, like\nother HintNodes do.",
+                    "layers": [
+                        "default"
+                    ],
+                    "extra": {},
+                    "valid_starting_location": false,
+                    "kind": "specific-pickup",
+                    "requirement_to_collect": {
+                        "type": "and",
+                        "data": {
+                            "comment": null,
+                            "items": []
+                        }
+                    },
+                    "specific_pickup_hint_id": "victory_key",
+                    "connections": {
+                        "Door to Explosive Depot": {
+                            "type": "and",
+                            "data": {
+                                "comment": null,
+                                "items": []
+                            }
+                        }
+                    }
                 }
             }
         },
         "Heated Room": {
             "default_node": null,
+            "hint_features": [
+                "hint1",
+                "hint2",
+                "hint3"
+            ],
             "extra": {
                 "map_name": "Orange"
             },
@@ -1220,6 +1342,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 3,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Starting Area": {
                             "type": "and",
@@ -1257,7 +1381,7 @@
                         "y": 52.69,
                         "z": 0.0
                     },
-                    "description": "",
+                    "description": "This is a pickup that requires taking damage. The values are chosen such that\nthe starting health is enough to reach the pickup, but not enough to get back\nto the door, on all damage strictness levels. A health pickup can be placed\nhere to refill the player and allow them to go back.",
                     "layers": [
                         "default"
                     ],
@@ -1291,6 +1415,7 @@
         },
         "Ledge Room": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Square"
             },
@@ -1366,11 +1491,11 @@
                     "node_type": "generic",
                     "heal": false,
                     "coordinates": {
-                        "x": 89.25452957869462,
-                        "y": 59.78498144509933,
+                        "x": 89.25,
+                        "y": 59.78,
                         "z": 0.0
                     },
-                    "description": "",
+                    "description": "This room is designed in a way to reproduce a situation where you get access to\nthe first item in a progressive chain inside of a point of no return, where you\nalso need the second item in the progressive chain to escape.",
                     "layers": [
                         "default"
                     ],
@@ -1446,6 +1571,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 7,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Bottom": {
                             "type": "and",
@@ -1472,6 +1599,10 @@
                     "valid_starting_location": false,
                     "pickup_index": 8,
                     "location_category": "major",
+                    "custom_index_group": null,
+                    "hint_features": [
+                        "ledge"
+                    ],
                     "connections": {
                         "Low Ledge": {
                             "type": "and",
@@ -1486,6 +1617,7 @@
         },
         "Empty Area": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "Square"
             },

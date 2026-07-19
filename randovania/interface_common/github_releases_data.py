@@ -9,6 +9,7 @@ import aiofiles
 import aiohttp
 
 from randovania.interface_common import persistence
+from randovania.lib import http_lib
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -20,7 +21,7 @@ def _last_check_file() -> Path:
     return persistence.local_data_dir() / "last_releases.json"
 
 
-def _is_recent(last_check) -> bool:
+def _is_recent(last_check: dict) -> bool:
     last_check_date = datetime.datetime.fromisoformat(last_check["last_check"])
     return (datetime.datetime.now() - last_check_date) <= datetime.timedelta(days=1)
 
@@ -44,7 +45,7 @@ async def _read_from_persisted() -> list[dict] | None:
 
 
 async def _download_from_github(page_size: int = 100) -> list[dict] | None:
-    async with aiohttp.ClientSession() as session:
+    async with http_lib.http_session() as session:
         try:
             result = []
 
@@ -64,7 +65,7 @@ async def _download_from_github(page_size: int = 100) -> list[dict] | None:
             return None
 
 
-async def _persist(data: list[dict]):
+async def _persist(data: list[dict]) -> None:
     _last_check_file().parent.mkdir(parents=True, exist_ok=True)
 
     async with aiofiles.open(_last_check_file(), "w") as open_file:
@@ -79,7 +80,7 @@ async def _persist(data: list[dict]):
         )
 
 
-async def get_releases() -> list[dict] | None:
+async def get_releases() -> list[dict]:
     data = await _read_from_persisted()
 
     if data is None:

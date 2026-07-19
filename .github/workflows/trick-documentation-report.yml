@@ -21,31 +21,32 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Workaround for worktree config
         run: git config --unset-all extensions.worktreeConfig || true
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v8.3.2
         with:
-          python-version: "3.12"
+          version: "0.11.28"
+          enable-cache: true
 
-      - name: Install core Python packages
-        run: python -m pip install --upgrade -r requirements-setuptools.txt
+      - name: Set up Python
+        uses: actions/setup-python@v6
 
       - name: Install Python packages
-        run: python -m pip install -c requirements.txt -e .[server]
+        run: uv sync --extra server
 
       - name: Post Report
-        run: python tools/trick_documentation_report.py reports/
+        run: uv run --with discord tools/trick_documentation_report.py reports/
         env:
           WEBHOOK_URL: ${{ secrets.GENERAL_TALK_WEBHOOK }}
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Reports
           if-no-files-found: error

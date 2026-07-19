@@ -3672,7 +3672,7 @@
                 "actor": "accesspoint_001"
             },
             "hint_id": "LAB_2",
-            "text": "{c4}A joke hint.{c0}"
+            "text": "{c4}Don't forget that you can always get help if you are struggling.{c0}"
         },
         {
             "accesspoint_actor": {
@@ -3745,7 +3745,6 @@
         "Speed Booster": "{c3}World 4{c0}'s Artaria - Waterfall",
         "Progressive Spin": "{c3}World 1{c0}'s The Tower - Tower Exterior South East\n{c3}World 4{c0}'s Burenia - Gravity Suit Tower",
         "Screw Attack": "{c3}World 1{c0}'s The Tower - Inner Zeta Nest",
-        "Speed Booster Upgrade": "{c3}World 1{c0}'s Main Caves - Fat Crocomire Room\n{c3}World 1{c0}'s The Tower - Exterior Zeta Nest East",
         "Metroid DNA 1": "{c3}World 4{c0}'s Cataris - Central Unit Access",
         "Metroid DNA 2": "{c3}World 4{c0}'s Cataris - Kraid Arena",
         "Metroid DNA 3": "{c3}World 4{c0}'s Dairon - Central Unit Access",
@@ -3771,6 +3770,7 @@
         },
         "lua": {
             "custom_init": {
+                "show_dna_in_hud": false,
                 "enable_death_counter": false,
                 "enable_room_name_display": "NEVER"
             }
@@ -3783,11 +3783,16 @@
             "cross_bomb": "DEFAULT",
             "power_bomb": "ALTERNATE",
             "closed": "DEFAULT"
-        }
+        },
+        "split_saves": false
     },
     "energy_per_tank": 100,
     "immediate_energy_parts": true,
+    "has_flash_upgrades": true,
+    "has_speed_upgrades": true,
     "enable_remote_lua": true,
+    "enable_logging": false,
+    "skip_item_popups": false,
     "constant_environment_damage": {
         "heat": 20,
         "cold": 20,
@@ -3836,8 +3841,12 @@
             "{c1}Metroid DNA 4{c0} is guarded by {c3}World 4{c0}'s {c2}E.M.M.I.-05IM{c0}.|{c1}Metroid DNA 5{c0} is guarded by {c3}World 4{c0}'s {c2}Experiment Z-57{c0}."
         ]
     },
+    "mass_delete_actors": {
+        "to_remove": []
+    },
     "layout_uuid": "00000000-0000-1111-0000-000000000000",
     "_randovania_meta": {
-        "layout_was_user_modified": true
+        "layout_was_user_modified": true,
+        "in_race_setting": false
     }
 }

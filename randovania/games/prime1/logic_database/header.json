@@ -1,5 +1,5 @@
 {
-    "schema_version": 27,
+    "schema_version": 33,
     "game": "prime1",
     "resource_database": {
         "items": {
@@ -173,7 +173,7 @@
             },
             "EnergyTank": {
                 "long_name": "Energy Tank",
-                "max_capacity": 200,
+                "max_capacity": 127,
                 "extra": {
                     "item_id": 24
                 }
@@ -576,6 +576,10 @@
             "Event57": {
                 "long_name": "Control Tower Fight",
                 "extra": {}
+            },
+            "ActivateMainPlazaWasps": {
+                "long_name": "Activate Main Plaza Wasps",
+                "extra": {}
             }
         },
         "tricks": {
@@ -790,7 +794,7 @@
                 "extra": {}
             },
             "dock_rando": {
-                "long_name": "Dock Rando",
+                "long_name": "Door Lock Rando",
                 "extra": {}
             },
             "hard_mode": {
@@ -1301,6 +1305,542 @@
                         ]
                     }
                 }
+            },
+            "Can Use Boost Ball": {
+                "display_name": "Can Use Boost Ball",
+                "requirement": {
+                    "type": "and",
+                    "data": {
+                        "comment": null,
+                        "items": [
+                            {
+                                "type": "resource",
+                                "data": {
+                                    "type": "items",
+                                    "name": "MorphBall",
+                                    "amount": 1,
+                                    "negate": false
+                                }
+                            },
+                            {
+                                "type": "resource",
+                                "data": {
+                                    "type": "items",
+                                    "name": "Boost",
+                                    "amount": 1,
+                                    "negate": false
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "Can Use Spider Ball": {
+                "display_name": "Can Use Spider Ball",
+                "requirement": {
+                    "type": "and",
+                    "data": {
+                        "comment": null,
+                        "items": [
+                            {
+                                "type": "resource",
+                                "data": {
+                                    "type": "items",
+                                    "name": "MorphBall",
+                                    "amount": 1,
+                                    "negate": false
+                                }
+                            },
+                            {
+                                "type": "resource",
+                                "data": {
+                                    "type": "items",
+                                    "name": "Spider",
+                                    "amount": 1,
+                                    "negate": false
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "Can Use Bombs": {
+                "display_name": "Can Use Bombs",
+                "requirement": {
+                    "type": "and",
+                    "data": {
+                        "comment": null,
+                        "items": [
+                            {
+                                "type": "resource",
+                                "data": {
+                                    "type": "items",
+                                    "name": "MorphBall",
+                                    "amount": 1,
+                                    "negate": false
+                                }
+                            },
+                            {
+                                "type": "resource",
+                                "data": {
+                                    "type": "items",
+                                    "name": "Bombs",
+                                    "amount": 1,
+                                    "negate": false
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "Can Use Power Bombs": {
+                "display_name": "Can Use Power Bombs",
+                "requirement": {
+                    "type": "and",
+                    "data": {
+                        "comment": null,
+                        "items": [
+                            {
+                                "type": "resource",
+                                "data": {
+                                    "type": "items",
+                                    "name": "MorphBall",
+                                    "amount": 1,
+                                    "negate": false
+                                }
+                            },
+                            {
+                                "type": "resource",
+                                "data": {
+                                    "type": "items",
+                                    "name": "PowerBomb",
+                                    "amount": 1,
+                                    "negate": false
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "Kill Elite Pirate": {
+                "display_name": "Kill Elite Pirate",
+                "requirement": {
+                    "type": "and",
+                    "data": {
+                        "comment": "Used for killing Elite Pirates. Note that the Phazon Elite in Elite Research does not use this template.",
+                        "items": [
+                            {
+                                "type": "template",
+                                "data": "Shoot Any Beam"
+                            },
+                            {
+                                "type": "or",
+                                "data": {
+                                    "comment": null,
+                                    "items": [
+                                        {
+                                            "type": "or",
+                                            "data": {
+                                                "comment": "Circle around Pirate: https://youtu.be/20peXRPG-e0",
+                                                "items": [
+                                                    {
+                                                        "type": "and",
+                                                        "data": {
+                                                            "comment": "Beam only",
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 2,
+                                                                        "negate": false
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "and",
+                                                        "data": {
+                                                            "comment": "Missile-spam strat",
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "or",
+                                                                    "data": {
+                                                                        "comment": null,
+                                                                        "items": [
+                                                                            {
+                                                                                "type": "and",
+                                                                                "data": {
+                                                                                    "comment": null,
+                                                                                    "items": [
+                                                                                        {
+                                                                                            "type": "resource",
+                                                                                            "data": {
+                                                                                                "type": "items",
+                                                                                                "name": "Missile",
+                                                                                                "amount": 10,
+                                                                                                "negate": false
+                                                                                            }
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "resource",
+                                                                                            "data": {
+                                                                                                "type": "misc",
+                                                                                                "name": "hard_mode",
+                                                                                                "amount": 1,
+                                                                                                "negate": true
+                                                                                            }
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "type": "and",
+                                                                                "data": {
+                                                                                    "comment": null,
+                                                                                    "items": [
+                                                                                        {
+                                                                                            "type": "resource",
+                                                                                            "data": {
+                                                                                                "type": "items",
+                                                                                                "name": "Missile",
+                                                                                                "amount": 20,
+                                                                                                "negate": false
+                                                                                            }
+                                                                                        },
+                                                                                        {
+                                                                                            "type": "resource",
+                                                                                            "data": {
+                                                                                                "type": "misc",
+                                                                                                "name": "hard_mode",
+                                                                                                "amount": 1,
+                                                                                                "negate": false
+                                                                                            }
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": "Normal Fight",
+                                                "items": [
+                                                    {
+                                                        "type": "or",
+                                                        "data": {
+                                                            "comment": "Damage requirements",
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "damage",
+                                                                        "name": "Damage",
+                                                                        "amount": 200,
+                                                                        "negate": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "and",
+                                                                    "data": {
+                                                                        "comment": null,
+                                                                        "items": [
+                                                                            {
+                                                                                "type": "resource",
+                                                                                "data": {
+                                                                                    "type": "tricks",
+                                                                                    "name": "Combat",
+                                                                                    "amount": 1,
+                                                                                    "negate": false
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "type": "resource",
+                                                                                "data": {
+                                                                                    "type": "damage",
+                                                                                    "name": "Damage",
+                                                                                    "amount": 40,
+                                                                                    "negate": false
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "or",
+                                                        "data": {
+                                                            "comment": "Weaponry",
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "items",
+                                                                        "name": "Charge",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "template",
+                                                                    "data": "Shoot Plasma Beam"
+                                                                }
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "or",
+                                                        "data": {
+                                                            "comment": "Dodging",
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "items",
+                                                                        "name": "SpaceJump",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "tricks",
+                                                                        "name": "Combat",
+                                                                        "amount": 1,
+                                                                        "negate": false
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "Has Any Visor": {
+                "display_name": "Has Any Visor",
+                "requirement": {
+                    "type": "or",
+                    "data": {
+                        "comment": null,
+                        "items": [
+                            {
+                                "type": "resource",
+                                "data": {
+                                    "type": "items",
+                                    "name": "Combat",
+                                    "amount": 1,
+                                    "negate": false
+                                }
+                            },
+                            {
+                                "type": "resource",
+                                "data": {
+                                    "type": "items",
+                                    "name": "Scan",
+                                    "amount": 1,
+                                    "negate": false
+                                }
+                            },
+                            {
+                                "type": "resource",
+                                "data": {
+                                    "type": "items",
+                                    "name": "Thermal",
+                                    "amount": 1,
+                                    "negate": false
+                                }
+                            },
+                            {
+                                "type": "resource",
+                                "data": {
+                                    "type": "items",
+                                    "name": "X-Ray",
+                                    "amount": 1,
+                                    "negate": false
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "Kill Chozo Ghosts": {
+                "display_name": "Kill Multiple Chozo Ghosts",
+                "requirement": {
+                    "type": "and",
+                    "data": {
+                        "comment": null,
+                        "items": [
+                            {
+                                "type": "template",
+                                "data": "Shoot Power Beam"
+                            },
+                            {
+                                "type": "or",
+                                "data": {
+                                    "comment": null,
+                                    "items": [
+                                        {
+                                            "type": "resource",
+                                            "data": {
+                                                "type": "tricks",
+                                                "name": "Combat",
+                                                "amount": 2,
+                                                "negate": false
+                                            }
+                                        },
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": "Charge Beam makes the fight easier and faster",
+                                                "items": [
+                                                    {
+                                                        "type": "resource",
+                                                        "data": {
+                                                            "type": "items",
+                                                            "name": "Charge",
+                                                            "amount": 1,
+                                                            "negate": false
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "or",
+                                                        "data": {
+                                                            "comment": null,
+                                                            "items": [
+                                                                {
+                                                                    "type": "resource",
+                                                                    "data": {
+                                                                        "type": "damage",
+                                                                        "name": "Damage",
+                                                                        "amount": 90,
+                                                                        "negate": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "type": "and",
+                                                                    "data": {
+                                                                        "comment": null,
+                                                                        "items": [
+                                                                            {
+                                                                                "type": "resource",
+                                                                                "data": {
+                                                                                    "type": "items",
+                                                                                    "name": "X-Ray",
+                                                                                    "amount": 1,
+                                                                                    "negate": false
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "type": "resource",
+                                                                                "data": {
+                                                                                    "type": "damage",
+                                                                                    "name": "Damage",
+                                                                                    "amount": 15,
+                                                                                    "negate": false
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "Kill Single Chozo Ghost": {
+                "display_name": "Kill Single Chozo Ghost",
+                "requirement": {
+                    "type": "and",
+                    "data": {
+                        "comment": null,
+                        "items": [
+                            {
+                                "type": "template",
+                                "data": "Shoot Power Beam"
+                            },
+                            {
+                                "type": "or",
+                                "data": {
+                                    "comment": null,
+                                    "items": [
+                                        {
+                                            "type": "resource",
+                                            "data": {
+                                                "type": "tricks",
+                                                "name": "Combat",
+                                                "amount": 1,
+                                                "negate": false
+                                            }
+                                        },
+                                        {
+                                            "type": "and",
+                                            "data": {
+                                                "comment": null,
+                                                "items": [
+                                                    {
+                                                        "type": "resource",
+                                                        "data": {
+                                                            "type": "items",
+                                                            "name": "Charge",
+                                                            "amount": 1,
+                                                            "negate": false
+                                                        }
+                                                    },
+                                                    {
+                                                        "type": "resource",
+                                                        "data": {
+                                                            "type": "damage",
+                                                            "name": "Damage",
+                                                            "amount": 15,
+                                                            "negate": false
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
             }
         },
         "damage_reductions": [
@@ -1309,14 +1849,17 @@
                 "reductions": [
                     {
                         "name": "GravitySuit",
+                        "quantity": 1,
                         "multiplier": 0.0
                     },
                     {
                         "name": "VariaSuit",
+                        "quantity": 1,
                         "multiplier": 0.0
                     },
                     {
                         "name": "PhazonSuit",
+                        "quantity": 1,
                         "multiplier": 0.0
                     }
                 ]
@@ -1326,6 +1869,7 @@
                 "reductions": [
                     {
                         "name": "PhazonSuit",
+                        "quantity": 1,
                         "multiplier": 0.0
                     }
                 ]
@@ -1712,7 +2256,7 @@
                                             "data": {
                                                 "type": "items",
                                                 "name": "Missile",
-                                                "amount": 11,
+                                                "amount": 10,
                                                 "negate": false
                                             }
                                         },
@@ -1982,87 +2526,7 @@
                             "type": "and",
                             "data": {
                                 "comment": null,
-                                "items": [
-                                    {
-                                        "type": "or",
-                                        "data": {
-                                            "comment": null,
-                                            "items": [
-                                                {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "Power",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
-                                                },
-                                                {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "Ice",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
-                                                },
-                                                {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "Wave",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
-                                                },
-                                                {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "Plasma",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    },
-                                    {
-                                        "type": "or",
-                                        "data": {
-                                            "comment": null,
-                                            "items": [
-                                                {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "Combat",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
-                                                },
-                                                {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "Thermal",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
-                                                },
-                                                {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "X-Ray",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    }
-                                ]
+                                "items": []
                             }
                         },
                         "lock": null
@@ -2130,6 +2594,27 @@
                             }
                         },
                         "lock": null
+                    },
+                    "Artifact Temple Teleporter": {
+                        "extra": {},
+                        "requirement": {
+                            "type": "and",
+                            "data": {
+                                "comment": null,
+                                "items": [
+                                    {
+                                        "type": "resource",
+                                        "data": {
+                                            "type": "events",
+                                            "name": "Event2",
+                                            "amount": 1,
+                                            "negate": false
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        "lock": null
                     }
                 },
                 "dock_rando": null
@@ -2145,6 +2630,7 @@
             "to_shuffle_proportion": 1.0
         }
     },
+    "hint_feature_database": {},
     "used_trick_levels": {
         "BJ": [
             1,

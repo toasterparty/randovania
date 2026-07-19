@@ -7,7 +7,7 @@ from randovania.game_description.resources.resource_collection import ResourceCo
 from randovania.generator.pickup_pool.pool_creator import calculate_pool_results
 
 if TYPE_CHECKING:
-    from randovania.game_description.game_description import GameDescription
+    from randovania.game_description.game_database_view import GameDatabaseView
     from randovania.game_description.game_patches import GamePatches
     from randovania.game_description.pickup.pickup_entry import PickupEntry
     from randovania.game_description.resources.resource_info import ResourceInfo
@@ -27,9 +27,11 @@ _ITEMS_TO_PLURALIZE = {
 }
 
 
-def add_quantity_to_resource(resource: str, quantity: int, always_add_quantity: bool = False) -> str:
+def add_quantity_to_resource[T: (float, int)](
+    resource: str, quantity: T, always_add_quantity: bool = False, use_percentage: bool = False
+) -> str:
     if always_add_quantity or quantity > 1:
-        first_part = f"{quantity} "
+        first_part = "{}{} ".format(quantity, "%" if use_percentage else "")
     else:
         first_part = ""
     return "{}{}{}".format(first_part, resource, "s" if quantity > 1 and resource in _ITEMS_TO_PLURALIZE else "")
@@ -49,14 +51,14 @@ def resource_user_friendly_delta(resource: ResourceInfo) -> str:
 
 
 def _pickups_count_by_name(pickups: list[PickupEntry]) -> dict[str, int]:
-    result = collections.defaultdict(int)
+    result: dict[str, int] = collections.defaultdict(int)
     for it in pickups:
         result[it.name] += 1
     return result
 
 
 def additional_starting_pickups(
-    layout_configuration: BaseConfiguration, game: GameDescription, starting_pickups: list[PickupEntry]
+    layout_configuration: BaseConfiguration, game: GameDatabaseView, starting_pickups: list[PickupEntry]
 ) -> list[str]:
     initial_pickups = _pickups_count_by_name(calculate_pool_results(layout_configuration, game).starting)
     final_pickups = _pickups_count_by_name(starting_pickups)
@@ -69,9 +71,9 @@ def additional_starting_pickups(
 
 
 def additional_starting_items(
-    layout_configuration: BaseConfiguration, game: GameDescription, starting_items: ResourceCollection
+    layout_configuration: BaseConfiguration, game: GameDatabaseView, starting_items: ResourceCollection
 ) -> list[str]:
-    initial_items = ResourceCollection.with_database(game.resource_database)
+    initial_items = game.get_resource_database_view().create_resource_collection()
     for pickup in calculate_pool_results(layout_configuration, game).starting:
         initial_items.add_resource_gain(pickup.resource_gain(initial_items))
 
@@ -83,7 +85,7 @@ def additional_starting_items(
 
 
 def additional_starting_equipment(
-    layout_configuration: BaseConfiguration, game: GameDescription, patches: GamePatches
+    layout_configuration: BaseConfiguration, game: GameDatabaseView, patches: GamePatches
 ) -> list[str]:
     if isinstance(patches.starting_equipment, ResourceCollection):
         return additional_starting_items(layout_configuration, game, patches.starting_equipment)

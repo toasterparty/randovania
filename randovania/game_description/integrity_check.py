@@ -1,47 +1,39 @@
 from __future__ import annotations
 
 import re
-import typing
 from typing import TYPE_CHECKING
 
-from randovania.game_description.db.dock_lock_node import DockLockNode
+from randovania.game_description import trick_documentation
 from randovania.game_description.db.dock_node import DockNode
 from randovania.game_description.db.event_node import EventNode
-from randovania.game_description.db.node import Node, NodeContext
+from randovania.game_description.db.hint_node import SpecificLocationHintNode, SpecificPickupHintNode
 from randovania.game_description.db.pickup_node import PickupNode
-from randovania.game_description.game_patches import GamePatches
+from randovania.game_description.db.teleporter_network_node import TeleporterNetworkNode
+from randovania.game_description.requirements import fast_as_set
 from randovania.game_description.requirements.array_base import RequirementArrayBase
 from randovania.game_description.requirements.base import Requirement
 from randovania.game_description.requirements.requirement_template import RequirementTemplate
 from randovania.game_description.requirements.resource_requirement import ResourceRequirement
 from randovania.game_description.resources.item_resource_info import ItemResourceInfo
-from randovania.game_description.resources.resource_collection import ResourceCollection
-from randovania.layout.base.base_configuration import BaseConfiguration
+from randovania.game_description.trick_documentation import TrickUsageState
 
 if TYPE_CHECKING:
-    from collections.abc import Iterator
+    from collections.abc import Iterator, Mapping
 
     from randovania.game_description.db.area import Area
     from randovania.game_description.db.area_identifier import AreaIdentifier
     from randovania.game_description.db.dock import DockType, DockWeakness
+    from randovania.game_description.db.node import Node
     from randovania.game_description.db.region import Region
     from randovania.game_description.db.region_list import RegionList
     from randovania.game_description.game_description import GameDescription
-    from randovania.game_description.requirements.requirement_set import RequirementSet
+    from randovania.game_description.requirements.requirement_list import RequirementList
     from randovania.game_description.resources.pickup_index import PickupIndex
+    from randovania.game_description.resources.resource_database import ResourceDatabase
 
 pickup_node_re = re.compile(r"^Pickup (\d+ )?\(.*\)$")
 dock_node_suffix_re = re.compile(r" \([^()]+?\)$")
 layer_name_re = re.compile(r"[a-zA-Z0-9 _-]+")
-
-
-def _create_node_context(game: GameDescription) -> NodeContext:
-    return NodeContext(
-        patches=GamePatches.create_from_game(game, 0, typing.cast(BaseConfiguration, None)),
-        current_resources=ResourceCollection.with_database(game.resource_database),
-        database=game.resource_database,
-        node_provider=game.region_list,
-    )
 
 
 def raw_expected_dock_names(
@@ -102,6 +94,10 @@ def dock_has_correct_name(area: Area, node: DockNode) -> bool:
     return False
 
 
+def pickup_index_exists(pickup_index: PickupIndex, game: GameDescription) -> bool:
+    return any(pickup_node.pickup_index == pickup_index for _, _, pickup_node in game.iterate_nodes_of_type(PickupNode))
+
+
 def find_node_errors(game: GameDescription, node: Node) -> Iterator[str]:
     region_list = game.region_list
     area = region_list.nodes_to_area(node)
@@ -117,10 +113,19 @@ def find_node_errors(game: GameDescription, node: Node) -> Iterator[str]:
         yield f"{node.name} is not an Event Node, but naming suggests it is"
 
     if isinstance(node, PickupNode):
+        yield from check_for_redundant_hint_features(area, node)
         if pickup_node_re.match(node.name) is None:
             yield f"{node.name} is a Pickup Node, but naming doesn't match 'Pickup (...)'"
     elif pickup_node_re.match(node.name) is not None:
         yield f"{node.name} is not a Pickup Node, but naming matches 'Pickup (...)'"
+
+    if isinstance(node, SpecificLocationHintNode):
+        if not pickup_index_exists(node.target_index, game):
+            yield f"{node.name} points to {node.target_index}, which does not exist."
+
+    if isinstance(node, SpecificPickupHintNode):
+        if node.specific_pickup_hint_id not in game.game.hints.specific_pickup_hints:
+            yield f"{node.name} points to {node.specific_pickup_hint_id}, which does not exist."
 
     if isinstance(node, DockNode):
         valid_name = dock_has_correct_name(area, node)
@@ -172,19 +177,21 @@ def find_area_errors(game: GameDescription, area: Area) -> Iterator[str]:
         yield f"{area.name} has multiple valid start nodes {names}, but is not allowed for {game.game.long_name}"
 
     for node in area.nodes:
+        for t, req in area.connections[node].items():
+            for indiv in req.iterate_resource_requirements(game.resource_database):
+                if indiv.negate and indiv.amount > 1:
+                    yield f"{node.name} -> {t.name} has a negate requirement with more than 1"
+
         if isinstance(node, DockNode) or area.connections[node]:
             continue
 
-        # FIXME: cannot implement this for PickupNodes because their resource gain depends on GamePatches
-        if isinstance(node, EventNode):
-            # if this node would satisfy the victory condition, it does not need outgoing connections
-            current = ResourceCollection.with_database(game.resource_database)
-            current.set_resource(node.event, 1)
-            if game.victory_condition.satisfied(game.create_node_context(current), 0):
-                continue
-
-        if node in nodes_with_paths_in:
+        if node in nodes_with_paths_in and not node.extra.get("allow_no_outgoing_connections", False):
             yield f"{area.name} - '{node.name}': Node has paths in, but no connections out."
+
+    yield from check_for_unnormalized_hint_features(area)
+
+    if game.game.data.reject_undocumented_tricks_in_database:
+        yield from find_undocumented_tricks(area)
 
 
 def find_region_errors(game: GameDescription, region: Region) -> Iterator[str]:
@@ -194,32 +201,41 @@ def find_region_errors(game: GameDescription, region: Region) -> Iterator[str]:
 
 
 def find_invalid_strongly_connected_components(game: GameDescription) -> Iterator[str]:
-    import networkx  # type: ignore
+    import networkx
 
     graph = networkx.DiGraph()
 
-    for node in game.region_list.iterate_nodes():
-        if isinstance(node, DockLockNode):
-            continue
+    for _, _, node in game.node_iterator():
         graph.add_node(node)
 
-    context = _create_node_context(game)
-
-    for node in game.region_list.iterate_nodes():
+    for region, area, node in game.node_iterator():
         if node not in graph:
             continue
 
-        try:
-            for other, req in game.region_list.potential_nodes_from(node, context):
-                if other not in graph:
-                    continue
+        for other, req in area.connections.get(node, {}).items():
+            if other not in graph:
+                continue
 
-                if req != Requirement.impossible():
+            if req != Requirement.impossible():
+                graph.add_edge(node, other)
+
+        if isinstance(node, TeleporterNetworkNode):
+            for other in game.region_list.nodes_in_network(node.network):
+                if other in graph and node != other and other.is_unlocked != Requirement.impossible():
                     graph.add_edge(node, other)
 
-        except KeyError:
-            # Broken docks
-            continue
+        if isinstance(node, DockNode):
+            try:
+                maybe_other = game.node_by_identifier(node.default_connection)
+            except KeyError:
+                maybe_other = None
+
+            requirement = node.override_default_open_requirement
+            if not requirement:
+                requirement = node.default_dock_weakness.requirement
+
+            if maybe_other is not None and maybe_other in graph and requirement != Requirement.impossible():
+                graph.add_edge(node, maybe_other)
 
     starting_node = game.region_list.node_by_identifier(game.starting_location)
 
@@ -245,7 +261,7 @@ def find_invalid_strongly_connected_components(game: GameDescription) -> Iterato
             if not graph.in_edges(node) and not graph.edges(node):
                 continue
 
-        names = sorted(game.region_list.node_name(node, with_region=True) for node in strong_comp)
+        names = sorted(node.full_name(with_region=True) for node in strong_comp)
         yield f"Unknown strongly connected component detected containing {len(names)} nodes:\n{names}"
 
 
@@ -277,37 +293,37 @@ def find_recursive_templates(game: GameDescription) -> Iterator[str]:
 def find_duplicated_pickup_index(region_list: RegionList) -> Iterator[str]:
     known_indices: dict[PickupIndex, str] = {}
 
-    for node in region_list.all_nodes:
-        if isinstance(node, PickupNode):
-            name = region_list.node_name(node, with_region=True, distinguish_dark_aether=True)
-            if node.pickup_index in known_indices:
-                yield (
-                    f"{name} has {node.pickup_index}, " f"but it was already used in {known_indices[node.pickup_index]}"
-                )
-            else:
-                known_indices[node.pickup_index] = name
+    for node in region_list.iterate_nodes_of_type(PickupNode):
+        name = node.full_name(with_region=True)
+        if node.pickup_index in known_indices:
+            yield f"{name} has {node.pickup_index}, but it was already used in {known_indices[node.pickup_index]}"
+        else:
+            known_indices[node.pickup_index] = name
 
 
 def _needed_resources_partly_satisfied(
-    req: Requirement, resources: tuple[str, tuple[str, ...]], context: NodeContext, req_cache: dict
+    req: Requirement,
+    resources: tuple[str, tuple[str, ...]],
+    database: ResourceDatabase,
+    req_cache: dict[Requirement, tuple[RequirementList, ...]],
 ) -> bool:
     if req in req_cache:
-        req_set = req_cache[req]
+        alternatives = req_cache[req]
     else:
-        req_set = req.as_set(context)
-        req_cache[req] = req_set
+        alternatives = fast_as_set.fast_as_alternatives(req, database)
+        req_cache[req] = alternatives
 
     counter = 0
     res_key = resources[0]
     res_values = resources[1]
-    for alternative in req_set.alternatives:
+    for alternative in alternatives:
         # Either the key must not be present, or the key is present with all values.
         if not any(res_key == item.resource.short_name for item in alternative.values()):
             counter += 1
         elif all(any(resource == item.resource.short_name for item in alternative.values()) for resource in res_values):
             counter += 1
 
-    return counter != len(req_set.alternatives)
+    return counter != len(alternatives)
 
 
 def _does_requirement_contain_resource(req: Requirement, resource: str) -> bool:
@@ -325,6 +341,16 @@ def _does_requirement_contain_resource(req: Requirement, resource: str) -> bool:
     return False
 
 
+def get_possible_connections(game: GameDescription) -> Iterator[tuple[str, Requirement]]:
+    for dock_type in game.dock_weakness_database.dock_types:
+        for weakness in game.dock_weakness_database.weaknesses[dock_type].values():
+            yield f"DockWeakness {weakness.name} ({dock_type.long_name}", weakness.requirement
+
+    for region, area, source_node in game.node_iterator():
+        for destination_node, req in area.connections.get(source_node, {}).items():
+            yield f"{source_node.identifier.as_string} -> {destination_node.identifier.as_string}", req
+
+
 def check_for_items_to_be_replaced_by_templates(
     game: GameDescription, items_to_templates: dict[str, str]
 ) -> Iterator[str]:
@@ -339,24 +365,14 @@ def check_for_items_to_be_replaced_by_templates(
     like this: "Can Jump High or Can Jump Very High"
     :return: Error messages of requirements which don't pass the check.
     """
-    context = _create_node_context(game)
-
-    for source_node in game.region_list.iterate_nodes():
-        try:
-            for destination_node, req in game.region_list.potential_nodes_from(source_node, context):
-                for resource, template in items_to_templates.items():
-                    if _does_requirement_contain_resource(req, resource):
-                        yield (
-                            f"{source_node.identifier.as_string} -> {destination_node.identifier.as_string} is using "
-                            f'the resource "{resource}" directly than using the template "{template}".'
-                        )
-        except KeyError:
-            # Broken docks
-            continue
+    for label, requirement in get_possible_connections(game):
+        for resource, template in items_to_templates.items():
+            if _does_requirement_contain_resource(requirement, resource):
+                yield (f'{label} is using the resource "{resource}" directly than using the template "{template}".')
 
 
 def check_for_resources_to_use_together(
-    game: GameDescription, combined_resources: dict[str, tuple[str, ...]]
+    game: GameDescription, combined_resources: Mapping[str, tuple[str, ...]]
 ) -> Iterator[str]:
     """
     Checks the logic database for resources that should always be used together with other resources.
@@ -367,23 +383,80 @@ def check_for_resources_to_use_together(
     For example: { HoverWithBombsTrick: (BombItem, ExplosiveDamage)}
     :return: Error messages of requirements which don't pass the check.
     """
-    context = _create_node_context(game)
-    requirement_cache: dict[Requirement, RequirementSet] = {}
+    database = game.resource_database
+    requirement_cache: dict[Requirement, tuple[RequirementList, ...]] = {}
 
-    for source_node in game.region_list.iterate_nodes():
-        try:
-            for destination_node, req in game.region_list.potential_nodes_from(source_node, context):
-                for resource_key, resource_value in combined_resources.items():
-                    if _needed_resources_partly_satisfied(
-                        req, (resource_key, resource_value), context, requirement_cache
-                    ):
-                        yield (
-                            f"{source_node.identifier.as_string} -> {destination_node.identifier.as_string} contains "
-                            f'"{resource_key}" but not "{resource_value}"'
-                        )
-        except KeyError:
-            # Broken docks
-            continue
+    for label, requirement in get_possible_connections(game):
+        for resource_key, resource_value in combined_resources.items():
+            if _needed_resources_partly_satisfied(
+                requirement, (resource_key, resource_value), database, requirement_cache
+            ):
+                yield (f'{label} contains "{resource_key}" but not "{resource_value}"')
+
+
+def find_incompatible_video_links(game: GameDescription) -> Iterator[str]:
+    for region in game.region_list.regions:
+        for area in region.areas:
+            for node in area.nodes:
+                for target, requirement in area.connections.get(node, {}).items():
+                    yield from get_videos(requirement, node, target)
+
+
+def get_videos(req: Requirement, node: Node, target: Node) -> Iterator[str]:
+    if isinstance(req, RequirementArrayBase):
+        if req.comment is not None:
+            for word in req.comment.split(" "):
+                if "discord" in word:
+                    yield f"Discord media linked in {node.identifier.as_string} -> {target.name}."
+                if "youtu" not in word:
+                    continue
+                if "&list" in word:
+                    yield f"YouTube Playlist linked in {node.identifier.as_string} -> {target.name}."
+        for i in req.items:
+            yield from get_videos(i, node, target)
+
+
+def check_for_redundant_hint_features(area: Area, node: PickupNode) -> Iterator[str]:
+    """
+    If a hint feature is present on an Area, all of its child pickups
+    are treated as if they have that feature. Explicitly including
+    them on the pickup is redundant.
+    """
+    for feature in sorted(node.hint_features):
+        if feature in area.hint_features:
+            yield f"{node.name} shares the hint feature '{feature.long_name}' with the area it's in."
+
+
+def check_for_unnormalized_hint_features(area: Area) -> Iterator[str]:
+    """
+    If all pickups in an Area share the same hint feature, that feature
+    should be included on the Area instead of the pickups.
+    """
+    pickups = [node for node in area.nodes if isinstance(node, PickupNode)]
+    if not pickups:
+        return
+    features = pickups[0].hint_features
+    for pickup in pickups:
+        features &= pickup.hint_features
+    for feature in sorted(features):
+        yield (
+            f"{area.name}'s pickups all share the hint feature '{feature.long_name}'. "
+            "Add feature to the area and remove from the pickups."
+        )
+
+
+def find_undocumented_tricks(area: Area) -> Iterator[str]:
+    """
+    Reports all undocumented trick usage in the given area.
+    """
+
+    paths = trick_documentation.get_area_connection_docs(area)
+
+    for source_name, connections in paths.items():
+        for target_name, docs in connections.items():
+            for it, state in docs.items():
+                if state == TrickUsageState.UNDOCUMENTED:
+                    yield f"{area.name}: {source_name} -> {target_name} contains undocumented trick {it}"
 
 
 def find_database_errors(game: GameDescription) -> list[str]:
@@ -399,5 +472,6 @@ def find_database_errors(game: GameDescription) -> list[str]:
     result.extend(find_recursive_templates(game))
     result.extend(find_duplicated_pickup_index(game.region_list))
     result.extend(game.game.data.logic_db_integrity(game))
+    result.extend(find_incompatible_video_links(game))
 
     return result

@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import dataclasses
 from pathlib import Path
+from typing import override
 
 from randovania.game.game_enum import RandovaniaGame
 from randovania.games.dread.exporter.game_exporter import DreadModPlatform, LinuxRyujinxPath
 from randovania.interface_common.options import PerGameOptions, decode_if_not_none
+from randovania.lib.json_lib import JsonObject
 
 
 @dataclasses.dataclass(frozen=True)
@@ -16,7 +18,7 @@ class DreadPerGameOptions(PerGameOptions):
     output_preference: str | None = None
 
     @property
-    def as_json(self):
+    def as_json(self) -> JsonObject:
         return {
             **super().as_json,
             "input_directory": str(self.input_directory) if self.input_directory is not None else None,
@@ -36,3 +38,8 @@ class DreadPerGameOptions(PerGameOptions):
             linux_ryujinx_path=LinuxRyujinxPath(value["linux_ryujinx_path"]),
             output_preference=value["output_preference"],
         )
+
+    @classmethod
+    @override
+    def game_enum(cls) -> RandovaniaGame:
+        return RandovaniaGame.METROID_DREAD

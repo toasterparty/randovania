@@ -2,17 +2,19 @@ from __future__ import annotations
 
 import uuid
 from typing import TYPE_CHECKING
-from unittest.mock import MagicMock, PropertyMock, call
+from unittest.mock import AsyncMock, MagicMock, PropertyMock, call
 
 import peewee
 import pytest
 from frozendict import frozendict
 
+from randovania.bitpacking import construct_pack
 from randovania.game.game_enum import RandovaniaGame
 from randovania.game_description.assignment import PickupTarget
-from randovania.game_description.pickup.pickup_entry import PickupEntry, PickupModel
+from randovania.game_description.pickup.pickup_entry import PickupEntry, PickupModel, StartingPickupBehavior
 from randovania.game_description.resources.inventory import Inventory
-from randovania.network_common import error, remote_inventory, signals
+from randovania.game_description.resources.pickup_index import PickupIndex
+from randovania.network_common import error, remote_inventory
 from randovania.network_common.game_connection_status import GameConnectionStatus
 from randovania.network_common.world_sync import (
     ServerSyncRequest,
@@ -29,43 +31,47 @@ if TYPE_CHECKING:
 
 
 @pytest.mark.parametrize(
-    ("progression", "result"),
+    ("progression", "start_case", "result"),
     [
         (  # normal
             [("Power", 1)],
+            StartingPickupBehavior.MUST_BE_STARTING,
             (
                 "C?ypIwY9x9y^)o&8#^m=E0aqcz^Lr4%&tu=WC<>et)vKSE{v@0?oTa+xPo8@R_8YcRyLMqmR3Rr"
-                "mqu378#^m=E0aqcz^Lr4%&tu=WC<>et)vKSE{v@0?oTa+xPo8@R_8YcRyLMqmR3Rrmqu35fPr8"
+                "mqu35FxlB#nOvG!<^@M(Ze?<5V<1U%Wo;lsVRU6@Z*qBTEyNQ5I=4BvGO@I?G_tY~G`cdjfdL?~00"
             ),
         ),
         (  # negative
             [("Missile", -5)],
+            StartingPickupBehavior.CAN_BE_STARTING,
             (
                 "C?ypIwY9x9y^)o&8#^m=E0aqcz^Lr4%&tu=WC<>et)vKSE{v@0?oTa+xPo8@R_8YcRyLMqmR3Rr"
-                "mqu378#^m=E0aqcz^Lr4%&tu=WC<>et)vKSE{v@0?oTa+xPo8@R_8YcRyLMqmR3Rrmqu35sC@#!"
+                "mqu35FxlB#nOvG!<^@M(Ze?<5V<1U%Wo;lsVRU6@Z*qBTEyNQ5I=4BvGO@I?G_tY~G`cdjfl&GZVgL"
             ),
         ),
         (  # progressive
             [("DarkSuit", 1), ("LightSuit", 1)],
+            StartingPickupBehavior.CAN_NEVER_BE_STARTING,
             (
                 "C?ypIwY9x9y^)o&8#^m=E0aqcz^Lr4%&tu=WC<>et)vKSE{v@0?oTa+xPo8@R_8YcRyLMqmR3Rr"
-                "mqu378#^m=E0aqcz^Lr4%&tu=WC<>et)vKSE{v@0?oTa+xPo8@R_8YcRyLMqmR3Rrmqu364TnIm"
+                "mqu35FxlB#nOvG!<^@M(Ze?<5V<1U%Wo;lsVRU6@Z*qBTEyNQ5I=4BvGO@I?G_tY~G`cdjf*TH?Sbz"
             ),
         ),
     ],
 )
-def test_emit_world_pickups_update_one_action(
-    flask_app,
+async def test_emit_world_pickups_update_one_action(
+    mock_sa,
     two_player_session,
     generic_pickup_category,
     default_generator_params,
     echoes_resource_database,
     mocker,
     progression,
+    start_case,
     result,
 ):
     # Setup
-    mock_emit: MagicMock = mocker.patch("flask_socketio.emit")
+    mock_emit = mock_sa.sio.emit
 
     mock_session_description: PropertyMock = mocker.patch(
         "randovania.server.database.MultiplayerSession.layout_description", new_callable=PropertyMock
@@ -77,8 +83,7 @@ def test_emit_world_pickups_update_one_action(
         "randovania.server.multiplayer.world_api._get_pickup_target", autospec=True
     )
 
-    sa = MagicMock()
-    sa.get_current_user.return_value = database.User.get_by_id(1234)
+    mock_sa.get_current_user.return_value = database.User.get_by_id(1234)
 
     w1 = database.World.get_by_id(1)
 
@@ -87,17 +92,18 @@ def test_emit_world_pickups_update_one_action(
         "A",
         PickupModel(echoes_resource_database.game_enum, "AmmoModel"),
         generic_pickup_category,
-        generic_pickup_category,
+        frozenset((generic_pickup_category,)),
         progression=progression,
+        start_case=start_case,
         generator_params=default_generator_params,
     )
     mock_get_pickup_target.return_value = PickupTarget(pickup=pickup, player=0)
     mock_get_resource_database.return_value = echoes_resource_database
 
     # Run
-    world_api.emit_world_pickups_update(sa, w1)
+    await world_api.emit_world_pickups_update(mock_sa, w1)
 
-    # Uncomment this to encode the data once again and get the new bytefield if it changed for some reason
+    # # Uncomment this to encode the data once again and get the new bytefield if it changed for some reason
     # from randovania.server.multiplayer.world_api import _base64_encode_pickup
     # new_data = _base64_encode_pickup(pickup, echoes_resource_database)
     # assert new_data == b""
@@ -105,14 +111,22 @@ def test_emit_world_pickups_update_one_action(
     # Assert
     mock_get_resource_database.assert_called_once_with(mock_session_description.return_value, 0)
     mock_get_pickup_target.assert_called_once_with(mock_session_description.return_value, 1, 0)
-    mock_emit.assert_called_once_with(
+    mock_emit.assert_awaited_once_with(
         "world_pickups_update",
         {
             "game": "prime2",
-            "pickups": [{"provider_name": "World 2", "pickup": result}],
+            "pickups": [
+                {
+                    "provider_name": "World 2",
+                    "pickup": result,
+                    "coop_location": None,
+                }
+            ],
             "world": "1179c986-758a-4170-9b07-fe4541d78db0",
         },
         room="world-1179c986-758a-4170-9b07-fe4541d78db0",
+        namespace=None,
+        to=None,
     )
 
 
@@ -132,14 +146,21 @@ def test_add_pickup_to_inventory_bad(dread_spider_pickup):
     assert new_inventory == inventory
 
 
-def test_game_session_collect_pickup_for_self(
-    flask_app, two_player_session, generic_pickup_category, default_generator_params, echoes_resource_database, mocker
+@pytest.mark.parametrize("has_pickup", [True, False])
+async def test_game_session_collect_pickup_for_self(
+    has_pickup: bool,
+    mock_sa,
+    two_player_session,
+    generic_pickup_category,
+    default_generator_params,
+    echoes_resource_database,
+    mocker,
 ):
     # Setup
-    sa = MagicMock()
-    sa.get_current_user.return_value = database.User.get_by_id(1234)
+    mock_sa.get_current_user.return_value = database.User.get_by_id(1234)
 
-    mock_emit: MagicMock = mocker.patch("flask_socketio.emit")
+    mock_sa.sio.emit = AsyncMock()
+
     mock_session_description: PropertyMock = mocker.patch(
         "randovania.server.database.MultiplayerSession.layout_description", new_callable=PropertyMock
     )
@@ -152,54 +173,29 @@ def test_game_session_collect_pickup_for_self(
 
     w1 = database.World.get_by_id(1)
 
-    pickup = PickupEntry(
-        "A",
-        1,
-        generic_pickup_category,
-        generic_pickup_category,
-        progression=((echoes_resource_database.item[0], 1),),
-        generator_params=default_generator_params,
-    )
-    mock_get_resource_database.return_value = echoes_resource_database
-    mock_get_pickup_target.return_value = PickupTarget(pickup, 0)
+    if has_pickup:
+        pickup = PickupEntry(
+            "A",
+            1,
+            generic_pickup_category,
+            frozenset((generic_pickup_category,)),
+            progression=((echoes_resource_database.item[0], 1),),
+            generator_params=default_generator_params,
+        )
+        mock_get_resource_database.return_value = echoes_resource_database
+        mock_get_pickup_target.return_value = PickupTarget(pickup, 0)
+    else:
+        mock_get_pickup_target.return_value = None
 
     # Run
-    with flask_app.test_request_context():
-        result = world_api.collect_locations(sa, w1, (0,))
+    result = await world_api.collect_locations(mock_sa, w1, (0,))
 
     # Assert
-    assert result == set()
-    mock_emit.assert_not_called()
+    assert result == ({w1} if has_pickup else set())
+    mock_sa.sio.emit.assert_not_awaited()
     mock_get_pickup_target.assert_called_once_with(mock_session_description.return_value, 0, 0)
-    with pytest.raises(peewee.DoesNotExist):
-        database.WorldAction.get(provider=w1, location=0)
-
-
-def test_game_session_collect_pickup_etm(flask_app, two_player_session, echoes_resource_database, mocker):
-    sa = MagicMock()
-    sa.get_current_user.return_value = database.User.get_by_id(1234)
-
-    mock_emit: MagicMock = mocker.patch("flask_socketio.emit")
-    mock_session_description: PropertyMock = mocker.patch(
-        "randovania.server.database.MultiplayerSession.layout_description", new_callable=PropertyMock
-    )
-    mock_get_pickup_target: MagicMock = mocker.patch(
-        "randovania.server.multiplayer.world_api._get_pickup_target", autospec=True
-    )
-
-    mock_get_pickup_target.return_value = None
-    w1 = database.World.get_by_id(1)
-
-    # Run
-    with flask_app.test_request_context():
-        result = world_api.collect_locations(sa, w1, (0,))
-
-    # Assert
-    assert result == set()
-    mock_emit.assert_not_called()
-    mock_get_pickup_target.assert_called_once_with(mock_session_description.return_value, 0, 0)
-    with pytest.raises(peewee.DoesNotExist):
-        database.WorldAction.get(provider=w1, location=0)
+    action = database.WorldAction.get(provider=w1, location=0)
+    assert action.receiver == w1
 
 
 @pytest.mark.parametrize(
@@ -212,8 +208,8 @@ def test_game_session_collect_pickup_etm(flask_app, two_player_session, echoes_r
         ((0, 1), (0, 1)),
     ],
 )
-def test_collect_locations_other(
-    flask_app,
+async def test_collect_locations_other(
+    mock_sa,
     two_player_session,
     echoes_resource_database,
     locations_to_collect: tuple[int, ...],
@@ -231,8 +227,7 @@ def test_collect_locations_other(
         "randovania.server.multiplayer.session_common.emit_session_actions_update", autospec=True
     )
 
-    sa = MagicMock()
-    sa.get_current_user.return_value = database.User.get_by_id(1234)
+    mock_sa.get_current_user.return_value = database.User.get_by_id(1234)
     mock_get_pickup_target.return_value = PickupTarget(MagicMock(), 1)
 
     w1 = database.World.get_by_id(1)
@@ -250,8 +245,7 @@ def test_collect_locations_other(
         )
 
     # Run
-    with flask_app.test_request_context():
-        result = world_api.collect_locations(sa, w1, locations_to_collect)
+    result = await world_api.collect_locations(mock_sa, w1, locations_to_collect)
 
     # Assert
     mock_get_pickup_target.assert_has_calls(
@@ -278,16 +272,18 @@ def test_collect_locations_other(
         assert result == {w2}
 
 
-def test_world_sync(flask_app, solo_two_world_session, mocker: MockerFixture, mock_emit_session_update):
-    mock_leave_room = mocker.patch("flask_socketio.leave_room")
-    mock_emit = mocker.patch("flask_socketio.emit")
+async def test_world_sync(mock_sa, solo_two_world_session, mocker: MockerFixture, mock_emit_session_update):
+    mock_leave_room = mock_sa.sio.leave_room
+    mock_emit = mock_sa.sio.emit
     mock_emit_pickups = mocker.patch("randovania.server.multiplayer.world_api.emit_world_pickups_update")
     mock_emit_actions = mocker.patch("randovania.server.multiplayer.session_common.emit_session_actions_update")
     mock_emit_inventory = mocker.patch("randovania.server.multiplayer.world_api.emit_inventory_update")
+    mock_emit_session_audit_update = mocker.patch(
+        "randovania.server.multiplayer.session_common.emit_session_audit_update"
+    )
 
-    sa = MagicMock()
     user = database.User.get_by_id(1234)
-    sa.get_current_user.return_value = user
+    mock_sa.get_current_user.return_value = user
 
     w1 = database.World.get_by_id(1)
     w2 = database.World.get_by_id(2)
@@ -301,29 +297,31 @@ def test_world_sync(flask_app, solo_two_world_session, mocker: MockerFixture, mo
                     collected_locations=(5,),
                     inventory=b"foo",
                     request_details=True,
+                    has_been_beaten=True,
                 ),
                 w2.uuid: ServerWorldSync(
                     status=GameConnectionStatus.Disconnected,
                     collected_locations=(15,),
                     inventory=None,
                     request_details=False,
+                    has_been_beaten=False,
                 ),
                 uuid.UUID("a0cf12f7-8a0e-47ed-9a82-cabfc8b912c2"): ServerWorldSync(
                     status=GameConnectionStatus.TitleScreen,
                     collected_locations=(60,),
                     inventory=None,
                     request_details=False,
+                    has_been_beaten=False,
                 ),
             }
         )
     )
 
     # Run
-    with flask_app.test_request_context():
-        result = world_api.world_sync(sa, request)
+    result = await world_api.world_sync(mock_sa, "TheSid", construct_pack.encode(request))
 
     # Assert
-    assert result == ServerSyncResponse(
+    assert construct_pack.decode(result, ServerSyncResponse) == ServerSyncResponse(
         worlds=frozendict(
             {
                 w1.uuid: ServerWorldResponse(
@@ -347,46 +345,271 @@ def test_world_sync(flask_app, solo_two_world_session, mocker: MockerFixture, mo
     assert a2.connection_state == GameConnectionStatus.Disconnected
     assert a2.inventory is None
 
-    sa.store_world_in_session.assert_called_once_with(w1)
-    sa.ensure_in_room.assert_called_once_with("world-1179c986-758a-4170-9b07-fe4541d78db0")
-    mock_leave_room.assert_called_once_with("world-6b5ac1a1-d250-4f05-a5fb-ae37e8a92165")
-    mock_emit_pickups.assert_has_calls([call(sa, w1), call(sa, w2)], any_order=True)
-    mock_emit_session_update.assert_called_once_with(session)
-    mock_emit_actions.assert_called_once_with(session)
-    mock_emit_inventory.assert_called_once_with(sa, w1, 1234, b"foo")
+    finished_w1 = database.World.get_by_id(1)  # w1: not beaten -> beaten
+    assert not w1.beaten
+    assert finished_w1.beaten
+    finished_w2 = database.World.get_by_id(2)  # w2: not beaten -> not beaten
+    assert not w2.beaten
+    assert not finished_w2.beaten
+
+    mock_sa.store_world_in_session.assert_awaited_once_with("TheSid", w1)
+    mock_sa.ensure_in_room.assert_awaited_once_with("TheSid", "world-1179c986-758a-4170-9b07-fe4541d78db0")
+    mock_leave_room.assert_awaited_once_with("TheSid", "world-6b5ac1a1-d250-4f05-a5fb-ae37e8a92165")
+    mock_emit_pickups.assert_has_awaits([call(mock_sa, w1), call(mock_sa, w2)], any_order=True)
+    mock_emit_session_update.assert_awaited_once_with(mock_sa, session)
+    mock_emit_actions.assert_awaited_once_with(mock_sa, session)
+    mock_emit_inventory.assert_awaited_once_with(mock_sa, w1, 1234, b"foo")
+    mock_emit_session_audit_update.assert_awaited_once_with(mock_sa, session)
     mock_emit.assert_not_called()
 
 
-def test_report_disconnect(mock_emit_session_update, solo_two_world_session):
-    log = MagicMock()
+async def test_world_sync_abandoned_world_not_claimed(mock_sa, solo_two_world_session, mocker: MockerFixture):
+    # An abandoned world's bot runs for whoever claims it: a second instance reporting for the same
+    # world is refused, which is what keeps two bots from driving it at once.
+    mocker.patch("randovania.server.multiplayer.world_api.emit_world_pickups_update")
+
+    member = database.User.create(id=9999, name="Member")
+    database.MultiplayerMembership.create(user=member, session=solo_two_world_session, admin=False)
+    mock_sa.get_current_user.return_value = member
+
+    w1 = database.World.get_by_id(1)  # claimed by user 1234
+    w1.abandoned = True
+    w1.save()
+
+    request = ServerSyncRequest(
+        worlds=frozendict(
+            {
+                w1.uuid: ServerWorldSync(
+                    status=GameConnectionStatus.InGame,
+                    collected_locations=(5,),
+                    inventory=None,
+                    request_details=False,
+                    has_been_beaten=False,
+                ),
+            }
+        )
+    )
+
+    # Run
+    result = await world_api.world_sync(mock_sa, "TheSid", construct_pack.encode(request))
+
+    # Assert
+    assert construct_pack.decode(result, ServerSyncResponse) == ServerSyncResponse(
+        worlds=frozendict({}),
+        errors=frozendict({w1.uuid: error.WorldNotAssociatedError()}),
+    )
+    with pytest.raises(peewee.DoesNotExist):
+        database.WorldAction.get(provider=w1, location=5)
+
+
+@pytest.mark.parametrize("has_been_beaten", [True, False])
+async def test_dont_change_has_beaten(
+    mock_sa, solo_two_world_session, mocker: MockerFixture, mock_emit_session_update, has_been_beaten
+):
+    mock_emit = mock_sa.sio.emit
+    mock_emit_pickups = mocker.patch("randovania.server.multiplayer.world_api.emit_world_pickups_update")
+    mock_emit_actions = mocker.patch("randovania.server.multiplayer.session_common.emit_session_actions_update")
+    mock_emit_inventory = mocker.patch("randovania.server.multiplayer.world_api.emit_inventory_update")
+    mock_emit_session_audit_update = mocker.patch(
+        "randovania.server.multiplayer.session_common.emit_session_audit_update"
+    )
+
+    user = database.User.get_by_id(1234)
+    mock_sa.get_current_user.return_value = user
+
+    w1 = database.World.get_by_id(1)
+    w1.beaten = True
+    w1.save()
+    session = database.MultiplayerSession.get_by_id(solo_two_world_session.id)
+
+    request = ServerSyncRequest(
+        worlds=frozendict(
+            {
+                w1.uuid: ServerWorldSync(
+                    status=GameConnectionStatus.InGame,
+                    collected_locations=(5,),
+                    inventory=b"foo",
+                    request_details=True,
+                    has_been_beaten=has_been_beaten,
+                )
+            }
+        )
+    )
+
+    # Run
+    result = await world_api.world_sync(mock_sa, "TheSid", construct_pack.encode(request))
+
+    # Assert
+    assert construct_pack.decode(result, ServerSyncResponse) == ServerSyncResponse(
+        worlds=frozendict(
+            {
+                w1.uuid: ServerWorldResponse(
+                    world_name=w1.name,
+                    session_id=session.id,
+                    session_name=session.name,
+                ),
+            }
+        ),
+        errors=frozendict(),
+    )
+
+    finished_w1 = database.World.get_by_id(1)  # w1: beaten status should not change
+    assert w1.beaten
+    assert finished_w1.beaten
+
+    mock_sa.store_world_in_session.assert_awaited_once_with("TheSid", w1)
+    mock_sa.ensure_in_room.assert_awaited_once_with("TheSid", "world-1179c986-758a-4170-9b07-fe4541d78db0")
+    mock_emit_pickups.assert_has_awaits([call(mock_sa, w1)], any_order=True)
+    mock_emit_session_update.assert_awaited_once_with(mock_sa, session)
+    mock_emit_actions.assert_awaited_once_with(mock_sa, session)
+    mock_emit_inventory.assert_awaited_once_with(mock_sa, w1, 1234, b"foo")
+    mock_emit_session_audit_update.assert_not_awaited()
+    mock_emit.assert_not_called()
+
+
+async def test_report_disconnect(mock_sa, mock_emit_session_update, solo_two_world_session):
     session_dict = {"user-id": 1234, "worlds": [1]}
     a1 = database.WorldUserAssociation.get_by_instances(world=1, user=1234)
     a1.connection_state = GameConnectionStatus.InGame
     a1.save()
 
     # Run
-    world_api.report_disconnect(MagicMock(), session_dict, log)
+    await world_api.report_disconnect(mock_sa, session_dict)
 
     # Assert
     a1 = database.WorldUserAssociation.get_by_instances(world=1, user=1234)
     assert a1.connection_state == GameConnectionStatus.Disconnected
-    mock_emit_session_update.assert_called_once_with(database.MultiplayerSession.get_by_id(1))
+    mock_emit_session_update.assert_awaited_once_with(mock_sa, database.MultiplayerSession.get_by_id(1))
 
 
-def test_emit_inventory_room(solo_two_world_session):
-    sa = MagicMock()
-    sa.is_room_not_empty.return_value = True
+async def test_emit_inventory_room(mock_sa, solo_two_world_session):
+    mock_sa.is_room_not_empty.return_value = True
 
     world = database.World.get_by_id(1)
 
     # Run
-    world_api.emit_inventory_update(sa, world, 1234, b"foo")
+    await world_api.emit_inventory_update(mock_sa, world, 1234, b"foo")
 
     # Assert
-    sa.sio.emit.assert_called_once_with(
-        signals.WORLD_BINARY_INVENTORY,
+    mock_sa.sio.emit.assert_awaited_once_with(
+        "multiplayer_binary_inventory",
         (str(world.uuid), 1234, b"foo"),
-        to=f"multiplayer-{world.uuid}-1234-inventory",
         namespace="/",
-        include_self=True,
+        to=f"multiplayer-{world.uuid}-1234-inventory",
+        room=None,
     )
+
+
+async def test_get_abandoned_world_data(test_client, solo_two_world_session, solo_two_world_session_layout):
+    test_client.set_logged_in_user(1234)
+
+    world = database.World.get_by_id(1)
+    world.abandoned = True
+    world.save()
+    database.WorldAction.create(provider=world, location=10, session=solo_two_world_session, receiver=world)
+    database.WorldAction.create(
+        provider=world, location=5, session=solo_two_world_session, receiver=database.World.get_by_id(2)
+    )
+
+    # Run
+    response = test_client.get(f"/world/{world.uuid}/abandoned-data")
+    response.raise_for_status()
+    result = response.json()
+
+    # Assert
+    assert result["order"] == 0
+    assert result["preset_raw"] == world.preset
+    assert result["collected_locations"] == [5, 10]
+
+    # Only data about the world itself is shared: every location entry is owned by this world and no
+    # location holding another world's item leaks its content.
+    description = solo_two_world_session_layout
+    own_assignment = description.all_patches[0].pickup_assignment
+    for location in result["game_modifications"]["locations"]:
+        assert location["owner"] == 0
+        target = own_assignment.get(PickupIndex(location["index"]))
+        if target is not None and target.player != 0:
+            assert location["pickup"] == "Nothing"
+    assert result["game_modifications"]["hints"] == {}
+
+
+async def test_get_abandoned_world_data_admin_without_claim(test_client, solo_two_world_session, mock_audit):
+    # Only whoever claims the world may run its bot, so not even a session admin gets the data
+    # without claiming it first. Fetching it never creates an association (nor an audit entry).
+    admin_user = database.User.create(id=5555, name="Session Admin")
+    database.MultiplayerMembership.create(user=admin_user, session=solo_two_world_session, admin=True)
+    test_client.set_logged_in_user(5555)
+
+    world = database.World.get_by_id(1)
+    world.abandoned = True
+    world.save()
+
+    response = test_client.get(f"/world/{world.uuid}/abandoned-data", headers={"Accept": "application/json"})
+    assert response.status_code == 403
+    assert response.json()["detail"] == "You must claim this world to run its bot"
+
+    with pytest.raises(peewee.DoesNotExist):
+        database.WorldUserAssociation.get_by_instances(world=world, user=5555)
+    mock_audit.assert_not_awaited()
+
+
+async def test_get_abandoned_world_data_missing(test_client, solo_two_world_session):
+    test_client.set_logged_in_user(1234)
+
+    response = test_client.get(
+        "/world/e1d6e0d4-4e1e-4415-8ebb-19ddc003096c/abandoned-data", headers={"Accept": "application/json"}
+    )
+    assert response.status_code == 403
+    assert response.json()["detail"] == "You must claim this world to run its bot"
+
+
+async def test_get_abandoned_world_data_not_abandoned(test_client, solo_two_world_session):
+    test_client.set_logged_in_user(1234)
+    world = database.World.get_by_id(1)
+
+    response = test_client.get(f"/world/{world.uuid}/abandoned-data", headers={"Accept": "application/json"})
+    assert response.status_code == 409
+    assert response.json()["detail"] == "World is not abandoned"
+
+
+async def test_get_abandoned_world_data_member_without_claim(test_client, solo_two_world_session):
+    # Being a session member isn't enough: the world's bot runs only for whoever claims it.
+    member = database.User.create(id=9999, name="Member")
+    database.MultiplayerMembership.create(user=member, session=solo_two_world_session, admin=False)
+    test_client.set_logged_in_user(9999)
+
+    world = database.World.get_by_id(1)
+    world.abandoned = True
+    world.save()
+
+    response = test_client.get(f"/world/{world.uuid}/abandoned-data", headers={"Accept": "application/json"})
+    assert response.status_code == 403
+    assert response.json()["detail"] == "You must claim this world to run its bot"
+
+
+async def test_get_abandoned_world_data_claimed_by_other_user(test_client, solo_two_world_session):
+    # The claimer runs the bot; a second member may not, so only one instance ever drives the world.
+    member = database.User.create(id=9999, name="Member")
+    database.MultiplayerMembership.create(user=member, session=solo_two_world_session, admin=False)
+    test_client.set_logged_in_user(9999)
+
+    world = database.World.get_by_id(1)
+    world.abandoned = True
+    world.save()
+    # world 1 is already claimed by user 1234, who is running its bot
+    assert database.WorldUserAssociation.get_by_instances(world=world, user=1234) is not None
+
+    response = test_client.get(f"/world/{world.uuid}/abandoned-data", headers={"Accept": "application/json"})
+    assert response.status_code == 403
+
+
+async def test_get_abandoned_world_data_non_member(test_client, solo_two_world_session):
+    database.User.create(id=9999, name="Intruder")
+    test_client.set_logged_in_user(9999)
+
+    world = database.World.get_by_id(1)
+    world.abandoned = True
+    world.save()
+
+    response = test_client.get(f"/world/{world.uuid}/abandoned-data", headers={"Accept": "application/json"})
+    assert response.status_code == 403

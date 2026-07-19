@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import subprocess
+import sys
 from pathlib import Path
 from typing import TYPE_CHECKING
 from unittest.mock import ANY, AsyncMock, MagicMock
@@ -15,7 +16,6 @@ from randovania.gui.lib.qt_network_client import QtNetworkClient
 from randovania.gui.main_window import MainWindow
 from randovania.gui.multiplayer_session_window import MultiplayerSessionWindow
 from randovania.gui.widgets.about_widget import AboutWidget
-from randovania.gui.widgets.changelog_widget import ChangeLogWidget
 from randovania.gui.widgets.dependencies_widget import DependenciesWidget
 from randovania.gui.widgets.randovania_help_widget import RandovaniaHelpWidget
 from randovania.gui.widgets.reporting_optout_widget import ReportingOptOutWidget
@@ -154,19 +154,19 @@ async def test_generate_seed_from_permalink(default_main_window, mocker):
     default_main_window.open_game_details.assert_called_once_with(mock_generate_layout.return_value)
 
 
-@pytest.mark.parametrize("os_type", ["Windows", "Darwin", "Linux"])
+@pytest.mark.parametrize("os_type", ["win32", "darwin", "linux"])
 @pytest.mark.parametrize("throw_exception", [True, False])
 def test_on_menu_action_previously_generated_games(default_main_window, mocker, os_type, throw_exception, monkeypatch):
     mock_start_file = MagicMock()
     mock_subprocess_run = MagicMock()
     monkeypatch.setattr(os, "startfile", mock_start_file, raising=False)
     monkeypatch.setattr(subprocess, "run", mock_subprocess_run, raising=False)
-    mocker.patch("platform.system", return_value=os_type)
+    monkeypatch.setattr(sys, "platform", os_type, raising=False)
     mock_message_box = mocker.patch("PySide6.QtWidgets.QMessageBox")
 
     # Run
     if throw_exception:
-        if os_type == "Windows":
+        if os_type == "win32":
             mock_start_file.side_effect = OSError()
         else:
             mock_subprocess_run.side_effect = OSError()
@@ -177,7 +177,7 @@ def test_on_menu_action_previously_generated_games(default_main_window, mocker, 
     if throw_exception:
         mock_message_box.return_value.show.assert_called_once()
     else:
-        if os_type == "Windows":
+        if os_type == "win32":
             mock_start_file.assert_called_once()
             mock_message_box.return_value.show.assert_not_called()
         else:
@@ -200,10 +200,9 @@ def test_on_menu_action_help(default_main_window, monkeypatch):
 
 
 @pytest.mark.parametrize("has_changelog", [False, True])
-def test_on_menu_action_changelog(default_main_window, monkeypatch, has_changelog):
+async def test_on_menu_action_changelog(default_main_window, monkeypatch, has_changelog):
     mock_show = MagicMock()
     monkeypatch.setattr(QtWidgets.QWidget, "show", mock_show)
-    monkeypatch.setattr(ChangeLogWidget, "setup_labels", MagicMock())
     if has_changelog:
         default_main_window.all_change_logs = {}
 

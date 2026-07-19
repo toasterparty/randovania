@@ -22,6 +22,7 @@ if TYPE_CHECKING:
 def test_do_export_broken_internal_copy(tmp_path: Path):
     patch_data = {
         "menu_mod": False,
+        "new_patcher_only": False,
     }
 
     export_params = EchoesGameExportParams(
@@ -36,10 +37,11 @@ def test_do_export_broken_internal_copy(tmp_path: Path):
     )
     progress_update = MagicMock()
     exporter = EchoesGameExporter()
+    randovania_meta = MagicMock()
 
     # Run
     with pytest.raises(UnableToExportError):
-        exporter._do_export_game(patch_data, export_params, progress_update)
+        exporter._do_export_game(patch_data, export_params, progress_update, randovania_meta)
 
 
 @pytest.mark.parametrize("has_input_iso", [False, True])
@@ -64,17 +66,15 @@ def test_do_export_game(
     mock_create_backup = mocker.patch("randovania.games.prime2.patcher.claris_randomizer.create_pak_backups")
     mock_restore_backup = mocker.patch("randovania.games.prime2.patcher.claris_randomizer.restore_pak_backups")
     mock_apply_patcher = mocker.patch("randovania.games.prime2.patcher.claris_randomizer.apply_patcher_file")
-    mock_patch_paks = mocker.patch("open_prime_rando.echoes_patcher.patch_paks")
+    mock_patch_paks = mocker.patch("open_prime_rando.echoes.legacy_patcher.patch_paks")
     mock_mp2hudcolor_c = mocker.patch("mp2hudcolor.mp2hudcolor_c")
     mock_convert_prime1 = mocker.patch("randovania.patching.prime.asset_conversion.convert_prime1_pickups")
     mock_menu_mod = mocker.patch("randovania.games.prime2.patcher.claris_randomizer.add_menu_mod_to_files")
     mock_coin_chest = mocker.patch("randovania.games.prime2.exporter.game_exporter.copy_coin_chest")
 
     mock_dol_file = mocker.patch("ppc_asm.dol_file.DolFile")
-    mock_apply_dol = mocker.patch("open_prime_rando.dol_patching.echoes.dol_patcher.apply_patches")
-    mock_dol_patches_from_json = mocker.patch(
-        "open_prime_rando.dol_patching.echoes.dol_patcher.EchoesDolPatchesData.from_json"
-    )
+    mock_apply_dol = mocker.patch("open_prime_rando.echoes.legacy_patcher.patch_dol")
+    mock_dol_patches_from_json = mocker.patch("open_prime_rando.echoes.legacy_patcher.DolPatchesData.model_validate")
 
     exporter = EchoesGameExporter()
     new_patcher_data = {
@@ -95,6 +95,7 @@ def test_do_export_game(
 
     if use_new_patcher:
         patch_data["new_patcher"] = new_patcher_data
+    patch_data["new_patcher_only"] = False
 
     export_params = EchoesGameExportParams(
         input_path=input_path,
@@ -108,8 +109,10 @@ def test_do_export_game(
     )
     progress_update = MagicMock()
 
+    randovania_meta = MagicMock()
+
     # Run
-    exporter._do_export_game(patch_data, export_params, progress_update)
+    exporter._do_export_game(patch_data, export_params, progress_update, randovania_meta)
 
     # Assert
     if input_path is not None:

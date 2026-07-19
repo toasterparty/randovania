@@ -77,24 +77,127 @@ Templates
 * Destroy Enky:
       Any of the following:
           Shoot Ice Missile
-          Knowledge (Beginner) and Disabled Power Bomb Limitations and Lay Power Bomb
+          Disabled Power Bomb Limitations and Lay Power Bomb
 
 * Horizontal Water Movement:
       Any of the following:
           Space Jump
           Flash Shift and Gravity Suit
 
-* Destroy Central Unit:
+* Destroy Artaria Central Unit:
       All of the following:
-          # TODO: Not enough space for Speed Booster without short charges - account for this
-          # Requirement for destroying the shell
-          Shoot Charge Beam or Shoot Missile
+          Any of the following:
+              # Requirement for destroying the shell
+              Shoot Charge Beam or Shoot Missile
+              All of the following:
+                  # Shinespark
+                  Speed Booster
+                  # SB Upgrade or Turnaround to charge: https://youtu.be/YVUiMU-zJ_s
+                  Speed Booster Upgrade or Speed Booster Conservation (Beginner)
           Any of the following:
               # Requirement for destroying the core
-              Shoot Beam
+              Shoot Beam or Shoot Missile
               All of the following:
                   Screw Attack
-                  Simple IBJ or Use Spin Boost
+                  # Core bobs up and down slightly, good movement can hit with only Screw Attack
+                  Combat (Beginner) or Simple IBJ or Use Spin Boost
+              All of the following:
+                  # Shinespark: https://youtu.be/YVUiMU-zJ_s
+                  Speed Booster
+                  Speed Booster Upgrade or Speed Booster Conservation (Beginner)
+
+* Destroy Cataris/Dairon Central Unit:
+      All of the following:
+          Any of the following:
+              # Requirement for destroying the shell
+              Shoot Charge Beam or Shoot Missile
+              # Shinespark
+              Speed Booster
+          Any of the following:
+              # Requirement for destroying the core
+              Shoot Beam or Shoot Missile
+              All of the following:
+                  Screw Attack
+                  # Core bobs up and down slightly, good movement can hit with only Screw Attack
+                  Combat (Beginner) or Simple IBJ or Use Spin Boost
+              All of the following:
+                  # Shinespark: https://youtu.be/YVUiMU-zJ_s
+                  Speed Booster
+                  Speed Booster Upgrade or Speed Booster Conservation (Beginner)
+
+* Destroy Ghavoran Central Unit:
+      All of the following:
+          Any of the following:
+              # Requirement for destroying the shell
+              All of the following:
+                  Charge Beam
+                  Any of the following:
+                      Beam Damage 120
+                      Combat (Beginner) and Beam Damage 75
+              All of the following:
+                  Shoot Missile
+                  Combat (Beginner) or Shoot Ice Missile or Shoot Storm Missile or Shoot Super Missile
+              # Shinespark
+              Speed Booster
+          Any of the following:
+              # Requirement for destroying the core
+              All of the following:
+                  Shoot Beam
+                  Combat (Beginner) or Beam Damage 75
+              All of the following:
+                  Screw Attack
+                  # Core bobs up and down slightly, good movement can hit with only Screw Attack
+                  Combat (Beginner) or Simple IBJ or Use Spin Boost
+              All of the following:
+                  Shoot Missile
+                  Combat (Beginner) or Shoot Ice Missile or Shoot Storm Missile or Shoot Super Missile
+              All of the following:
+                  # Shinespark: https://youtu.be/YVUiMU-zJ_s
+                  Speed Booster
+                  Speed Booster Upgrade or Speed Booster Conservation (Beginner)
+
+* Destroy Ferenia Central Unit:
+      All of the following:
+          Any of the following:
+              # Requirement for destroying the shell
+              All of the following:
+                  Charge Beam
+                  Any of the following:
+                      Combat (Advanced)
+                      Combat (Intermediate) and Beam Damage 75
+                      Combat (Beginner) and Beam Damage 120
+                      Beam Damage 240
+              All of the following:
+                  Shoot Missile
+                  Any of the following:
+                      Combat (Intermediate) or Shoot Storm Missile or Shoot Super Ice Missile
+                      Combat (Beginner) and Shoot Super Missile
+                      Combat (Beginner) and Shoot Ice Missile
+              # Shinespark
+              Speed Booster
+          Any of the following:
+              # Requirement for destroying the core
+              All of the following:
+                  Shoot Beam
+                  Any of the following:
+                      Beam Damage 240
+                      Combat (Advanced)
+                      Combat (Intermediate) and Beam Damage 75
+                      Combat (Beginner) and Beam Damage 120
+              All of the following:
+                  Screw Attack
+                  # Core bobs up and down slightly, good movement can hit with only Screw Attack
+                  Combat (Beginner) or Simple IBJ or Use Spin Boost
+              All of the following:
+                  Shoot Missile
+                  Any of the following:
+                      Combat (Intermediate) or Shoot Storm Missile or Shoot Super Ice Missile
+                      Combat (Beginner) and Shoot Super Missile
+                      Combat (Beginner) and Shoot Ice Missile
+              All of the following:
+                  # Shinespark: https://youtu.be/YVUiMU-zJ_s
+                  Speed Booster
+                  Speed Booster Upgrade or Speed Booster Conservation (Beginner)
 
 * Shoot Missile:
       Missiles and Missile Launcher
@@ -116,14 +219,26 @@ Templates
 * Open Charge Door:
       Any of the following:
           Shoot Charge Beam
-          Knowledge (Beginner) and Disabled Power Bomb Limitations and Lay Power Bomb
+          Disabled Power Bomb Limitations and Lay Power Bomb
 
 * Fight Silver Robot:
       Any of the following:
           Combat (Beginner) and Knowledge (Beginner) and Lay Power Bomb
           All of the following:
-              # Methods of dodging
-              Flash Shift or Combat (Beginner)
+              Any of the following:
+                  # Requirements for health and dodging
+                  Combat (Advanced)
+                  Combat (Intermediate) and Normal Damage ≥ 140
+                  All of the following:
+                      Combat (Beginner)
+                      Any of the following:
+                          Normal Damage ≥ 340
+                          All of the following:
+                              Normal Damage ≥ 240
+                              Flash Shift or Use Spin Boost
+                  All of the following:
+                      Normal Damage ≥ 440
+                      Flash Shift or Use Spin Boost
               Any of the following:
                   # Methods of fighting
                   Beam Damage 120
@@ -136,7 +251,7 @@ Templates
                           Missiles ≥ 47 and Combat (Intermediate)
                           Any of the following:
                               # Counter the robot for more ammo
-                              Combat (Hypermode)
+                              Combat (Ludicrous)
                               Missiles ≥ 15 and Combat (Expert)
                   All of the following:
                       # 28 Super Missiles are required, 1.5x leeway for trickless
@@ -146,7 +261,7 @@ Templates
                           Missiles ≥ 28 and Combat (Intermediate)
                           Any of the following:
                               # Counter the robot for more ammo
-                              Combat (Hypermode)
+                              Combat (Ludicrous)
                               Missiles ≥ 15 and Combat (Advanced)
                   All of the following:
                       # 5 Storm Missile targets are required, 1.5x leeway for trickless
@@ -171,8 +286,20 @@ Templates
       Any of the following:
           Combat (Beginner) and Knowledge (Beginner) and Lay Power Bomb
           All of the following:
-              # Methods to dodge attacks
-              Flash Shift or Combat (Beginner)
+              Any of the following:
+                  # Requirements for health and dodging
+                  Combat (Advanced)
+                  Combat (Intermediate) and Normal Damage ≥ 230
+                  All of the following:
+                      Combat (Beginner)
+                      Any of the following:
+                          Normal Damage ≥ 430
+                          All of the following:
+                              Normal Damage ≥ 330
+                              Flash Shift or Use Spin Boost
+                  All of the following:
+                      Normal Damage ≥ 530
+                      Flash Shift or Use Spin Boost
               Any of the following:
                   # Methods of fighting
                   Beam Damage 120
@@ -185,7 +312,7 @@ Templates
                           Missiles ≥ 54 and Combat (Intermediate)
                           Any of the following:
                               # Counter the robot for more ammo
-                              Combat (Hypermode)
+                              Combat (Ludicrous)
                               Missiles ≥ 15 and Combat (Expert)
                   All of the following:
                       # 34 Super Missiles are required, 1.5x leeway for trickless
@@ -195,7 +322,7 @@ Templates
                           Missiles ≥ 34 and Combat (Intermediate)
                           Any of the following:
                               # Counter the robot for more ammo
-                              Combat (Hypermode)
+                              Combat (Ludicrous)
                               Missiles ≥ 15 and Combat (Advanced)
                   All of the following:
                       # 11 Storm Missile targets are required, 1.5x leeway for trickless
@@ -206,7 +333,7 @@ Templates
                           Any of the following:
                               # Counter the robot for more ammo
                               Missiles ≥ 15 and Combat (Advanced)
-                              Missiles ≥ 3 and Combat (Hypermode)
+                              Missiles ≥ 3 and Combat (Ludicrous)
                   Combat (Intermediate) and Beam Pierces Enemies
           All of the following:
               Screw Attack
@@ -222,8 +349,20 @@ Templates
       Any of the following:
           Combat (Beginner) and Knowledge (Beginner) and Lay Power Bomb
           All of the following:
-              # Methods of dodging
-              Flash Shift or Combat (Beginner)
+              Any of the following:
+                  # Requirements for health and dodging
+                  Combat (Advanced)
+                  Combat (Intermediate) and Normal Damage ≥ 399
+                  All of the following:
+                      Combat (Beginner)
+                      Any of the following:
+                          Normal Damage ≥ 599
+                          All of the following:
+                              Normal Damage ≥ 499
+                              Flash Shift or Use Spin Boost
+                  All of the following:
+                      Normal Damage ≥ 699
+                      Flash Shift or Use Spin Boost
               Any of the following:
                   # Methods of fighting
                   Beam Damage 120
@@ -236,7 +375,7 @@ Templates
                           Missiles ≥ 101 and Combat (Intermediate)
                           Any of the following:
                               # Counter the robots for more ammo
-                              Combat (Hypermode)
+                              Combat (Ludicrous)
                               Missiles ≥ 30 and Combat (Expert)
                   All of the following:
                       # 62 Super Missiles are required, 1.5x leeway for trickless
@@ -246,7 +385,7 @@ Templates
                           Missiles ≥ 62 and Combat (Intermediate)
                           Any of the following:
                               # Counter the robots for more ammo
-                              Combat (Hypermode)
+                              Combat (Ludicrous)
                               Missiles ≥ 30 and Combat (Advanced)
                   All of the following:
                       # 16 Storm Missile targets are required, 1.5x leeway for trickless
@@ -256,7 +395,7 @@ Templates
                           Missiles ≥ 46 and Combat (Intermediate)
                           Any of the following:
                               # Counter the robots for more ammo
-                              Missiles ≥ 3 and Combat (Hypermode)
+                              Missiles ≥ 3 and Combat (Ludicrous)
                               Missiles ≥ 30 and Combat (Advanced)
                   Combat (Intermediate) and Beam Pierces Enemies
           All of the following:
@@ -296,8 +435,8 @@ Templates
                   Combat (Intermediate) and Beam Damage 75
               Any of the following:
                   # Energy Requirements
-                  Combat (Intermediate) or Normal Damage ≥ 499
-                  Combat (Beginner) and Normal Damage ≥ 299
+                  Combat (Intermediate) or Normal Damage ≥ 530
+                  Combat (Beginner) and Normal Damage ≥ 330
 
 * Fight Red Chozo-X:
       Any of the following:
@@ -415,6 +554,12 @@ Templates
               Bomb or Cross Bomb
               Main Power Bomb and Power Bombs
 
+* Traverse Any Shutter Gate:
+      Any of the following:
+          Flash Shift
+          Flash Shift Skip (Beginner) and Lay Cross Bomb
+          Flash Shift Skip (Intermediate) and Lay Normal Bomb
+
 ====================
 Dock Weaknesses
 
@@ -518,10 +663,7 @@ Dock Weaknesses
   * Phase Shift Door
       Extra - type: phase_shift
       Open:
-          Any of the following:
-              Flash Shift
-              Flash Shift Skip (Beginner) and Lay Cross Bomb
-              Flash Shift Skip (Intermediate) and Lay Small Bomb
+          Traverse Any Shutter Gate
       No lock
 
 

@@ -26,6 +26,9 @@
      <property name="text">
       <string>Accept</string>
      </property>
+     <property name="default">
+      <bool>true</bool>
+     </property>
     </widget>
    </item>
    <item row="2" column="1">
@@ -52,7 +55,7 @@
         <x>0</x>
         <y>0</y>
         <width>448</width>
-        <height>2310</height>
+        <height>2424</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -62,6 +65,57 @@
           <string>Game Changes</string>
          </property>
          <layout class="QVBoxLayout" name="game_changes_layout">
+          <item>
+           <widget class="QCheckBox" name="faster_credits_check">
+            <property name="text">
+             <string>Faster Credits</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="remove_hud_popup_check">
+            <property name="text">
+             <string>Skip Item Acquisition Popups</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="pickup_markers_check">
+            <property name="text">
+             <string>Replace Translator icons on map with item icons</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="open_map_check">
+            <property name="text">
+             <string>Open map from start</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="unvisited_room_names_check">
+            <property name="text">
+             <string>Always display room names on map</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="unvisited_map_icons_check">
+            <property name="text">
+             <string>Always display non-door map icons on map</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="hud_color_group_box">
+         <property name="title">
+          <string>HUD Color</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
            <layout class="QHBoxLayout" name="hud_color_layout">
             <property name="spacing">
@@ -105,10 +159,10 @@
                <bool>false</bool>
               </property>
               <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
+               <enum>QFrame::Shape::StyledPanel</enum>
               </property>
               <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
+               <enum>QFrame::Shadow::Raised</enum>
               </property>
               <property name="lineWidth">
                <number>1</number>
@@ -118,37 +172,16 @@
            </layout>
           </item>
           <item>
-           <widget class="QCheckBox" name="faster_credits_check">
+           <widget class="QCheckBox" name="hud_color_text_check">
             <property name="text">
-             <string>Faster Credits</string>
+             <string>Apply custom HUD color to basic text</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="remove_hud_popup_check">
+           <widget class="QCheckBox" name="hud_color_beam_visor_check">
             <property name="text">
-             <string>Skip Item Acquisition Popups</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="pickup_markers_check">
-            <property name="text">
-             <string>Replace Translator icons on map with item icons</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="open_map_check">
-            <property name="text">
-             <string>Open map from start</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="unvisited_room_names_check">
-            <property name="text">
-             <string>Always display room names on map</string>
+             <string>Apply custom HUD color to beam and visor selection icons</string>
             </property>
            </widget>
           </item>
@@ -223,7 +256,7 @@
                    <string>Player 1</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignmentFlag::AlignCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -256,7 +289,7 @@
                    <string/>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignmentFlag::AlignCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -352,7 +385,7 @@
                    <string>Player 1</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignmentFlag::AlignCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -380,7 +413,7 @@
                    <string/>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignmentFlag::AlignCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -475,7 +508,7 @@
                    <string>Player 1</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignmentFlag::AlignCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -503,7 +536,7 @@
                    <string/>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignmentFlag::AlignCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -599,7 +632,7 @@
                    <string>Player 1</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignmentFlag::AlignCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -627,7 +660,7 @@
                    <string/>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignmentFlag::AlignCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -720,10 +753,10 @@
              <item row="1" column="1">
               <widget class="ScrollProtectedSlider" name="helmet_alpha_slider">
                <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+                <enum>Qt::Orientation::Horizontal</enum>
                </property>
                <property name="tickPosition">
-                <enum>QSlider::TicksBelow</enum>
+                <enum>QSlider::TickPosition::TicksBelow</enum>
                </property>
               </widget>
              </item>
@@ -751,10 +784,10 @@
              <item row="0" column="1">
               <widget class="ScrollProtectedSlider" name="hud_alpha_slider">
                <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+                <enum>Qt::Orientation::Horizontal</enum>
                </property>
                <property name="tickPosition">
-                <enum>QSlider::TicksBelow</enum>
+                <enum>QSlider::TickPosition::TicksBelow</enum>
                </property>
               </widget>
              </item>
@@ -836,20 +869,20 @@
              <item row="1" column="1">
               <widget class="ScrollProtectedSlider" name="sfx_volume_slider">
                <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+                <enum>Qt::Orientation::Horizontal</enum>
                </property>
                <property name="tickPosition">
-                <enum>QSlider::TicksBelow</enum>
+                <enum>QSlider::TickPosition::TicksBelow</enum>
                </property>
               </widget>
              </item>
              <item row="2" column="1">
               <widget class="ScrollProtectedSlider" name="music_volume_slider">
                <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+                <enum>Qt::Orientation::Horizontal</enum>
                </property>
                <property name="tickPosition">
-                <enum>QSlider::TicksBelow</enum>
+                <enum>QSlider::TickPosition::TicksBelow</enum>
                </property>
               </widget>
              </item>
@@ -893,20 +926,20 @@
              <item row="0" column="1">
               <widget class="ScrollProtectedSlider" name="screen_brightness_slider">
                <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+                <enum>Qt::Orientation::Horizontal</enum>
                </property>
                <property name="tickPosition">
-                <enum>QSlider::TicksBelow</enum>
+                <enum>QSlider::TickPosition::TicksBelow</enum>
                </property>
               </widget>
              </item>
              <item row="2" column="1">
               <widget class="ScrollProtectedSlider" name="screen_y_offset_slider">
                <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+                <enum>Qt::Orientation::Horizontal</enum>
                </property>
                <property name="tickPosition">
-                <enum>QSlider::TicksBelow</enum>
+                <enum>QSlider::TickPosition::TicksBelow</enum>
                </property>
               </widget>
              </item>
@@ -920,20 +953,20 @@
              <item row="1" column="1">
               <widget class="ScrollProtectedSlider" name="screen_x_offset_slider">
                <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+                <enum>Qt::Orientation::Horizontal</enum>
                </property>
                <property name="tickPosition">
-                <enum>QSlider::TicksBelow</enum>
+                <enum>QSlider::TickPosition::TicksBelow</enum>
                </property>
               </widget>
              </item>
              <item row="3" column="1">
               <widget class="ScrollProtectedSlider" name="screen_stretch_slider">
                <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+                <enum>Qt::Orientation::Horizontal</enum>
                </property>
                <property name="tickPosition">
-                <enum>QSlider::TicksBelow</enum>
+                <enum>QSlider::TickPosition::TicksBelow</enum>
                </property>
               </widget>
              </item>
@@ -981,7 +1014,7 @@
        <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -1002,13 +1035,13 @@
   <customwidget>
    <class>Foldable</class>
    <extends>QWidget</extends>
-   <header>randovania/gui/lib/foldable.h</header>
+   <header>randovania/gui/widgets/foldable.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>ScrollProtectedSlider</class>
    <extends>QSlider</extends>
-   <header>randovania/gui/lib/scroll_protected.h</header>
+   <header>randovania/gui/widgets/scroll_protected.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

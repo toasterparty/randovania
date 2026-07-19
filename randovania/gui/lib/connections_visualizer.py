@@ -20,7 +20,7 @@ def create_tree_items_for_requirement(
     root: QtWidgets.QTreeWidget | QtWidgets.QTreeWidgetItem,
     requirement: Requirement,
     db: ResourceDatabase,
-) -> QtWidgets.QTreeWidgetItem:
+) -> QtWidgets.QTreeWidgetItem | None:
     parents: list[QtWidgets.QTreeWidget | QtWidgets.QTreeWidgetItem] = [root]
 
     result = None
@@ -66,12 +66,16 @@ def create_tree_items_for_requirement(
 
 
 class ConnectionsVisualizer:
+    """
+    A widget that's meant for showing a human-readable form of a Connection/Requirement.
+    """
+
     parent: QWidget
     grid_layout: QGridLayout
 
     def __init__(
         self, parent: QWidget, grid_layout: QGridLayout, requirement: Requirement, resource_database: ResourceDatabase
-    ):
+    ) -> None:
         self.parent = parent
         self.grid_layout = grid_layout
         self.resource_database = resource_database
@@ -84,5 +88,5 @@ class ConnectionsVisualizer:
         create_tree_items_for_requirement(self._tree, self._tree, requirement, self.resource_database)
         self._tree.updateGeometries()
 
-    def deleteLater(self):
+    def deleteLater(self) -> None:
         self._tree.deleteLater()

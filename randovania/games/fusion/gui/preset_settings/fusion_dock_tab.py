@@ -15,7 +15,7 @@ if TYPE_CHECKING:
     from randovania.interface_common.preset_editor import PresetEditor
     from randovania.layout.preset import Preset
 
-_CHECKBOX_FIELDS = ["open_save_hatches"]
+_CHECKBOX_FIELDS = ["open_save_recharge_hatches", "unlock_sector_hub"]
 
 
 class PresetFusionDocks(PresetDockRando):
@@ -28,11 +28,20 @@ class PresetFusionDocks(PresetDockRando):
         self.changes_layout = QtWidgets.QVBoxLayout(self.changes_box)
 
         extra_widgets: list[tuple[type[QtWidgets.QCheckBox | QtWidgets.QLabel], str, str]] = [
-            (QtWidgets.QCheckBox, "open_save_hatches_check", "Unlock Save Station Hatches"),
+            (QtWidgets.QCheckBox, "unlock_sector_hub_check", "Unlock hatches in Sector Hub"),
             (
                 QtWidgets.QLabel,
-                "open_save_hatches_label",
-                "Ensures all Save Station doors are open hatches, even with door lock rando enabled.",
+                "unlock_sector_hub_label",
+                (
+                    "Ensures all doors in the Sector Hub are open hatches, "
+                    "giving access to the sector elevators at all times."
+                ),
+            ),
+            (QtWidgets.QCheckBox, "open_save_recharge_hatches_check", "Unlock Save and Recharge Station Hatches"),
+            (
+                QtWidgets.QLabel,
+                "open_save_recharge_hatches_label",
+                "Ensures all Save and Recharge Station doors are open hatches, even with Door Lock Rando enabled.",
             ),
         ]
 
@@ -66,4 +75,4 @@ class PresetFusionDocks(PresetDockRando):
         config = preset.configuration
         assert isinstance(config, FusionConfiguration)
         for f in _CHECKBOX_FIELDS:
-            typing.cast(QtWidgets.QCheckBox, getattr(self, f"{f}_check")).setChecked(getattr(config, f))
+            typing.cast("QtWidgets.QCheckBox", getattr(self, f"{f}_check")).setChecked(getattr(config, f))

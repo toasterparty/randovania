@@ -1,14 +1,12 @@
 {
     "name": "Last Cave",
-    "extra": {
-        "dark_name": "Sacred Grounds"
-    },
+    "extra": {},
     "areas": {
         "Final Cave": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
-                "map_name": "Priso1",
-                "in_dark_aether": false
+                "map_name": "Priso1"
             },
             "nodes": {
                 "Door to Plantation": {
@@ -81,9 +79,11 @@
         },
         "Last Cave (Hidden)": {
             "default_node": null,
+            "hint_features": [
+                "boss"
+            ],
             "extra": {
-                "map_name": "Priso2",
-                "in_dark_aether": false
+                "map_name": "Priso2"
             },
             "nodes": {
                 "Door to Plantation": {
@@ -199,6 +199,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 29,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Plantation": {
                             "type": "resource",
@@ -391,9 +393,9 @@
         },
         "Balcony (Pre-Bosses)": {
             "default_node": "Door to Prefab Building",
+            "hint_features": [],
             "extra": {
                 "map_name": "Blcny1",
-                "in_dark_aether": false,
                 "starting_script": "<TRA0062:0091:0007:0074"
             },
             "nodes": {
@@ -842,9 +844,9 @@
         },
         "Prefab Building": {
             "default_node": "Save Point/Bed",
+            "hint_features": [],
             "extra": {
                 "map_name": "Prefa1",
-                "in_dark_aether": false,
                 "starting_script": "<TRA0066:0094:0011:0008"
             },
             "nodes": {
@@ -912,9 +914,9 @@
         },
         "Throne Room": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
-                "map_name": "Ring1",
-                "in_dark_aether": false
+                "map_name": "Ring1"
             },
             "nodes": {
                 "Event - Misery": {
@@ -1123,9 +1125,9 @@
         },
         "The King's Table": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
-                "map_name": "Ring2",
-                "in_dark_aether": false
+                "map_name": "Ring2"
             },
             "nodes": {
                 "Event - Doctor": {
@@ -1306,9 +1308,9 @@
         },
         "Black Space": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
-                "map_name": "Ring3",
-                "in_dark_aether": false
+                "map_name": "Ring3"
             },
             "nodes": {
                 "Event - Undead Core": {
@@ -1451,9 +1453,9 @@
         },
         "Balcony (Post-Bosses)": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
-                "map_name": "Blcny2",
-                "in_dark_aether": false
+                "map_name": "Blcny2"
             },
             "nodes": {
                 "Event - Normal Ending": {
@@ -1469,7 +1471,8 @@
                         "default"
                     ],
                     "extra": {
-                        "different_strongly_connected_component": true
+                        "different_strongly_connected_component": true,
+                        "allow_no_outgoing_connections": true
                     },
                     "valid_starting_location": false,
                     "event_name": "eventNormalEnd",
@@ -1659,9 +1662,9 @@
         },
         "Prefab House": {
             "default_node": "Save Point",
+            "hint_features": [],
             "extra": {
-                "map_name": "Prefa2",
-                "in_dark_aether": false
+                "map_name": "Prefa2"
             },
             "nodes": {
                 "Entrance from Balcony (Post-Bosses)": {
@@ -1798,9 +1801,9 @@
         },
         "Sacred Grounds - B1": {
             "default_node": "Event - Curly",
+            "hint_features": [],
             "extra": {
-                "map_name": "Hell1",
-                "in_dark_aether": false
+                "map_name": "Hell1"
             },
             "nodes": {
                 "Entrance from Prefab House": {
@@ -1906,6 +1909,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 30,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Sacred Grounds - B2": {
                             "type": "resource",
@@ -1947,9 +1952,9 @@
         },
         "Sacred Grounds - B2": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
-                "map_name": "Hell2",
-                "in_dark_aether": false
+                "map_name": "Hell2"
             },
             "nodes": {
                 "Door to Sacred Grounds - B1": {
@@ -2022,9 +2027,9 @@
         },
         "Sacred Grounds - B3": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
-                "map_name": "Hell3",
-                "in_dark_aether": false
+                "map_name": "Hell3"
             },
             "nodes": {
                 "H/V Trigger to Sacred Grounds - B2": {
@@ -2124,6 +2129,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 31,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "After Spike Pit": {
                             "type": "and",
@@ -2476,9 +2483,9 @@
         },
         "Corridor": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
-                "map_name": "Ostep",
-                "in_dark_aether": false
+                "map_name": "Ostep"
             },
             "nodes": {
                 "Door to Passage?": {
@@ -2557,9 +2564,9 @@
         },
         "Seal Chamber": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
-                "map_name": "Ballo1",
-                "in_dark_aether": false
+                "map_name": "Ballo1"
             },
             "nodes": {
                 "Entrance from Corridor": {

@@ -6,6 +6,7 @@
     "areas": {
         "Crater Entry Point": {
             "default_node": "Teleporter to Tallon Overworld",
+            "hint_features": [],
             "extra": {
                 "asset_id": 2472970646,
                 "size_index": 0.3,
@@ -146,12 +147,15 @@
                     "valid_starting_location": false,
                     "pickup_index": 168,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {}
                 }
             }
         },
         "Crater Tunnel A": {
             "default_node": "Door to Crater Entry Point",
+            "hint_features": [],
             "extra": {
                 "asset_id": 1238049635,
                 "size_index": 0.1,
@@ -261,12 +265,15 @@
                     "valid_starting_location": false,
                     "pickup_index": 169,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {}
                 }
             }
         },
         "Phazon Core": {
             "default_node": "Door to Crater Tunnel A",
+            "hint_features": [],
             "extra": {
                 "asset_id": 3180620483,
                 "size_index": 0.3,
@@ -320,39 +327,33 @@
                         "Door to Crater Tunnel B": {
                             "type": "or",
                             "data": {
-                                "comment": null,
+                                "comment": "Climb up",
                                 "items": [
-                                    {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
-                                            "name": "SpaceJump",
-                                            "amount": 1,
-                                            "negate": false
-                                        }
-                                    },
                                     {
                                         "type": "and",
                                         "data": {
-                                            "comment": "https://youtu.be/TMe76OuirzQ",
+                                            "comment": null,
                                             "items": [
                                                 {
                                                     "type": "resource",
                                                     "data": {
                                                         "type": "items",
-                                                        "name": "MorphBall",
+                                                        "name": "SpaceJump",
                                                         "amount": 1,
                                                         "negate": false
                                                     }
-                                                },
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "and",
+                                        "data": {
+                                            "comment": "Laddered Bomb Jumps: https://youtu.be/TMe76OuirzQ",
+                                            "items": [
                                                 {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "Bombs",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
+                                                    "type": "template",
+                                                    "data": "Can Use Bombs"
                                                 },
                                                 {
                                                     "type": "resource",
@@ -366,7 +367,7 @@
                                                 {
                                                     "type": "or",
                                                     "data": {
-                                                        "comment": null,
+                                                        "comment": "Cross final gap",
                                                         "items": [
                                                             {
                                                                 "type": "resource",
@@ -412,7 +413,7 @@
                                     {
                                         "type": "and",
                                         "data": {
-                                            "comment": "https://youtu.be/bbYIFF00zYM?t=24117",
+                                            "comment": "Use the Fission Metroids to bump Samus upwards: https://youtu.be/bbYIFF00zYM?t=24117",
                                             "items": [
                                                 {
                                                     "type": "resource",
@@ -482,39 +483,33 @@
                         "Door to Crater Missile Station": {
                             "type": "or",
                             "data": {
-                                "comment": null,
+                                "comment": "Climb up",
                                 "items": [
-                                    {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
-                                            "name": "SpaceJump",
-                                            "amount": 1,
-                                            "negate": false
-                                        }
-                                    },
                                     {
                                         "type": "and",
                                         "data": {
-                                            "comment": "https://youtu.be/TMe76OuirzQ",
+                                            "comment": null,
                                             "items": [
                                                 {
                                                     "type": "resource",
                                                     "data": {
                                                         "type": "items",
-                                                        "name": "MorphBall",
+                                                        "name": "SpaceJump",
                                                         "amount": 1,
                                                         "negate": false
                                                     }
-                                                },
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "and",
+                                        "data": {
+                                            "comment": "Uber Bomb Jump (UBJ) up cliff above door: https://youtu.be/TMe76OuirzQ",
+                                            "items": [
                                                 {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "Bombs",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
+                                                    "type": "template",
+                                                    "data": "Can Use Bombs"
                                                 },
                                                 {
                                                     "type": "resource",
@@ -558,7 +553,7 @@
                                     {
                                         "type": "and",
                                         "data": {
-                                            "comment": "https://youtu.be/bbYIFF00zYM?t=24029",
+                                            "comment": "Dash between cliff standables: https://youtu.be/bbYIFF00zYM?t=24029",
                                             "items": [
                                                 {
                                                     "type": "resource",
@@ -670,12 +665,15 @@
                     "valid_starting_location": false,
                     "pickup_index": 170,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {}
                 }
             }
         },
         "Crater Missile Station": {
             "default_node": "Door to Phazon Core",
+            "hint_features": [],
             "extra": {
                 "asset_id": 1296329791,
                 "size_index": 0.1,
@@ -770,12 +768,15 @@
                     "valid_starting_location": false,
                     "pickup_index": 171,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {}
                 }
             }
         },
         "Crater Tunnel B": {
             "default_node": "Door to Phazon Core",
+            "hint_features": [],
             "extra": {
                 "asset_id": 852861312,
                 "size_index": 0.1,
@@ -822,12 +823,12 @@
                         "Door to Phazon Core": {
                             "type": "or",
                             "data": {
-                                "comment": null,
+                                "comment": "Cross the Red Phazon pit",
                                 "items": [
                                     {
                                         "type": "and",
                                         "data": {
-                                            "comment": null,
+                                            "comment": "Space Jump across",
                                             "items": [
                                                 {
                                                     "type": "resource",
@@ -865,22 +866,8 @@
                                             "comment": null,
                                             "items": [
                                                 {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "MorphBall",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
-                                                },
-                                                {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "Bombs",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
+                                                    "type": "template",
+                                                    "data": "Can Use Bombs"
                                                 },
                                                 {
                                                     "type": "or",
@@ -888,18 +875,21 @@
                                                         "comment": null,
                                                         "items": [
                                                             {
-                                                                "type": "resource",
+                                                                "type": "and",
                                                                 "data": {
-                                                                    "type": "items",
-                                                                    "name": "Spider",
-                                                                    "amount": 1,
-                                                                    "negate": false
+                                                                    "comment": "Spider Ball track",
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "template",
+                                                                            "data": "Can Use Spider Ball"
+                                                                        }
+                                                                    ]
                                                                 }
                                                             },
                                                             {
                                                                 "type": "and",
                                                                 "data": {
-                                                                    "comment": null,
+                                                                    "comment": "Move through the pit and Bomb Jump out",
                                                                     "items": [
                                                                         {
                                                                             "type": "resource",
@@ -975,12 +965,12 @@
                         "Door to Phazon Infusion Chamber": {
                             "type": "or",
                             "data": {
-                                "comment": null,
+                                "comment": "Cross the Red Phazon pit",
                                 "items": [
                                     {
                                         "type": "and",
                                         "data": {
-                                            "comment": null,
+                                            "comment": "Space Jump across",
                                             "items": [
                                                 {
                                                     "type": "resource",
@@ -1018,22 +1008,8 @@
                                             "comment": null,
                                             "items": [
                                                 {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "MorphBall",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
-                                                },
-                                                {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "Bombs",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
+                                                    "type": "template",
+                                                    "data": "Can Use Bombs"
                                                 },
                                                 {
                                                     "type": "or",
@@ -1041,18 +1017,21 @@
                                                         "comment": null,
                                                         "items": [
                                                             {
-                                                                "type": "resource",
+                                                                "type": "and",
                                                                 "data": {
-                                                                    "type": "items",
-                                                                    "name": "Spider",
-                                                                    "amount": 1,
-                                                                    "negate": false
+                                                                    "comment": "Spider Ball track",
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "template",
+                                                                            "data": "Can Use Spider Ball"
+                                                                        }
+                                                                    ]
                                                                 }
                                                             },
                                                             {
                                                                 "type": "and",
                                                                 "data": {
-                                                                    "comment": null,
+                                                                    "comment": "Move through the pit and Bomb Jump out",
                                                                     "items": [
                                                                         {
                                                                             "type": "resource",
@@ -1113,12 +1092,15 @@
                     "valid_starting_location": false,
                     "pickup_index": 172,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {}
                 }
             }
         },
         "Phazon Infusion Chamber": {
             "default_node": "Door to Crater Tunnel B",
+            "hint_features": [],
             "extra": {
                 "asset_id": 1729456653,
                 "size_index": 0.3,
@@ -1228,12 +1210,15 @@
                     "valid_starting_location": false,
                     "pickup_index": 173,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {}
                 }
             }
         },
         "Subchamber One": {
             "default_node": "Dock from Phazon Infusion Chamber",
+            "hint_features": [],
             "extra": {
                 "asset_id": 3672049347,
                 "size_index": 0.3,
@@ -1503,12 +1488,15 @@
                     "valid_starting_location": false,
                     "pickup_index": 174,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {}
                 }
             }
         },
         "Subchamber Two": {
             "default_node": "Dock to Subchamber One",
+            "hint_features": [],
             "extra": {
                 "asset_id": 122281798,
                 "size_index": 0.3,
@@ -1825,12 +1813,15 @@
                     "valid_starting_location": false,
                     "pickup_index": 175,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {}
                 }
             }
         },
         "Subchamber Three": {
             "default_node": "Dock to Subchamber Two",
+            "hint_features": [],
             "extra": {
                 "asset_id": 2050677022,
                 "size_index": 0.3,
@@ -2147,12 +2138,15 @@
                     "valid_starting_location": false,
                     "pickup_index": 176,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {}
                 }
             }
         },
         "Subchamber Four": {
             "default_node": "Dock to Subchamber Three",
+            "hint_features": [],
             "extra": {
                 "asset_id": 2813067419,
                 "size_index": 0.3,
@@ -2425,12 +2419,15 @@
                     "valid_starting_location": false,
                     "pickup_index": 177,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {}
                 }
             }
         },
         "Subchamber Five": {
             "default_node": "Dock to Subchamber Four",
+            "hint_features": [],
             "extra": {
                 "asset_id": 2003911832,
                 "size_index": 0.3,
@@ -2540,12 +2537,15 @@
                     "valid_starting_location": false,
                     "pickup_index": 178,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {}
                 }
             }
         },
         "Metroid Prime Lair": {
             "default_node": "Dock to Subchamber Five",
+            "hint_features": [],
             "extra": {
                 "asset_id": 442920021,
                 "size_index": 0.3,
@@ -2658,7 +2658,7 @@
                                     {
                                         "type": "or",
                                         "data": {
-                                            "comment": null,
+                                            "comment": "Charge Beam is required to continuously fire Phazon Beam",
                                             "items": [
                                                 {
                                                     "type": "resource",
@@ -2726,13 +2726,8 @@
                                                         "comment": null,
                                                         "items": [
                                                             {
-                                                                "type": "resource",
-                                                                "data": {
-                                                                    "type": "items",
-                                                                    "name": "MorphBall",
-                                                                    "amount": 1,
-                                                                    "negate": false
-                                                                }
+                                                                "type": "template",
+                                                                "data": "Can Use Power Bombs"
                                                             },
                                                             {
                                                                 "type": "resource",
@@ -2976,6 +2971,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 179,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {}
                 }
             }

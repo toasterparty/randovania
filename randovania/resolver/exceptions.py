@@ -16,10 +16,13 @@ class GenerationFailure(Exception):
         self.generator_params = generator_params
         self.source = source
 
-    def __reduce__(self):
+    def __reduce__(self) -> tuple[type, tuple]:
         return GenerationFailure, (super().__str__(), self.generator_params, self.source)
 
-    def __eq__(self, other):
+    def __hash__(self) -> int:
+        return hash(self.generator_params)
+
+    def __eq__(self, other: object) -> bool:
         if not isinstance(other, GenerationFailure):
             return False
 
@@ -34,10 +37,13 @@ class ImpossibleForSolver(GenerationFailure):
         super().__init__(reason, generator_params, None)
         self.layout = layout
 
-    def __reduce__(self):
+    def __reduce__(self) -> tuple[type, tuple]:
         return ImpossibleForSolver, (super().__str__(), self.generator_params, self.layout)
 
-    def __eq__(self, other):
+    def __hash__(self) -> int:
+        return self.layout.__hash__()
+
+    def __eq__(self, other: object) -> bool:
         if not isinstance(other, ImpossibleForSolver):
             return False
 

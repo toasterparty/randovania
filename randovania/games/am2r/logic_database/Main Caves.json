@@ -6,6 +6,7 @@
     "areas": {
         "Landing Site": {
             "default_node": "Ship",
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h01",
                 "minimap_data": [
@@ -749,6 +750,7 @@
         },
         "Hornoad Hallway": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h02",
                 "minimap_data": [
@@ -781,6 +783,13 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "100990": "oHornoad",
+                    "100991": "oHornoad",
+                    "100992": "oYumbo",
+                    "100993": "oYumbo",
+                    "100994": "oYumbo"
                 }
             },
             "nodes": {
@@ -817,10 +826,15 @@
                     "ui_custom_name": null,
                     "connections": {
                         "Bottom": {
-                            "type": "and",
+                            "type": "or",
                             "data": {
                                 "comment": null,
-                                "items": []
+                                "items": [
+                                    {
+                                        "type": "template",
+                                        "data": "Can Destroy Shot Block"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -867,6 +881,10 @@
                                             "amount": 1,
                                             "negate": false
                                         }
+                                    },
+                                    {
+                                        "type": "template",
+                                        "data": "Can Destroy Shot Block"
                                     }
                                 ]
                             }
@@ -896,6 +914,10 @@
                                     {
                                         "type": "template",
                                         "data": "Power Grip Wall"
+                                    },
+                                    {
+                                        "type": "template",
+                                        "data": "Can Destroy Shot Block"
                                     }
                                 ]
                             }
@@ -913,6 +935,10 @@
                                             "amount": 1,
                                             "negate": false
                                         }
+                                    },
+                                    {
+                                        "type": "template",
+                                        "data": "Can Destroy Shot Block"
                                     }
                                 ]
                             }
@@ -923,6 +949,7 @@
         },
         "Tsumuri Tunnel": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h02a",
                 "minimap_data": [
@@ -947,6 +974,14 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "101111": "oTsumuri",
+                    "101112": "oTsumuri",
+                    "101113": "oTsumuri",
+                    "101114": "oTsumuri",
+                    "101115": "oTsumuri",
+                    "101116": "oYumbo"
                 }
             },
             "nodes": {
@@ -983,10 +1018,6 @@
                                 "comment": null,
                                 "items": [
                                     {
-                                        "type": "template",
-                                        "data": "Power Grip Wall"
-                                    },
-                                    {
                                         "type": "and",
                                         "data": {
                                             "comment": "Shinespark from below room: https://www.youtube.com/watch?v=uFXTtaebs48",
@@ -1017,6 +1048,22 @@
                                                         "amount": 1,
                                                         "negate": true
                                                     }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "and",
+                                        "data": {
+                                            "comment": "Get up and break blocks",
+                                            "items": [
+                                                {
+                                                    "type": "template",
+                                                    "data": "Power Grip Wall"
+                                                },
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Destroy Shot Block"
                                                 }
                                             ]
                                         }
@@ -1056,10 +1103,15 @@
                     "ui_custom_name": null,
                     "connections": {
                         "Vertical Dock to Cavern Crossroads": {
-                            "type": "and",
+                            "type": "or",
                             "data": {
                                 "comment": null,
-                                "items": []
+                                "items": [
+                                    {
+                                        "type": "template",
+                                        "data": "Can Destroy Shot Block"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -1068,6 +1120,7 @@
         },
         "Cavern Crossroads": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h03",
                 "minimap_data": [
@@ -1224,6 +1277,7 @@
         },
         "Surface Cave Save Station": {
             "default_node": "Save Station",
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h03a",
                 "minimap_data": [
@@ -1359,6 +1413,7 @@
         },
         "Rocky Stairs": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h03b",
                 "minimap_data": [
@@ -1472,6 +1527,7 @@
         },
         "Surface Pond Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h04",
                 "minimap_data": [
@@ -1497,6 +1553,13 @@
                     "liquid_type": 0,
                     "liquid_level": 896,
                     "should_move_horizontally": true
+                },
+                "enemy_data": {
+                    "101433": "oTsumuri",
+                    "101434": "oTsumuri",
+                    "101435": "oTsumuri",
+                    "101436": "oTsumuri",
+                    "101437": "oTsumuri"
                 }
             },
             "nodes": {
@@ -1586,6 +1649,7 @@
         },
         "Surface Pond": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h04b",
                 "minimap_data": [
@@ -1607,6 +1671,11 @@
                     "liquid_type": 0,
                     "liquid_level": 200,
                     "should_move_horizontally": true
+                },
+                "enemy_data": {
+                    "101565": "oHornoad",
+                    "101566": "oHornoad",
+                    "101567": "oHornoad"
                 }
             },
             "nodes": {
@@ -1695,6 +1764,7 @@
         },
         "Surface Pond Save Station": {
             "default_node": "Save Station",
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h04c",
                 "minimap_data": [
@@ -1827,6 +1897,7 @@
         },
         "Surface Lava Pond": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h04d",
                 "minimap_data": [
@@ -1980,6 +2051,7 @@
         },
         "Surface Alpha Nest": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h05",
                 "minimap_data": [
@@ -2087,6 +2159,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 350,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Event - Alpha": {
                             "type": "and",
@@ -2101,6 +2175,7 @@
         },
         "Twisty Tunnel": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h06",
                 "minimap_data": [
@@ -2145,6 +2220,22 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "102007": "oSeerook",
+                    "102008": "oSeerook",
+                    "102009": "oSeerook",
+                    "102010": "oSeerook",
+                    "102172": "oCaveNest",
+                    "102173": "oCaveNest",
+                    "102174": "oCaveNest",
+                    "102175": "oCaveNest",
+                    "102011": "oMoheek",
+                    "102012": "oMoheek",
+                    "102013": "oMoheek",
+                    "102014": "oMoheek",
+                    "102015": "oMoheek",
+                    "102016": "oMoheek"
                 }
             },
             "nodes": {
@@ -2229,45 +2320,10 @@
         },
         "Grave Grotto": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h07",
                 "minimap_data": [
-                    {
-                        "x": 38,
-                        "y": 13
-                    },
-                    {
-                        "x": 39,
-                        "y": 13
-                    },
-                    {
-                        "x": 40,
-                        "y": 13
-                    },
-                    {
-                        "x": 40,
-                        "y": 14
-                    },
-                    {
-                        "x": 40,
-                        "y": 15
-                    },
-                    {
-                        "x": 41,
-                        "y": 13
-                    },
-                    {
-                        "x": 41,
-                        "y": 14
-                    },
-                    {
-                        "x": 41,
-                        "y": 15
-                    },
-                    {
-                        "x": 42,
-                        "y": 15
-                    },
                     {
                         "x": 43,
                         "y": 15
@@ -2341,6 +2397,28 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "102278": "oSeerook",
+                    "102279": "oSeerook",
+                    "102280": "oSeerook",
+                    "102281": "oSeerook",
+                    "102282": "oSeerook",
+                    "102283": "oSeerook",
+                    "102602": "oCaveNest",
+                    "102603": "oCaveNest",
+                    "102604": "oCaveNest",
+                    "102605": "oCaveNest",
+                    "102606": "oCaveNest",
+                    "102607": "oCaveNest",
+                    "102608": "oCaveNest",
+                    "102609": "oCaveNest",
+                    "102272": "oMoheek",
+                    "102273": "oMoheek",
+                    "102274": "oMoheek",
+                    "102275": "oMoheek",
+                    "102276": "oMoheek",
+                    "102277": "oMoheek"
                 }
             },
             "nodes": {
@@ -2728,6 +2806,7 @@
         },
         "Surface Spider Ball Challenge": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h07A",
                 "minimap_data": [
@@ -2811,6 +2890,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 53,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Bottom": {
                             "type": "and",
@@ -2849,6 +2930,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 52,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Bottom": {
                             "type": "and",
@@ -3192,6 +3275,7 @@
         },
         "Mumbo Manor": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h08",
                 "minimap_data": [
@@ -3224,6 +3308,19 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "102671": "oChuteLeech",
+                    "102672": "oChuteLeech",
+                    "102673": "oChuteLeech",
+                    "102674": "oChuteLeech",
+                    "102675": "oChuteLeech",
+                    "102676": "oChuteLeech",
+                    "102705": "oMumbo",
+                    "102706": "oMumbo",
+                    "102707": "oMumbo",
+                    "102708": "oMumbo",
+                    "102709": "oMumbo"
                 }
             },
             "nodes": {
@@ -3314,6 +3411,7 @@
         },
         "Surface Gunzoo Room": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h09",
                 "minimap_data": [
@@ -3679,6 +3777,7 @@
         },
         "Surface Hi-Jump Challenge": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h09A",
                 "minimap_data": [
@@ -4123,6 +4222,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 57,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Near Spikes": {
                             "type": "or",
@@ -4224,6 +4325,7 @@
         },
         "Spike Maze": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h10",
                 "minimap_data": [
@@ -4358,6 +4460,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 210,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Middle Pit": {
                             "type": "and",
@@ -4538,6 +4642,7 @@
         },
         "Eastern Cave Intersection": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h10a",
                 "minimap_data": [
@@ -4570,6 +4675,10 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "103847": "oCaveNest",
+                    "103848": "oCaveNest"
                 }
             },
             "nodes": {
@@ -4670,13 +4779,8 @@
                                 "comment": null,
                                 "items": [
                                     {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
-                                            "name": "Super Missiles",
-                                            "amount": 1,
-                                            "negate": false
-                                        }
+                                        "type": "template",
+                                        "data": "Can Shoot Super Missile"
                                     }
                                 ]
                             }
@@ -4863,13 +4967,8 @@
                                 "comment": null,
                                 "items": [
                                     {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
-                                            "name": "Super Missiles",
-                                            "amount": 1,
-                                            "negate": false
-                                        }
+                                        "type": "template",
+                                        "data": "Can Shoot Super Missile"
                                     }
                                 ]
                             }
@@ -4905,6 +5004,7 @@
         },
         "Hidden Mining Facility Route": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h10b",
                 "minimap_data": [
@@ -5004,6 +5104,7 @@
         },
         "Bend Chasm": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h11",
                 "minimap_data": [
@@ -5044,6 +5145,11 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "104116": "oSkorp",
+                    "104415": "oCaveNest",
+                    "104416": "oCaveNest"
                 }
             },
             "nodes": {
@@ -5369,6 +5475,7 @@
         },
         "Western Cave Entrance": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h24",
                 "minimap_data": [
@@ -5401,6 +5508,11 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "104679": "oSkorp",
+                    "104680": "oSkorp",
+                    "104681": "oSkorp"
                 }
             },
             "nodes": {
@@ -5704,6 +5816,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 54,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Door to Western Cave Shaft": {
                             "type": "and",
@@ -5754,6 +5868,7 @@
         },
         "Western Cave Shaft": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h25",
                 "minimap_data": [
@@ -5778,6 +5893,14 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "104968": "oSkorp",
+                    "104969": "oSkorp",
+                    "104970": "oSkorp",
+                    "104971": "oSkorp",
+                    "104972": "oMoto",
+                    "104977": "oMoto"
                 }
             },
             "nodes": {
@@ -6080,13 +6203,8 @@
                                                     }
                                                 },
                                                 {
-                                                    "type": "resource",
-                                                    "data": {
-                                                        "type": "items",
-                                                        "name": "Wave Beam",
-                                                        "amount": 1,
-                                                        "negate": false
-                                                    }
+                                                    "type": "template",
+                                                    "data": "Can Shoot Wave Beam"
                                                 }
                                             ]
                                         }
@@ -6215,6 +6333,7 @@
         },
         "Western Cave Save Station": {
             "default_node": "Save Station",
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h26",
                 "minimap_data": [
@@ -6302,6 +6421,7 @@
         },
         "Snaky Skorp Cavern": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h27",
                 "minimap_data": [
@@ -6334,6 +6454,11 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "105391": "oSkorp",
+                    "105392": "oSkorp",
+                    "105393": "oSkorp"
                 }
             },
             "nodes": {
@@ -6497,6 +6622,7 @@
         },
         "The Pit": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h28",
                 "minimap_data": [
@@ -6604,7 +6730,7 @@
                                     {
                                         "type": "or",
                                         "data": {
-                                            "comment": "Space Jump Wall with hypermode WJ",
+                                            "comment": "Space Jump Wall with ludicrous WJ",
                                             "items": [
                                                 {
                                                     "type": "resource",
@@ -6766,6 +6892,7 @@
         },
         "Fat Crocomire Room": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h29",
                 "minimap_data": [
@@ -6790,6 +6917,13 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "105735": "oPincherFly",
+                    "105736": "oPincherFly",
+                    "105737": "oPincherFly",
+                    "105738": "oPincherFly",
+                    "105739": "oPincherFly"
                 }
             },
             "nodes": {
@@ -7020,6 +7154,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 55,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Horizontal Dock to Skreek Street": {
                             "type": "and",
@@ -7034,6 +7170,7 @@
         },
         "Skreek Street": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h30",
                 "minimap_data": [
@@ -7082,6 +7219,15 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "106163": "oHalzyn",
+                    "106164": "oSkreekSpawner",
+                    "106165": "oSkreekSpawner",
+                    "106166": "oSkreekSpawner",
+                    "106167": "oSkreekSpawner",
+                    "106168": "oSkreekSpawner",
+                    "106169": "oHalzyn"
                 }
             },
             "nodes": {
@@ -7257,6 +7403,10 @@
                                                         "amount": 3,
                                                         "negate": false
                                                     }
+                                                },
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Shoot Super Missile"
                                                 }
                                             ]
                                         }
@@ -7340,6 +7490,10 @@
                                                             }
                                                         ]
                                                     }
+                                                },
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Shoot Super Missile"
                                                 }
                                             ]
                                         }
@@ -7353,6 +7507,7 @@
         },
         "Tower East Exterior Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h30a",
                 "minimap_data": [
@@ -7439,27 +7594,33 @@
                                         "type": "resource",
                                         "data": {
                                             "type": "items",
-                                            "name": "Missiles",
-                                            "amount": 1,
-                                            "negate": false
-                                        }
-                                    },
-                                    {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
-                                            "name": "Super Missiles",
-                                            "amount": 1,
-                                            "negate": false
-                                        }
-                                    },
-                                    {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
                                             "name": "Speed Booster",
                                             "amount": 1,
                                             "negate": false
+                                        }
+                                    },
+                                    {
+                                        "type": "and",
+                                        "data": {
+                                            "comment": null,
+                                            "items": [
+                                                {
+                                                    "type": "or",
+                                                    "data": {
+                                                        "comment": null,
+                                                        "items": [
+                                                            {
+                                                                "type": "template",
+                                                                "data": "Can Shoot Missile"
+                                                            },
+                                                            {
+                                                                "type": "template",
+                                                                "data": "Can Shoot Super Missile"
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
                                         }
                                     }
                                 ]
@@ -7529,27 +7690,33 @@
                                         "type": "resource",
                                         "data": {
                                             "type": "items",
-                                            "name": "Missiles",
-                                            "amount": 1,
-                                            "negate": false
-                                        }
-                                    },
-                                    {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
-                                            "name": "Super Missiles",
-                                            "amount": 1,
-                                            "negate": false
-                                        }
-                                    },
-                                    {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
                                             "name": "Speed Booster",
                                             "amount": 1,
                                             "negate": false
+                                        }
+                                    },
+                                    {
+                                        "type": "and",
+                                        "data": {
+                                            "comment": null,
+                                            "items": [
+                                                {
+                                                    "type": "or",
+                                                    "data": {
+                                                        "comment": null,
+                                                        "items": [
+                                                            {
+                                                                "type": "template",
+                                                                "data": "Can Shoot Missile"
+                                                            },
+                                                            {
+                                                                "type": "template",
+                                                                "data": "Can Shoot Super Missile"
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
                                         }
                                     }
                                 ]
@@ -7593,6 +7760,7 @@
         },
         "The Descent": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h31",
                 "minimap_data": [
@@ -7779,6 +7947,7 @@
         },
         "Rite of the Serpent": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h32",
                 "minimap_data": [
@@ -8249,6 +8418,7 @@
         },
         "Southern Cave Save Station": {
             "default_node": "Save Station",
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h33",
                 "minimap_data": [
@@ -8379,6 +8549,7 @@
         },
         "Halzyn Hallway": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h34",
                 "minimap_data": [
@@ -8403,6 +8574,10 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "107264": "oHalzyn",
+                    "107265": "oHalzyn"
                 }
             },
             "nodes": {
@@ -8487,6 +8662,7 @@
         },
         "Drivel Drive": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h35",
                 "minimap_data": [
@@ -8519,6 +8695,16 @@
                 "liquid_info": {
                     "liquid_type": 1,
                     "liquid_level": 201
+                },
+                "enemy_data": {
+                    "107619": "oDrivel",
+                    "107620": "oDrivel",
+                    "107621": "oDrivel",
+                    "107622": "oDrivel",
+                    "107623": "oMoto",
+                    "107624": "oMoto",
+                    "107625": "oMoto",
+                    "107626": "oMoto"
                 }
             },
             "nodes": {
@@ -8811,6 +8997,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 56,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Horizontal Dock to The Depths": {
                             "type": "and",
@@ -8825,6 +9013,7 @@
         },
         "Octroll Lava Pool": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h12",
                 "minimap_data": [
@@ -8849,6 +9038,14 @@
                 "liquid_info": {
                     "liquid_type": 1,
                     "liquid_level": 192
+                },
+                "enemy_data": {
+                    "122612": "oOctroll",
+                    "122613": "oOctroll",
+                    "122614": "oOctroll",
+                    "122615": "oOctroll",
+                    "122616": "oOctroll",
+                    "122617": "oOctroll"
                 }
             },
             "nodes": {
@@ -9157,6 +9354,7 @@
         },
         "Research Site Elevator": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h13",
                 "minimap_data": [
@@ -9358,6 +9556,7 @@
         },
         "Research Site": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h14",
                 "minimap_data": [
@@ -9581,6 +9780,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 364,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Event - Left Alpha": {
                             "type": "and",
@@ -9609,6 +9810,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 365,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Event - Right Alpha": {
                             "type": "and",
@@ -9623,6 +9826,7 @@
         },
         "Research Site Storage": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h15",
                 "minimap_data": [
@@ -9694,6 +9898,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 215,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Event - DualAlphasTrigger": {
                             "type": "and",
@@ -9740,6 +9946,7 @@
         },
         "Mining Facility 3-Shape Shaft": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h16",
                 "minimap_data": [
@@ -9854,6 +10061,7 @@
         },
         "Mining Facility O-Shape Shaft": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h17",
                 "minimap_data": [
@@ -10080,6 +10288,7 @@
         },
         "Moto Miners": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h17a",
                 "minimap_data": [
@@ -10100,6 +10309,10 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "123499": "oMoto",
+                    "123500": "oMoto"
                 }
             },
             "nodes": {
@@ -10179,6 +10392,7 @@
         },
         "Destroyed Drill Cavern": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h17b",
                 "minimap_data": [
@@ -10279,6 +10493,7 @@
         },
         "Moto Mania": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h17c",
                 "minimap_data": [
@@ -10319,6 +10534,13 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "123671": "oMoto",
+                    "123672": "oMoto",
+                    "123673": "oMoto",
+                    "123674": "oMoto",
+                    "123675": "oMoto"
                 }
             },
             "nodes": {
@@ -10398,6 +10620,7 @@
         },
         "Drill Excavation Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h17d",
                 "minimap_data": [
@@ -10418,6 +10641,11 @@
                 "liquid_info": {
                     "liquid_type": 0,
                     "liquid_level": 0
+                },
+                "enemy_data": {
+                    "123690": "oPincherFly",
+                    "123691": "oPincherFly",
+                    "123692": "oPincherFly"
                 }
             },
             "nodes": {
@@ -10449,10 +10677,15 @@
                     "ui_custom_name": null,
                     "connections": {
                         "Door to Drill Excavation": {
-                            "type": "and",
+                            "type": "or",
                             "data": {
                                 "comment": null,
-                                "items": []
+                                "items": [
+                                    {
+                                        "type": "template",
+                                        "data": "Can Destroy Shot Block"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -10511,13 +10744,62 @@
                                                         "amount": 1,
                                                         "negate": false
                                                     }
+                                                },
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Shoot"
                                                 }
                                             ]
                                         }
                                     },
                                     {
-                                        "type": "template",
-                                        "data": "Hijump Wall"
+                                        "type": "and",
+                                        "data": {
+                                            "comment": null,
+                                            "items": [
+                                                {
+                                                    "type": "template",
+                                                    "data": "Hijump Wall"
+                                                },
+                                                {
+                                                    "type": "or",
+                                                    "data": {
+                                                        "comment": null,
+                                                        "items": [
+                                                            {
+                                                                "type": "template",
+                                                                "data": "Can Shoot"
+                                                            },
+                                                            {
+                                                                "type": "template",
+                                                                "data": "Can Use Power Bombs"
+                                                            },
+                                                            {
+                                                                "type": "and",
+                                                                "data": {
+                                                                    "comment": null,
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "resource",
+                                                                            "data": {
+                                                                                "type": "tricks",
+                                                                                "name": "IBJ",
+                                                                                "amount": 2,
+                                                                                "negate": false
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "type": "template",
+                                                                            "data": "Can IBJ"
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
                                     }
                                 ]
                             }
@@ -10528,6 +10810,7 @@
         },
         "Drill Excavation": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h17e",
                 "minimap_data": [
@@ -10655,13 +10938,8 @@
                                 "comment": null,
                                 "items": [
                                     {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
-                                            "name": "Super Missiles",
-                                            "amount": 1,
-                                            "negate": false
-                                        }
+                                        "type": "template",
+                                        "data": "Can Shoot Super Missile"
                                     },
                                     {
                                         "type": "or",
@@ -10786,13 +11064,8 @@
                                 "comment": null,
                                 "items": [
                                     {
-                                        "type": "resource",
-                                        "data": {
-                                            "type": "items",
-                                            "name": "Super Missiles",
-                                            "amount": 1,
-                                            "negate": false
-                                        }
+                                        "type": "template",
+                                        "data": "Can Shoot Super Missile"
                                     }
                                 ]
                             }
@@ -10879,6 +11152,7 @@
         },
         "Mining Facility Intersection": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h18",
                 "minimap_data": [
@@ -11136,6 +11410,7 @@
         },
         "Mining Facility Save Station": {
             "default_node": "Save Station",
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h19",
                 "minimap_data": [
@@ -11218,6 +11493,7 @@
         },
         "Mining Facility Alpha Nest Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h20",
                 "minimap_data": [
@@ -11238,6 +11514,13 @@
                 "liquid_info": {
                     "liquid_type": 1,
                     "liquid_level": 176
+                },
+                "enemy_data": {
+                    "124399": "oFlitt",
+                    "124400": "oFlitt",
+                    "124401": "oFlitt",
+                    "124402": "oFlitt",
+                    "124403": "oFlitt"
                 }
             },
             "nodes": {
@@ -11371,6 +11654,68 @@
                                                 }
                                             ]
                                         }
+                                    },
+                                    {
+                                        "type": "and",
+                                        "data": {
+                                            "comment": "Spider Ball along the ceiling",
+                                            "items": [
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Use Spider Ball"
+                                                },
+                                                {
+                                                    "type": "or",
+                                                    "data": {
+                                                        "comment": "Reach the ceiling in morph",
+                                                        "items": [
+                                                            {
+                                                                "type": "template",
+                                                                "data": "Can Use Spring Ball"
+                                                            },
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "tricks",
+                                                                    "name": "MidAirMorph",
+                                                                    "amount": 2,
+                                                                    "negate": false
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "and",
+                                                                "data": {
+                                                                    "comment": null,
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "template",
+                                                                            "data": "Can Use Bombs"
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "and",
+                                                                "data": {
+                                                                    "comment": null,
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "resource",
+                                                                            "data": {
+                                                                                "type": "misc",
+                                                                                "name": "EntranceRando",
+                                                                                "amount": 1,
+                                                                                "negate": true
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
                                     }
                                 ]
                             }
@@ -11495,6 +11840,68 @@
                                                 }
                                             ]
                                         }
+                                    },
+                                    {
+                                        "type": "and",
+                                        "data": {
+                                            "comment": "Spider Ball along the ceiling",
+                                            "items": [
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Use Spider Ball"
+                                                },
+                                                {
+                                                    "type": "or",
+                                                    "data": {
+                                                        "comment": "Reach the ceiling in morph",
+                                                        "items": [
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "tricks",
+                                                                    "name": "MidAirMorph",
+                                                                    "amount": 2,
+                                                                    "negate": false
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "template",
+                                                                "data": "Can Use Spring Ball"
+                                                            },
+                                                            {
+                                                                "type": "and",
+                                                                "data": {
+                                                                    "comment": null,
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "template",
+                                                                            "data": "Can Use Bombs"
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "and",
+                                                                "data": {
+                                                                    "comment": null,
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "resource",
+                                                                            "data": {
+                                                                                "type": "misc",
+                                                                                "name": "EntranceRando",
+                                                                                "amount": 1,
+                                                                                "negate": true
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
                                     }
                                 ]
                             }
@@ -11505,6 +11912,7 @@
         },
         "Mining Facility Alpha Nest": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h21",
                 "minimap_data": [
@@ -11738,6 +12146,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 366,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Event - Alpha": {
                             "type": "and",
@@ -11752,6 +12162,7 @@
         },
         "Mining Facility Gamma Nest Access": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h22",
                 "minimap_data": [
@@ -11784,6 +12195,14 @@
                 "liquid_info": {
                     "liquid_type": 1,
                     "liquid_level": 184
+                },
+                "enemy_data": {
+                    "124947": "oFlitt",
+                    "124948": "oFlitt",
+                    "124949": "oFlitt",
+                    "124950": "oFlitt",
+                    "124951": "oFlitt",
+                    "124952": "oFlitt"
                 }
             },
             "nodes": {
@@ -11901,6 +12320,68 @@
                                                         "name": "EntranceRando",
                                                         "amount": 1,
                                                         "negate": true
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "type": "and",
+                                        "data": {
+                                            "comment": "Spider Ball along the ceiling",
+                                            "items": [
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Use Spider Ball"
+                                                },
+                                                {
+                                                    "type": "or",
+                                                    "data": {
+                                                        "comment": "Reach the ceiling in morph",
+                                                        "items": [
+                                                            {
+                                                                "type": "template",
+                                                                "data": "Can Use Spring Ball"
+                                                            },
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "tricks",
+                                                                    "name": "MidAirMorph",
+                                                                    "amount": 2,
+                                                                    "negate": false
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "and",
+                                                                "data": {
+                                                                    "comment": null,
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "template",
+                                                                            "data": "Can Use Bombs"
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "and",
+                                                                "data": {
+                                                                    "comment": null,
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "resource",
+                                                                            "data": {
+                                                                                "type": "misc",
+                                                                                "name": "EntranceRando",
+                                                                                "amount": 1,
+                                                                                "negate": true
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 }
                                             ]
@@ -12038,6 +12519,68 @@
                                                 }
                                             ]
                                         }
+                                    },
+                                    {
+                                        "type": "and",
+                                        "data": {
+                                            "comment": "Spider Ball across the ceiling",
+                                            "items": [
+                                                {
+                                                    "type": "template",
+                                                    "data": "Can Use Spider Ball"
+                                                },
+                                                {
+                                                    "type": "or",
+                                                    "data": {
+                                                        "comment": "Reach the ceiling in morph",
+                                                        "items": [
+                                                            {
+                                                                "type": "template",
+                                                                "data": "Can Use Spring Ball"
+                                                            },
+                                                            {
+                                                                "type": "resource",
+                                                                "data": {
+                                                                    "type": "tricks",
+                                                                    "name": "MidAirMorph",
+                                                                    "amount": 2,
+                                                                    "negate": false
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "and",
+                                                                "data": {
+                                                                    "comment": null,
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "template",
+                                                                            "data": "Can Use Bombs"
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "and",
+                                                                "data": {
+                                                                    "comment": null,
+                                                                    "items": [
+                                                                        {
+                                                                            "type": "resource",
+                                                                            "data": {
+                                                                                "type": "misc",
+                                                                                "name": "EntranceRando",
+                                                                                "amount": 1,
+                                                                                "negate": true
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
                                     }
                                 ]
                             }
@@ -12048,6 +12591,7 @@
         },
         "Mining Facility Gamma Nest": {
             "default_node": null,
+            "hint_features": [],
             "extra": {
                 "map_name": "rm_a0h23",
                 "minimap_data": [
@@ -12076,6 +12620,15 @@
                 "liquid_info": {
                     "liquid_type": 1,
                     "liquid_level": 672
+                },
+                "enemy_data": {
+                    "125237": "oFlitt",
+                    "125238": "oFlitt",
+                    "125239": "oFlitt",
+                    "125240": "oFlitt",
+                    "125241": "oFlitt",
+                    "125242": "oFlitt",
+                    "125243": "oFlitt"
                 }
             },
             "nodes": {
@@ -12242,6 +12795,8 @@
                     "valid_starting_location": false,
                     "pickup_index": 382,
                     "location_category": "minor",
+                    "custom_index_group": null,
+                    "hint_features": [],
                     "connections": {
                         "Event - Gamma": {
                             "type": "and",

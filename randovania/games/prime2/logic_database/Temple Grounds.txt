@@ -1,7 +1,6 @@
 ----------------
 Landing Site
 Extra - asset_id: 1655756413
-Extra - in_dark_aether: False
 > Save Station; Heals? True; Spawn Point; Default Node
   * Layers: default
   > Door to Service Access
@@ -66,8 +65,7 @@ Extra - in_dark_aether: False
 
 > Keybearer Corpse (M-Dhe); Heals? False
   * Layers: default
-  * Hint
-  * Extra - hint_index: 11
+  * Specific Location Hint; Requirement? (Scan Visor ≥ 1); Target? PickupIndex 11
   * Extra - string_asset_id: 3820230591
   > Save Station
       Trivial
@@ -75,7 +73,6 @@ Extra - in_dark_aether: False
 ----------------
 Service Access
 Extra - asset_id: 2679590972
-Extra - in_dark_aether: False
 > Door to Landing Site; Heals? False; Spawn Point; Default Node
   * Layers: default
   * Normal Door to Landing Site/Door to Service Access
@@ -171,7 +168,6 @@ Extra - in_dark_aether: False
 ----------------
 Hive Access Tunnel
 Extra - asset_id: 2970881060
-Extra - in_dark_aether: False
 > Door to Landing Site; Heals? False; Spawn Point; Default Node
   * Layers: default
   * Normal Door to Landing Site/Door to Hive Access Tunnel
@@ -207,7 +203,6 @@ Extra - in_dark_aether: False
 ----------------
 Path of Honor
 Extra - asset_id: 2068656603
-Extra - in_dark_aether: False
 > Morph Ball Door to Hall of Honored Dead; Heals? False
   * Layers: default
   * Morph Ball Door to Hall of Honored Dead/Morph Ball Door to Path of Honor
@@ -248,7 +243,6 @@ Extra - in_dark_aether: False
 ----------------
 Meeting Grounds
 Extra - asset_id: 2606692981
-Extra - in_dark_aether: False
 > Morph Ball Door to Service Access; Heals? False
   * Layers: default
   * Morph Ball Door to Service Access/Morph Ball Door to Meeting Grounds
@@ -315,7 +309,7 @@ Extra - in_dark_aether: False
 
 > Lore Scan; Heals? False
   * Layers: default
-  * Hint
+  * Generic Hint; Requirement? (Scan Visor ≥ 1 and Violet Translator ≥ 1)
   * Extra - translator: Violet
   * Extra - string_asset_id: 2558035195
   > Bottom of Halfpipe
@@ -324,7 +318,6 @@ Extra - in_dark_aether: False
 ----------------
 Hive Transport Area
 Extra - asset_id: 2485094202
-Extra - in_dark_aether: False
 > Door to Industrial Site; Heals? False
   * Layers: default
   * Normal Door to Industrial Site/Door to Hive Transport Area
@@ -369,7 +362,7 @@ Extra - in_dark_aether: False
 ----------------
 Hive Chamber A
 Extra - asset_id: 1353937573
-Extra - in_dark_aether: False
+Hint Features - Boss
 > Dock to Hive Access Tunnel; Heals? False; Spawn Point; Default Node
   * Layers: default
   * Open Passage to Hive Access Tunnel/Dock to Hive Chamber A
@@ -391,7 +384,18 @@ Extra - in_dark_aether: False
 > Pickup (Missile); Heals? False
   * Layers: default
   * Pickup 0; Category? Minor
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'MissileLauncher', 'connections': (), 'removals': (403046970,), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 1.0}), 'instances': frozendict.frozendict({'pickup': 403046964, 'hud_memo': 403046974, 'streamed_audio': 403046966, 'sound': 403046975, 'audio_fade': 403046967})})
+  * Extra - location_data:
+{'type': 'standard',
+ 'exclude_memo_from_removal': False,
+ 'original_model': 'MissileLauncher',
+ 'connections': [],
+ 'removals': [403046970],
+ 'collision_offset': {'x': 0.0, 'y': 0.0, 'z': 1.0},
+ 'instances': {'pickup': 403046964,
+               'hud_memo': 403046974,
+               'streamed_audio': 403046966,
+               'sound': 403046975,
+               'audio_fade': 403046967}}
   > Door to Hive Tunnel
       After Hive Chamber A Gates
   > Event - Hive Chamber A Gates
@@ -408,7 +412,7 @@ Extra - in_dark_aether: False
 ----------------
 Hall of Honored Dead
 Extra - asset_id: 3098756660
-Extra - in_dark_aether: False
+Hint Features - Boost Spinner, Luminoth Corpse, Portal
 > Door to Path of Honor; Heals? False; Spawn Point; Default Node
   * Layers: default
   * Seeker Launcher Blast Shield to Path of Honor/Door to Hall of Honored Dead
@@ -451,14 +455,20 @@ Extra - in_dark_aether: False
 > Pickup (Seeker Launcher); Heals? False
   * Layers: default
   * Pickup 1; Category? Major
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'SeekerLauncher', 'connections': (frozendict.frozendict({'target': 201785715, 'message': 'ACTV'}), frozendict.frozendict({'target': 201785715, 'message': 'ZERO'})), 'removals': (458849, 201785680, 458920), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 1.0}), 'instances': frozendict.frozendict({'pickup': 458839, 'hud_memo': 458848, 'streamed_audio': 458847, 'sound': 458841, 'audio_fade': 458851})})
+  * Extra - location_data:
+{'type': 'standard',
+ 'exclude_memo_from_removal': False,
+ 'original_model': 'SeekerLauncher',
+ 'connections': [{'target': 201785715, 'message': 'ACTV'}, {'target': 201785715, 'message': 'ZERO'}],
+ 'removals': [458849, 201785680, 458920],
+ 'collision_offset': {'x': 0.0, 'y': 0.0, 'z': 1.0},
+ 'instances': {'pickup': 458839, 'hud_memo': 458848, 'streamed_audio': 458847, 'sound': 458841, 'audio_fade': 458851}}
   > Door to Path of Honor
       Trivial
 
 ----------------
 Hall of Eyes
 Extra - asset_id: 1198237772
-Extra - in_dark_aether: False
 > Door to Path of Eyes; Heals? False
   * Layers: default
   * Super Missile Blast Shield to Path of Eyes/Door to Hall of Eyes
@@ -488,7 +498,6 @@ Extra - in_dark_aether: False
 ----------------
 Temple Transport C
 Extra - asset_id: 2918020398
-Extra - in_dark_aether: False
 > Door to Meeting Grounds; Heals? False
   * Layers: default
   * Normal Door to Meeting Grounds/Door to Temple Transport C
@@ -508,7 +517,6 @@ Extra - in_dark_aether: False
 ----------------
 Industrial Site
 Extra - asset_id: 1655474884
-Extra - in_dark_aether: False
 > Door to Agon Transport Access; Heals? False
   * Layers: default
   * Normal Door to Agon Transport Access/Door to Industrial Site
@@ -638,8 +646,7 @@ Extra - in_dark_aether: False
 
 > Keybearer Corpse (J-Fme); Heals? False
   * Layers: default
-  * Hint
-  * Extra - hint_index: 15
+  * Specific Location Hint; Requirement? (Scan Visor ≥ 1); Target? PickupIndex 15
   * Extra - string_asset_id: 1696621841
   > Door to Agon Transport Access
       Trivial
@@ -653,7 +660,6 @@ Extra - in_dark_aether: False
 ----------------
 Hive Chamber C
 Extra - asset_id: 4219746340
-Extra - in_dark_aether: False
 > Door to Hive Save Station; Heals? False
   * Layers: default
   * Normal Door to Hive Save Station/Door to Hive Chamber C
@@ -684,7 +690,6 @@ Extra - in_dark_aether: False
 ----------------
 Hive Tunnel
 Extra - asset_id: 360901706
-Extra - in_dark_aether: False
 > Door to Command Chamber; Heals? False
   * Layers: default
   * Normal Door to Command Chamber/Door to Hive Tunnel
@@ -714,44 +719,8 @@ Extra - in_dark_aether: False
       Trivial
 
 ----------------
-Base Access
-Extra - asset_id: 1752128027
-Extra - in_dark_aether: True
-> Door to War Ritual Grounds; Heals? False; Spawn Point; Default Node
-  * Layers: default
-  * Super Missile Blast Shield to War Ritual Grounds/Door to Base Access
-  * Extra - dock_name: South
-  > Portal to Hall of Eyes
-      All of the following:
-          Dark World Damage ≥ 20 or Activate Safe Zone
-          Any of the following:
-              Space Jump Boots and Dark World Damage ≥ 30
-              # Double Bomb Jump
-              Morph Ball Bomb and Morph Ball and Bomb Jump (Beginner) and Dark World Damage ≥ 50
-              Standable Terrain (Intermediate) and Dark World Damage ≥ 40
-
-> Door to Abandoned Base; Heals? False
-  * Layers: default
-  * Normal Door to Abandoned Base/Door to Base Access
-  * Extra - dock_name: West
-  > Portal to Hall of Eyes
-      Dark World Damage ≥ 20
-
-> Portal to Hall of Eyes; Heals? True
-  * Layers: default
-  * Light Portal to Hall of Eyes/Portal to Base Access
-  * Extra - dock_name: Docks_VirtualNorth
-  > Door to War Ritual Grounds
-      Any of the following:
-          Dark World Damage ≥ 35
-          Dark World Damage ≥ 25 and Activate Safe Zone
-  > Door to Abandoned Base
-      Dark World Damage ≥ 20
-
-----------------
 Path of Eyes
 Extra - asset_id: 3997643454
-Extra - in_dark_aether: False
 > Door to Windchamber Gateway; Heals? False
   * Layers: default
   * Super Missile Blast Shield to Windchamber Gateway/Door to Path of Eyes
@@ -842,7 +811,7 @@ Extra - in_dark_aether: False
 
 > Lore Scan; Heals? False
   * Layers: default
-  * Hint
+  * Generic Hint; Requirement? (Scan Visor ≥ 1 and Violet Translator ≥ 1)
   * Extra - translator: Violet
   * Extra - string_asset_id: 2392838062
   > Front of Translator Gate
@@ -866,13 +835,12 @@ Extra - in_dark_aether: False
               Shoot Light Beam
               Any of the following:
                   Space Jump Boots
-                  # https://www.youtube.com/watch?v=CXuhD9ongbc&list=PLevfta9o_QKWuQNXAnmBXtzW4nmU5VLyN&index=47
-                  Morph Ball Bomb and Morph Ball and Bomb Space Jump (Hypermode)
+                  # https://www.youtube.com/watch?v=CXuhD9ongbc
+                  Morph Ball Bomb and Morph Ball and Bomb Space Jump (Ludicrous)
 
 ----------------
 Agon Transport Access
 Extra - asset_id: 2744240555
-Extra - in_dark_aether: False
 > Door to Transport to Agon Wastes; Heals? False
   * Layers: default
   * Normal Door to Transport to Agon Wastes/Door to Agon Transport Access
@@ -890,7 +858,6 @@ Extra - in_dark_aether: False
 ----------------
 Collapsed Tunnel
 Extra - asset_id: 1536348486
-Extra - in_dark_aether: False
 > Door to Temple Assembly Site; Heals? False
   * Layers: default
   * Normal Door to Temple Assembly Site/Door to Collapsed Tunnel
@@ -908,7 +875,7 @@ Extra - in_dark_aether: False
 ----------------
 Hive Chamber B
 Extra - asset_id: 494654382
-Extra - in_dark_aether: False
+Hint Features - Morph Ball Tunnel
 > Morph Ball Door to Hive Chamber C; Heals? False
   * Layers: default
   * Morph Ball Door to Hive Chamber C/Morph Ball Door to Hive Chamber B
@@ -930,7 +897,18 @@ Extra - in_dark_aether: False
 > Pickup (Missile); Heals? False
   * Layers: default
   * Pickup 2; Category? Minor
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'MissileExpansion', 'connections': (), 'removals': (269549875,), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 1.0}), 'instances': frozendict.frozendict({'pickup': 269549883, 'hud_memo': 269549873, 'streamed_audio': 269549874, 'sound': 269549881, 'audio_fade': 269549879})})
+  * Extra - location_data:
+{'type': 'standard',
+ 'exclude_memo_from_removal': False,
+ 'original_model': 'MissileExpansion',
+ 'connections': [],
+ 'removals': [269549875],
+ 'collision_offset': {'x': 0.0, 'y': 0.0, 'z': 1.0},
+ 'instances': {'pickup': 269549883,
+               'hud_memo': 269549873,
+               'streamed_audio': 269549874,
+               'sound': 269549881,
+               'audio_fade': 269549879}}
   > Morph Ball Door to Hive Chamber C
       Morph Ball
 
@@ -938,7 +916,6 @@ Extra - in_dark_aether: False
 Hive Save Station
 Extra - asset_id: 341957679
 Extra - unlocked_save_station: True
-Extra - in_dark_aether: False
 > Save Station; Heals? True; Spawn Point; Default Node
   * Layers: default
   > Door to Hive Chamber C
@@ -954,7 +931,6 @@ Extra - in_dark_aether: False
 ----------------
 Command Chamber
 Extra - asset_id: 3592880139
-Extra - in_dark_aether: False
 > Door to Hive Storage; Heals? False
   * Layers: default
   * Normal Door to Hive Storage/Door to Command Chamber
@@ -980,101 +956,9 @@ Extra - in_dark_aether: False
       Trivial
 
 ----------------
-War Ritual Grounds
-Extra - asset_id: 2859985581
-Extra - in_dark_aether: True
-> Door to Shrine Access; Heals? False; Spawn Point; Default Node
-  * Layers: default
-  * Normal Door to Shrine Access/Door to War Ritual Grounds
-  * Extra - dock_name: EastBottom
-  > Central Safe Zone
-      Any of the following:
-          Dark World Damage ≥ 20
-          Morph Ball and Dark World Damage ≥ 15
-
-> Door to Base Access; Heals? False
-  * Layers: default
-  * Super Missile Blast Shield to Base Access/Door to War Ritual Grounds
-  * Extra - dock_name: North
-  > Central Safe Zone
-      All of the following:
-          Suitless Dark Aether (Beginner) or Has Suit
-          Any of the following:
-              Dark World Damage ≥ 180
-              Morph Ball and Dark World Damage ≥ 60
-
-> Pickup (Missile); Heals? False
-  * Layers: default
-  * Pickup 3; Category? Minor
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'MissileExpansion', 'connections': (), 'removals': (1310852,), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 1.0}), 'instances': frozendict.frozendict({'pickup': 1310861, 'hud_memo': 1310858, 'streamed_audio': 1310856, 'sound': 1310851, 'audio_fade': 1310857})})
-  > Central Safe Zone
-      Any of the following:
-          Dark World Damage ≥ 35
-          Dark World Damage ≥ 20 and Activate Safe Zone
-
-> Central Safe Zone; Heals? True
-  * Layers: default
-  > Door to Shrine Access
-      Any of the following:
-          Dark World Damage ≥ 50
-          Dark World Damage ≥ 30 and Activate Safe Zone
-  > Door to Base Access
-      All of the following:
-          Dark World Damage ≥ 20 or Activate Safe Zone
-          Any of the following:
-              Dark World Damage ≥ 75
-              Morph Ball and Dark World Damage ≥ 55
-  > Pickup (Missile)
-      All of the following:
-          Dark Visor and Missile ≥ 5 and Seeker Launcher
-          Any of the following:
-              Dark World Damage ≥ 40
-              Dark World Damage ≥ 15 and Activate Safe Zone
-
-----------------
-Abandoned Base
-Extra - asset_id: 3337937090
-Extra - in_dark_aether: True
-> Portal to Path of Eyes; Heals? False
-  * Layers: default
-  * Light Portal to Path of Eyes/Portal from Abandoned Base
-  * Extra - dock_name: VirtualNorth
-  > Door to Base Access
-      Dark World Damage ≥ 40
-
-> Door to Base Access; Heals? False; Spawn Point; Default Node
-  * Layers: default
-  * Normal Door to Base Access/Door to Abandoned Base
-  * Extra - dock_name: East
-  > Portal to Path of Eyes
-      Any of the following:
-          All of the following:
-              Morph Ball Bomb and Morph Ball
-              Any of the following:
-                  All of the following:
-                      Space Jump Boots
-                      Any of the following:
-                          Dark World Damage ≥ 40 and Has Suit
-                          Suitless Dark Aether (Advanced) and Dark World Damage ≥ 200
-                  All of the following:
-                      Bomb Jump (Advanced)
-                      Any of the following:
-                          Boost Ball and Suitless Dark Aether (Intermediate) and Dark World Damage ≥ 90 and Ingclaw Vapor Damage ≥ 375
-                          Suitless Dark Aether (Advanced) and Dark World Damage ≥ 200 and Ingclaw Vapor Damage ≥ 525
-                          Dark World Damage ≥ 40 and Has Suit
-          All of the following:
-              # https://www.youtube.com/watch?v=9lp-UnORuNI
-              Space Jump Boots and Slope Jump (Advanced) and Dark World Damage ≥ 25
-              Any of the following:
-                  Has Suit
-                  Suitless Dark Aether (Advanced) and Ingclaw Vapor Damage ≥ 70
-          # https://www.youtube.com/watch?v=grxl4PoO9wk
-          Standable Terrain (Intermediate) and Dark World Damage ≥ 50 and Use Screw Attack (Space Jump)
-
-----------------
 Windchamber Gateway
 Extra - asset_id: 1966181726
-Extra - in_dark_aether: False
+Hint Features - Abyss, Grapple Point, Kinetic Orb Cannon
 > Door to Path of Eyes; Heals? False; Spawn Point; Default Node
   * Layers: default
   * Super Missile Blast Shield to Path of Eyes/Door to Windchamber Gateway
@@ -1111,7 +995,18 @@ Extra - in_dark_aether: False
 > Pickup (Energy Tank); Heals? False
   * Layers: default
   * Pickup 4; Category? Major
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'EnergyTank', 'connections': (), 'removals': (1441962,), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 0.0}), 'instances': frozendict.frozendict({'pickup': 1441995, 'hud_memo': 1442006, 'streamed_audio': 1442000, 'sound': 1441994, 'audio_fade': 1441998})})
+  * Extra - location_data:
+{'type': 'standard',
+ 'exclude_memo_from_removal': False,
+ 'original_model': 'EnergyTank',
+ 'connections': [],
+ 'removals': [1441962],
+ 'collision_offset': {'x': 0.0, 'y': 0.0, 'z': 0.0},
+ 'instances': {'pickup': 1441995,
+               'hud_memo': 1442006,
+               'streamed_audio': 1442000,
+               'sound': 1441994,
+               'audio_fade': 1441998}}
   > Door to Grand Windchamber
       Any of the following:
           Grapple Beam or Use Screw Attack (Space Jump)
@@ -1128,7 +1023,6 @@ Extra - in_dark_aether: False
 ----------------
 Torvus Transport Access
 Extra - asset_id: 2822315693
-Extra - in_dark_aether: False
 > Door to Path of Eyes; Heals? False; Spawn Point; Default Node
   * Layers: default
   * Normal Door to Path of Eyes/Door to Torvus Transport Access
@@ -1146,7 +1040,7 @@ Extra - in_dark_aether: False
 ----------------
 Transport to Agon Wastes
 Extra - asset_id: 1660916974
-Extra - in_dark_aether: False
+Hint Features - Abyss, Elevator, Luminoth Lore
 > Door to Agon Transport Access; Heals? False
   * Layers: default
   * Normal Door to Agon Transport Access/Door to Transport to Agon Wastes
@@ -1161,7 +1055,18 @@ Extra - in_dark_aether: False
 > Pickup (Missile); Heals? False
   * Layers: default
   * Pickup 5; Category? Minor
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'MissileExpansion', 'connections': (), 'removals': (1573051,), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 1.0}), 'instances': frozendict.frozendict({'pickup': 1573044, 'hud_memo': 1573045, 'streamed_audio': 1573046, 'sound': 1573079, 'audio_fade': 1573054})})
+  * Extra - location_data:
+{'type': 'standard',
+ 'exclude_memo_from_removal': False,
+ 'original_model': 'MissileExpansion',
+ 'connections': [],
+ 'removals': [1573051],
+ 'collision_offset': {'x': 0.0, 'y': 0.0, 'z': 1.0},
+ 'instances': {'pickup': 1573044,
+               'hud_memo': 1573045,
+               'streamed_audio': 1573046,
+               'sound': 1573079,
+               'audio_fade': 1573054}}
   > Door to Agon Transport Access
       Trivial
 
@@ -1176,7 +1081,7 @@ Extra - in_dark_aether: False
 
 > Lore Scan; Heals? False
   * Layers: default
-  * Hint
+  * Generic Hint; Requirement? (Scan Visor ≥ 1 and Violet Translator ≥ 1)
   * Extra - translator: Violet
   * Extra - string_asset_id: 971220893
   > Door to Agon Transport Access
@@ -1185,7 +1090,7 @@ Extra - in_dark_aether: False
 ----------------
 Temple Assembly Site
 Extra - asset_id: 1263425809
-Extra - in_dark_aether: False
+Hint Features - Morph Ball Tunnel, Portal, Translator Gate
 > Door to Storage Cavern B; Heals? False
   * Layers: default
   * Missile Blast Shield to Storage Cavern B/Door to Temple Assembly Site
@@ -1227,7 +1132,18 @@ Extra - in_dark_aether: False
 > Pickup (Missile); Heals? False
   * Layers: default
   * Pickup 6; Category? Minor
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'MissileExpansion', 'connections': (), 'removals': (1638494,), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 1.0}), 'instances': frozendict.frozendict({'pickup': 1638564, 'hud_memo': 1638495, 'streamed_audio': 1638550, 'sound': 1638487, 'audio_fade': 1638558})})
+  * Extra - location_data:
+{'type': 'standard',
+ 'exclude_memo_from_removal': False,
+ 'original_model': 'MissileExpansion',
+ 'connections': [],
+ 'removals': [1638494],
+ 'collision_offset': {'x': 0.0, 'y': 0.0, 'z': 1.0},
+ 'instances': {'pickup': 1638564,
+               'hud_memo': 1638495,
+               'streamed_audio': 1638550,
+               'sound': 1638487,
+               'audio_fade': 1638558}}
   > Room Center
       Morph Ball
 
@@ -1249,7 +1165,7 @@ Extra - in_dark_aether: False
           All of the following:
               Single Room Out of Bounds (Expert) and Standable Terrain (Expert)
               Any of the following:
-                  # Space Jump + Slope Jump https://www.youtube.com/watch?v=xrN9xSpv6YE&list=PLx6vT1x-80zuA1vUepQUSqYOQeHiRNbt5&index=4
+                  # Space Jump + Slope Jump https://www.youtube.com/watch?v=xrN9xSpv6YE
                   Space Jump Boots and Slope Jump (Expert)
                   # Space Jump + Screw Attack https://www.youtube.com/watch?v=OWgsurLljK0
                   Use Screw Attack (Space Jump)
@@ -1274,8 +1190,8 @@ Extra - in_dark_aether: False
               Space Jump Boots or Slope Jump (Advanced)
               # Double Bomb Jump
               Morph Ball Bomb and Bomb Jump (Beginner)
-              # https://www.youtube.com/watch?v=mg7ndU8mAa4
-              Movement (Intermediate) and Use Screw Attack (No Space Jump)
+              # https://youtu.be/hndjZg2v8pg
+              Movement (Beginner) and Use Screw Attack (No Space Jump)
               # https://www.youtube.com/watch?v=DNAfsM-F6ns
               Scan Visor and Extended Dash (Advanced)
   > Event - Temple Assembly Site Light Block
@@ -1297,7 +1213,6 @@ Extra - in_dark_aether: False
 ----------------
 Hive Storage
 Extra - asset_id: 1667749239
-Extra - in_dark_aether: False
 > Door to Hive Chamber B; Heals? False
   * Layers: default
   * Normal Door to Hive Chamber B/Door to Hive Storage
@@ -1313,69 +1228,9 @@ Extra - in_dark_aether: False
       Trivial
 
 ----------------
-Shrine Access
-Extra - asset_id: 521996255
-Extra - in_dark_aether: True
-> Door to War Ritual Grounds; Heals? False
-  * Layers: default
-  * Normal Door to War Ritual Grounds/Door to Shrine Access
-  * Extra - dock_name: West
-  > Safe Zone
-      All of the following:
-          Morph Ball
-          Any of the following:
-              Boost Ball and Wall Boost (Expert) and Dark World Damage ≥ 95
-              All of the following:
-                  Morph Ball Bomb and Dark World Damage ≥ 70
-                  Suitless Dark Aether (Beginner) or Has Suit
-
-> Door to Defiled Shrine; Heals? True; Spawn Point; Default Node
-  * Layers: default
-  * Super Missile Blast Shield to Defiled Shrine/Door to Shrine Access
-  * Extra - dock_name: South
-  > Safe Zone
-      Dark World Damage ≥ 15
-
-> Door to Gateway Access; Heals? True
-  * Layers: default
-  * Seeker Launcher Blast Shield to Gateway Access/Door to Shrine Access
-  * <https://www.youtube.com/watch?v=6Ks1mKF1Jgw>
-  * Extra - dock_name: East
-  * Override default lock requirement:
-    All of the following:
-        Any of the following:
-            Destroy Seeker Locks
-            Missile and Seeker Locks without Seeker Missiles (Expert) and Use Screw Attack (Space Jump)
-        Any of the following:
-            Dark World Damage ≥ 75
-            Dark World Damage ≥ 60 and Activate Safe Zone
-
-  > Safe Zone
-      Dark World Damage ≥ 15
-
-> Safe Zone; Heals? True
-  * Layers: default
-  > Door to War Ritual Grounds
-      All of the following:
-          Morph Ball
-          Any of the following:
-              Boost Ball and Wall Boost (Expert) and Dark World Damage ≥ 90
-              All of the following:
-                  Morph Ball Bomb and Dark World Damage ≥ 60
-                  Suitless Dark Aether (Beginner) or Has Suit
-  > Door to Defiled Shrine
-      Any of the following:
-          Dark World Damage ≥ 40
-          Dark World Damage ≥ 20 and Activate Safe Zone
-  > Door to Gateway Access
-      Any of the following:
-          Dark World Damage ≥ 60
-          Dark World Damage ≥ 25 and Activate Safe Zone
-
-----------------
 Grand Windchamber
 Extra - asset_id: 2909835645
-Extra - in_dark_aether: False
+Hint Features - Abyss, Boost Spinner, Grapple Point, Kinetic Orb Cannon, Portal
 > Door to Windchamber Tunnel; Heals? False
   * Layers: default
   * Normal Door to Windchamber Tunnel/Door to Grand Windchamber
@@ -1386,13 +1241,13 @@ Extra - in_dark_aether: False
           # https://www.youtube.com/watch?v=YnD0pFScq1g
           Scan Visor and Space Jump Boots and Combat/Scan Dash (Advanced)
           Grapple Beam and After Ing Windchamber Blue Seeker Lock
-          Boost Ball and Morph Ball and Boost Jump (Hypermode)
+          Boost Ball and Morph Ball and Boost Jump (Ludicrous)
           All of the following:
               Scan Visor
               Any of the following:
                   # https://www.youtube.com/watch?v=soERaCLQYhs
                   Extended Dash (Expert)
-                  Morph Ball and Extended Dash (Hypermode) and Terminal Fall Abuse (Hypermode)
+                  Morph Ball and Extended Dash (Ludicrous) and Terminal Fall Abuse (Ludicrous)
   > Pickup (Sunburst)
       All of the following:
           Morph Ball and Space Jump Boots
@@ -1402,11 +1257,11 @@ Extra - in_dark_aether: False
                   Morph Ball Bomb and Bomb Space Jump (Advanced) and Standable Terrain (Advanced)
                   Any of the following:
                       After Ing Windchamber Yellow Seeker Lock
-                      # https://www.youtube.com/watch?v=FW9FoqbPefs&list=PLevfta9o_QKWuQNXAnmBXtzW4nmU5VLyN&index=29
+                      # https://www.youtube.com/watch?v=FW9FoqbPefs
                       Scan Visor and Combat/Scan Dash (Expert)
                       # https://www.youtube.com/watch?v=xg_-nLeZb7E
                       Use Screw Attack (Space Jump)
-              # https://www.youtube.com/watch?v=U6c-h1azXOM&list=PLevfta9o_QKWuQNXAnmBXtzW4nmU5VLyN&index=27
+              # https://www.youtube.com/watch?v=U6c-h1azXOM
               Screw Attack and Slope Jump (Advanced) and Standable Terrain (Advanced)
 
 > Portal to Ing Windchamber; Heals? False
@@ -1431,7 +1286,7 @@ Extra - in_dark_aether: False
               Any of the following:
                   # https://www.youtube.com/watch?v=soERaCLQYhs
                   Extended Dash (Expert)
-                  Morph Ball and Extended Dash (Hypermode) and Terminal Fall Abuse (Hypermode)
+                  Morph Ball and Extended Dash (Ludicrous) and Terminal Fall Abuse (Ludicrous)
   > Portal to Ing Windchamber
       Trivial
   > Pickup (Sunburst)
@@ -1446,7 +1301,18 @@ Extra - in_dark_aether: False
 > Pickup (Sunburst); Heals? False
   * Layers: default
   * Pickup 7; Category? Major
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'Sunburst', 'connections': (frozendict.frozendict({'target': 337444957, 'message': 'ACTV'}), frozendict.frozendict({'target': 337444957, 'message': 'ZERO'})), 'removals': (1900783, 337445090), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 1.0}), 'instances': frozendict.frozendict({'pickup': 1900791, 'hud_memo': 1900784, 'streamed_audio': 1900785, 'sound': 1900780, 'audio_fade': 1900781})})
+  * Extra - location_data:
+{'type': 'standard',
+ 'exclude_memo_from_removal': False,
+ 'original_model': 'Sunburst',
+ 'connections': [{'target': 337444957, 'message': 'ACTV'}, {'target': 337444957, 'message': 'ZERO'}],
+ 'removals': [1900783, 337445090],
+ 'collision_offset': {'x': 0.0, 'y': 0.0, 'z': 1.0},
+ 'instances': {'pickup': 1900791,
+               'hud_memo': 1900784,
+               'streamed_audio': 1900785,
+               'sound': 1900780,
+               'audio_fade': 1900781}}
   > Door to Windchamber Tunnel
       Any of the following:
           Space Jump Boots
@@ -1457,7 +1323,6 @@ Extra - in_dark_aether: False
 ----------------
 Transport to Torvus Bog
 Extra - asset_id: 2889020216
-Extra - in_dark_aether: False
 > Door to Torvus Transport Access; Heals? False
   * Layers: default
   * Missile Blast Shield to Torvus Transport Access/Door to Transport to Torvus Bog
@@ -1477,7 +1342,6 @@ Extra - in_dark_aether: False
 ----------------
 Dynamo Chamber
 Extra - asset_id: 3032508327
-Extra - in_dark_aether: False
 > Door to Communication Area; Heals? False
   * Layers: default
   * Normal Door to Communication Area/Door to Dynamo Chamber
@@ -1529,7 +1393,18 @@ Extra - in_dark_aether: False
 > Pickup (Power Bomb); Heals? False
   * Layers: default
   * Pickup 8; Category? Minor
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'PowerBombExpansion', 'connections': (), 'removals': (2031810,), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 0.0}), 'instances': frozendict.frozendict({'pickup': 2031898, 'hud_memo': 2031813, 'streamed_audio': 2031762, 'sound': 2031897, 'audio_fade': 2031772})})
+  * Extra - location_data:
+{'type': 'standard',
+ 'exclude_memo_from_removal': False,
+ 'original_model': 'PowerBombExpansion',
+ 'connections': [],
+ 'removals': [2031810],
+ 'collision_offset': {'x': 0.0, 'y': 0.0, 'z': 0.0},
+ 'instances': {'pickup': 2031898,
+               'hud_memo': 2031813,
+               'streamed_audio': 2031762,
+               'sound': 2031897,
+               'audio_fade': 2031772}}
   > Door to Temple Assembly Site
       Morph Ball and Power Bomb
 
@@ -1553,7 +1428,6 @@ Extra - in_dark_aether: False
 ----------------
 Temple Transport B
 Extra - asset_id: 1287880522
-Extra - in_dark_aether: False
 > Door to Temple Assembly Site; Heals? False
   * Layers: default
   * Normal Door to Temple Assembly Site/Door to Temple Transport B
@@ -1573,7 +1447,6 @@ Extra - in_dark_aether: False
 ----------------
 Storage Cavern B
 Extra - asset_id: 3197418796
-Extra - in_dark_aether: False
 > Door to Temple Assembly Site; Heals? False; Spawn Point; Default Node
   * Layers: default
   * Missile Blast Shield to Temple Assembly Site/Door to Storage Cavern B
@@ -1584,152 +1457,24 @@ Extra - in_dark_aether: False
 > Pickup (Energy Tank); Heals? False
   * Layers: default
   * Pickup 9; Category? Major
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'EnergyTank', 'connections': (), 'removals': (2162723,), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 0.0}), 'instances': frozendict.frozendict({'pickup': 2162716, 'hud_memo': 2162707, 'streamed_audio': 2162713, 'sound': 2162717, 'audio_fade': 2162709})})
+  * Extra - location_data:
+{'type': 'standard',
+ 'exclude_memo_from_removal': False,
+ 'original_model': 'EnergyTank',
+ 'connections': [],
+ 'removals': [2162723],
+ 'collision_offset': {'x': 0.0, 'y': 0.0, 'z': 0.0},
+ 'instances': {'pickup': 2162716,
+               'hud_memo': 2162707,
+               'streamed_audio': 2162713,
+               'sound': 2162717,
+               'audio_fade': 2162709}}
   > Door to Temple Assembly Site
       Trivial
 
 ----------------
-Plain of Dark Worship
-Extra - asset_id: 67496868
-Extra - in_dark_aether: True
-> Door to Lake Access; Heals? False; Spawn Point; Default Node
-  * Layers: default
-  * Seeker Launcher Blast Shield to Lake Access/Door to Plain of Dark Worship
-  * <https://youtu.be/_mSQ-ckqaA8>
-  * Extra - dock_name: South
-  * Override default lock requirement:
-    All of the following:
-        Dark World Damage ≥ 40
-        Any of the following:
-            Destroy Seeker Locks
-            Missile and Seeker Locks without Seeker Missiles (Expert) and Use Screw Attack (Space Jump)
-
-  > Portal to Temple Assembly Site
-      Dark World Damage ≥ 10
-
-> Portal to Temple Assembly Site; Heals? True
-  * Layers: default
-  * Light Portal to Temple Assembly Site/Portal to Plain of Dark Worship
-  * Extra - dock_name: VirtualNorth
-  > Door to Lake Access
-      Dark World Damage ≥ 10
-  > Pickup (Missile)
-      Any of the following:
-          Dark World Damage ≥ 15 and Has Suit
-          All of the following:
-              Suitless Dark Aether (Intermediate)
-              Any of the following:
-                  All of the following:
-                      Morph Ball
-                      Any of the following:
-                          Dark World Damage ≥ 50 and Ingclaw Vapor Damage ≥ 280
-                          Boost Ball and Dark World Damage ≥ 40 and Ingclaw Vapor Damage ≥ 200
-                  Dark World Damage ≥ 20 and Ingclaw Vapor Damage ≥ 120 and Use Screw Attack (Space Jump)
-                  Dark World Damage ≥ 80 and Ingclaw Vapor Damage ≥ 400
-
-> Pickup (Missile); Heals? False
-  * Layers: default
-  * Pickup 10; Category? Minor
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'MissileExpansion', 'connections': (), 'removals': (2228237,), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 1.0}), 'instances': frozendict.frozendict({'pickup': 2228303, 'hud_memo': 2228309, 'streamed_audio': 2228312, 'sound': 2228304, 'audio_fade': 2228311})})
-  > Portal to Temple Assembly Site
-      Any of the following:
-          Dark World Damage ≥ 20 and Has Suit
-          All of the following:
-              Suitless Dark Aether (Intermediate)
-              Any of the following:
-                  All of the following:
-                      Morph Ball
-                      Any of the following:
-                          Dark World Damage ≥ 60 and Ingclaw Vapor Damage ≥ 360
-                          Boost Ball and Dark World Damage ≥ 30 and Ingclaw Vapor Damage ≥ 300
-                  Dark World Damage ≥ 40 and Ingclaw Vapor Damage ≥ 190 and Use Screw Attack (Space Jump)
-                  Dark World Damage ≥ 55 and Ingclaw Vapor Damage ≥ 475
-
-----------------
-Defiled Shrine
-Extra - asset_id: 383850164
-Extra - in_dark_aether: True
-> Door to Shrine Access; Heals? True; Spawn Point; Default Node
-  * Layers: default
-  * Super Missile Blast Shield to Shrine Access/Door to Defiled Shrine
-  * Extra - dock_name: North
-  > Safe Zone (Ship Location)
-      Any of the following:
-          Dark World Damage ≥ 40
-          Dark World Damage ≥ 20 and Activate Safe Zone
-
-> Pickup (Sky Temple Key 8); Heals? False
-  * Layers: default
-  * Pickup 11; Category? Major
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'SkyTempleKey', 'connections': (), 'removals': (2293765, 2293975), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.6, 'z': 0.0}), 'instances': frozendict.frozendict({'pickup': 2293888, 'hud_memo': 2293884, 'streamed_audio': 2293886, 'sound': 2293891, 'audio_fade': 2293887})})
-  > Safe Zone (Ship Location)
-      Dark World Damage ≥ 15
-
-> Safe Zone (Ship Location); Heals? True
-  * Layers: default
-  > Door to Shrine Access
-      Any of the following:
-          All of the following:
-              Space Jump Boots
-              Any of the following:
-                  Dark World Damage ≥ 55
-                  Dark World Damage ≥ 20 and Activate Safe Zone
-          All of the following:
-              # Double Bomb Jump
-              Morph Ball Bomb and Morph Ball and Bomb Jump (Beginner)
-              Any of the following:
-                  Dark World Damage ≥ 90
-                  Dark World Damage ≥ 40 and Activate Safe Zone
-  > Pickup (Sky Temple Key 8)
-      All of the following:
-          Dark Visor
-          Any of the following:
-              Space Jump Boots
-              # https://www.youtube.com/watch?v=D5Kr5s22mFA
-              Morph Ball Bomb and Morph Ball and Bomb Jump (Beginner) and Dark World Damage ≥ 20
-
-----------------
-Gateway Access
-Extra - asset_id: 2217888920
-Extra - in_dark_aether: True
-> Door to Sky Temple Gateway; Heals? False
-  * Layers: default
-  * Normal Door to Sky Temple Gateway/Door to Gateway Access
-  * Extra - dock_name: North
-  > Central Safe Zone
-      Dark World Damage ≥ 30
-
-> Door to Shrine Access; Heals? False; Spawn Point; Default Node
-  * Layers: default
-  * Normal Door to Shrine Access/Door to Gateway Access
-  * Extra - dock_name: West
-  > Central Safe Zone
-      Dark World Damage ≥ 40
-
-> Central Safe Zone; Heals? True
-  * Layers: default
-  > Door to Sky Temple Gateway
-      Any of the following:
-          All of the following:
-              Space Jump Boots
-              Any of the following:
-                  Dark World Damage ≥ 60
-                  Dark World Damage ≥ 30 and Activate Safe Zone
-          All of the following:
-              # Double Bomb Jump
-              Morph Ball Bomb and Morph Ball and Bomb Jump (Beginner) and Normal Damage ≥ 15
-              Any of the following:
-                  Dark World Damage ≥ 60
-                  Dark World Damage ≥ 45 and Activate Safe Zone
-  > Door to Shrine Access
-      Any of the following:
-          Dark World Damage ≥ 60
-          Dark World Damage ≥ 45 and Activate Safe Zone
-
-----------------
 Windchamber Tunnel
 Extra - asset_id: 2590194623
-Extra - in_dark_aether: False
 > Door to GFMC Compound; Heals? False; Spawn Point; Default Node
   * Layers: default
   * Power Bomb Blast Shield to GFMC Compound/Door to Windchamber Tunnel
@@ -1745,44 +1490,8 @@ Extra - in_dark_aether: False
       Morph Ball
 
 ----------------
-Ing Windchamber
-Extra - asset_id: 3455003633
-Extra - in_dark_aether: True
-> Portal to Grand Windchamber; Heals? True; Spawn Point; Default Node
-  * Layers: default
-  * Light Portal to Grand Windchamber/Portal to Ing Windchamber
-  * Extra - dock_name: VirtualNorth1
-  > Event - Ing Windchamber Blue Seeker Lock
-      All of the following:
-          Boost Ball and Missile ≥ 4 and Morph Ball and Seeker Launcher
-          Any of the following:
-              Morph Ball Bomb
-              # Use Power Bombs to exit Boost Ball Spinners
-              Power Bomb ≥ 4 and Knowledge (Beginner)
-  > Event - Ing Windchamber Yellow Seeker Lock
-      All of the following:
-          Boost Ball and Missile ≥ 4 and Morph Ball and Seeker Launcher
-          Any of the following:
-              Morph Ball Bomb
-              # Use Power Bombs to exit Boost Ball Spinners
-              Power Bomb ≥ 4 and Knowledge (Beginner)
-
-> Event - Ing Windchamber Blue Seeker Lock; Heals? True
-  * Layers: default
-  * Event Ing Windchamber Blue Seeker Lock
-  > Portal to Grand Windchamber
-      Trivial
-
-> Event - Ing Windchamber Yellow Seeker Lock; Heals? True
-  * Layers: default
-  * Event Ing Windchamber Yellow Seeker Lock
-  > Portal to Grand Windchamber
-      Trivial
-
-----------------
 Communication Area
 Extra - asset_id: 1667141025
-Extra - in_dark_aether: False
 > Door to Dynamo Chamber; Heals? False; Spawn Point; Default Node
   * Layers: default
   * Normal Door to Dynamo Chamber/Door to Communication Area
@@ -1818,7 +1527,18 @@ Extra - in_dark_aether: False
 > Pickup (Missile); Heals? False
   * Layers: default
   * Pickup 12; Category? Minor
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'MissileExpansion', 'connections': (), 'removals': (2556216,), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 1.0}), 'instances': frozendict.frozendict({'pickup': 2556217, 'hud_memo': 2556211, 'streamed_audio': 2556215, 'sound': 2556218, 'audio_fade': 2556212})})
+  * Extra - location_data:
+{'type': 'standard',
+ 'exclude_memo_from_removal': False,
+ 'original_model': 'MissileExpansion',
+ 'connections': [],
+ 'removals': [2556216],
+ 'collision_offset': {'x': 0.0, 'y': 0.0, 'z': 1.0},
+ 'instances': {'pickup': 2556217,
+               'hud_memo': 2556211,
+               'streamed_audio': 2556215,
+               'sound': 2556218,
+               'audio_fade': 2556212}}
   > Next to Pickup
       Trivial
 
@@ -1840,78 +1560,9 @@ Extra - in_dark_aether: False
           Morph Ball Bomb or Power Bomb
 
 ----------------
-Lake Access
-Extra - asset_id: 1753921710
-Extra - in_dark_aether: True
-> Door to Accursed Lake; Heals? False; Spawn Point; Default Node
-  * Layers: default
-  * Normal Door to Accursed Lake/Door to Lake Access
-  * Extra - dock_name: A__South
-  > Door to Plain of Dark Worship
-      All of the following:
-          Dark World Damage ≥ 100
-          Suitless Dark Aether (Beginner) or Has Suit
-
-> Door to Plain of Dark Worship; Heals? False
-  * Layers: default
-  * Super Missile Blast Shield to Plain of Dark Worship/Door to Lake Access
-  * Extra - dock_name: A__North1
-  > Door to Accursed Lake
-      All of the following:
-          Dark World Damage ≥ 100
-          Suitless Dark Aether (Beginner) or Has Suit
-
-----------------
-Sky Temple Gateway
-Extra - asset_id: 2278776548
-Extra - in_dark_aether: True
-> Door to Gateway Access; Heals? False
-  * Layers: default
-  * Normal Door to Gateway Access/Door to Sky Temple Gateway
-  * Extra - dock_name: South
-  > Spawn Point/Front of Teleporter
-      Any of the following:
-          Dark World Damage ≥ 35
-          Morph Ball and Dark World Damage ≥ 25
-
-> Event - Dark Samus 3 and 4; Heals? False
-  * Layers: default
-  * Event Dark Samus 3 and 4
-  > Door to Gateway Access
-      Trivial
-
-> Elevator to Great Temple; Heals? False
-  * Layers: default
-  * Elevator to Sky Temple Energy Controller/Save Station
-  * Extra - scan_asset_id: None
-  * Extra - teleporter_instance_id: 136970379
-  * Extra - keep_name_when_vanilla: True
-  > Door to Gateway Access
-      Before Emperor Ing and Dark World Damage ≥ 45
-  > Event - Dark Samus 3 and 4
-      All of the following:
-          After Emperor Ing
-          Any of the following:
-              All of the following:
-                  Charge Beam and Power Beam
-                  Any of the following:
-                      All of the following:
-                          Dark World Damage ≥ 1500
-                          Any of the following:
-                              Echo Visor
-                              Annihilator Beam and Dark Ammo ≥ 26 and Light Ammo ≥ 26 and Combat (Beginner)
-                      Combat (Intermediate) and Invisible Objects (Intermediate) and Dark World Damage ≥ 800
-              Missile ≥ 5 and Combat (Advanced) and Invisible Objects (Advanced) and Normal Damage ≥ 80 and Dark World Damage ≥ 300 and Use Screw Attack (Space Jump)
-
-> Spawn Point/Front of Teleporter; Heals? False; Spawn Point; Default Node
-  * Layers: default
-  > Elevator to Great Temple
-      Sky Temple Key 1 and Sky Temple Key 2 and Sky Temple Key 3 and Sky Temple Key 4 and Sky Temple Key 5 and Sky Temple Key 6 and Sky Temple Key 7 and Sky Temple Key 8 and Sky Temple Key 9 and Dark World Damage ≥ 10
-
-----------------
 GFMC Compound
 Extra - asset_id: 1467316949
-Extra - in_dark_aether: False
+Hint Features - Abyss, Kinetic Orb Cannon, Translator Gate
 > Door to Windchamber Tunnel; Heals? False
   * Layers: default
   * Power Bomb Blast Shield to Windchamber Tunnel/Door to GFMC Compound
@@ -1949,22 +1600,42 @@ Extra - in_dark_aether: False
   * Layers: default
   * Normal Door to Fortress Transport Access/Door to GFMC Compound
   * Extra - dock_name: North
-  > Room Center
-      Before GFMC Compound Trooper Cutscene and Enabled Vanilla GFMC Compound Translator Gate
   > Translator Gate
       Trivial
 
 > Pickup (Missile Launcher); Heals? False
   * Layers: default
   * Pickup 13; Category? Major
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'MissileLauncher', 'connections': (), 'removals': (606798322, 606798323), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 1.0}), 'instances': frozendict.frozendict({'pickup': 606798316, 'hud_memo': 606798325, 'streamed_audio': 606798326, 'sound': 606798315, 'audio_fade': 606798320})})
+  * Extra - location_data:
+{'type': 'standard',
+ 'exclude_memo_from_removal': False,
+ 'original_model': 'MissileLauncher',
+ 'connections': [],
+ 'removals': [606798322, 606798323],
+ 'collision_offset': {'x': 0.0, 'y': 0.0, 'z': 1.0},
+ 'instances': {'pickup': 606798316,
+               'hud_memo': 606798325,
+               'streamed_audio': 606798326,
+               'sound': 606798315,
+               'audio_fade': 606798320}}
   > Room Center
       Trivial
 
 > Pickup 2 (Missile On Ship); Heals? False
   * Layers: default
   * Pickup 14; Category? Minor
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'MissileExpansion', 'connections': (), 'removals': (741015716,), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 1.0}), 'instances': frozendict.frozendict({'pickup': 741016356, 'hud_memo': 741016354, 'streamed_audio': 741016353, 'sound': 741016357, 'audio_fade': 741016355})})
+  * Extra - location_data:
+{'type': 'standard',
+ 'exclude_memo_from_removal': False,
+ 'original_model': 'MissileExpansion',
+ 'connections': [],
+ 'removals': [741015716],
+ 'collision_offset': {'x': 0.0, 'y': 0.0, 'z': 1.0},
+ 'instances': {'pickup': 741016356,
+               'hud_memo': 741016354,
+               'streamed_audio': 741016353,
+               'sound': 741016357,
+               'audio_fade': 741016355}}
   > Room Center
       Trivial
 
@@ -1991,8 +1662,6 @@ Extra - in_dark_aether: False
           Slope Jump (Beginner)
   > Door to Trooper Security Station
       Trivial
-  > Door to Fortress Transport Access
-      Before GFMC Compound Trooper Cutscene and Enabled Vanilla GFMC Compound Translator Gate
   > Pickup (Missile Launcher)
       Any of the following:
           Charge Beam or Missile
@@ -2008,7 +1677,7 @@ Extra - in_dark_aether: False
           After Jump Guardian
           Any of the following:
               Space Jump Boots
-              # https://www.youtube.com/watch?v=9gwynCfioeg&list=PLx6vT1x-80zuA1vUepQUSqYOQeHiRNbt5&index=8
+              # https://www.youtube.com/watch?v=9gwynCfioeg
               Scan Visor and Extended Dash (Expert)
   > Event - GFMC Compound Trooper Cutscene
       Trivial
@@ -2029,7 +1698,6 @@ Extra - in_dark_aether: False
 ----------------
 Storage Cavern A
 Extra - asset_id: 939577218
-Extra - in_dark_aether: False
 > Door to Communication Area; Heals? False; Spawn Point; Default Node
   * Layers: default
   * Normal Door to Communication Area/Door to Storage Cavern A
@@ -2039,8 +1707,7 @@ Extra - in_dark_aether: False
 
 > Keybearer Corpse (D-Isl); Heals? False
   * Layers: default
-  * Hint
-  * Extra - hint_index: 19
+  * Specific Location Hint; Requirement? (Scan Visor ≥ 1); Target? PickupIndex 19
   * Extra - string_asset_id: 686343194
   > Door to Communication Area
       Trivial
@@ -2048,7 +1715,6 @@ Extra - in_dark_aether: False
 ----------------
 Trooper Security Station
 Extra - asset_id: 1441689027
-Extra - in_dark_aether: False
 > Door to GFMC Compound; Heals? False
   * Layers: default
   * Normal Door to GFMC Compound/Door to Trooper Security Station
@@ -2088,79 +1754,9 @@ Extra - in_dark_aether: False
           Knowledge (Beginner) and Use Screw Attack (Space Jump)
 
 ----------------
-Accursed Lake
-Extra - asset_id: 2681312991
-Extra - in_dark_aether: True
-> Door to Lake Access; Heals? True
-  * Layers: default
-  * Normal Door to Lake Access/Door to Accursed Lake
-  * Extra - dock_name: North
-  > Spawn Point
-      Dark World Damage ≥ 15
-
-> Pickup (Sky Temple Key 9); Heals? False
-  * Layers: default
-  * Pickup 15; Category? Major
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'SkyTempleKey', 'connections': (), 'removals': (204341388, 204341345), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.6, 'z': 0.0}), 'instances': frozendict.frozendict({'pickup': 204341296, 'hud_memo': 204341386, 'streamed_audio': 204341389, 'sound': 204341297, 'audio_fade': 204341387})})
-  > Door to Lake Access
-      Any of the following:
-          All of the following:
-              Space Jump Boots and Dark World Damage ≥ 45
-              Dark World Damage ≥ 40 or Activate Safe Zone
-          All of the following:
-              # https://www.youtube.com/watch?v=FD30PD2swEY&t=40s
-              Screw Attack and Movement (Intermediate) and Dark World Damage ≥ 45
-              Dark World Damage ≥ 40 or Activate Safe Zone
-          All of the following:
-              # https://www.youtube.com/watch?v=5iAfO5uBfHA&t=41s
-              Combat/Scan Dash (Advanced) and Dark World Damage ≥ 55
-              Dark World Damage ≥ 44 or Activate Safe Zone
-          All of the following:
-              Morph Ball
-              Any of the following:
-                  All of the following:
-                      Morph Ball Bomb and No Light Suit and Bomb Jump (Intermediate) and Dark World Damage ≥ 80 and Poison Water Damage ≥ 35 and Enabled Allow Jumping on Dark Water
-                      Dark World Damage ≥ 45 or Activate Safe Zone
-                  # https://www.youtube.com/watch?v=D0wVfhd1W-w&t=24s
-                  Gravity Boost and Light Suit and Air Underwater (Advanced)
-
-> Spawn Point; Heals? False; Spawn Point; Default Node
-  * Layers: default
-  > Door to Lake Access
-      Dark World Damage ≥ 30
-  > Pickup (Sky Temple Key 9)
-      All of the following:
-          Dark Visor
-          Any of the following:
-              All of the following:
-                  Space Jump Boots and Dark World Damage ≥ 35
-                  Dark World Damage ≥ 60 or Activate Safe Zone
-              All of the following:
-                  # https://www.youtube.com/watch?v=5iAfO5uBfHA&t=21s
-                  Morph Ball Bomb and Morph Ball and Bomb Jump (Intermediate)
-                  Any of the following:
-                      All of the following:
-                          No Light Suit and Movement (Advanced) and Dark World Damage ≥ 70 and Poison Water Damage ≥ 20 and Enabled Allow Jumping on Dark Water
-                          Dark World Damage ≥ 85 or Activate Safe Zone
-                      All of the following:
-                          Dark World Damage ≥ 60
-                          Dark World Damage ≥ 50 or Activate Safe Zone
-                          Any of the following:
-                              # https://www.youtube.com/watch?v=FD30PD2swEY
-                              Screw Attack and Movement (Intermediate)
-                              # https://www.youtube.com/watch?v=5iAfO5uBfHA&t=21s
-                              Combat/Scan Dash (Intermediate)
-              All of the following:
-                  # https://www.youtube.com/watch?v=8uukqiYlYVE
-                  Scan Visor and Combat/Scan Dash (Advanced) and Standable Terrain (Intermediate) and Dark World Damage ≥ 40
-                  Dark World Damage ≥ 40 or Activate Safe Zone
-              # https://www.youtube.com/watch?v=D0wVfhd1W-w
-              Gravity Boost and Light Suit and Morph Ball and Air Underwater (Advanced)
-
-----------------
 Fortress Transport Access
 Extra - asset_id: 1894115037
-Extra - in_dark_aether: False
+Hint Features - Light Energy Transport, Luminoth Lore
 > Door to Transport to Sanctuary Fortress; Heals? False
   * Layers: default
   * Normal Door to Transport to Sanctuary Fortress/Door to Fortress Transport Access
@@ -2182,13 +1778,24 @@ Extra - in_dark_aether: False
 > Pickup (Energy Tank); Heals? False
   * Layers: default
   * Pickup 16; Category? Major
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'EnergyTank', 'connections': (), 'removals': (3145776,), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 0.0}), 'instances': frozendict.frozendict({'pickup': 3145766, 'hud_memo': 3145771, 'streamed_audio': 3145772, 'sound': 3145767, 'audio_fade': 3145773})})
+  * Extra - location_data:
+{'type': 'standard',
+ 'exclude_memo_from_removal': False,
+ 'original_model': 'EnergyTank',
+ 'connections': [],
+ 'removals': [3145776],
+ 'collision_offset': {'x': 0.0, 'y': 0.0, 'z': 0.0},
+ 'instances': {'pickup': 3145766,
+               'hud_memo': 3145771,
+               'streamed_audio': 3145772,
+               'sound': 3145767,
+               'audio_fade': 3145773}}
   > Door to GFMC Compound
       Trivial
 
 > Lore Scan; Heals? False
   * Layers: default
-  * Hint
+  * Generic Hint; Requirement? (Scan Visor ≥ 1 and Violet Translator ≥ 1)
   * Extra - translator: Violet
   * Extra - string_asset_id: 3478732186
   > Door to Transport to Sanctuary Fortress
@@ -2197,7 +1804,6 @@ Extra - in_dark_aether: False
 ----------------
 Sacred Bridge
 Extra - asset_id: 3132939042
-Extra - in_dark_aether: False
 > Door to GFMC Compound; Heals? False; Spawn Point; Default Node
   * Layers: default
   * Missile Blast Shield to GFMC Compound/Door to Sacred Bridge
@@ -2219,7 +1825,10 @@ Extra - in_dark_aether: False
   * Normal Door to Sacred Path/Door to Sacred Bridge
   * Extra - dock_name: South
   > Door to GFMC Compound
-      After Sacred Bridge Gate
+      Any of the following:
+          After Sacred Bridge Gate
+          # SA bonk inside the tunnel: https://youtu.be/1SGf1gyufXE
+          Bomb Space Jump (Ludicrous) and Movement (Advanced) and Use Screw Attack (Space Jump)
   > Event - Gate Unlocked
       Dark Visor and Missile ≥ 5 and Seeker Launcher
 
@@ -2232,7 +1841,6 @@ Extra - in_dark_aether: False
 ----------------
 Transport to Sanctuary Fortress
 Extra - asset_id: 3455543403
-Extra - in_dark_aether: False
 > Door to Fortress Transport Access; Heals? False
   * Layers: default
   * Normal Door to Fortress Transport Access/Door to Transport to Sanctuary Fortress
@@ -2252,7 +1860,6 @@ Extra - in_dark_aether: False
 ----------------
 Sacred Path
 Extra - asset_id: 3258777533
-Extra - in_dark_aether: False
 > Portal to Profane Path; Heals? False
   * Layers: default
   * Dark Portal to Profane Path/Portal to Sacred Path
@@ -2309,7 +1916,6 @@ Extra - in_dark_aether: False
 ----------------
 Temple Transport A
 Extra - asset_id: 1345979968
-Extra - in_dark_aether: False
 > Door to Sacred Path; Heals? False
   * Layers: default
   * Normal Door to Sacred Path/Door to Temple Transport A
@@ -2327,324 +1933,8 @@ Extra - in_dark_aether: False
       Trivial
 
 ----------------
-Profane Path
-Extra - asset_id: 1692811478
-Extra - in_dark_aether: True
-> Door to Phazon Pit; Heals? False; Spawn Point; Default Node
-  * Layers: default
-  * Normal Door to Phazon Pit/Door to Profane Path
-  * Extra - dock_name: North
-  > Portal to Sacred Path
-      Any of the following:
-          Space Jump Boots and Dark World Damage ≥ 35
-          All of the following:
-              Standable Terrain (Intermediate)
-              Any of the following:
-                  Dark World Damage ≥ 35
-                  Space Jump Boots and Dark World Damage ≥ 25
-  > Safe Zone (Front of Echo Gate)
-      Any of the following:
-          Space Jump Boots and Dark World Damage ≥ 40
-          # Double Bomb Jump
-          Morph Ball Bomb and Morph Ball and Bomb Jump (Beginner) and Dark World Damage ≥ 70
-          Movement (Intermediate) and Dark World Damage ≥ 50 and Use Screw Attack (No Space Jump)
-
-> Portal to Sacred Path; Heals? True
-  * Layers: default
-  * Light Portal to Sacred Path/Portal to Profane Path
-  * Extra - dock_name: VirtualNorth1
-  > Door to Phazon Pit
-      Dark World Damage ≥ 15
-  > Safe Zone (Front of Echo Gate)
-      Dark World Damage ≥ 15 and Activate Safe Zone
-
-> Pickup (Dark Ammo); Heals? False
-  * Layers: default
-  * Pickup 17; Category? Minor
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'BeamAmmoExpansion', 'connections': (), 'removals': (3604690, 3604695), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 1.0}), 'instances': frozendict.frozendict({'pickup': 3604683, 'hud_memo': 3604688, 'streamed_audio': 3604687, 'sound': 3604684, 'audio_fade': 3604689})})
-  > Safe Zone (Front of Echo Gate)
-      Dark World Damage ≥ 10
-
-> Safe Zone (Front of Echo Gate); Heals? True
-  * Layers: default
-  > Door to Phazon Pit
-      Any of the following:
-          Dark World Damage ≥ 35
-          Morph Ball and Dark World Damage ≥ 30
-  > Portal to Sacred Path
-      All of the following:
-          Activate Safe Zone
-          Any of the following:
-              All of the following:
-                  Dark World Damage ≥ 8
-                  Any of the following:
-                      Space Jump Boots
-                      Movement (Beginner) and Use Screw Attack (No Space Jump)
-              Morph Ball Bomb and Morph Ball and Bomb Jump (Intermediate) and Dark World Damage ≥ 25
-              # https://www.youtube.com/watch?v=aKNRlZfSTfw&list=PLx6vT1x-80zuA1vUepQUSqYOQeHiRNbt5&index=19
-              Scan Visor and Combat/Scan Dash (Advanced) and Standable Terrain (Beginner) and Dark World Damage ≥ 70
-  > Pickup (Dark Ammo)
-      All of the following:
-          Annihilator Beam and Echo Visor and Dark World Damage ≥ 55
-          Any of the following:
-              Charge Beam
-              Dark Ammo ≥ 4 and Light Ammo ≥ 4
-
-----------------
-Phazon Pit
-Extra - asset_id: 506667008
-Extra - in_dark_aether: True
-> Door to Profane Path; Heals? False
-  * Layers: default
-  * Normal Door to Profane Path/Door to Phazon Pit
-  * Extra - dock_name: South
-  > Door to Phazon Grounds
-      Any of the following:
-          All of the following:
-              Any of the following:
-                  Grapple Beam and Dark World Damage ≥ 50
-                  Dark World Damage ≥ 25 and Use Screw Attack (Space Jump)
-              Suitless Dark Aether (Beginner) or Has Suit
-          All of the following:
-              Morph Ball
-              Any of the following:
-                  All of the following:
-                      Space Jump Boots
-                      Any of the following:
-                          # https://www.youtube.com/watch?v=FMIh3Dww4uw
-                          Roll Jump (Intermediate) and Dark World Damage ≥ 50
-                          # https://www.youtube.com/watch?v=qfyPVFJU3fI
-                          Morph Ball Bomb and Bomb Space Jump (Intermediate) and Normal Damage ≥ 15 and Dark World Damage ≥ 75
-                  # https://www.youtube.com/watch?v=zdUCjMKDNUo
-                  Boost Ball and Boost Jump (Expert) and Dark World Damage ≥ 60
-
-> Door to Phazon Grounds; Heals? False; Spawn Point; Default Node
-  * Layers: default
-  * Normal Door to Phazon Grounds/Door to Phazon Pit
-  * Extra - dock_name: East
-  > Door to Profane Path
-      All of the following:
-          Any of the following:
-              # Double Bomb Jump
-              Morph Ball Bomb and Morph Ball and Bomb Jump (Beginner) and Dark World Damage ≥ 100
-              All of the following:
-                  Dark World Damage ≥ 50
-                  Grapple Beam or Space Jump Boots
-          Suitless Dark Aether (Beginner) or Has Suit
-
-----------------
-Phazon Grounds
-Extra - asset_id: 1683944003
-Extra - in_dark_aether: True
-> Door to Phazon Pit; Heals? False
-  * Layers: default
-  * Normal Door to Phazon Pit/Door to Phazon Grounds
-  * Extra - dock_name: WestTop
-  > Door to Reliquary Access
-      Dark World Damage ≥ 60
-  > Pickup (Missile)
-      Any of the following:
-          All of the following:
-              Dark World Damage ≥ 30 and Use Screw Attack (Space Jump)
-              Suitless Dark Aether (Beginner) or Has Suit
-          All of the following:
-              Space Jump Boots and Dark World Damage ≥ 90
-              # https://www.youtube.com/watch?v=cUb73XA_w-A
-              Dark Visor or Invisible Objects (Intermediate)
-              Suitless Dark Aether (Beginner) or Has Suit
-          All of the following:
-              Movement (Advanced) and Suitless Dark Aether (Intermediate) and Dark World Damage ≥ 120 and Use Screw Attack (No Space Jump)
-              Any of the following:
-                  Dark Visor
-                  # https://www.youtube.com/watch?v=TLVEtDIZuOY
-                  Invisible Objects (Expert)
-
-> Door to Reliquary Access; Heals? False; Spawn Point; Default Node
-  * Layers: default
-  * Seeker Launcher Blast Shield to Reliquary Access/Door to Phazon Grounds
-  * <https://youtu.be/_ZB9NSBnIrs>
-  * Extra - dock_name: East
-  * Override default lock requirement:
-    All of the following:
-        Dark World Damage ≥ 90
-        Any of the following:
-            Destroy Seeker Locks
-            Missile ≥ 2 and Seeker Locks without Seeker Missiles (Expert) and Use Screw Attack (Space Jump)
-
-  > Door to Phazon Pit
-      Any of the following:
-          # Double Bomb Jump
-          Morph Ball Bomb and Morph Ball and Bomb Jump (Beginner) and Dark World Damage ≥ 55
-          Space Jump Boots and Dark World Damage ≥ 45
-          # https://www.youtube.com/watch?v=UIGRq3fHK0w
-          Slope Jump (Intermediate) and Dark World Damage ≥ 70
-
-> Pickup (Missile); Heals? False
-  * Layers: default
-  * Pickup 18; Category? Minor
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'MissileExpansion', 'connections': (), 'removals': (3866914,), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.0, 'z': 1.0}), 'instances': frozendict.frozendict({'pickup': 3866838, 'hud_memo': 3866912, 'streamed_audio': 3866906, 'sound': 3866916, 'audio_fade': 3866908})})
-  > Door to Phazon Pit
-      Any of the following:
-          All of the following:
-              Dark World Damage ≥ 50 and Use Screw Attack (Space Jump)
-              Suitless Dark Aether (Beginner) or Has Suit
-          All of the following:
-              Space Jump Boots and Dark World Damage ≥ 90
-              Dark Visor or Invisible Objects (Intermediate)
-              Suitless Dark Aether (Beginner) or Has Suit
-          All of the following:
-              Movement (Advanced) and Dark World Damage ≥ 110 and Use Screw Attack (No Space Jump)
-              Dark Visor or Invisible Objects (Expert)
-          All of the following:
-              Dark World Damage ≥ 110
-              Any of the following:
-                  Invisible Objects (Hypermode)
-                  Dark Visor and Movement (Expert)
-
-----------------
-Reliquary Access
-Extra - asset_id: 2235615956
-Extra - in_dark_aether: True
-> Door to Phazon Grounds; Heals? False; Spawn Point; Default Node
-  * Layers: default
-  * Seeker Launcher Blast Shield to Phazon Grounds/Door to Reliquary Access
-  * <https://www.youtube.com/watch?v=L0ULmh5YmFg>
-  * Extra - dock_name: West
-  * Override default lock requirement:
-    All of the following:
-        Dark World Damage ≥ 40
-        Any of the following:
-            Destroy Seeker Locks
-            Missile and Seeker Locks without Seeker Missiles (Expert) and Use Screw Attack (Space Jump)
-
-  > Door to Reliquary Grounds
-      Any of the following:
-          Light Suit
-          All of the following:
-              # https://youtu.be/RfWnxL7HI1Y
-              Suitless Dark Aether (Advanced)
-              Any of the following:
-                  Dark World Damage ≥ 40 and Ingstorm Damage ≥ 100 and Use Screw Attack (Space Jump)
-                  Dark World Damage ≥ 100 and Ingstorm Damage ≥ 210
-                  All of the following:
-                      Morph Ball
-                      Any of the following:
-                          Dark World Damage ≥ 80 and Ingstorm Damage ≥ 150
-                          Boost Ball and Dark World Damage ≥ 55 and Ingstorm Damage ≥ 120
-
-> Door to Reliquary Grounds; Heals? False
-  * Layers: default
-  * Light Door to Reliquary Grounds/Door to Reliquary Access
-  * Extra - dock_name: South
-  > Door to Phazon Grounds
-      Any of the following:
-          Light Suit
-          All of the following:
-              # https://youtu.be/RfWnxL7HI1Y
-              Suitless Dark Aether (Advanced)
-              Any of the following:
-                  # Energy for Ingstorm
-                  Dark World Damage ≥ 60 and Ingstorm Damage ≥ 100 and Use Screw Attack (Space Jump)
-                  Dark World Damage ≥ 70 and Ingstorm Damage ≥ 220
-                  All of the following:
-                      Morph Ball
-                      Any of the following:
-                          Dark World Damage ≥ 65 and Ingstorm Damage ≥ 160
-                          Boost Ball and Dark World Damage ≥ 40 and Ingstorm Damage ≥ 140
-              # Energy for area before Ingstorm
-              Dark World Damage ≥ 20
-
-----------------
-Reliquary Grounds
-Extra - asset_id: 4237279396
-Extra - in_dark_aether: True
-> Door to Reliquary Access; Heals? False; Spawn Point; Default Node
-  * Layers: default
-  * Light Door to Reliquary Access/Door to Reliquary Grounds
-  * Extra - dock_name: North
-  > Door to Ing Reliquary
-      Any of the following:
-          All of the following:
-              Light Suit
-              Any of the following:
-                  Space Jump Boots
-                  # https://www.youtube.com/watch?v=FammuIjRJ9A
-                  Movement (Advanced) and Use Screw Attack (No Space Jump)
-                  # https://www.youtube.com/watch?v=M0q0xotoaWI
-                  Morph Ball Bomb and Morph Ball and Bomb Jump (Advanced)
-          All of the following:
-              # https://www.youtube.com/watch?v=RfWnxL7HI1Y
-              Suitless Dark Aether (Advanced)
-              Any of the following:
-                  Dark World Damage ≥ 60 and Ingstorm Damage ≥ 100 and Use Screw Attack (Space Jump)
-                  Space Jump Boots and Dark World Damage ≥ 60 and Ingstorm Damage ≥ 180
-                  Dark World Damage ≥ 80 and Ingstorm Damage ≥ 320 and Use Screw Attack (No Space Jump)
-                  Morph Ball Bomb and Morph Ball and Bomb Jump (Advanced) and Dark World Damage ≥ 160 and Ingstorm Damage ≥ 340
-
-> Door to Ing Reliquary; Heals? False
-  * Layers: default
-  * Normal Door to Ing Reliquary/Door to Reliquary Grounds
-  * Extra - dock_name: South_Top
-  > Door to Reliquary Access
-      Any of the following:
-          Light Suit
-          All of the following:
-              Suitless Dark Aether (Advanced)
-              Any of the following:
-                  Dark World Damage ≥ 100 and Ingstorm Damage ≥ 160
-                  All of the following:
-                      Morph Ball
-                      Any of the following:
-                          Dark World Damage ≥ 50 and Ingstorm Damage ≥ 110
-                          Boost Ball and Dark World Damage ≥ 40 and Ingstorm Damage ≥ 90
-
-----------------
-Ing Reliquary
-Extra - asset_id: 1956545251
-Extra - in_dark_aether: True
-> Door to Reliquary Grounds; Heals? False; Spawn Point; Default Node
-  * Layers: default
-  * Normal Door to Reliquary Grounds/Door to Ing Reliquary
-  * Extra - dock_name: North_Top
-  > Pickup (Sky Temple Key 7)
-      All of the following:
-          Dark Visor
-          Any of the following:
-              All of the following:
-                  Light Suit
-                  Any of the following:
-                      Space Jump Boots
-                      # https://www.youtube.com/watch?v=FDgp_e_ZzHg
-                      Morph Ball Bomb and Morph Ball and Bomb Jump (Beginner)
-                      # https://www.youtube.com/watch?v=FDgp_e_ZzHg&t=16s
-                      Standable Terrain (Intermediate)
-              All of the following:
-                  # https://www.youtube.com/watch?v=RfWnxL7HI1Y
-                  Suitless Dark Aether (Advanced) and Dark World Damage ≥ 30 and Ingstorm Damage ≥ 80
-                  Any of the following:
-                      Space Jump Boots
-                      # https://www.youtube.com/watch?v=FDgp_e_ZzHg
-                      Morph Ball Bomb and Morph Ball and Bomb Jump (Beginner) and Dark World Damage ≥ 20 and Ingstorm Damage ≥ 10
-                      # https://www.youtube.com/watch?v=FDgp_e_ZzHg&t=16s
-                      Standable Terrain (Intermediate) and Dark World Damage ≥ 10
-
-> Pickup (Sky Temple Key 7); Heals? False
-  * Layers: default
-  * Pickup 19; Category? Major
-  * Extra - location_data: frozendict.frozendict({'type': 'standard', 'exclude_memo_from_removal': False, 'original_model': 'SkyTempleKey', 'connections': (), 'removals': (4063274, 4063322), 'collision_offset': frozendict.frozendict({'x': 0.0, 'y': 0.6, 'z': 0.0}), 'instances': frozendict.frozendict({'pickup': 4063266, 'hud_memo': 4063271, 'streamed_audio': 4063272, 'sound': 4063277, 'audio_fade': 4063270})})
-  > Door to Reliquary Grounds
-      Any of the following:
-          Light Suit
-          All of the following:
-              Suitless Dark Aether (Advanced)
-              Any of the following:
-                  Dark World Damage ≥ 50 and Ingstorm Damage ≥ 230
-                  Space Jump Boots and Standable Terrain (Intermediate) and Dark World Damage ≥ 20 and Ingstorm Damage ≥ 160
-
-----------------
 Credits
 Extra - asset_id: 1393588666
-Extra - in_dark_aether: False
 > Event - Dark Samus 3 and 4; Heals? False; Default Node
   * Layers: default
   * Event Dark Samus 3 and 4
