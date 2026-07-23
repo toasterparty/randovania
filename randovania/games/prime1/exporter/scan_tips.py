@@ -8,8 +8,8 @@ SCAN_TIPS = {
         "Stone Toad",
         (
             "&main-color=#89D6FF;It is possible to stand on Stone Toads.\n\n\n"
-            "By slope jumping off of the spine on its back, "
-            "one can reach the top of Reflecting Pool without draining the water."
+            "By slope jumping off of the spine on its back, the top of "
+            "Reflecting Pool can be reached without draining the water."
         ),
     ],
     "2124053457": [
@@ -18,7 +18,7 @@ SCAN_TIPS = {
         "&main-color=#FF3333;Hidden message discovered.",
         "",
         (
-            "&main-color=#89D6FF;One can reach the top with the "
+            "&main-color=#89D6FF;The top can be reached with the "
             "&main-color=#FF3333;Space Jump Boots&main-color=#89D6FF;"
             ' by jumping on the pointed root protruding from the wall. \n The name "Mr. Peg" is etched into the root.'
         ),
@@ -31,7 +31,8 @@ SCAN_TIPS = {
         (
             "&main-color=#89D6FF;It is possible to stand on Sheegoths.\n\n\n"
             "By jumping off of them with &main-color=#FF3333;Space Jump Boots&main-color=#89D6FF;, "
-            "one can climb Ice Ruins West without missiles. This is easiest when the Sheegoth is dead."
+            "Ice Ruins West can be climbed without missiles. This is easiest once the Sheegoth is dying, "
+            "as its hitbox no longer causes knockback."
         ),
     ],
     "3162940989": [
@@ -42,7 +43,7 @@ SCAN_TIPS = {
         (
             "&main-color=#89D6FF;It is possible to stand on Baby Sheegoths."
             "\n\n\nBy jumping off of them with &main-color=#FF3333;Space Jump Boots&main-color=#89D6FF;, "
-            "one can climb Ice Ruins West without missiles."
+            "Ice Ruins West can be climbed without missiles."
         ),
     ],
     "3508298443": [
@@ -51,7 +52,7 @@ SCAN_TIPS = {
         "&main-color=#FF3333;Hidden message discovered.",
         "Bloodflower",
         (
-            "&main-color=#89D6FF;Using a double bomb jump, one can roll on top of a Bloodflower.\n\n"
+            "&main-color=#89D6FF;A double bomb jump can be used to roll on top of a Bloodflower.\n\n"
             "By using another double bomb jump on top of it, "
             "Great Tree Chamber is reachable from Great Tree Hall without Space Jump Boots."
         ),
@@ -62,7 +63,7 @@ SCAN_TIPS = {
         "&main-color=#FF3333;Hidden message discovered.",
         "",
         (
-            "&main-color=#89D6FF;One can reach the ledge leading to Vault with "
+            "&main-color=#89D6FF;The ledge leading to Vault can be reached with "
             "&main-color=#FF3333;Space Jump Boots&main-color=#89D6FF;.\n\nIt requires holding "
             "&image=SA,3.0,1.0,1.0,46434ED3,34E79314; while jumping from a brick platform under a twisting tree."
         ),
@@ -82,7 +83,10 @@ SCAN_TIPS = {
         # Replaces Hive Mecha bridge scan
         "&main-color=#FF3333;Hidden message discovered.",
         "",
-        "&main-color=#89D6FF;To cross the bridge without fighting Hive Mecha, carefully walk along its right edge.",
+        (
+            "&main-color=#89D6FF;To cross the bridge without fighting Hive Mecha, carefully walk along its right edge."
+            "\n\nIf the fight starts by accident, dashing left off of a wasp allows escape back toward the entrance."
+        ),
     ],
     "2053272936": [
         # Boost Pipe Speed Tip
@@ -91,7 +95,8 @@ SCAN_TIPS = {
         "",
         (
             "&main-color=#89D6FF;When using the &main-color=#FF3333;Boost Ball&main-color=#89D6FF; in a half pipe, "
-            "hold only &image=8B0C22A7; or &image=778CCD6A; and boost at the lowest point to gain the most height."
+            "hold only &image=8B0C22A7; or &image=778CCD6A; and boost at the lowest point to gain the most height. "
+            "Fully charging each boost before releasing yields the strongest launch."
         ),
     ],
     "399696251": [
@@ -100,8 +105,8 @@ SCAN_TIPS = {
         "&main-color=#FF3333;Hidden message discovered.",
         "",
         (
-            "&main-color=#89D6FF;When using the &main-color=#FF3333;Boost Ball&main-color=#89D6FF;, "
-            "if the control stick is kept in a neutral position, the Boost Ball has no speed limit."
+            "&main-color=#89D6FF;The &main-color=#FF3333;Boost Ball&main-color=#89D6FF;'s speed is only "
+            "limited while the control stick is held forward. In any other position, its speed is uncapped."
         ),
     ],
     "4175379874": [
@@ -120,9 +125,10 @@ SCAN_TIPS = {
         "&main-color=#FF3333;Hidden message discovered.",
         "Metroid",
         (
-            "&main-color=#89D6FF;Jumping on the center of a frozen Metroid causes one to bounce on top of it.\n\n"
-            "When it breaks out of the ice, anyone on top is launched high in the air\n\nThis can be used to traverse "
-            "Metroid Quarantine A without Space Jump Boots, Morph Ball Bombs, or Spider Ball."
+            "&main-color=#89D6FF;Jumping on the center of a frozen Metroid results in bouncing on top of it.\n\n"
+            "When it breaks out of the ice, whatever is on top is launched high in the air.\n\n"
+            "This can be used to traverse Metroid Quarantine A without "
+            "Space Jump Boots, Morph Ball Bombs, or Spider Ball."
         ),
     ],
     "4176439895": [
@@ -131,8 +137,8 @@ SCAN_TIPS = {
         "&main-color=#FF3333;Hidden message discovered.",
         "Hunter Metroid",
         (
-            "&main-color=#89D6FF;Jumping on the center of a frozen Hunter Metroid causes one to bounce on top of it."
-            "\n\nWhen it breaks out of the ice, anyone on top is launched high in the air.\n\n"
+            "&main-color=#89D6FF;Jumping on the center of a frozen Hunter Metroid results in bouncing on top of it."
+            "\n\nWhen it breaks out of the ice, whatever is on top is launched high in the air.\n\n"
             "This can be used to acquire Frost Cave's item without the Grapple Beam."
         ),
     ],
@@ -175,8 +181,8 @@ SCAN_TIPS = {
         (
             "&main-color=#89D6FF;While on this building's roof, it is possible to reach Warrior Shrine without "
             "lowering the bridge. To do so, stand on top of the roof computer's tallest monitor, "
-            "lock onto a Puffer to the right or left, and perform a combat dash towards the ledge."
-            "Using the &main-color=#FF3333;Space Jump Boots&main-color=#89D6FF;, one can also R-Jump to reach."
+            "lock onto a Puffer to the right or left, and perform a combat dash towards the ledge. "
+            "The &main-color=#FF3333;Space Jump Boots&main-color=#89D6FF; can also reach it with an R-Jump."
         ),
     ],
     "1839087853": [
@@ -186,8 +192,10 @@ SCAN_TIPS = {
         "",
         (
             "&main-color=#89D6FF;Opening the tree requires a &main-color=#FF3333;Super Missile&main-color=#89D6FF;."
-            "\n\n\nAdditionally, it is possible to peek the item inside the tree without opening it. "
-            "To do so, stand at a specific angle and location on the right side of the tree's lip, then jump in place."
+            "\n\n\nAdditionally, the item inside the tree can be identified without opening it. "
+            "Stand at a specific angle and location on the right side of the tree's lip, then jump in place "
+            "without holding &image=SA,3.0,1.0,1.0,46434ED3,34E79314;.\nThe landing animation clips the view into "
+            "the tree, revealing the item without the &main-color=#FF3333;X-Ray Visor&main-color=#89D6FF;."
         ),
     ],
     "1530752134": [
@@ -207,7 +215,8 @@ SCAN_TIPS = {
         "",
         (
             "&main-color=#89D6FF;As long as the boxes in this room remain intact, "
-            "they can be climbed to exit this room without any items."
+            "they can be climbed to exit this room without any items.\n\n"
+            "After the boxes break, a scan dash off other scannable objects can also escape."
         ),
     ],
     "442524052": [
@@ -216,7 +225,7 @@ SCAN_TIPS = {
         "&main-color=#FF3333;Hidden message discovered.",
         "",
         (
-            "&main-color=#89D6FF;Hold&image=5D9F9796;and rapidly tap "
+            "&main-color=#89D6FF;Hold &image=5D9F9796; and rapidly tap "
             "&image=EA2A1C5C; to fire missiles as fast as possible."
         ),
     ],
@@ -227,7 +236,7 @@ SCAN_TIPS = {
         "",
         (
             "&main-color=#89D6FF;Underwater slope jumps performed without the Gravity Suit allow access "
-            "to great heights.\n\nYou can use an underwater slope jump to reach the sunken item in this "
+            "to great heights.\n\nAn underwater slope jump can reach the sunken item in this "
             "room without the Gravity Suit. This is significantly easier with the "
             "&main-color=#FF3333;Space Jump Boots&main-color=#89D6FF;."
         ),
@@ -251,16 +260,6 @@ SCAN_TIPS = {
         (
             "&main-color=#89D6FF;Everything south of Twin Fires Tunnel in Magmoor Caverns is not superheated,\n\n"
             "allowing for safe travel without the Varia Suit."
-        ),
-    ],
-    "1735564172": [
-        # Arboretum Sandstone PBs Tip
-        # Replaces Arboretum sandstone scan
-        "&main-color=#FF3333;Hidden message discovered.",
-        "",
-        (
-            "&main-color=#89D6FF;The &main-color=#FF3333;Sandstone&main-color=#89D6FF; structures in this room are "
-            "some of the few that cannot be destroyed by Power Bombs.\nNote that some game versions change that."
         ),
     ],
     "1618265307": [
@@ -321,7 +320,7 @@ SCAN_TIPS = {
         (
             "&main-color=#89D6FF;Like most &main-color=#FF3333;Sandstone&main-color=#89D6FF; structures, "
             "this can also be destroyed by &main-color=#FF3333;Power Bombs&main-color=#89D6FF;.\n\n"
-            "Additionally, in most game versions, these rocks will not reappear after being destroyed."
+            "Additionally, these rocks will not reappear after being destroyed."
         ),
     ],
     "3269646811": [
@@ -363,7 +362,7 @@ SCAN_TIPS = {
         "&main-color=#FF3333;Hidden message discovered.",
         "",
         (
-            "&main-color=#89D6FF;In addition to missiles, the weak wall section in this room is able to be destoyed "
+            "&main-color=#89D6FF;In addition to missiles, the weak wall section in this room can be destroyed "
             "by the &main-color=#FF3333;Charge Beam&main-color=#89D6FF;."
         ),
     ],
@@ -372,7 +371,11 @@ SCAN_TIPS = {
         # Replaces Central Dynamo lower right computer scan
         "&main-color=#FF3333;Hidden message discovered.",
         "",
-        "&main-color=#89D6FF;Fighting the Cloaked Drone locks all doors except the door to Quarantine Access A.",
+        (
+            "&main-color=#89D6FF;The security system can only lock the room's upper door and Save Station. "
+            "The door to Quarantine Access A stays unlocked, so leaving toward Metroid Quarantine A "
+            "never requires solving the maze."
+        ),
     ],
     "3355561537": [
         # Central Dynamo IS Tip
@@ -385,20 +388,13 @@ SCAN_TIPS = {
             "results in taking significantly less damage."
         ),
     ],
-    "1755484832": [
-        # Central Dynamo leaving tip
-        # Replaces Central Dynamo upper left computer screen scan
-        "&main-color=#FF3333;Hidden message discovered.",
-        "",
-        ("It is possible to leave the room without collecting the item."),
-    ],
     "2271012115": [
         # Spinner PB Tip
         # Replaces Spinner scan
         "&main-color=#FF3333;Hidden message discovered.",
         "Spinner",
         (
-            "&main-color=#89D6FF;In lieu of Morph Ball Bombs, one can also exit Spinners "
+            "&main-color=#89D6FF;In lieu of Morph Ball Bombs, Spinners can also be exited "
             "with &main-color=#FF3333;Power Bombs&main-color=#89D6FF;."
         ),
     ],
@@ -409,8 +405,8 @@ SCAN_TIPS = {
         "",
         (
             "&main-color=#89D6FF;If coming from Sun Tower Access, Flaahgra can be defeated without shooting the first "
-            "mirror.\nScan dashing or &main-color=#FF3333;Space Jump Boots&main-color=#89D6FF; "
-            "allows one to reach the center and bomb the bomb slots."
+            "mirror.\nScan dashing or the &main-color=#FF3333;Space Jump Boots&main-color=#89D6FF; "
+            "can reach the center to bomb the bomb slots."
         ),
     ],
     "345113941": [
@@ -430,7 +426,7 @@ SCAN_TIPS = {
         "",
         (
             "&main-color=#89D6FF;If entering from Reflecting Pool Access before the Chozo Ghosts have been awakened,"
-            "\n\none can move through the room along a specific path while avoiding awakening the ghosts.\nDoing"
+            "\n\nthe room can be crossed along a specific path while avoiding awakening the ghosts.\nDoing"
             " so can either be used to activate the Bomb Slots (using this peg) or to reach Crossway Access South."
         ),
     ],
@@ -441,8 +437,8 @@ SCAN_TIPS = {
         "",
         (
             "&main-color=#89D6FF;The nearby item is acquirable without Morph Ball Bombs by unmorphing on the crane "
-            "platform's edge.\nAlternatively, one can slope jump off of this "
-            "cabin's roof to scale the crane platform and reach the item."
+            "platform's edge.\nAlternatively, the &main-color=#FF3333;Space Jump Boots&main-color=#89D6FF; allow "
+            "a slope jump off of this cabin's roof to scale the crane platform and reach the item."
         ),
     ],
     "130269422": [
@@ -461,8 +457,8 @@ SCAN_TIPS = {
         "&main-color=#FF3333;Hidden message discovered.",
         "",
         (
-            "&main-color=#89D6FF;The Space Pirates in this room are alerted when one steps in front of the entrance "
-            "to West Tower. One can avoid this by jumping around the space directly in front of the entrance."
+            "&main-color=#89D6FF;The Space Pirates in this room are alerted by stepping in front of the entrance "
+            "to West Tower. This can be avoided by jumping around the space directly in front of the entrance."
         ),
     ],
     "3573990646": [
@@ -471,7 +467,7 @@ SCAN_TIPS = {
         "&main-color=#FF3333;Hidden message discovered.",
         "",
         (
-            "&main-color=#89D6FF;One can cross Quarantine Cave without fighting "
+            "&main-color=#89D6FF;Quarantine Cave can be crossed without fighting "
             "Thardus by using aerial movement around the room's pillars."
         ),
     ],
@@ -481,9 +477,9 @@ SCAN_TIPS = {
         "&main-color=#FF3333;Hidden message discovered.",
         "",
         (
-            "&main-color=#89D6FF;When entering from Sun Tower Access, one can awaken the Chozo Ghosts in Sunchamber "
+            "&main-color=#89D6FF;When entering from Sun Tower Access, the Chozo Ghosts in Sunchamber can be awakened "
             "without falling to the bottom of the room. This requires either using the &main-color=#FF3333;Spider Ball"
-            "&main-color=#89D6FF; to roll to the bottom of the magnetic track before rolling back up, or stopping the "
+            "&main-color=#89D6FF; to roll partway down the magnetic track before rolling back up, or stopping the "
             "descent with an Oculus and using an infinite bomb jump to rise back to the top."
         ),
     ],
@@ -493,7 +489,7 @@ SCAN_TIPS = {
         "&main-color=#FF3333;Hidden message discovered.",
         "",
         (
-            "&main-color=#89D6FF;In Training Chamber, one can avoid awakening the Chozo Ghosts "
+            "&main-color=#89D6FF;In Training Chamber, awakening the Chozo Ghosts can be avoided "
             "by climbing architecture near the entrance to Training Chamber Access."
         ),
     ],
@@ -510,7 +506,8 @@ SCAN_TIPS = {
             "Gravity Suit.\nA harder method uses &main-color=#FF3333;Space Jump Boots&main-color=#89D6FF; to scan-dash"
             " off of pickups left by the crates.\n\nFinally, it is possible to get across with "
             "&main-color=#FF3333;Space Jump Boots&main-color=#89D6FF; by L-jumping between the lips of the "
-            "leftmost pillars.\nThis is more difficult than it appears, as the closest pillar is not standable."
+            "leftmost pillars.\nThis is a high-level technique and far harder than it appears, "
+            "as the closest pillar is not standable."
         ),
     ],
     "455264308": [
@@ -539,7 +536,7 @@ SCAN_TIPS = {
         "&main-color=#FF3333;Hidden message discovered.",
         "",
         (
-            "&main-color=#89D6FF;When performing a scan dash or lock-on dash, jump by tapping "
+            "&main-color=#89D6FF;When performing a scan dash or combat dash, jump by tapping "
             "&image=SI,0.70,0.68,833BEE04; for as little time as possible to gain extra height."
         ),
     ],
@@ -549,8 +546,8 @@ SCAN_TIPS = {
         "&main-color=#FF3333;Hidden message discovered.",
         "",
         (
-            "&main-color=#89D6FF;Each room has different pickups that drop from crates and defeated enemies.\n\n"
-            "If a specific pickup does not seem to be appearing (e.g. Power Bomb ammo), try a different room."
+            "&main-color=#89D6FF;Every enemy and destructible object has a fixed chance to drop each kind of pickup."
+            "\n\nSome rooms cannot drop certain pickups, such as Power Bomb ammo, so a different room may be needed."
         ),
     ],
     "3673769160": [
@@ -598,7 +595,7 @@ SCAN_TIPS = {
         # Replaces Landing Site lichen scan
         "&main-color=#FF3333;Hidden message discovered.",
         "",
-        "&main-color=#89D6FF;While unmorphed, there is no sideways limit to your speed.",
+        "&main-color=#89D6FF;While unmorphed, sideways speed is unlimited.",
     ],
     "3234096437": [
         # Discord link tip
@@ -625,10 +622,7 @@ SCAN_TIPS = {
         # Replaces Landing Site red starburst scan
         "&main-color=#FF3333;Hidden message discovered.",
         "",
-        (
-            "&main-color=#FF3333;Space Jump Boots&main-color=#89D6FF; "
-            "raise the maximum vertical speed at which one can travel."
-        ),
+        ("&main-color=#FF3333;Space Jump Boots&main-color=#89D6FF; slightly increase the height of the first jump."),
     ],
     "1363007955": [
         # XRay optional tip
@@ -636,9 +630,10 @@ SCAN_TIPS = {
         "&main-color=#FF3333;Hidden message discovered.",
         "",
         (
-            "As long as one knows where to stand, the X-Ray Visor is not needed for traveling along invisible "
-            "platforms.\nRapidly firing the &main-color=#FF3333;Power Beam&main-color=#89D6FF; "
-            "and watching where its shots land can help reveal the shape of invisible platforms."
+            "&main-color=#89D6FF;With knowledge of where to stand, the X-Ray Visor is not needed for "
+            "traveling along invisible platforms.\nRapidly firing the &main-color=#FF3333;Power Beam"
+            "&main-color=#89D6FF; and watching where its shots land can help reveal the shape "
+            "of invisible platforms."
         ),
     ],
     "7691327": [
@@ -646,7 +641,10 @@ SCAN_TIPS = {
         # Replaces Research Core 1f door-sided computer scan
         "&main-color=#FF3333;Hidden message discovered.",
         "",
-        "Nothing requires the Thermal Visor to function. If one knows where to shoot, manual aim can suffice.",
+        (
+            "&main-color=#89D6FF;Nothing requires the Thermal Visor to function. "
+            "With knowledge of where to shoot, manual aim can suffice."
+        ),
     ],
     "1304296756": [
         # Conduit panel tip
@@ -654,8 +652,8 @@ SCAN_TIPS = {
         "&main-color=#FF3333;Hidden message discovered.",
         "",
         (
-            "All power conduits are protected by identical grates.\n\n\n"
-            "One can study the grate near this room's top entrance to know how to spot power conduits in other rooms."
+            "&main-color=#89D6FF;All power conduits are protected by identical grates.\n\n\n"
+            "Studying the grate near this room's top entrance shows how to spot power conduits in other rooms."
         ),
     ],
     "197241462": [
@@ -664,8 +662,9 @@ SCAN_TIPS = {
         "&main-color=#FF3333;Hidden message discovered.",
         "",
         (
-            "Sometimes, moving forward without considering an exit path can result in getting stuck. For example, "
-            "entering this pit without access to the &main-color=#FF3333;Morph Ball&main-color=#89D6FF; or "
+            "&main-color=#89D6FF;Sometimes, moving forward without considering an exit path can result in "
+            "getting stuck. For example, entering this pit without access to the "
+            "&main-color=#FF3333;Morph Ball&main-color=#89D6FF; or "
             "&main-color=#FF3333;Space Jump Boots&main-color=#89D6FF; will result in no means of escape. "
             "However, clever usage of the environment and movement tricks can often create opportunities for escape."
         ),
@@ -676,8 +675,8 @@ SCAN_TIPS = {
         "&main-color=#FF3333;Hidden message discovered.",
         "",
         (
-            "&main-color=#89D6FF;When playing multiworld games in Randovania, one does not need to have the multiworld "
-            "browser navigated to the related session. So long as Randovania itself "
+            "&main-color=#89D6FF;When playing multiworld games in Randovania, the multiworld browser does not need "
+            "to be navigated to the related session. So long as Randovania itself "
             "is open and connected to the game, items will be sent and received properly."
         ),
     ],
