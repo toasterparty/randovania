@@ -1081,6 +1081,7 @@ class PrimePatchDataFactory(PatchDataFactory[PrimeConfiguration, PrimeCosmeticPa
                     "description": f"Seed Hash: {self.description.shareable_word_hash}",
                 },
                 "mainMenuMessage": f"Randovania v{randovania.VERSION}\n{self.description.shareable_word_hash}",
+                "saveName": self.description.shareable_word_hash[:17],
                 "creditsString": credits_string,
                 "artifactHints": {artifact.long_name: text for artifact, text in resulting_hints.items()},
                 "artifactTempleLayerOverrides": {
@@ -1097,7 +1098,11 @@ class PrimePatchDataFactory(PatchDataFactory[PrimeConfiguration, PrimeCosmeticPa
                 self.configuration.enemy_attributes.as_json if self.configuration.enemy_attributes is not None else None
             ),
             "uuid": list(
-                self.worlds_config.get_own_uuid().bytes,
+                (
+                    self.worlds_config.get_own_uuid()
+                    if self.worlds_config.is_multiworld
+                    else self.description.seed_uuid
+                ).bytes,
             ),
         }
 
