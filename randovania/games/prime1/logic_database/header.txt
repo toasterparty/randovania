@@ -172,6 +172,7 @@ Dock Weaknesses
 
   * Permanently Locked
       Extra - shieldType: Disabled
+      Considered unsafe as target for "By Type"
       Open:
           Impossible
       No lock
@@ -275,6 +276,7 @@ Dock Weaknesses
           Super Missile Blast Shield
           Wave Door
           Wavebuster Blast Shield
+      Indirect Change from:
 
 
 > Morph Ball Door
